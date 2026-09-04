@@ -5,6 +5,7 @@ on:
     branches:
       - release/v7.0-rc2-frontend-lock
     paths:
+      - '.source_payload/SOURCE_URL'
       - '.source_payload/READY'
 
 permissions:
@@ -19,18 +20,30 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Reconstruct and extract RC2 source tree
+      - name: Fetch and extract RC2 source tree
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
+          rm -rf /tmp/sonicraft-src /tmp/sonicraft.zip
+          mkdir -p /tmp/sonicraft-src
+
+          if [ -s .source_payload/SOURCE_URL ]; then
+            SOURCE_URL="$(tr -d '\r\n' < .source_payload/SOURCE_URL)"
+            test -n "$SOURCE_URL"
+            curl --fail --location --retry 3 --retry-all-errors "$SOURCE_URL" -o /tmp/sonicraft.zip
+            unzip -q /tmp/sonicraft.zip -d /tmp/sonicraft-src
+            SOURCE_ROOT="$(find /tmp/sonicraft-src -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+            test -n "$SOURCE_ROOT"
+            cp -a "$SOURCE_ROOT"/. ./
+          else
+            python3 - <<'PY'
           from pathlib import Path
           import base64, io, lzma, tarfile
 
           payload_dir = Path('.source_payload')
           parts = sorted(payload_dir.glob('part-*.b64'))
           if not parts:
-              raise SystemExit('No source payload parts found')
+              raise SystemExit('No SOURCE_URL or source payload parts found')
 
           encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
           archive = base64.b64decode(encoded, validate=True)
@@ -44,13 +57,14 @@ jobs:
                           raise RuntimeError(f'Unsafe archive path: {member.name}')
                   tf.extractall('.')
           PY
+          fi
 
-      - name: Remove one-shot payload
+      - name: Remove one-shot transfer payload
         shell: bash
         run: |
           rm -rf .source_payload
 
-      - name: Verify complete source tree
+      - name: Verify complete editable source tree
         shell: bash
         run: |
           set -euo pipefail
@@ -67,6 +81,9 @@ jobs:
           test -d release
           test -d cubase
           test -d studio_one
+          test -d recording_cues
+          test -f src/vst3/processor.cpp
+          test -f frontend/index.html
           count="$(find . -type f -not -path './.git/*' | wc -l)"
           echo "Materialized file count: $count"
           test "$count" -ge 1016
