@@ -1,0 +1,86 @@
+name: Materialize SONICRAFT full source
+
+on:
+  push:
+    branches:
+      - release/v7.0-rc2-frontend-lock
+    paths:
+      - '.source_payload/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and extract RC2 source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, io, lzma, tarfile
+
+          payload_dir = Path('.source_payload')
+          parts = sorted(payload_dir.glob('part-*.b64'))
+          if not parts:
+              raise SystemExit('No source payload parts found')
+
+          encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
+          archive = base64.b64decode(encoded, validate=True)
+
+          with lzma.LZMAFile(io.BytesIO(archive), 'rb') as xz:
+              with tarfile.open(fileobj=xz, mode='r:') as tf:
+                  root = Path('.').resolve()
+                  for member in tf.getmembers():
+                      target = (root / member.name).resolve()
+                      if root != target and root not in target.parents:
+                          raise RuntimeError(f'Unsafe archive path: {member.name}')
+                  tf.extractall('.')
+          PY
+
+      - name: Remove one-shot payload
+        shell: bash
+        run: |
+          rm -rf .source_payload
+
+      - name: Verify complete source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f CMakeLists.txt
+          test -f VERSION
+          test -d src
+          test -d runtime
+          test -d standalone
+          test -d frontend
+          test -d installer
+          test -d scripts
+          test -d training
+          test -d docs
+          test -d release
+          test -d cubase
+          test -d studio_one
+          count="$(find . -type f -not -path './.git/*' | wc -l)"
+          echo "Materialized file count: $count"
+          test "$count" -ge 1016
+
+      - name: Commit full editable source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'feat: materialize complete v7.0 RC2 editable source tree'
+          git push origin HEAD:release/v7.0-rc2-frontend-lock
