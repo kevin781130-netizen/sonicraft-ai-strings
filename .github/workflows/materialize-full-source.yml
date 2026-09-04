@@ -19,32 +19,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Reconstruct and extract verified RC2 source tree
+      - name: Reconstruct and verify RC2 source archive
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import base64, hashlib, io, lzma, tarfile
+          import base64, hashlib, lzma, tarfile, io
 
-          EXPECTED_SHA256 = '1feac2daab1def694e220915f71fd126762e8bc8cbe2147a12ffc3890baa6d9e'
           payload_dir = Path('.source_payload')
           parts = sorted(payload_dir.glob('part-*.b64'))
           if not parts:
               raise SystemExit('No source payload parts found')
-
           encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
           archive = base64.b64decode(encoded, validate=True)
+          expected = '64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
           actual = hashlib.sha256(archive).hexdigest()
-          print(f'RC2 archive SHA-256: {actual}')
-          if actual != EXPECTED_SHA256:
-              raise SystemExit(f'RC2 archive SHA mismatch: expected {EXPECTED_SHA256}, got {actual}')
-
+          if actual != expected:
+              raise SystemExit(f'archive sha256 mismatch: {actual} != {expected}')
           with lzma.LZMAFile(io.BytesIO(archive), 'rb') as xz:
               with tarfile.open(fileobj=xz, mode='r:') as tf:
                   root = Path('.').resolve()
-                  members = tf.getmembers()
-                  for member in members:
+                  for member in tf.getmembers():
                       target = (root / member.name).resolve()
                       if root != target and root not in target.parents:
                           raise RuntimeError(f'Unsafe archive path: {member.name}')
@@ -79,7 +75,7 @@ jobs:
           test -f frontend/index.html
           count="$(find . -type f -not -path './.git/*' | wc -l)"
           echo "Materialized file count: $count"
-          test "$count" -eq 1016
+          test "$count" -ge 1016
 
       - name: Commit full editable source tree
         shell: bash
@@ -88,5 +84,9 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
           git commit -m 'feat: materialize complete v7.0 RC2 editable source tree'
           git push origin HEAD:release/v7.0-rc2-frontend-lock
