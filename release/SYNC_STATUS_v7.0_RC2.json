@@ -1,0 +1,8 @@
+{
+  "release": "7.0.0-rc2",
+  "sync_state": "FULL_SOURCE_TRANSFER_IN_PROGRESS",
+  "source_archive_sha256": "64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3",
+  "expected_source_files": 1016,
+  "target_branch": "release/v7.0-rc2-frontend-lock",
+  "policy": "fail_closed_until_recursive_tree_verifies_complete"
+}
