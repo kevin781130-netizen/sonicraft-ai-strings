@@ -63,6 +63,7 @@ jobs:
         shell: bash
         run: |
           rm -rf .source_payload
+          rm -f .github/workflows/materialize-full-source.yml
 
       - name: Verify complete editable source tree
         shell: bash
