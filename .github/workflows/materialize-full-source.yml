@@ -5,7 +5,7 @@ on:
     branches:
       - release/v7.0-rc2-frontend-lock
     paths:
-      - '.source_payload/READY'
+      - '.source_payload/source.tar.xz'
 
 permissions:
   contents: write
@@ -19,41 +19,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Reconstruct and verify RC2 source archive
+      - name: Verify transfer archive
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          import base64, hashlib, lzma, tarfile, io
+          test -f .source_payload/source.tar.xz
+          actual="$(sha256sum .source_payload/source.tar.xz | awk '{print $1}')"
+          expected='64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
+          echo "archive sha256: $actual"
+          test "$actual" = "$expected"
 
-          payload_dir = Path('.source_payload')
-          parts = sorted(payload_dir.glob('part-*.b64'))
-          if not parts:
-              raise SystemExit('No source payload parts found')
-          encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
-          archive = base64.b64decode(encoded, validate=True)
-          expected = '64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
-          actual = hashlib.sha256(archive).hexdigest()
-          if actual != expected:
-              raise SystemExit(f'archive sha256 mismatch: {actual} != {expected}')
-          with lzma.LZMAFile(io.BytesIO(archive), 'rb') as xz:
-              with tarfile.open(fileobj=xz, mode='r:') as tf:
-                  root = Path('.').resolve()
-                  for member in tf.getmembers():
-                      target = (root / member.name).resolve()
-                      if root != target and root not in target.parents:
-                          raise RuntimeError(f'Unsafe archive path: {member.name}')
-                  tf.extractall('.')
-          PY
-
-      - name: Remove one-shot transfer payload
+      - name: Replace repository working tree with complete RC2 source
         shell: bash
         run: |
-          rm -rf .source_payload
-          rm -f .github/workflows/materialize-full-source.yml
+          set -euo pipefail
+          rm -rf /tmp/sonicraft_rc2_source
+          mkdir -p /tmp/sonicraft_rc2_source
+          tar -xJf .source_payload/source.tar.xz -C /tmp/sonicraft_rc2_source
+          rsync -a --delete --exclude='.git/' /tmp/sonicraft_rc2_source/ ./
 
-      - name: Verify complete editable source tree
+      - name: Verify exact editable source tree
         shell: bash
         run: |
           set -euo pipefail
@@ -73,9 +58,12 @@ jobs:
           test -d recording_cues
           test -f src/processor.cpp
           test -f frontend/index.html
+          test ! -e .source_payload
+          test ! -e .github/workflows/materialize-full-source.yml
+          test ! -e _probe_do_not_merge.txt
           count="$(find . -type f -not -path './.git/*' | wc -l)"
           echo "Materialized file count: $count"
-          test "$count" -ge 1016
+          test "$count" -eq 1016
 
       - name: Commit full editable source tree
         shell: bash
@@ -84,9 +72,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          if git diff --cached --quiet; then
-            echo 'No changes to commit.'
-            exit 0
-          fi
           git commit -m 'feat: materialize complete v7.0 RC2 editable source tree'
           git push origin HEAD:release/v7.0-rc2-frontend-lock
