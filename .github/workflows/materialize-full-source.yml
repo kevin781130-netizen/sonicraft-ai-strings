@@ -28,8 +28,8 @@ jobs:
           from pathlib import Path
           import base64, hashlib
           parts = sorted(Path('.source_payload').glob('full-*.b64'))
-          if len(parts) != 73:
-              raise SystemExit(f'expected 73 payload parts, got {len(parts)}')
+          if len(parts) != 76:
+              raise SystemExit(f'expected 76 payload parts, got {len(parts)}')
           encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
           archive = base64.b64decode(encoded, validate=True)
           expected = '64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
