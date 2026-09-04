@@ -32,7 +32,7 @@ jobs:
               raise SystemExit(f'expected 46 payload parts, got {len(parts)}')
           encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
           archive = base64.b64decode(encoded, validate=True)
-          expected = '1751a9d5540f55bad26148f4d5d77e20e786e7d2c66775c7d986b2455a264038'
+          expected = '64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
           actual = hashlib.sha256(archive).hexdigest()
           print('archive sha256:', actual)
           if actual != expected:
