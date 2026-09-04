@@ -24,13 +24,21 @@ jobs:
         run: |
           set -euo pipefail
           test -f .source_payload/READY
-          chunks=(.source_payload/chunk-*.bin)
-          test "${#chunks[@]}" -eq 8
-          cat "${chunks[@]}" > /tmp/sonicraft_full_source.tar.xz
-          actual="$(sha256sum /tmp/sonicraft_full_source.tar.xz | awk '{print $1}')"
-          expected='64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
-          echo "archive sha256: $actual"
-          test "$actual" = "$expected"
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, hashlib
+          parts = sorted(Path('.source_payload').glob('part-*.b64'))
+          if len(parts) != 76:
+              raise SystemExit(f'expected 76 payload parts, got {len(parts)}')
+          encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
+          archive = base64.b64decode(encoded, validate=True)
+          expected = '64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
+          actual = hashlib.sha256(archive).hexdigest()
+          print('archive sha256:', actual)
+          if actual != expected:
+              raise SystemExit(f'archive sha256 mismatch: {actual} != {expected}')
+          Path('/tmp/sonicraft_full_source.tar.xz').write_bytes(archive)
+          PY
 
       - name: Replace repository working tree with complete RC2 source
         shell: bash
