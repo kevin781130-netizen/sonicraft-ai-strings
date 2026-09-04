@@ -1,0 +1,37 @@
+{
+  "release": "7.0.0-rc2",
+  "status": "FRONTEND_LOCK_SOURCE_PASS",
+  "feature_freeze": true,
+  "frontend_layout_lock": {
+    "standalone_editor_responsive_contract": "PASS",
+    "vstgui_parent_child_bounds": "PASS",
+    "vstgui_text_fit": "PASS",
+    "vstgui_segment_fit": "PASS",
+    "vstgui_parameter_collision_guard": "PASS",
+    "discrete_speed_profile_control": "PASS",
+    "manager_dpi_workarea_resize_contract": "PASS",
+    "product_shell_per_monitor_dpi_workarea_contract": "PASS",
+    "product_shell_base_bounds_static_check": "PASS"
+  },
+  "regression": {
+    "frontend_editor_bridge": "PASS",
+    "consumer_packaging": "PASS",
+    "runtime_installer_contract": "PASS",
+    "fail_closed_release_gate": "PASS",
+    "release_version_contracts": "23/23 PASS",
+    "python_syntax": "388/388 PASS",
+    "cmake_non_vst_clean_build": "PASS",
+    "native_smokes": "37/37 PASS (PromotionGuard uses required temp-root argument)"
+  },
+  "explicitly_not_run": [
+    "Windows x64 VST3 rebuild",
+    "Steinberg Validator",
+    "real Cubase host UI/audio/DPI matrix",
+    "real Studio One host UI/audio/DPI matrix",
+    "Windows ProductShell binary build/visual verification",
+    "final trained acoustic model QA",
+    "RTX 5090 acoustic QA",
+    "Authenticode public artifact verification",
+    "bit-identical audio replay"
+  ]
+}
