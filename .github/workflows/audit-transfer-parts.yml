@@ -1,0 +1,32 @@
+name: Audit RC2 transfer parts
+
+on:
+  push:
+    branches:
+      - release/v7.0-rc2-frontend-lock
+    paths:
+      - '.source_payload/AUDIT_PARTS'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hash every transfer part
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          parts = sorted(Path('.source_payload').glob('full-*.b64'))
+          offset = 0
+          print('PART_COUNT', len(parts))
+          for p in parts:
+              b = p.read_bytes()
+              print(f'PART {p.name} OFFSET {offset} SIZE {len(b)} SHA256 {hashlib.sha256(b).hexdigest()}')
+              offset += len(b)
+          print('TOTAL', offset)
+          PY
