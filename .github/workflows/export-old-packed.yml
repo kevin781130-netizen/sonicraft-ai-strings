@@ -1,0 +1,40 @@
+name: Export old RC2 packed stream
+
+on:
+  push:
+    branches:
+      - release/v7.0-rc2-frontend-lock
+    paths:
+      - '.source_payload/EXPORT_PACKED'
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble existing packed bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, json
+          parts=sorted(Path('.source_payload').glob('full-*.b64'))
+          encoded=''.join(p.read_text(encoding='ascii') for p in parts)
+          packed=base64.b64decode(encoded,validate=True)
+          Path('old_rc2_packed.bin').write_bytes(packed)
+          meta={'parts':len(parts),'base64_chars':len(encoded),'packed_bytes':len(packed),'sha256':hashlib.sha256(packed).hexdigest()}
+          Path('old_rc2_packed.json').write_text(json.dumps(meta,indent=2),encoding='utf-8')
+          print(meta)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: old-rc2-packed-stream
+          path: |
+            old_rc2_packed.bin
+            old_rc2_packed.json
+          retention-days: 1
+          if-no-files-found: error
