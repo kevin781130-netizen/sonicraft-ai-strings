@@ -1,0 +1,41 @@
+name: Inspect partial RC2 transfer
+
+on:
+  push:
+    branches:
+      - release/v7.0-rc2-frontend-lock
+    paths:
+      - '.source_payload/INSPECT'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect recoverable tar stream
+        shell: bash
+        run: |
+          set -u
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          parts = sorted(Path('.source_payload').glob('full-*.b64'))
+          print('PART_COUNT', len(parts))
+          encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
+          print('ENCODED_LEN', len(encoded))
+          Path('/tmp/partial.xz').write_bytes(base64.b64decode(encoded, validate=True))
+          PY
+          set +e
+          xz -dc /tmp/partial.xz > /tmp/partial.tar 2>/tmp/xz.err
+          echo "XZ_RC=$?"
+          wc -c /tmp/partial.xz /tmp/partial.tar
+          cat /tmp/xz.err || true
+          echo '--- FIRST 40 TAR ENTRIES ---'
+          tar -tvf /tmp/partial.tar 2>/dev/null | head -40 || true
+          echo '--- LAST 40 RECOVERABLE TAR ENTRIES ---'
+          tar -tvf /tmp/partial.tar 2>/dev/null | tail -40 || true
+          echo '--- TAR COUNT ---'
+          tar -tf /tmp/partial.tar 2>/dev/null | wc -l || true
