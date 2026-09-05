@@ -1,0 +1,4 @@
+SONICRAFT_RC2_FULL_SOURCE_MATERIALIZE
+trigger=2026-09-05-restored-historical-tree
+expected_files=1016
+expected_release=7.0.0-rc2
