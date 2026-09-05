@@ -1,0 +1,48 @@
+{
+  "version": "3.2.0-live-retake-carousel",
+  "date": "2026-09-01",
+  "acoustic_core_changed": false,
+  "training_data_changed": false,
+  "live_retake_carousel": {
+    "take_bank": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "manual_mode": true,
+    "auto_loop_mode": true,
+    "freeze_current_take": true,
+    "take_a_is_base_seed": true,
+    "deterministic_seed_derivation": true,
+    "scope_safe": true,
+    "midi_cc_120_127_preserved": true,
+    "native_carousel_smoke": "PASS",
+    "source_contract_smoke": "PASS",
+    "vst3_binary_validation": false
+  },
+  "host_native_scope": {
+    "locator_retake": true,
+    "locator_director": true,
+    "locator_both": true,
+    "in_block_boundary_scheduler": true,
+    "v30_command_lane_backward_compatible": true
+  },
+  "native_core": {
+    "clean_non_vst_build": "PASS",
+    "host_cycle_scope_smoke": "PASS",
+    "host_command_lane_smoke": "PASS",
+    "performance_commander_smoke": "PASS",
+    "inprocess_engine_channels": 34
+  },
+  "source_fixes": {
+    "duplicate_scopeBoundaryIndex_removed": true
+  },
+  "release_binary_status": {
+    "windows_v32_binary_rebuilt": false,
+    "bundled_legacy_exes_are_v32": false,
+    "commercial_binary_release_approved": false
+  },
+  "acoustic_release_approved": false,
+  "notes": "v3.2 adds deterministic host-scoped A/B/C/D live Retake audition and fixes a v3.1 processor source compile defect. VST3 target binary still requires SDK/toolchain/host validation; acoustic promotion remains separate."
+}

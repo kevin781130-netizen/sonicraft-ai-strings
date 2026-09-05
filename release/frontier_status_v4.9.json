@@ -1,0 +1,68 @@
+{
+  "version": "4.9.0-audio-judge-repair-iteration",
+  "date": "2026-09-02",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "loop": {
+    "structural_critic": true,
+    "abcd_fanout": true,
+    "actual_render_required": true,
+    "candidate_specific_audio_judge": true,
+    "repair_policy_memory": true,
+    "next_round_generation": true,
+    "max_round": 6
+  },
+  "repair_policy": {
+    "stored_data": "five bounded numeric multipliers + evidence/generation/hash",
+    "stores_audio": false,
+    "stores_midi": false,
+    "stores_score_text": false,
+    "bounds": [
+      0.65,
+      1.35
+    ],
+    "min_margin": 0.025,
+    "safety_floor": 0.35,
+    "overall_floor": 0.35,
+    "stale_policy_rejected": true
+  },
+  "authority": {
+    "structural_critic_final_audio_authority": false,
+    "objective_audio_judge_updates_repair_policy": true,
+    "personal_judge_memory_separate": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "policy_memory": "PASS",
+    "learning_gates": "PASS",
+    "candidate_specific_audio_judge": "PASS",
+    "end_to_end_r1_to_r2": "PASS",
+    "synthetic_audio_winner": "B",
+    "synthetic_audio_margin": 0.1018,
+    "policy_generation_0_to_1": "PASS",
+    "stale_r1_replay_rejected": "PASS",
+    "v48_default_regression": "PASS",
+    "v47_to_v41_regression": "PASS",
+    "historical_release_contracts": "PASS",
+    "torch_numpy_parity": "PASS",
+    "ort_12000x34": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "renderer_service_protocols": "PASS",
+    "promotion_guard": "PASS",
+    "tamper_rejection": "PASS",
+    "realtime_core_byte_identical_to_v48": true,
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

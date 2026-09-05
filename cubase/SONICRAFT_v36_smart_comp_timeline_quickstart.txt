@@ -1,0 +1,13 @@
+SONICRAFT v3.6 — Cubase Smart Comp Timeline
+
+1. Select range, press P (Locators to Selection), enable Cycle for looping.
+2. Host Scope = Locator Retake or Locator Both.
+3. Review takes with Carousel / Performance Memory.
+4. Timeline COMMIT row shows persistent comp; SMART row shows candidate-priority picks.
+5. Choose Conservative / Balanced / Adventurous.
+6. Smart Audition = hear suggested take; Smart Commit = commit it.
+7. FAV ONLY = safely resolve phrases with one human Favorite.
+8. AUTO UNRESOLVED = heuristic fill for unresolved phrases; use Undo if needed.
+
+Smart Pick is not an audio-quality prediction.
+Target-host v3.6 binary validation is required before release.

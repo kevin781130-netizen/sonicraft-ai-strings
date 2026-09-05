@@ -1,0 +1,519 @@
+{
+  "schema": 2,
+  "policy": "Only permissively licensed source code is fetched. Datasets, checkpoints, subjective-study audio, downloaded model weights, and third-party/commercial assets are excluded unless separately audited. Third-party source is development/training/reference material and is not bundled into the lean runtime by default.",
+  "sources": [
+    {
+      "id": "violet",
+      "repo": "https://github.com/User-tian/VIOLET.git",
+      "commit": "cf0975a752a7ee3cc6e11bb573f9e47c64a0ef97",
+      "license": "MIT",
+      "purpose": "Architecture reference for 48k latent rectified-flow violin synthesis, AdaLN-Zero conditioning, RF sampling, and audio-domain long-render overlap.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "src/models/backbones/attention_utils.py",
+        "src/models/backbones/conditioner.py",
+        "src/models/backbones/dit.py",
+        "src/models/backbones/layer_utils.py",
+        "src/models/backbones/operator_utils.py",
+        "src/models/backbones/utils.py",
+        "src/models/components/sampler_rf.py",
+        "src/models/components/scheduler.py",
+        "src/models/components/utils.py",
+        "src/inference/render_utils.py"
+      ],
+      "exclude_globs": [
+        "checkpoints/**",
+        "subjective_study/**",
+        "midi_example/**",
+        "dataset_tools/**",
+        "**/*.ckpt",
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.safetensors"
+      ]
+    },
+    {
+      "id": "torchcrepe",
+      "repo": "https://github.com/maxrmorrison/torchcrepe.git",
+      "commit": "19e2ec3d494c0797a5ff2a11408ec5838fba6681",
+      "license": "MIT",
+      "purpose": "Training-only high-resolution F0/periodicity analysis for vibrato, portamento, onset and bow-transition supervision.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "torchcrepe/**"
+      ],
+      "exclude_globs": [
+        "**/*.pth",
+        "**/*.pt",
+        "**/*.ckpt"
+      ]
+    },
+    {
+      "id": "torchfcpe",
+      "repo": "https://github.com/CNChTu/FCPE.git",
+      "commit": "6a149c1afb1c7e7821b71869dfb31ad50c95b516",
+      "license": "MIT",
+      "purpose": "Training-only fast F0 challenger. Promote only if it beats TorchCREPE on string-specific pitch/transition labels per compute and install cost.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "torchfcpe/**"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.onnx"
+      ]
+    },
+    {
+      "id": "oobleck",
+      "repo": "https://github.com/Harmonai-org/oobleck.git",
+      "commit": "566a8b4e923e1f3c9d8903a3276758fb2376bcc5",
+      "license": "MIT",
+      "purpose": "Compact continuous audio-VAE codec challenger; never replace the shipping codec until string-only ABX, size and latency gates are won.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "oobleck/**"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors"
+      ]
+    },
+    {
+      "id": "ssssm_ddsp",
+      "repo": "https://github.com/hyakuchiki/SSSSM-DDSP.git",
+      "commit": "9068d9489808300d2b06bad3f1ab47c1aa40aee3",
+      "license": "MIT",
+      "purpose": "Semi-supervised synthetic+real differentiable-DSP supervision patterns for scarce real string technique labels.",
+      "include": [
+        "LICENSE.md",
+        "README.md",
+        "configs/**",
+        "diffsynth/**",
+        "gradient.py"
+      ],
+      "exclude_globs": [
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3",
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt"
+      ]
+    },
+    {
+      "id": "rectified_flow",
+      "repo": "https://github.com/lqiang67/rectified-flow.git",
+      "commit": "14b4925ad90abdadaca1f7b5caba5555b84e810a",
+      "license": "MIT",
+      "purpose": "Reflow/few-step distillation and sampler reference for lowering renderer ODE steps without adding runtime parameters.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "rectified_flow/**"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "assets/**",
+        "examples/**"
+      ]
+    },
+    {
+      "id": "acestep_vst3",
+      "repo": "https://github.com/ace-step/acestep.vst3.git",
+      "commit": "b04bf8aec9be3bdd220050a0cc1c68d045b3b798",
+      "license": "MIT",
+      "purpose": "Native C++17/GGML/VST3 engineering reference: portable backends, Oobleck VAE tiling, batched CFG and GGUF/quantization paths. Source patterns only; no ACE-Step model weights.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "CMakeLists.txt",
+        "src/**",
+        "plugins/acestep_vst3/**",
+        "tools/**",
+        "docs/**"
+      ],
+      "exclude_globs": [
+        "models/**",
+        "checkpoints/**",
+        "**/*.gguf",
+        "**/*.bin",
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.wav",
+        "**/*.mp3",
+        "**/*.flac"
+      ]
+    },
+    {
+      "id": "soundreactor_vae",
+      "repo": "https://github.com/SonyResearch/soundreactor_vae.git",
+      "commit": "7d5543aa367c3542d01ba32a10805ba76f57b660",
+      "license": "MIT",
+      "purpose": "Primary 48k continuous codec geometry reference: 64-d latent, 1600x downsampling, Oobleck VAE and causal streaming patterns. Source architecture only; upstream weights/audio are excluded.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "modules_noncausal/stable_audio_tools/configs/model_configs/autoencoders/sr_ds_1600_dim_64.json",
+        "modules_noncausal/stable_audio_tools/models/autoencoders.py",
+        "modules_noncausal/stable_audio_tools/models/bottleneck.py",
+        "modules_causal/stable_audio_tools/configs/model_configs/autoencoders/sr_ds_1600_dim_64_causal.json",
+        "modules_causal/stable_audio_tools/models/streaming.py",
+        "modules_causal/stable_audio_tools/models/streaming_conv.py",
+        "modules_causal/stable_audio_tools/models/streaming_utils.py"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "test/**",
+        "assets/**",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3"
+      ]
+    },
+    {
+      "id": "encodec",
+      "repo": "https://github.com/facebookresearch/encodec.git",
+      "commit": "0e2d0aed29362c8e8f52494baf3e6f99056b214f",
+      "license": "MIT",
+      "purpose": "Training-only codec adversarial/MS-STFT discriminator and feature-matching reference. Discrete codebooks and pretrained weights are not part of the SONICRAFT runtime.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "encodec/**"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3"
+      ]
+    },
+    {
+      "id": "descript_dac",
+      "repo": "https://github.com/descriptinc/descript-audio-codec.git",
+      "commit": "c7cfc5d2647e26471dc394f95846a0830e7bec34",
+      "license": "MIT",
+      "purpose": "Trainable high-fidelity neural codec reference and DAC compatibility benchmark. SONICRAFT trains its own string weights; upstream generic checkpoints are excluded from the commercial model path.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "dac/**",
+        "scripts/train.py",
+        "conf/**"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3",
+        "pretrained_models/**"
+      ]
+    },
+    {
+      "id": "kvae_audio",
+      "repo": "https://github.com/kandinskylab/kvae-audio.git",
+      "commit": "5ed41033232d7a648c7c27c557315df3f9cf1aac",
+      "license": "MIT",
+      "purpose": "2026 48k/64-d continuous full-band VAE quality benchmark and architecture reference. Its large upstream model is benchmark-only and never bundled.",
+      "include": [
+        "LICENSE",
+        "NOTICE",
+        "README.md",
+        "kvae_audio/model/**",
+        "kvae_audio/nn/**",
+        "kvae_audio/metrics/loss.py"
+      ],
+      "exclude_globs": [
+        "assets/**",
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3"
+      ]
+    },
+    {
+      "id": "bigvgan",
+      "repo": "https://github.com/NVIDIA/BigVGAN.git",
+      "commit": "7d2b454564a6c7d014227f635b7423881f14bdac",
+      "license": "MIT",
+      "purpose": "Training/reference-only adversarial discriminator and anti-aliased periodic activation baseline. No BigVGAN pretrained weights or CUDA extension are shipped.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "bigvgan.py",
+        "discriminators.py",
+        "activations.py",
+        "alias_free_torch/**",
+        "incl_licenses/**"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3",
+        "pretrained_models/**"
+      ]
+    },
+    {
+      "id": "onnxruntime",
+      "repo": "https://github.com/microsoft/onnxruntime.git",
+      "commit": "2e2543fbe9fae542f921d47a72d21d5a4ef0b710",
+      "license": "MIT",
+      "purpose": "ONNX Runtime v1.29.0 stable: reduced-op/type custom runtime, ORT format and modular execution-provider path for the v2.2 no-PyTorch consumer deployment challenger.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "docs/performance/model-optimizations/**",
+        "docs/build/**",
+        "docs/cuda_plugin_ep/**",
+        "tools/ci_build/build.py",
+        "tools/python/util/convert_onnx_models_to_ort.py"
+      ],
+      "exclude_globs": [
+        "**/*.onnx",
+        "**/*.ort",
+        "**/*.dll",
+        "**/*.lib",
+        "**/*.so",
+        "**/*.dylib",
+        "**/*.zip",
+        "**/*.tar.gz"
+      ]
+    },
+    {
+      "id": "shortcut_models",
+      "repo": "https://github.com/kvfrans/shortcut-models.git",
+      "commit": "601004348667094e1b71f30942199759412d4432",
+      "license": "MIT",
+      "purpose": "Training-only self-bootstrap step-conditioned flow reference for one/few-step generation with one shipping network.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "targets_shortcut.py",
+        "models.py"
+      ],
+      "exclude_globs": [
+        "**/*.npy",
+        "**/*.npz",
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt"
+      ]
+    },
+    {
+      "id": "meanflow",
+      "repo": "https://github.com/Gsunshine/meanflow.git",
+      "commit": "d70cb55d298ee03c53bf6da67bec281082e4e2d9",
+      "license": "MIT",
+      "purpose": "Training/reference-only one-step average-velocity flow matching benchmark. JVP training is not added to consumer runtime.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "meanflow.py",
+        "models/models_dit.py"
+      ],
+      "exclude_globs": [
+        "assets/**",
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt"
+      ]
+    },
+    {
+      "id": "ddsp_violin_2026",
+      "repo": "https://github.com/JoaoerDuarte/DDSP-Violin-EUSIPCO2026.git",
+      "commit": "7377d7a440c2d29ff1d3b28512d0aa9c9af5e5be",
+      "license": "MIT",
+      "purpose": "Primary bowed-string DDSP physics reference: low-dimensional brightness/bow-position/notch/residual controls and trainable source-filter decomposition. Training/reference only; no upstream audio/checkpoints are bundled.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "train.py",
+        "preprocess.py",
+        "model.py",
+        "models/**",
+        "configs/**",
+        "ddsp/**",
+        "*.py"
+      ],
+      "exclude_globs": [
+        "dataset/**",
+        "datasets/**",
+        "audio/**",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3",
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors"
+      ]
+    },
+    {
+      "id": "ness",
+      "repo": "https://github.com/Edinburgh-Acoustics-and-Audio-Group/ness.git",
+      "commit": "14c7b47e4cb32eda09bc75ad938cff90d5ff245b",
+      "license": "MIT",
+      "purpose": "Offline bowed-string physical-modelling reference/teacher for clean-room control coverage. NESS source is development-only; generated SONICRAFT corpus must carry independent provenance and no NESS binaries are shipped.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "src/**",
+        "include/**",
+        "ness-framework/**",
+        "examples/**/bow*",
+        "examples/**/string*"
+      ],
+      "exclude_globs": [
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3",
+        "**/*.aiff",
+        "**/*.bin",
+        "build/**"
+      ]
+    },
+    {
+      "id": "stable_audio_tools",
+      "repo": "https://github.com/Stability-AI/stable-audio-tools.git",
+      "commit": "3241adba4fc2a85cf5b29d9eb68d42f40a28e820",
+      "license": "MIT",
+      "purpose": "Training-framework reference for audio autoencoders, discriminators, diffusion/flow wrappers, pre-encoded latent datasets and training-wrapper stripping. No Stability model weights are imported.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "stable_audio_tools/models/**",
+        "stable_audio_tools/training/**",
+        "stable_audio_tools/data/**",
+        "train.py",
+        "pre_encode.py",
+        "unwrap_model.py"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3",
+        "assets/**"
+      ]
+    },
+    {
+      "id": "audiocraft_code",
+      "repo": "https://github.com/facebookresearch/audiocraft.git",
+      "commit": "896ec7c47f5e5d1e5aa1e4b260c4405328bf009d",
+      "license": "MIT-code-only",
+      "purpose": "Training-code-only reference for EnCodec, MultiBandDiffusion and controllable audio training. Upstream pretrained weights are CC-BY-NC 4.0 and are explicitly excluded from the commercial SONICRAFT lane.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "docs/ENCODEC.md",
+        "docs/MBD.md",
+        "audiocraft/models/encodec.py",
+        "audiocraft/solvers/compression.py",
+        "audiocraft/solvers/diffusion.py",
+        "audiocraft/modules/**"
+      ],
+      "exclude_globs": [
+        "LICENSE_weights",
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.bin",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3"
+      ]
+    },
+    {
+      "id": "ace_step_15_vae",
+      "repo": "https://github.com/ace-step/ACE-Step-1.5.git",
+      "commit": "ca1e85fe9430179831e6bc6be790c332190a3866",
+      "license": "MIT",
+      "purpose": "48 kHz stereo 64-d 1920x/25 Hz 1D VAE codec challenger. Development/training/ABX only; no upstream weights or generated media enter the commercial model pack.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "acestep/**",
+        "scripts/**",
+        "docs/**"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.gguf",
+        "**/*.bin",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3",
+        "**/*.ogg",
+        "**/*.m4a",
+        "**/*.mp4",
+        "**/*.webm",
+        "**/checkpoints/**",
+        "**/models/**/weights/**",
+        "**/.cache/**",
+        "examples/output/**"
+      ]
+    },
+    {
+      "id": "apcodec_reborn",
+      "repo": "https://github.com/redmist328/APCodec_reborn.git",
+      "commit": "1804dd0d14d110d1964609d93a23e44e9cb155b2",
+      "license": "MIT",
+      "purpose": "48 kHz amplitude/phase neural codec challenger. Training/reference only; no upstream weights enter the shipping model path.",
+      "include": [
+        "LICENSE",
+        "README.md",
+        "config.json",
+        "dataset.py",
+        "models.py",
+        "quantize.py",
+        "train.py",
+        "inference.py",
+        "utils.py"
+      ],
+      "exclude_globs": [
+        "**/*.pt",
+        "**/*.pth",
+        "**/*.ckpt",
+        "**/*.safetensors",
+        "**/*.wav",
+        "**/*.flac",
+        "**/*.mp3"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+SONICRAFT v3.1 — STUDIO ONE HOST SCOPE
+
+1. Select the target event/range.
+2. Set the Song loop range to that selection using your Studio One key map / Range workflow.
+3. SONICRAFT > Host Scope = Locator Retake, Locator Director, or Locator Both.
+4. Configure Retake Target/Amount/Seed and/or Host Scope Style/Looseness.
+5. Play/render normally.
+
+SONICRAFT reads the VST3 loop/cycle musical range supplied by Studio One; it does not depend on a private Studio One API.
+No MIDI notes or authored controller lanes are rewritten.
+
+For persistent MIDI-visible changes, use the v3.0 PROJECT_BRIDGE_*.bat tools.

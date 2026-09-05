@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0-acoustic-promotion",
+  "stage": "engineering-validated-acoustic-promotion-ready",
+  "release_schema": 7,
+  "real_probability": 0.8,
+  "modeled_probability": 0.2,
+  "modeled_timbre_anchor": false,
+  "modeled_adversarial_target": false,
+  "renderer_params": 2606296,
+  "vae64_decoder_params": 1281137,
+  "raw_fp16_core_mib": 7.41,
+  "new_runtime_params": 0,
+  "acoustic_segments": "REQUIRED",
+  "stereo_phase_codec_tournament": "REQUIRED",
+  "codec_abx_schema2": "REQUIRED",
+  "generated_real_abx_schema2": "REQUIRED",
+  "checkpoint_promotion_seal": "REQUIRED",
+  "acoustic_promotion": "BLIND_VALIDATION_REQUIRED"
+}

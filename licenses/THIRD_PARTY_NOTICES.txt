@@ -1,0 +1,13 @@
+SONICRAFT AI Strings Q4 - Third Party Notices
+
+Steinberg VST 3 SDK / VSTGUI
+MIT License
+Copyright (c) 2026, Steinberg Media Technologies GmbH
+See licenses/STEINBERG_VST3_MIT.txt
+
+Descript Audio Codec
+MIT License
+Copyright (c) 2023-present, Descript
+See licenses/DESCRIPT_DAC_MIT.txt
+
+The optional AI runtime installs third-party Python packages into a user-local virtual environment. Their package metadata/licenses remain with those installed packages.

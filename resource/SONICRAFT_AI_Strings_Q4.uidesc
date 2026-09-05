@@ -1,0 +1,782 @@
+<?xml version='1.0' encoding='utf-8'?>
+<vstgui-ui-description version="1">
+  <fonts>
+    <font name="Title" font-name="Arial" size="24" bold="true" italic="false" />
+    <font name="Head2" font-name="Arial" size="18" bold="true" italic="false" />
+    <font name="Head" font-name="Arial" size="12" bold="true" italic="false" />
+    <font name="Body" font-name="Arial" size="11" bold="false" italic="false" />
+    <font name="Small" font-name="Arial" size="9" bold="false" italic="false" />
+    <font name="Tiny" font-name="Arial" size="8" bold="false" italic="false" />
+  </fonts>
+  <colors>
+    <color name="BG" rgba="#0A0D12FF" />
+    <color name="BG2" rgba="#0E1219FF" />
+    <color name="Panel" rgba="#151B24FF" />
+    <color name="Panel2" rgba="#1C2430FF" />
+    <color name="EditorBG" rgba="#0C1118FF" />
+    <color name="Line" rgba="#2D3848FF" />
+    <color name="Grid" rgba="#1B2633FF" />
+    <color name="GridStrong" rgba="#334155FF" />
+    <color name="Text" rgba="#F3F5F7FF" />
+    <color name="Muted" rgba="#8D9AA9FF" />
+    <color name="Accent" rgba="#D9AF63FF" />
+    <color name="Accent2" rgba="#7DB2D1FF" />
+    <color name="Good" rgba="#78C49AFF" />
+    <color name="Track" rgba="#283341FF" />
+    <color name="Note" rgba="#CDA65FFF" />
+    <color name="NoteText" rgba="#101318FF" />
+    <color name="DynFill" rgba="#3D6B82FF" />
+  </colors>
+  <control-tags>
+    <control-tag name="Mode" tag="100" />
+    <control-tag name="ActivePart" tag="101" />
+    <control-tag name="Humanize" tag="102" />
+    <control-tag name="AIMix" tag="103" />
+    <control-tag name="Layout" tag="104" />
+    <control-tag name="Instrument" tag="105" />
+    <control-tag name="AIAssist" tag="106" />
+    <control-tag name="LookAhead" tag="107" />
+    <control-tag name="AutoDivisi" tag="108" />
+    <control-tag name="PerformanceStyle" tag="109" />
+    <control-tag name="SmartDynamics" tag="110" />
+    <control-tag name="SmartArticulation" tag="111" />
+    <control-tag name="RetakeTarget" tag="112" />
+    <control-tag name="RetakeAmount" tag="113" />
+    <control-tag name="RetakeNonce" tag="114" />
+    <control-tag name="StagePerspective" tag="115" />
+    <control-tag name="Polyphony" tag="116" />
+    <control-tag name="AuthorityLock" tag="117" />
+    <control-tag name="PhraseDirector" tag="118" />
+    <control-tag name="EnsembleLooseness" tag="119" />
+    <control-tag name="HostScopeMode" tag="120" />
+    <control-tag name="HostScopeStyle" tag="121" />
+    <control-tag name="HostScopeLooseness" tag="122" />
+    <control-tag name="TakeCarouselMode" tag="123" />
+    <control-tag name="TakeCarouselSelect" tag="124" />
+    <control-tag name="TakeCarouselFreeze" tag="125" />
+    <control-tag name="TakeCompMode" tag="126" />
+    <control-tag name="TakeCompCommit" tag="127" />
+    <control-tag name="TakeCompClear" tag="128" />
+    <control-tag name="TakeCompPhraseLength" tag="129" />
+    <control-tag name="TakeCompUndo" tag="130" />
+    <control-tag name="TakeCompRedo" tag="131" />
+    <control-tag name="TakeCompFavorite" tag="132" />
+    <control-tag name="TakeCompReject" tag="133" />
+    <control-tag name="TakeCompCommitAll" tag="134" />
+    <control-tag name="MemoryFollowPlayhead" tag="135" />
+    <control-tag name="MemoryPrev" tag="136" />
+    <control-tag name="MemoryNext" tag="137" />
+    <control-tag name="MemoryNextUnresolved" tag="138" />
+    <control-tag name="MemoryRecallTake" tag="139" />
+    <control-tag name="MemoryRecallApply" tag="140" />
+    <control-tag name="MemoryCommitRecall" tag="141" />
+    <control-tag name="MemoryFavoriteRecall" tag="142" />
+    <control-tag name="MemoryRejectRecall" tag="143" />
+    <control-tag name="MemoryCommittedTake" tag="144" />
+    <control-tag name="MemoryRecallFavorite" tag="145" />
+    <control-tag name="MemoryRecallRejected" tag="146" />
+    <control-tag name="MemoryCoverage" tag="147" />
+    <control-tag name="MemoryCursorPosition" tag="148" />
+    <control-tag name="MemoryClearPhrase" tag="149" />
+    <control-tag name="TimelineCommit1" tag="150" />
+    <control-tag name="TimelineCommit2" tag="151" />
+    <control-tag name="TimelineCommit3" tag="152" />
+    <control-tag name="TimelineCommit4" tag="153" />
+    <control-tag name="TimelineCommit5" tag="154" />
+    <control-tag name="TimelineCommit6" tag="155" />
+    <control-tag name="TimelineCommit7" tag="156" />
+    <control-tag name="TimelineCommit8" tag="157" />
+    <control-tag name="TimelineSmart1" tag="158" />
+    <control-tag name="TimelineSmart2" tag="159" />
+    <control-tag name="TimelineSmart3" tag="160" />
+    <control-tag name="TimelineSmart4" tag="161" />
+    <control-tag name="TimelineSmart5" tag="162" />
+    <control-tag name="TimelineSmart6" tag="163" />
+    <control-tag name="TimelineSmart7" tag="164" />
+    <control-tag name="TimelineSmart8" tag="165" />
+    <control-tag name="SmartRankMode" tag="166" />
+    <control-tag name="SmartAudition" tag="167" />
+    <control-tag name="SmartCommit" tag="168" />
+    <control-tag name="SmartScore" tag="169" />
+    <control-tag name="TimelineCursorSlot" tag="170" />
+    <control-tag name="CommitUniqueFavorites" tag="171" />
+    <control-tag name="AutoCompUnresolved" tag="172" />
+    <control-tag name="SmartVariation" tag="173" />
+    <control-tag name="TimelineUnresolved" tag="174" />
+    <control-tag name="JudgeTrigger" tag="175" />
+    <control-tag name="JudgeWinner" tag="176" />
+    <control-tag name="JudgeOverallA" tag="177" />
+    <control-tag name="JudgeOverallB" tag="178" />
+    <control-tag name="JudgeOverallC" tag="179" />
+    <control-tag name="JudgeOverallD" tag="180" />
+    <control-tag name="JudgeDynamicsA" tag="181" />
+    <control-tag name="JudgeDynamicsB" tag="182" />
+    <control-tag name="JudgeDynamicsC" tag="183" />
+    <control-tag name="JudgeDynamicsD" tag="184" />
+    <control-tag name="JudgeAttackA" tag="185" />
+    <control-tag name="JudgeAttackB" tag="186" />
+    <control-tag name="JudgeAttackC" tag="187" />
+    <control-tag name="JudgeAttackD" tag="188" />
+    <control-tag name="JudgeTransitionA" tag="189" />
+    <control-tag name="JudgeTransitionB" tag="190" />
+    <control-tag name="JudgeTransitionC" tag="191" />
+    <control-tag name="JudgeTransitionD" tag="192" />
+    <control-tag name="JudgeStabilityA" tag="193" />
+    <control-tag name="JudgeStabilityB" tag="194" />
+    <control-tag name="JudgeStabilityC" tag="195" />
+    <control-tag name="JudgeStabilityD" tag="196" />
+    <control-tag name="JudgeWinnerSafety" tag="197" />
+    <control-tag name="JudgeAuditionWinner" tag="198" />
+    <control-tag name="JudgeCommitWinner" tag="199" />
+    <control-tag name="PersonalTasteEnable" tag="340" />
+    <control-tag name="PersonalTasteStrength" tag="341" />
+    <control-tag name="PersonalTasteLearn" tag="342" />
+    <control-tag name="PersonalTasteClear" tag="343" />
+    <control-tag name="PersonalConfidence" tag="344" />
+    <control-tag name="PersonalEvidence" tag="345" />
+    <control-tag name="PersonalWeightDyn" tag="346" />
+    <control-tag name="PersonalWeightAttack" tag="347" />
+    <control-tag name="PersonalWeightTransition" tag="348" />
+    <control-tag name="PersonalWeightStability" tag="349" />
+    <control-tag name="PersonalWeightSafety" tag="350" />
+    <control-tag name="PersonalScoreA" tag="351" />
+    <control-tag name="PersonalScoreB" tag="352" />
+    <control-tag name="PersonalScoreC" tag="353" />
+    <control-tag name="PersonalScoreD" tag="354" />
+    <control-tag name="PreferenceAutoComp" tag="355" />
+    <control-tag name="PreferenceMinConfidence" tag="356" />
+    <control-tag name="PreferenceMinMargin" tag="357" />
+    <control-tag name="PreferenceSafetyFloor" tag="358" />
+    <control-tag name="PreferenceAutoCompCancel" tag="359" />
+    <control-tag name="PreferenceAutoCompStatus" tag="360" />
+    <control-tag name="PreferenceAutoCompProgress" tag="361" />
+    <control-tag name="PreferenceAutoCompCommitted" tag="362" />
+    <control-tag name="PreferenceAutoCompReview" tag="363" />
+    <control-tag name="V1Dyn" tag="200" />
+    <control-tag name="V2Dyn" tag="201" />
+    <control-tag name="VaDyn" tag="202" />
+    <control-tag name="VcDyn" tag="203" />
+    <control-tag name="V1Vib" tag="210" />
+    <control-tag name="V2Vib" tag="211" />
+    <control-tag name="VaVib" tag="212" />
+    <control-tag name="VcVib" tag="213" />
+    <control-tag name="V1Exp" tag="220" />
+    <control-tag name="V2Exp" tag="221" />
+    <control-tag name="VaExp" tag="222" />
+    <control-tag name="VcExp" tag="223" />
+    <control-tag name="V1Vol" tag="230" />
+    <control-tag name="V2Vol" tag="231" />
+    <control-tag name="VaVol" tag="232" />
+    <control-tag name="VcVol" tag="233" />
+    <control-tag name="V1Pan" tag="240" />
+    <control-tag name="V2Pan" tag="241" />
+    <control-tag name="VaPan" tag="242" />
+    <control-tag name="VcPan" tag="243" />
+    <control-tag name="V1Room" tag="270" />
+    <control-tag name="V2Room" tag="271" />
+    <control-tag name="VaRoom" tag="272" />
+    <control-tag name="VcRoom" tag="273" />
+    <control-tag name="V1Art" tag="290" />
+    <control-tag name="V2Art" tag="291" />
+    <control-tag name="VaArt" tag="292" />
+    <control-tag name="VcArt" tag="293" />
+    <control-tag name="V1Trans" tag="300" />
+    <control-tag name="V2Trans" tag="301" />
+    <control-tag name="VaTrans" tag="302" />
+    <control-tag name="VcTrans" tag="303" />
+    <control-tag name="V1Tight" tag="310" />
+    <control-tag name="V2Tight" tag="311" />
+    <control-tag name="VaTight" tag="312" />
+    <control-tag name="VcTight" tag="313" />
+    <control-tag name="V1Attack" tag="320" />
+    <control-tag name="V2Attack" tag="321" />
+    <control-tag name="VaAttack" tag="322" />
+    <control-tag name="VcAttack" tag="323" />
+    <control-tag name="V1Speed" tag="330" />
+    <control-tag name="V2Speed" tag="331" />
+    <control-tag name="VaSpeed" tag="332" />
+    <control-tag name="VcSpeed" tag="333" />
+    <control-tag name="UiPage" tag="800" />
+    <control-tag name="StageMixerEnable" tag="810" />
+    <control-tag name="StageMaster" tag="811" />
+    <control-tag name="Mic01" tag="812" />
+    <control-tag name="Mic02" tag="813" />
+    <control-tag name="Mic03" tag="814" />
+    <control-tag name="Mic04" tag="815" />
+    <control-tag name="Mic05" tag="816" />
+    <control-tag name="Mic06" tag="817" />
+    <control-tag name="Mic07" tag="818" />
+    <control-tag name="Mic08" tag="819" />
+    <control-tag name="Mic09" tag="820" />
+    <control-tag name="Mic10" tag="821" />
+    <control-tag name="Mic11" tag="822" />
+    <control-tag name="Mic12" tag="823" />
+    <control-tag name="Mic13" tag="824" />
+    <control-tag name="Mic14" tag="825" />
+    <control-tag name="Mic15" tag="826" />
+    <control-tag name="Mic16" tag="827" />
+    <control-tag name="StageOutput" tag="828" />
+  </control-tags>
+  <template name="MainView" class="CViewContainer" origin="0,0" size="1440,900" minSize="1440,900" maxSize="1440,900" background-color="BG" autosize="left top right bottom">
+    <view class="CTextLabel" origin="28,17" size="360,30" title="SONICRAFT AI STRINGS" font="Title" font-color="Text" text-alignment="left" transparent="true" />
+    <view class="CTextLabel" origin="30,51" size="400,16" title="Q4 · NEURAL PERFORMANCE INSTRUMENT · v7.0 RC2" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+    <view class="CSegmentButton" origin="504,22" size="442,34" control-tag="UiPage" segment-names="SCORE,PERFORM,RETAKES,MIX" font="Head" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+    <view class="CTextLabel" origin="1110,18" size="120,16" title="ENGINE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+    <view class="CSegmentButton" origin="1110,38" size="190,28" control-tag="Mode" segment-names="LIVE,AUTO,HQ" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+    <view class="CTextLabel" origin="1314,18" size="98,16" title="AI" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+    <view class="CSegmentButton" origin="1286,38" size="126,28" control-tag="AIAssist" segment-names="MAN,AST,AUTO" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+    <view class="CViewContainer" origin="28,88" size="1384,786" background-color="BG2">
+      <view class="UIViewSwitchContainer" origin="0,0" size="1384,786" template-names="PageScore,PagePerform,PageRetakes,PageMix" template-switch-control="UiPage" animation-style="fade" animation-time="100" />
+    </view>
+  </template>
+  <template name="PageScore" class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
+    <view class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
+      <view class="CTextLabel" origin="24,18" size="310,26" title="SCORE / PERFORMANCE EDITOR" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
+      <view class="CTextLabel" origin="24,48" size="620,18" title="MusicXML / MIDI → notes → articulation → predictive dynamics → render" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+      <view class="CViewContainer" origin="24,82" size="190,676" background-color="Panel">
+        <view class="CTextLabel" origin="16,14" size="150,18" title="SECTIONS" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="16,44" size="166,30" control-tag="ActivePart" segment-names="VLN I,VLN II,VIOLA,CELLO" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="16,92" size="130,16" title="INSTRUMENT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="16,112" size="158,28" control-tag="Instrument" segment-names="SOLO,SECTION" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="16,160" size="130,16" title="POLYPHONY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="16,180" size="158,28" control-tag="Polyphony" segment-names="1,2,4,8" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="16,230" size="130,16" title="SMART INPUT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="16,254" size="20,20" title="" control-tag="SmartArticulation" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="44,255" size="120,18" title="Articulation" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="16,282" size="20,20" title="" control-tag="SmartDynamics" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="44,283" size="120,18" title="Dynamics" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="16,328" size="130,16" title="PERFORMANCE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="16,348" size="158,32" control-tag="PerformanceStyle" segment-names="NEU,ADA,ALL,FUO,POP,BAL" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="16,406" size="130,16" title="PHRASE DIRECTOR" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="16,430" size="158,12" control-tag="PhraseDirector" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="16,466" size="130,16" title="HUMANIZE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="16,490" size="158,12" control-tag="Humanize" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="16,540" size="150,16" title="AUTHORITATIVE SCORE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="16,564" size="20,20" title="" control-tag="AuthorityLock" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="44,565" size="118,18" title="Lock decisions" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="16,574" size="150,16" title="WORKFLOW" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="16,598" size="150,16" title="1  Import / enter notes" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="16,618" size="150,16" title="2  Shape performance" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="16,638" size="150,16" title="3  Retake / comp" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="16,658" size="150,16" title="4  Mix / render" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+      </view>
+      <view class="CViewContainer" origin="230,82" size="816,430" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="280,18" title="NOTE EDITOR" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="610,14" size="185,18" title="OPEN STANDALONE TO EDIT" font="Tiny" font-color="Good" text-alignment="right" transparent="true" />
+        <view class="CTextLabel" origin="18,45" size="150,18" title="EDITOR PREVIEW" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="246,48" size="42,16" title="SNAP" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="292,48" size="76,16" title="1/16" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="382,48" size="42,16" title="ZOOM" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="430,48" size="72,16" title="100%" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CViewContainer" origin="18,82" size="780,286" background-color="EditorBG">
+          <view class="CTextLabel" origin="8,8" size="44,18" title="C6" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,17" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,30" size="44,18" title="B5" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,39" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,52" size="44,18" title="A5" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,61" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,74" size="44,18" title="G5" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,83" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,96" size="44,18" title="F5" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,105" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,118" size="44,18" title="E5" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,127" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,140" size="44,18" title="D5" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,149" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,162" size="44,18" title="C5" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,171" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,184" size="44,18" title="B4" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,193" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,206" size="44,18" title="A4" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,215" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,228" size="44,18" title="G4" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,237" size="700,1" background-color="Grid" />
+          <view class="CTextLabel" origin="8,250" size="44,18" title="F4" font="Small" font-color="Muted" text-alignment="right" transparent="true" />
+          <view class="CViewContainer" origin="62,259" size="700,1" background-color="Grid" />
+          <view class="CViewContainer" origin="62,0" size="1,286" background-color="GridStrong" />
+          <view class="CTextLabel" origin="66,2" size="40,14" title="1" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+          <view class="CViewContainer" origin="149,0" size="1,286" background-color="GridStrong" />
+          <view class="CTextLabel" origin="153,2" size="40,14" title="2" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+          <view class="CViewContainer" origin="236,0" size="1,286" background-color="GridStrong" />
+          <view class="CTextLabel" origin="240,2" size="40,14" title="3" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+          <view class="CViewContainer" origin="323,0" size="1,286" background-color="GridStrong" />
+          <view class="CTextLabel" origin="327,2" size="40,14" title="4" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+          <view class="CViewContainer" origin="410,0" size="1,286" background-color="GridStrong" />
+          <view class="CTextLabel" origin="414,2" size="40,14" title="5" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+          <view class="CViewContainer" origin="497,0" size="1,286" background-color="GridStrong" />
+          <view class="CTextLabel" origin="501,2" size="40,14" title="6" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+          <view class="CViewContainer" origin="584,0" size="1,286" background-color="GridStrong" />
+          <view class="CTextLabel" origin="588,2" size="40,14" title="7" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+          <view class="CViewContainer" origin="671,0" size="1,286" background-color="GridStrong" />
+          <view class="CTextLabel" origin="675,2" size="40,14" title="8" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+          <view class="CViewContainer" origin="758,0" size="1,286" background-color="GridStrong" />
+          <view class="CViewContainer" origin="92,42" size="74,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="62,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="176,64" size="96,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="84,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="286,86" size="54,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="42,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="350,86" size="106,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="94,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="474,108" size="66,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="54,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="550,130" size="126,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="114,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="692,108" size="58,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="46,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="126,174" size="112,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="100,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="256,196" size="72,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="60,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="346,174" size="94,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="82,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="462,196" size="130,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="118,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+          <view class="CViewContainer" origin="612,218" size="110,14" background-color="Note">
+            <view class="CTextLabel" origin="6,0" size="98,14" title="LEG" font="Tiny" font-color="NoteText" transparent="true" />
+          </view>
+        </view>
+        <view class="CTextLabel" origin="18,382" size="100,16" title="ARTICULATION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="116,376" size="682,28" control-tag="V1Art" segment-names="SUS,LEG,PORT,EXP,MARC,STAC,SPIC,TREM,PIZZ,TRILL,HARM,FLAUT" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+      </view>
+      <view class="CViewContainer" origin="1062,82" size="298,430" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="220,18" title="NOTE / PHRASE INSPECTOR" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="18,48" size="105,16" title="DYNAMICS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="116,53" size="160,10" control-tag="V1Dyn" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="18,82" size="105,16" title="VIBRATO" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="116,87" size="160,10" control-tag="V1Vib" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,116" size="105,16" title="TRANSITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="116,121" size="160,10" control-tag="V1Trans" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,150" size="105,16" title="ATTACK" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="116,155" size="160,10" control-tag="V1Attack" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="18,184" size="105,16" title="TIGHTNESS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="116,189" size="160,10" control-tag="V1Tight" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,218" size="105,16" title="SPEED" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="116,216" size="160,24" control-tag="V1Speed" segment-names="AUTO,SLOW,NORM,FAST" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="4" style="horizontal" />
+        <view class="CTextLabel" origin="18,262" size="105,16" title="ROOM SEND" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="116,267" size="160,10" control-tag="V1Room" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,312" size="250,16" title="SELECTED NOTE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="18,336" size="250,18" title="A4 · bar 3 · beat 2.0" font="Body" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="18,364" size="250,16" title="Expression stack: LEG + VIB" font="Small" font-color="Accent" text-alignment="left" transparent="true" />
+      </view>
+      <view class="CViewContainer" origin="230,528" size="1130,230" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="240,18" title="PREDICTIVE DYNAMICS" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="264,13" size="20,20" title="" control-tag="SmartDynamics" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="292,14" size="140,18" title="AI follows phrase" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CViewContainer" origin="18,123" size="54,41" background-color="DynFill" />
+        <view class="CViewContainer" origin="94,115" size="54,49" background-color="DynFill" />
+        <view class="CViewContainer" origin="170,106" size="54,58" background-color="DynFill" />
+        <view class="CViewContainer" origin="246,89" size="54,75" background-color="DynFill" />
+        <view class="CViewContainer" origin="322,71" size="54,93" background-color="DynFill" />
+        <view class="CViewContainer" origin="398,63" size="54,101" background-color="DynFill" />
+        <view class="CViewContainer" origin="474,76" size="54,88" background-color="DynFill" />
+        <view class="CViewContainer" origin="550,93" size="54,71" background-color="DynFill" />
+        <view class="CViewContainer" origin="626,84" size="54,80" background-color="DynFill" />
+        <view class="CViewContainer" origin="702,68" size="54,96" background-color="DynFill" />
+        <view class="CViewContainer" origin="778,55" size="54,109" background-color="DynFill" />
+        <view class="CViewContainer" origin="854,79" size="54,85" background-color="DynFill" />
+        <view class="CViewContainer" origin="930,102" size="54,62" background-color="DynFill" />
+        <view class="CViewContainer" origin="1006,118" size="54,46" background-color="DynFill" />
+        <view class="CViewContainer" origin="18,165" size="1072,1" background-color="GridStrong" />
+        <view class="CTextLabel" origin="18,176" size="140,16" title="PHRASE MEMORY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="132,174" size="108,24" control-tag="TimelineCommit1" segment-names="UN,A,B,C,D" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CSegmentButton" origin="250,174" size="108,24" control-tag="TimelineCommit2" segment-names="UN,A,B,C,D" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CSegmentButton" origin="368,174" size="108,24" control-tag="TimelineCommit3" segment-names="UN,A,B,C,D" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CSegmentButton" origin="486,174" size="108,24" control-tag="TimelineCommit4" segment-names="UN,A,B,C,D" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CSegmentButton" origin="604,174" size="108,24" control-tag="TimelineCommit5" segment-names="UN,A,B,C,D" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CSegmentButton" origin="722,174" size="108,24" control-tag="TimelineCommit6" segment-names="UN,A,B,C,D" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CSegmentButton" origin="840,174" size="108,24" control-tag="TimelineCommit7" segment-names="UN,A,B,C,D" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CSegmentButton" origin="958,174" size="108,24" control-tag="TimelineCommit8" segment-names="UN,A,B,C,D" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+      </view>
+    </view>
+  </template>
+  <template name="PagePerform" class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
+    <view class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
+      <view class="CTextLabel" origin="24,18" size="310,26" title="PERFORMANCE" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
+      <view class="CTextLabel" origin="24,48" size="650,18" title="Global intelligence + per-section expression controls" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+      <view class="CViewContainer" origin="24,82" size="1336,96" background-color="Panel">
+        <view class="CTextLabel" origin="18,12" size="90,16" title="MODE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="18,34" size="188,30" control-tag="Mode" segment-names="LIVE,AUTO,HQ" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="224,12" size="100,16" title="AI ASSIST" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="224,34" size="210,30" control-tag="AIAssist" segment-names="MANUAL,ASSIST,AUTO" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="452,12" size="120,16" title="PERFORMANCE STYLE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="452,34" size="388,30" control-tag="PerformanceStyle" segment-names="NEUTRAL,ADAGIO,ALLEGRO,CON FUOCO,POP,BALLADE" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="858,12" size="120,16" title="SECTION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="858,34" size="250,30" control-tag="ActivePart" segment-names="VLN I,VLN II,VIOLA,CELLO" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="1126,12" size="120,16" title="HOST SCOPE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="1126,34" size="190,30" control-tag="HostScopeMode" segment-names="TRACK,GLOBAL" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+      </view>
+      <view class="UIViewSwitchContainer" origin="24,194" size="1064,374" template-names="PartV1,PartV2,PartVa,PartVc" template-switch-control="ActivePart" animation-style="fade" animation-time="90" />
+      <view class="CViewContainer" origin="1104,194" size="256,374" background-color="Panel">
+        <view class="CTextLabel" origin="16,14" size="210,18" title="PERFORMANCE INTELLIGENCE" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="16,48" size="120,16" title="PHRASE DIRECTOR" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="16,70" size="220,10" control-tag="PhraseDirector" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="16,102" size="120,16" title="LOOSENESS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="16,124" size="220,10" control-tag="EnsembleLooseness" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="16,156" size="120,16" title="SMART ARTICULATION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="174,153" size="20,20" title="" control-tag="SmartArticulation" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="16,190" size="120,16" title="SMART DYNAMICS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="174,187" size="20,20" title="" control-tag="SmartDynamics" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="16,224" size="120,16" title="AUTO DIVISI" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="174,221" size="20,20" title="" control-tag="AutoDivisi" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="16,258" size="120,16" title="AUTHORITY LOCK" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="174,255" size="20,20" title="" control-tag="AuthorityLock" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="16,298" size="100,16" title="POLYPHONY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="16,320" size="220,28" control-tag="Polyphony" segment-names="1,2,4,8" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+      </view>
+      <view class="CViewContainer" origin="24,586" size="1336,172" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="220,18" title="HOST / ENSEMBLE SCOPE" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="18,48" size="90,16" title="STYLE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="106,42" size="398,28" control-tag="HostScopeStyle" segment-names="NEUTRAL,ADAGIO,ALLEGRO,CON FUOCO,POP,BALLADE" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="530,48" size="90,16" title="LOOSENESS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="620,52" size="260,10" control-tag="HostScopeLooseness" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="914,48" size="90,16" title="HUMANIZE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="1004,52" size="280,10" control-tag="Humanize" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,92" size="110,16" title="STAGE VIEW" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="106,86" size="398,28" control-tag="StagePerspective" segment-names="DRY,SCORING,WIDE,ROOM" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="530,92" size="110,16" title="MIX AI" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="620,89" size="20,20" title="" control-tag="AIMix" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="650,92" size="180,16" title="Automatic balance assist" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+      </view>
+    </view>
+  </template>
+  <template name="PageRetakes" class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
+    <view class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
+      <view class="CTextLabel" origin="24,18" size="310,26" title="AI PERFORMANCE RETAKES" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
+      <view class="CTextLabel" origin="24,48" size="680,18" title="Generate controlled alternate performances, compare, favorite, reject, and commit" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+      <view class="CViewContainer" origin="24,82" size="338,676" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="260,18" title="RETAKE CONTROL" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="18,50" size="110,16" title="TARGET" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="18,72" size="300,54" control-tag="RetakeTarget" segment-names="TIM,DYN,VIB,PITCH,TIME,BOW,ALL" font="Tiny" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="18,142" size="110,16" title="AMOUNT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="18,166" size="300,12" control-tag="RetakeAmount" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="18,204" size="110,16" title="VARIATION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="18,228" size="300,12" control-tag="SmartVariation" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,266" size="110,16" title="NONCE / SEED" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="18,290" size="300,12" control-tag="RetakeNonce" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,340" size="180,16" title="TAKE CAROUSEL" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="18,362" size="300,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="18,414" size="110,16" title="FREEZE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="94,411" size="20,20" title="" control-tag="TakeCarouselFreeze" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="130,414" size="150,16" title="Hold selected take" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="18,466" size="180,16" title="COMP PHRASE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="18,490" size="300,12" control-tag="TakeCompPhraseLength" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,530" size="92,16" title="UNDO" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="78,527" size="20,20" title="" control-tag="TakeCompUndo" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="132,530" size="92,16" title="REDO" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="188,527" size="20,20" title="" control-tag="TakeCompRedo" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="18,578" size="180,16" title="AUTO COMP" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="102,575" size="20,20" title="" control-tag="AutoCompUnresolved" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="132,578" size="160,16" title="Unresolved phrases" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+      </view>
+      <view class="CViewContainer" origin="386,82" size="461,274" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="90,30" title="TAKE A" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="330,20" size="98,16" title="AI SCORE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="330,44" size="110,10" control-tag="JudgeOverallA" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,64" size="90,16" title="DYNAMICS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,69" size="150,9" control-tag="JudgeDynamicsA" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="18,94" size="90,16" title="ATTACK" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,99" size="150,9" control-tag="JudgeAttackA" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,124" size="90,16" title="TRANSITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,129" size="150,9" control-tag="JudgeTransitionA" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,154" size="90,16" title="STABILITY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,159" size="150,9" control-tag="JudgeStabilityA" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="282,92" size="70,16" title="FAVORITE" font="Small" font-color="Good" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,89" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="282,126" size="70,16" title="REJECT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,123" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="18,206" size="80,16" title="AUDITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="96,198" size="160,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="282,206" size="70,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,203" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+      </view>
+      <view class="CViewContainer" origin="871,82" size="461,274" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="90,30" title="TAKE B" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="330,20" size="98,16" title="AI SCORE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="330,44" size="110,10" control-tag="JudgeOverallB" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,64" size="90,16" title="DYNAMICS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,69" size="150,9" control-tag="JudgeDynamicsB" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="18,94" size="90,16" title="ATTACK" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,99" size="150,9" control-tag="JudgeAttackB" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,124" size="90,16" title="TRANSITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,129" size="150,9" control-tag="JudgeTransitionB" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,154" size="90,16" title="STABILITY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,159" size="150,9" control-tag="JudgeStabilityB" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="282,92" size="70,16" title="FAVORITE" font="Small" font-color="Good" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,89" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="282,126" size="70,16" title="REJECT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,123" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="18,206" size="80,16" title="AUDITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="96,198" size="160,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="282,206" size="70,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,203" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+      </view>
+      <view class="CViewContainer" origin="386,376" size="461,274" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="90,30" title="TAKE C" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="330,20" size="98,16" title="AI SCORE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="330,44" size="110,10" control-tag="JudgeOverallC" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,64" size="90,16" title="DYNAMICS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,69" size="150,9" control-tag="JudgeDynamicsC" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="18,94" size="90,16" title="ATTACK" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,99" size="150,9" control-tag="JudgeAttackC" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,124" size="90,16" title="TRANSITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,129" size="150,9" control-tag="JudgeTransitionC" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,154" size="90,16" title="STABILITY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,159" size="150,9" control-tag="JudgeStabilityC" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="282,92" size="70,16" title="FAVORITE" font="Small" font-color="Good" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,89" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="282,126" size="70,16" title="REJECT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,123" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="18,206" size="80,16" title="AUDITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="96,198" size="160,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="282,206" size="70,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,203" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+      </view>
+      <view class="CViewContainer" origin="871,376" size="461,274" background-color="Panel">
+        <view class="CTextLabel" origin="18,14" size="90,30" title="TAKE D" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="330,20" size="98,16" title="AI SCORE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="330,44" size="110,10" control-tag="JudgeOverallD" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,64" size="90,16" title="DYNAMICS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,69" size="150,9" control-tag="JudgeDynamicsD" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="18,94" size="90,16" title="ATTACK" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,99" size="150,9" control-tag="JudgeAttackD" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="18,124" size="90,16" title="TRANSITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,129" size="150,9" control-tag="JudgeTransitionD" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="18,154" size="90,16" title="STABILITY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="108,159" size="150,9" control-tag="JudgeStabilityD" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="282,92" size="70,16" title="FAVORITE" font="Small" font-color="Good" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,89" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="282,126" size="70,16" title="REJECT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,123" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="18,206" size="80,16" title="AUDITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="96,198" size="160,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="282,206" size="70,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="352,203" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+      </view>
+      <view class="CViewContainer" origin="386,684" size="970,74" background-color="Panel">
+        <view class="CTextLabel" origin="18,12" size="166,18" title="SMART COMP / MEMORY" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="202,14" size="94,16" title="JUDGE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="258,11" size="20,20" title="" control-tag="JudgeTrigger" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="310,14" size="84,16" title="WINNER" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="374,8" size="156,28" control-tag="JudgeWinner" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="550,14" size="100,16" title="PERSONAL TASTE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="646,11" size="20,20" title="" control-tag="PersonalTasteEnable" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CSlider" origin="684,16" size="150,9" control-tag="PersonalTasteStrength" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="850,14" size="84,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="910,11" size="20,20" title="" control-tag="JudgeCommitWinner" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="202,44" size="94,16" title="CONFIDENCE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="288,49" size="242,8" control-tag="PersonalConfidence" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="550,44" size="100,16" title="MIN MARGIN" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="646,49" size="188,8" control-tag="PreferenceMinMargin" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="850,44" size="84,16" title="SAFETY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="910,49" size="42,8" control-tag="PreferenceSafetyFloor" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+      </view>
+    </view>
+  </template>
+  <template name="PageMix" class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
+    <view class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
+      <view class="CTextLabel" origin="24,18" size="340,26" title="SCORING STAGE MIXER" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
+      <view class="CTextLabel" origin="24,48" size="760,18" title="16 stereo microphone feeds + Master · automation-ready · legacy audio preserved until enabled" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+      <view class="CViewContainer" origin="24,82" size="1336,84" background-color="Panel">
+        <view class="CTextLabel" origin="18,12" size="100,16" title="STAGE MIXER" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="18,34" size="162,30" control-tag="StageMixerEnable" segment-names="BYPASS,ACTIVE" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Good" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="200,12" size="90,16" title="MASTER" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="200,48" size="242,10" control-tag="StageMaster" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="466,12" size="90,16" title="OUTPUT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSlider" origin="466,48" size="242,10" control-tag="StageOutput" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="734,12" size="120,16" title="PERSPECTIVE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CSegmentButton" origin="734,34" size="350,30" control-tag="StagePerspective" segment-names="DRY,SCORING,WIDE,ROOM" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="CTextLabel" origin="1110,12" size="100,16" title="AI MIX" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="1110,37" size="20,20" title="" control-tag="AIMix" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="1140,40" size="160,16" title="assist balance" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+      </view>
+      <view class="CViewContainer" origin="24,184" size="1336,472" background-color="Panel">
+        <view class="CTextLabel" origin="18,18" size="70,30" title="SPOT L" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="44,62" size="18,300" control-tag="Mic01" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="18,382" size="70,16" title="OUT 01" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="99,18" size="70,30" title="SPOT C" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="125,62" size="18,300" control-tag="Mic02" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="99,382" size="70,16" title="OUT 02" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="180,18" size="70,30" title="SPOT R" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="206,62" size="18,300" control-tag="Mic03" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="180,382" size="70,16" title="OUT 03" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="261,18" size="70,30" title="TREE L" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="287,62" size="18,300" control-tag="Mic04" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="261,382" size="70,16" title="OUT 04" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="342,18" size="70,30" title="TREE C" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="368,62" size="18,300" control-tag="Mic05" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="342,382" size="70,16" title="OUT 05" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="423,18" size="70,30" title="TREE R" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="449,62" size="18,300" control-tag="Mic06" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+        <view class="CTextLabel" origin="423,382" size="70,16" title="OUT 06" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="504,18" size="70,30" title="WIDE L" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="530,62" size="18,300" control-tag="Mic07" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="504,382" size="70,16" title="OUT 07" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="585,18" size="70,30" title="WIDE R" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="611,62" size="18,300" control-tag="Mic08" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="585,382" size="70,16" title="OUT 08" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="666,18" size="70,30" title="ROOM L" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="692,62" size="18,300" control-tag="Mic09" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="666,382" size="70,16" title="OUT 09" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="747,18" size="70,30" title="ROOM R" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="773,62" size="18,300" control-tag="Mic10" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+        <view class="CTextLabel" origin="747,382" size="70,16" title="OUT 10" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="828,18" size="70,30" title="REAR" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="854,62" size="18,300" control-tag="Mic11" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="828,382" size="70,16" title="OUT 11" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="909,18" size="70,30" title="MID L" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="935,62" size="18,300" control-tag="Mic12" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="909,382" size="70,16" title="OUT 12" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="990,18" size="70,30" title="MID R" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="1016,62" size="18,300" control-tag="Mic13" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="990,382" size="70,16" title="OUT 13" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="1071,18" size="70,30" title="FAR L" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="1097,62" size="18,300" control-tag="Mic14" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="1071,382" size="70,16" title="OUT 14" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="1152,18" size="70,30" title="FAR R" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="1178,62" size="18,300" control-tag="Mic15" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="1152,382" size="70,16" title="OUT 15" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CTextLabel" origin="1233,18" size="70,30" title="GALLERY" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CSlider" origin="1259,62" size="18,300" control-tag="Mic16" orientation="vertical" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
+        <view class="CTextLabel" origin="1233,382" size="70,16" title="OUT 16" font="Tiny" font-color="Muted" text-alignment="center" transparent="true" />
+        <view class="CViewContainer" origin="497,10" size="1,414" background-color="GridStrong" />
+        <view class="CViewContainer" origin="821,10" size="1,414" background-color="GridStrong" />
+      </view>
+      <view class="CViewContainer" origin="24,674" size="1336,84" background-color="Panel">
+        <view class="CTextLabel" origin="18,12" size="210,18" title="ROUTING / DELIVERY" font="Head" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="240,14" size="260,16" title="Master + 16 stereo AUX buses" font="Small" font-color="Good" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="522,14" size="320,16" title="DAW multi-out ready in source" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="870,14" size="390,16" title="Renderer feeds remain provenance-bound" font="Small" font-color="Accent2" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="18,44" size="220,16" title="Stage families" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="240,44" size="910,16" title="Spot · Decca Tree · Wide · Room · Rear · Mid · Far · Gallery" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+      </view>
+    </view>
+  </template>
+  <template name="PartV1" class="CViewContainer" origin="0,0" size="1064,374" background-color="Panel">
+    <view class="CTextLabel" origin="18,14" size="220,24" title="VIOLIN I · PERFORMANCE" font="Head" font-color="Text" transparent="true" />
+    <view class="CTextLabel" origin="18,52" size="170,18" title="DYNAMICS / BOW · CC1" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,78" size="314,16" control-tag="V1Dyn" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+    <view class="CTextLabel" origin="18,116" size="170,18" title="VIBRATO DEPTH · CC3" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,142" size="314,16" control-tag="V1Vib" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+    <view class="CTextLabel" origin="18,166" size="314,17" title="Straight · Light · Natural · Deep · Intense" font="Small" font-color="Good" transparent="true" />
+    <view class="CTextLabel" origin="18,205" size="170,18" title="EXPRESSION · CC11" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,231" size="314,16" control-tag="V1Exp" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+    <view class="CTextLabel" origin="18,275" size="170,18" title="ROOM · CC91" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,301" size="314,16" control-tag="V1Room" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+    <view class="CViewContainer" origin="366,48" size="680,296" background-color="Panel2">
+      <view class="CTextLabel" origin="16,12" size="170,18" title="ARTICULATION" font="Small" font-color="Muted" transparent="true" />
+      <view class="COptionMenu" origin="16,36" size="250,32" control-tag="V1Art" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
+      <view class="CTextLabel" origin="294,12" size="180,18" title="SPEED PROFILE · CC20" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSegmentButton" origin="294,36" size="360,32" control-tag="V1Speed" segment-names="AUTO,SLOW,NORMAL,FAST" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="5" style="horizontal" />
+      <view class="CTextLabel" origin="16,98" size="130,18" title="Transition" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,101" size="250,13" control-tag="V1Trans" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+      <view class="CTextLabel" origin="16,144" size="130,18" title="Attack Character" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,147" size="250,13" control-tag="V1Attack" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+      <view class="CTextLabel" origin="16,190" size="130,18" title="Short Tightness" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,193" size="250,13" control-tag="V1Tight" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+      <view class="CTextLabel" origin="400,98" size="240,18" title="C0–B0 KEYSWITCH BANK" font="Small" font-color="Muted" transparent="true" />
+      <view class="CTextLabel" origin="400,126" size="248,17" title="C0 Sustain   C#0 Legato" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,143" size="248,17" title="D0 Portamento   D#0 Expressive" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,160" size="248,17" title="E0 Marcato   F0 Staccato" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,177" size="248,17" title="F#0 Spiccato   G0 Tremolo" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,194" size="248,17" title="G#0 Pizz   A0 Trill" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,211" size="248,17" title="A#0 Harmonic   B0 Flautando" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,242" size="272,30" title="Notes stay exact; AI infers performance only." font="Small" font-color="Good" transparent="true" />
+    </view>
+  </template>
+  <template name="PartV2" class="CViewContainer" origin="0,0" size="1064,374" background-color="Panel">
+    <view class="CTextLabel" origin="18,14" size="220,24" title="VIOLIN II · PERFORMANCE" font="Head" font-color="Text" transparent="true" />
+    <view class="CTextLabel" origin="18,52" size="170,18" title="DYNAMICS / BOW · CC1" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,78" size="314,16" control-tag="V2Dyn" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+    <view class="CTextLabel" origin="18,116" size="170,18" title="VIBRATO DEPTH · CC3" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,142" size="314,16" control-tag="V2Vib" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+    <view class="CTextLabel" origin="18,166" size="314,17" title="Straight · Light · Natural · Deep · Intense" font="Small" font-color="Good" transparent="true" />
+    <view class="CTextLabel" origin="18,205" size="170,18" title="EXPRESSION · CC11" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,231" size="314,16" control-tag="V2Exp" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+    <view class="CTextLabel" origin="18,275" size="170,18" title="ROOM · CC91" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,301" size="314,16" control-tag="V2Room" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+    <view class="CViewContainer" origin="366,48" size="680,296" background-color="Panel2">
+      <view class="CTextLabel" origin="16,12" size="170,18" title="ARTICULATION" font="Small" font-color="Muted" transparent="true" />
+      <view class="COptionMenu" origin="16,36" size="250,32" control-tag="V2Art" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
+      <view class="CTextLabel" origin="294,12" size="180,18" title="SPEED PROFILE · CC20" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSegmentButton" origin="294,36" size="360,32" control-tag="V2Speed" segment-names="AUTO,SLOW,NORMAL,FAST" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="5" style="horizontal" />
+      <view class="CTextLabel" origin="16,98" size="130,18" title="Transition" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,101" size="250,13" control-tag="V2Trans" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+      <view class="CTextLabel" origin="16,144" size="130,18" title="Attack Character" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,147" size="250,13" control-tag="V2Attack" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+      <view class="CTextLabel" origin="16,190" size="130,18" title="Short Tightness" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,193" size="250,13" control-tag="V2Tight" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+      <view class="CTextLabel" origin="400,98" size="250,19" title="C0–B0 articulation bank" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,117" size="250,19" title="Tempo-aware transitions" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,136" size="250,19" title="AI bow / vibrato micro-variation" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,155" size="250,19" title="Exact MIDI note authority" font="Small" font-color="Text" transparent="true" />
+    </view>
+  </template>
+  <template name="PartVa" class="CViewContainer" origin="0,0" size="1064,374" background-color="Panel">
+    <view class="CTextLabel" origin="18,14" size="220,24" title="VIOLA · PERFORMANCE" font="Head" font-color="Text" transparent="true" />
+    <view class="CTextLabel" origin="18,52" size="170,18" title="DYNAMICS / BOW · CC1" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,78" size="314,16" control-tag="VaDyn" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+    <view class="CTextLabel" origin="18,116" size="170,18" title="VIBRATO DEPTH · CC3" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,142" size="314,16" control-tag="VaVib" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+    <view class="CTextLabel" origin="18,166" size="314,17" title="Straight · Light · Natural · Deep · Intense" font="Small" font-color="Good" transparent="true" />
+    <view class="CTextLabel" origin="18,205" size="170,18" title="EXPRESSION · CC11" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,231" size="314,16" control-tag="VaExp" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+    <view class="CTextLabel" origin="18,275" size="170,18" title="ROOM · CC91" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,301" size="314,16" control-tag="VaRoom" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+    <view class="CViewContainer" origin="366,48" size="680,296" background-color="Panel2">
+      <view class="CTextLabel" origin="16,12" size="170,18" title="ARTICULATION" font="Small" font-color="Muted" transparent="true" />
+      <view class="COptionMenu" origin="16,36" size="250,32" control-tag="VaArt" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
+      <view class="CTextLabel" origin="294,12" size="180,18" title="SPEED PROFILE · CC20" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSegmentButton" origin="294,36" size="360,32" control-tag="VaSpeed" segment-names="AUTO,SLOW,NORMAL,FAST" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="5" style="horizontal" />
+      <view class="CTextLabel" origin="16,98" size="130,18" title="Transition" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,101" size="250,13" control-tag="VaTrans" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+      <view class="CTextLabel" origin="16,144" size="130,18" title="Attack Character" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,147" size="250,13" control-tag="VaAttack" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+      <view class="CTextLabel" origin="16,190" size="130,18" title="Short Tightness" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,193" size="250,13" control-tag="VaTight" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+      <view class="CTextLabel" origin="400,98" size="250,19" title="Warm inner voice focus" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,117" size="250,19" title="Tempo-aware legato" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,136" size="250,19" title="Independent vibrato depth" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,155" size="250,19" title="Exact MIDI note authority" font="Small" font-color="Text" transparent="true" />
+    </view>
+  </template>
+  <template name="PartVc" class="CViewContainer" origin="0,0" size="1064,374" background-color="Panel">
+    <view class="CTextLabel" origin="18,14" size="220,24" title="CELLO · PERFORMANCE" font="Head" font-color="Text" transparent="true" />
+    <view class="CTextLabel" origin="18,52" size="170,18" title="DYNAMICS / BOW · CC1" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,78" size="314,16" control-tag="VcDyn" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+    <view class="CTextLabel" origin="18,116" size="170,18" title="VIBRATO DEPTH · CC3" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,142" size="314,16" control-tag="VcVib" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+    <view class="CTextLabel" origin="18,166" size="314,17" title="Straight · Light · Natural · Deep · Intense" font="Small" font-color="Good" transparent="true" />
+    <view class="CTextLabel" origin="18,205" size="170,18" title="EXPRESSION · CC11" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,231" size="314,16" control-tag="VcExp" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+    <view class="CTextLabel" origin="18,275" size="170,18" title="ROOM · CC91" font="Small" font-color="Muted" transparent="true" />
+    <view class="CSlider" origin="18,301" size="314,16" control-tag="VcRoom" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+    <view class="CViewContainer" origin="366,48" size="680,296" background-color="Panel2">
+      <view class="CTextLabel" origin="16,12" size="170,18" title="ARTICULATION" font="Small" font-color="Muted" transparent="true" />
+      <view class="COptionMenu" origin="16,36" size="250,32" control-tag="VcArt" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
+      <view class="CTextLabel" origin="294,12" size="180,18" title="SPEED PROFILE · CC20" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSegmentButton" origin="294,36" size="360,32" control-tag="VcSpeed" segment-names="AUTO,SLOW,NORMAL,FAST" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="5" style="horizontal" />
+      <view class="CTextLabel" origin="16,98" size="130,18" title="Transition" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,101" size="250,13" control-tag="VcTrans" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent2" frame-color="Line" />
+      <view class="CTextLabel" origin="16,144" size="130,18" title="Attack Character" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,147" size="250,13" control-tag="VcAttack" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+      <view class="CTextLabel" origin="16,190" size="130,18" title="Short Tightness" font="Small" font-color="Muted" transparent="true" />
+      <view class="CSlider" origin="120,193" size="250,13" control-tag="VcTight" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
+      <view class="CTextLabel" origin="400,98" size="250,19" title="Singing cello profile" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,117" size="250,19" title="Tempo-aware portamento" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,136" size="250,19" title="Independent vibrato depth" font="Small" font-color="Text" transparent="true" />
+      <view class="CTextLabel" origin="400,155" size="250,19" title="Exact MIDI note authority" font="Small" font-color="Text" transparent="true" />
+    </view>
+  </template>
+</vstgui-ui-description>

@@ -1,0 +1,17 @@
+SONICRAFT v3.5 — Cubase Performance Memory
+
+1. Select the musical phrase/range in Cubase.
+2. Press P (Locators to Selection), enable Cycle if auditioning Auto Loop.
+3. SONICRAFT: Host Scope = Locator Retake or Locator Both.
+4. Take Bank = Manual or Auto Loop.
+5. Performance Memory:
+   Follow ON = follows playhead.
+   PREV/NEXT = pins browser to adjacent phrase.
+   UNRESOLVED = jumps to next phrase without a committed take.
+6. Choose Recall A/B/C/D:
+   AUDITION = hear it without changing authored MIDI.
+   COMMIT = set it as phrase comp.
+   FAV/REJ = review only, no silent commit.
+7. Coverage meter shows committed phrases within active Locator.
+
+Target-host v3.5 binary validation is still required before release.

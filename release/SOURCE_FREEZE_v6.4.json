@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "release": "6.4.0-frontend-final-candidate",
+  "core_baseline": "6.2.0-acoustic-runtime-provenance",
+  "source_tree_sha256": "e3c357b6230d6a06a81c2c5896ae63462fabd70e522487ab7b5f8fd0691c5fcb",
+  "file_count": 983,
+  "critical_files": {
+    "VERSION": "b863d50dfba74af7c057146af778d7076c697b3e673cf68c8781c6b8977761a0",
+    "CMakeLists.txt": "270dc2e7889819c807d957eae724fb341e8b64eae3bd8b6115fd36296433b7b3",
+    "README.md": "f17b15c8d5024a3e76679048cae3c2832d104ea7dd321f757e2333ec94902b46",
+    "START_HERE.txt": "e7e06922c9201959d6819532fb6fc3a4bb961bbf561e710cdd64e11bd15680d5",
+    "SONICRAFT_EDITOR_V64.bat": "2441eab7a7706c308eb9c35d8904ea59b6052581e883a1bab616830eff93c5a4",
+    "DEBUG_EDITOR_V64.bat": "5487596d38c28adf7f73a6c53d478f5939f24ad3e69a347c9bd976a8d0edc389",
+    "FRONTEND_SMOKE_V64.bat": "57124b6ca567ae26095689e269a8faa1cc83f28e165650042e64cd734be35aad",
+    "frontend/index.html": "c1016997eb78fa33f4a96cadc0fef5887288562649328b48bbce95101a898a29",
+    "frontend/editor_server.py": "cd77ade4f06472e39d97bf76f74a580cf1862a6216483988f6399f93ae1fe99a",
+    "frontend/README_FRONTEND_V64.md": "bf0312ec7384b2159249f360a3c44882a754833d1c6bd3bed6a8f5aa1e243c95",
+    "resource/SONICRAFT_AI_Strings_Q4.uidesc": "d8a383a4839a320d945d2dae691412489add92784717ca90ae5c764ba6c1001c",
+    "src/ids.h": "0c6f8f082ca8907174f0822e9336cc6aa400ecca0f470a7935c7a6b0f0351a71",
+    "src/controller.cpp": "8aa2e5d67109f25d0c831a05e4095cb0c9e704d2687e44b3e151bd95a6745fc0",
+    "src/processor.h": "401cd1cb6b4afe677ecc5cb2e8d62822cbc03e2a458160108206015c5f58fabb",
+    "src/processor.cpp": "0b4dd5dc45bd5f6867a78f3bd958131e50dddf72853e3fc0a6cb2e15d8208b91",
+    "runtime/smoke_frontend_v64.py": "3bb7e89af21bc3185a1b7c1651fc25b9d3da6d08a469e8ce587e636ecde09924",
+    "runtime/smoke_performance_checkpoint_contract_v62.py": "cf33022953abe7efe845819c154cda9eb2ab0952acaac7c20c87e646efc48fb0",
+    "docs/FRONTEND_CONVERGENCE_V64.md": "e7e52308913d8d347a7cdd53be6487d61b766ac822b0d09663a1fce670989624",
+    "docs/VALIDATION_v6.4.md": "e4ad737fc2e2d77a540bab3d6cf385e3fe82a93edfb57f6777b9cc91d84dff42",
+    "licenses/FRONTEND_OPEN_SOURCE_NOTICES_V64.txt": "4376420ab95d5c0bf3804a44d6fea282405076a774edc87d3f79d43206041c86",
+    "release/frontier_status_v6.4.json": "3b89ac53d4d59c6c620c8e5d357b428e1c6a79c8e69a3ef8824da0536266fe0a"
+  },
+  "validation_summary": {
+    "frontend_smoke": "PASS",
+    "editor_to_score_graph": "PASS",
+    "editor_to_v62_compiler": "PASS",
+    "javascript_syntax": "PASS",
+    "uidesc_xml": "PASS",
+    "cmake_non_vst_build": "PASS",
+    "release_version_contracts_22": "PASS",
+    "v62_checkpoint_contract": "PASS",
+    "v62_checkpoint_replay_tamper_restore": "PASS"
+  },
+  "not_run": [
+    "Windows v6.4 VST3 rebuild",
+    "Steinberg Validator",
+    "Cubase real host",
+    "Studio One real host",
+    "Windows ProductShell build",
+    "RTX 5090 acoustic QA",
+    "final trained model QA",
+    "bit-identical audio replay"
+  ]
+}

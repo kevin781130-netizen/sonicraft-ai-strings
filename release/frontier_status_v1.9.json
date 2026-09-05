@@ -1,0 +1,18 @@
+{
+  "version": "1.9.0-sound-forge",
+  "stage": "engineering-validated-sound-forge-ready",
+  "release_schema": 6,
+  "real_probability": 0.80,
+  "modeled_probability": 0.20,
+  "modeled_timbre_anchor": false,
+  "modeled_adversarial_target": false,
+  "renderer_params": 2606296,
+  "vae64_decoder_params": 1281137,
+  "raw_fp16_core_mib": 7.41,
+  "new_runtime_params": 0,
+  "sound_forge": "REQUIRED",
+  "codec_tournament": "REQUIRED",
+  "codec_abx": "REQUIRED",
+  "generated_real_abx": "REQUIRED",
+  "acoustic_promotion": "BLIND_VALIDATION_REQUIRED"
+}

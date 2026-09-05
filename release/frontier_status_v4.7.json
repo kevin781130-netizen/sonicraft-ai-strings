@@ -1,0 +1,45 @@
+{
+  "version": "4.7.0-phrase-bow-vibrato-continuity",
+  "date": "2026-09-02",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "state_schema": 13,
+  "phrase_longline": {
+    "contour": true,
+    "energy_arc": true,
+    "bow_reserve": true,
+    "dynamic_momentum": true,
+    "vibrato_depth_cents": true,
+    "vibrato_rate_hz": true,
+    "pressure_contact_shaping": true,
+    "cc38_sentinel": 1,
+    "legacy_v46_without_sentinel_unchanged": true,
+    "phrase_sidecar": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "phrase_graph": "PASS",
+    "phrase_runtime_sentinel": "PASS",
+    "phrase_compiler": "PASS",
+    "torch_numpy_phrase_parity": "PASS",
+    "vibrato_depth_cents": "PASS",
+    "vibrato_rate_hz": "PASS",
+    "legacy_v46_no_sentinel": "PASS",
+    "v46_to_v41_regression": "PASS",
+    "v39_to_v30_regression": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "renderer_service_34ch": "PASS",
+    "promotion_guard": "PASS",
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

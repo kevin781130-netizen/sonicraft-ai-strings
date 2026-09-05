@@ -1,9 +1,0 @@
-{
-  "release": "7.0.0-rc2",
-  "sync_state": "LOCAL_FULL_PUSH_PACKAGE_READY",
-  "source_archive_sha256": "64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3",
-  "expected_source_files": 1016,
-  "target_branch": "release/v7.0-rc2-frontend-lock",
-  "policy": "fail_closed_until_recursive_tree_verifies_complete",
-  "next_action": "Run PUSH_FULL_SOURCE_MAC.command or PUSH_FULL_SOURCE_WINDOWS.bat from the verified full-push package. The script replaces the branch working tree with the complete 1,016-file RC2 source and pushes to the existing PR #1."
-}

@@ -1,0 +1,13 @@
+SONICRAFT v3.2 · STUDIO ONE LIVE RETAKE CAROUSEL
+
+1. Set the loop range around the phrase you want to audition and enable Loop.
+2. SONICRAFT Host Scope = Locator Retake or Locator Both.
+3. Set Retake Target, Amount, and Base Seed.
+4. Take Bank Mode:
+   - Manual: choose A/B/C/D.
+   - Auto Loop: each confirmed host cycle wrap advances A -> B -> C -> D -> A.
+5. Freeze Current Take when the preferred take is playing.
+
+The implementation uses standard VST3 process-context cycle information, not a Studio One private API.
+Take A = exact Base Seed; B/C/D are deterministic derivatives.
+For a permanent MIDI-visible edit use PROJECT_BRIDGE_RETAKE.bat.

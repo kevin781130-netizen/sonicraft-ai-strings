@@ -1,0 +1,64 @@
+{
+  "version": "5.8.0-cross-song-performance-archetype",
+  "date": "2026-09-03",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "performance_archetype": {
+    "labels": [
+      "intimate",
+      "ballad",
+      "dramatic",
+      "chamber",
+      "cinematic"
+    ],
+    "formal_genre_recognition": false,
+    "control_profile_only": true,
+    "classification_confidence_floor": 0.42,
+    "archetype_only_top1_forbidden": true,
+    "actual_target_evidence_required_for_top1": true,
+    "actual_render_only_learning": true,
+    "audit_edge_calibration": true,
+    "persistent_song_identity_stored": false
+  },
+  "downstream_safety": {
+    "audio_judge": true,
+    "counterfactual_auditor": true,
+    "context_similarity_transfer_isolated": true,
+    "global_coherence": true,
+    "conductor_lock": true,
+    "merged_vs_D_verify": true,
+    "full_abcd_fallback": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "archetype_classification": "PASS",
+    "low_confidence_block": "PASS",
+    "cold_start_top2_plus_D": "PASS",
+    "actual_render_only_learning": "PASS",
+    "skipped_candidate_no_learning": "PASS",
+    "archetype_only_top1_forbidden": "PASS",
+    "hidden_false_prune_audit": "PASS",
+    "archetype_edge_trust_1_to_056": "PASS",
+    "transfer_memory_isolation": "PASS",
+    "v57_to_v48_regression": "PASS",
+    "v47_phrase_parity": "PASS",
+    "v46_transition_parity": "PASS",
+    "ort_12000x34": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "promotion_guard": "PASS",
+    "tamper_rejection": "PASS",
+    "realtime_core_byte_identical_to_v57": true,
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

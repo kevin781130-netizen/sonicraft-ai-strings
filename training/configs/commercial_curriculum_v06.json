@@ -1,0 +1,43 @@
+{
+  "version": "0.6",
+  "target": "Mandarin-ballad Q4 realism",
+  "cc3_depth_anchors": {
+    "0": "straight",
+    "32": "light",
+    "64": "natural",
+    "96": "deep",
+    "127": "intense"
+  },
+  "tempo_training_bpm": [
+    52,
+    56,
+    58,
+    64,
+    68,
+    72,
+    78,
+    82,
+    84,
+    90
+  ],
+  "speed_profiles": {
+    "auto": 0,
+    "slow": 42,
+    "normal": 84,
+    "fast": 127
+  },
+  "priority_order": [
+    "owned/fully-cleared Q4 transition session",
+    "CC3 vibrato depth/rate supervision",
+    "legato/portamento timing across BPM",
+    "bow-change/rebow continuity",
+    "HQ acoustic codec",
+    "ensemble realism critic"
+  ],
+  "hard_rules": [
+    "Never infer release rights from a paper license alone.",
+    "Do not tempo-lock vibrato cycles; tempo is context, not LFO clock.",
+    "Written MIDI pitch/note timing remains authoritative.",
+    "Transition timing must follow the Cubase tempo map and be clamped to plausible physical milliseconds."
+  ]
+}

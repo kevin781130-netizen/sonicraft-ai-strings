@@ -1,0 +1,47 @@
+{
+  "version": "4.5.0-continuous-string-gesture",
+  "date": "2026-09-02",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "state_schema": 13,
+  "gesture_graph": {
+    "anchors_per_note": 7,
+    "bow_speed": true,
+    "bow_pressure": true,
+    "contact_point": true,
+    "dynamics_energy": true,
+    "vibrato_evolution": true,
+    "micro_pitch": true,
+    "portamento_trajectory": true,
+    "kinetic_response": true,
+    "pizzicato_fake_bow_curves": false
+  },
+  "runtime": {
+    "cc38_gesture_amount": true,
+    "cc39_lane_micro_pitch": true,
+    "hq_interpolation": true,
+    "legacy_opt_in": true,
+    "preview_anchor_approximation": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "gesture_graph": "PASS",
+    "gesture_runtime_interpolation": "PASS",
+    "gesture_compiler": "PASS",
+    "gesture_torch_numpy_parity": "PASS",
+    "gesture_service_34ch": "PASS",
+    "v44_no_gesture_parity": "PASS",
+    "v42_physical_parity": "PASS",
+    "clean_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "legacy_source_regression": "PASS",
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0
+  }
+}

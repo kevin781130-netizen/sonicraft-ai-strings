@@ -1,0 +1,66 @@
+{
+  "version": "5.2.0-global-performance-coherence",
+  "date": "2026-09-03",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "global_coherence": {
+    "dimensions": {
+      "dynamic_trajectory": 0.22,
+      "vibrato_character": 0.18,
+      "bow_energy": 0.2,
+      "desk_looseness": 0.13,
+      "transition_density": 0.17,
+      "section_role": 0.1
+    },
+    "pass_score": 82.0,
+    "max_edge_excess": 1.45,
+    "audio_drop_limit": 0.075,
+    "candidate_substitution": true,
+    "D_safety_candidate": true
+  },
+  "full_pair_verify": {
+    "merged_vs_D": true,
+    "overall_tolerance": -0.025,
+    "safety_tolerance": -0.04,
+    "full_abcd_fallback_on_failure": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "global_coherence_substitution": "PASS",
+    "rejected_local_A_coherence_score": 48.027754,
+    "selected_B_coherence_score": 99.4176,
+    "candidate_search_count": 3,
+    "phrase_key_compatibility": "PASS",
+    "D_safety_candidate": "PASS",
+    "merged_vs_D_pair_verify": "PASS",
+    "positive_pair_overall_delta": 0.04,
+    "negative_pair_overall_delta": -0.2,
+    "pair_failure_full_abcd_fallback": "PASS",
+    "stale_double_learning_prevented": "PASS",
+    "v51_selective_regression": "PASS",
+    "v50_auto_loop_regression": "PASS",
+    "v49_policy_regression": "PASS",
+    "v48_critic_regression": "PASS",
+    "v47_to_v41_strings_regression": "PASS",
+    "ort_12000x34": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "promotion_guard": "PASS",
+    "tamper_rejection": "PASS",
+    "historical_release_contracts_v41_to_v51": "PASS",
+    "runtime_import_probe": "PASS",
+    "realtime_core_byte_identical_to_v51": true,
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

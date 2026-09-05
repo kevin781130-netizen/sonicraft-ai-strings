@@ -1,0 +1,1081 @@
+﻿part,exercise,bpm,articulation,speed_profile,source_note,target_note,interval_semitones,cc3,target_vibrato_depth_cents,instruction
+VlnI,vibrato_depth_rate,58,expressive,slow,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,slow,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,normal,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,58,expressive,fast,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,slow,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,normal,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,68,expressive,fast,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,slow,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,normal,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,72,72,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,72,72,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,72,72,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,72,72,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,vibrato_depth_rate,82,expressive,fast,72,72,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnI,transition,56,legato,slow,60,62,2,64,28.0,target transition ~140ms; natural connection
+VlnI,transition,56,legato,slow,60,65,5,64,28.0,target transition ~140ms; natural connection
+VlnI,transition,56,legato,slow,60,67,7,64,28.0,target transition ~140ms; natural connection
+VlnI,transition,56,legato,slow,67,69,2,64,28.0,target transition ~140ms; natural connection
+VlnI,transition,56,legato,slow,67,72,5,64,28.0,target transition ~140ms; natural connection
+VlnI,transition,56,legato,slow,67,74,7,64,28.0,target transition ~140ms; natural connection
+VlnI,transition,56,legato,normal,60,62,2,64,28.0,target transition ~96ms; natural connection
+VlnI,transition,56,legato,normal,60,65,5,64,28.0,target transition ~96ms; natural connection
+VlnI,transition,56,legato,normal,60,67,7,64,28.0,target transition ~96ms; natural connection
+VlnI,transition,56,legato,normal,67,69,2,64,28.0,target transition ~96ms; natural connection
+VlnI,transition,56,legato,normal,67,72,5,64,28.0,target transition ~96ms; natural connection
+VlnI,transition,56,legato,normal,67,74,7,64,28.0,target transition ~96ms; natural connection
+VlnI,transition,56,legato,fast,60,62,2,64,28.0,target transition ~66ms; natural connection
+VlnI,transition,56,legato,fast,60,65,5,64,28.0,target transition ~66ms; natural connection
+VlnI,transition,56,legato,fast,60,67,7,64,28.0,target transition ~66ms; natural connection
+VlnI,transition,56,legato,fast,67,69,2,64,28.0,target transition ~66ms; natural connection
+VlnI,transition,56,legato,fast,67,72,5,64,28.0,target transition ~66ms; natural connection
+VlnI,transition,56,legato,fast,67,74,7,64,28.0,target transition ~66ms; natural connection
+VlnI,transition,56,portamento,slow,60,62,2,64,28.0,target transition ~357ms; natural connection
+VlnI,transition,56,portamento,slow,60,65,5,64,28.0,target transition ~357ms; natural connection
+VlnI,transition,56,portamento,slow,60,67,7,64,28.0,target transition ~357ms; natural connection
+VlnI,transition,56,portamento,slow,67,69,2,64,28.0,target transition ~357ms; natural connection
+VlnI,transition,56,portamento,slow,67,72,5,64,28.0,target transition ~357ms; natural connection
+VlnI,transition,56,portamento,slow,67,74,7,64,28.0,target transition ~357ms; natural connection
+VlnI,transition,56,portamento,normal,60,62,2,64,28.0,target transition ~246ms; natural connection
+VlnI,transition,56,portamento,normal,60,65,5,64,28.0,target transition ~246ms; natural connection
+VlnI,transition,56,portamento,normal,60,67,7,64,28.0,target transition ~246ms; natural connection
+VlnI,transition,56,portamento,normal,67,69,2,64,28.0,target transition ~246ms; natural connection
+VlnI,transition,56,portamento,normal,67,72,5,64,28.0,target transition ~246ms; natural connection
+VlnI,transition,56,portamento,normal,67,74,7,64,28.0,target transition ~246ms; natural connection
+VlnI,transition,56,portamento,fast,60,62,2,64,28.0,target transition ~168ms; natural connection
+VlnI,transition,56,portamento,fast,60,65,5,64,28.0,target transition ~168ms; natural connection
+VlnI,transition,56,portamento,fast,60,67,7,64,28.0,target transition ~168ms; natural connection
+VlnI,transition,56,portamento,fast,67,69,2,64,28.0,target transition ~168ms; natural connection
+VlnI,transition,56,portamento,fast,67,72,5,64,28.0,target transition ~168ms; natural connection
+VlnI,transition,56,portamento,fast,67,74,7,64,28.0,target transition ~168ms; natural connection
+VlnI,transition,68,legato,slow,60,62,2,64,28.0,target transition ~115ms; natural connection
+VlnI,transition,68,legato,slow,60,65,5,64,28.0,target transition ~115ms; natural connection
+VlnI,transition,68,legato,slow,60,67,7,64,28.0,target transition ~115ms; natural connection
+VlnI,transition,68,legato,slow,67,69,2,64,28.0,target transition ~115ms; natural connection
+VlnI,transition,68,legato,slow,67,72,5,64,28.0,target transition ~115ms; natural connection
+VlnI,transition,68,legato,slow,67,74,7,64,28.0,target transition ~115ms; natural connection
+VlnI,transition,68,legato,normal,60,62,2,64,28.0,target transition ~79ms; natural connection
+VlnI,transition,68,legato,normal,60,65,5,64,28.0,target transition ~79ms; natural connection
+VlnI,transition,68,legato,normal,60,67,7,64,28.0,target transition ~79ms; natural connection
+VlnI,transition,68,legato,normal,67,69,2,64,28.0,target transition ~79ms; natural connection
+VlnI,transition,68,legato,normal,67,72,5,64,28.0,target transition ~79ms; natural connection
+VlnI,transition,68,legato,normal,67,74,7,64,28.0,target transition ~79ms; natural connection
+VlnI,transition,68,legato,fast,60,62,2,64,28.0,target transition ~54ms; natural connection
+VlnI,transition,68,legato,fast,60,65,5,64,28.0,target transition ~54ms; natural connection
+VlnI,transition,68,legato,fast,60,67,7,64,28.0,target transition ~54ms; natural connection
+VlnI,transition,68,legato,fast,67,69,2,64,28.0,target transition ~54ms; natural connection
+VlnI,transition,68,legato,fast,67,72,5,64,28.0,target transition ~54ms; natural connection
+VlnI,transition,68,legato,fast,67,74,7,64,28.0,target transition ~54ms; natural connection
+VlnI,transition,68,portamento,slow,60,62,2,64,28.0,target transition ~294ms; natural connection
+VlnI,transition,68,portamento,slow,60,65,5,64,28.0,target transition ~294ms; natural connection
+VlnI,transition,68,portamento,slow,60,67,7,64,28.0,target transition ~294ms; natural connection
+VlnI,transition,68,portamento,slow,67,69,2,64,28.0,target transition ~294ms; natural connection
+VlnI,transition,68,portamento,slow,67,72,5,64,28.0,target transition ~294ms; natural connection
+VlnI,transition,68,portamento,slow,67,74,7,64,28.0,target transition ~294ms; natural connection
+VlnI,transition,68,portamento,normal,60,62,2,64,28.0,target transition ~203ms; natural connection
+VlnI,transition,68,portamento,normal,60,65,5,64,28.0,target transition ~203ms; natural connection
+VlnI,transition,68,portamento,normal,60,67,7,64,28.0,target transition ~203ms; natural connection
+VlnI,transition,68,portamento,normal,67,69,2,64,28.0,target transition ~203ms; natural connection
+VlnI,transition,68,portamento,normal,67,72,5,64,28.0,target transition ~203ms; natural connection
+VlnI,transition,68,portamento,normal,67,74,7,64,28.0,target transition ~203ms; natural connection
+VlnI,transition,68,portamento,fast,60,62,2,64,28.0,target transition ~138ms; natural connection
+VlnI,transition,68,portamento,fast,60,65,5,64,28.0,target transition ~138ms; natural connection
+VlnI,transition,68,portamento,fast,60,67,7,64,28.0,target transition ~138ms; natural connection
+VlnI,transition,68,portamento,fast,67,69,2,64,28.0,target transition ~138ms; natural connection
+VlnI,transition,68,portamento,fast,67,72,5,64,28.0,target transition ~138ms; natural connection
+VlnI,transition,68,portamento,fast,67,74,7,64,28.0,target transition ~138ms; natural connection
+VlnI,transition,84,legato,slow,60,62,2,64,28.0,target transition ~93ms; natural connection
+VlnI,transition,84,legato,slow,60,65,5,64,28.0,target transition ~93ms; natural connection
+VlnI,transition,84,legato,slow,60,67,7,64,28.0,target transition ~93ms; natural connection
+VlnI,transition,84,legato,slow,67,69,2,64,28.0,target transition ~93ms; natural connection
+VlnI,transition,84,legato,slow,67,72,5,64,28.0,target transition ~93ms; natural connection
+VlnI,transition,84,legato,slow,67,74,7,64,28.0,target transition ~93ms; natural connection
+VlnI,transition,84,legato,normal,60,62,2,64,28.0,target transition ~64ms; natural connection
+VlnI,transition,84,legato,normal,60,65,5,64,28.0,target transition ~64ms; natural connection
+VlnI,transition,84,legato,normal,60,67,7,64,28.0,target transition ~64ms; natural connection
+VlnI,transition,84,legato,normal,67,69,2,64,28.0,target transition ~64ms; natural connection
+VlnI,transition,84,legato,normal,67,72,5,64,28.0,target transition ~64ms; natural connection
+VlnI,transition,84,legato,normal,67,74,7,64,28.0,target transition ~64ms; natural connection
+VlnI,transition,84,legato,fast,60,62,2,64,28.0,target transition ~44ms; natural connection
+VlnI,transition,84,legato,fast,60,65,5,64,28.0,target transition ~44ms; natural connection
+VlnI,transition,84,legato,fast,60,67,7,64,28.0,target transition ~44ms; natural connection
+VlnI,transition,84,legato,fast,67,69,2,64,28.0,target transition ~44ms; natural connection
+VlnI,transition,84,legato,fast,67,72,5,64,28.0,target transition ~44ms; natural connection
+VlnI,transition,84,legato,fast,67,74,7,64,28.0,target transition ~44ms; natural connection
+VlnI,transition,84,portamento,slow,60,62,2,64,28.0,target transition ~238ms; natural connection
+VlnI,transition,84,portamento,slow,60,65,5,64,28.0,target transition ~238ms; natural connection
+VlnI,transition,84,portamento,slow,60,67,7,64,28.0,target transition ~238ms; natural connection
+VlnI,transition,84,portamento,slow,67,69,2,64,28.0,target transition ~238ms; natural connection
+VlnI,transition,84,portamento,slow,67,72,5,64,28.0,target transition ~238ms; natural connection
+VlnI,transition,84,portamento,slow,67,74,7,64,28.0,target transition ~238ms; natural connection
+VlnI,transition,84,portamento,normal,60,62,2,64,28.0,target transition ~164ms; natural connection
+VlnI,transition,84,portamento,normal,60,65,5,64,28.0,target transition ~164ms; natural connection
+VlnI,transition,84,portamento,normal,60,67,7,64,28.0,target transition ~164ms; natural connection
+VlnI,transition,84,portamento,normal,67,69,2,64,28.0,target transition ~164ms; natural connection
+VlnI,transition,84,portamento,normal,67,72,5,64,28.0,target transition ~164ms; natural connection
+VlnI,transition,84,portamento,normal,67,74,7,64,28.0,target transition ~164ms; natural connection
+VlnI,transition,84,portamento,fast,60,62,2,64,28.0,target transition ~112ms; natural connection
+VlnI,transition,84,portamento,fast,60,65,5,64,28.0,target transition ~112ms; natural connection
+VlnI,transition,84,portamento,fast,60,67,7,64,28.0,target transition ~112ms; natural connection
+VlnI,transition,84,portamento,fast,67,69,2,64,28.0,target transition ~112ms; natural connection
+VlnI,transition,84,portamento,fast,67,72,5,64,28.0,target transition ~112ms; natural connection
+VlnI,transition,84,portamento,fast,67,74,7,64,28.0,target transition ~112ms; natural connection
+VlnI,bow_change,56,legato,slow,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,56,legato,slow,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,56,legato,slow,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,56,legato,normal,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,56,legato,normal,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,56,legato,normal,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,56,legato,fast,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,56,legato,fast,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,56,legato,fast,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,slow,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,slow,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,slow,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,normal,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,normal,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,normal,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,fast,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,fast,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,68,legato,fast,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,slow,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,slow,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,slow,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,normal,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,normal,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,normal,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,fast,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,fast,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnI,bow_change,84,legato,fast,72,72,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,vibrato_depth_rate,58,expressive,slow,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,slow,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,normal,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,58,expressive,fast,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,slow,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,normal,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,68,expressive,fast,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,59,59,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,59,59,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,59,59,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,59,59,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,59,59,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,64,64,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,64,64,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,64,64,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,64,64,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,64,64,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,slow,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,normal,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,71,71,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,71,71,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,71,71,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,71,71,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,vibrato_depth_rate,82,expressive,fast,71,71,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+VlnII,transition,56,legato,slow,59,61,2,64,28.0,target transition ~140ms; natural connection
+VlnII,transition,56,legato,slow,59,64,5,64,28.0,target transition ~140ms; natural connection
+VlnII,transition,56,legato,slow,59,66,7,64,28.0,target transition ~140ms; natural connection
+VlnII,transition,56,legato,slow,64,66,2,64,28.0,target transition ~140ms; natural connection
+VlnII,transition,56,legato,slow,64,69,5,64,28.0,target transition ~140ms; natural connection
+VlnII,transition,56,legato,slow,64,71,7,64,28.0,target transition ~140ms; natural connection
+VlnII,transition,56,legato,normal,59,61,2,64,28.0,target transition ~96ms; natural connection
+VlnII,transition,56,legato,normal,59,64,5,64,28.0,target transition ~96ms; natural connection
+VlnII,transition,56,legato,normal,59,66,7,64,28.0,target transition ~96ms; natural connection
+VlnII,transition,56,legato,normal,64,66,2,64,28.0,target transition ~96ms; natural connection
+VlnII,transition,56,legato,normal,64,69,5,64,28.0,target transition ~96ms; natural connection
+VlnII,transition,56,legato,normal,64,71,7,64,28.0,target transition ~96ms; natural connection
+VlnII,transition,56,legato,fast,59,61,2,64,28.0,target transition ~66ms; natural connection
+VlnII,transition,56,legato,fast,59,64,5,64,28.0,target transition ~66ms; natural connection
+VlnII,transition,56,legato,fast,59,66,7,64,28.0,target transition ~66ms; natural connection
+VlnII,transition,56,legato,fast,64,66,2,64,28.0,target transition ~66ms; natural connection
+VlnII,transition,56,legato,fast,64,69,5,64,28.0,target transition ~66ms; natural connection
+VlnII,transition,56,legato,fast,64,71,7,64,28.0,target transition ~66ms; natural connection
+VlnII,transition,56,portamento,slow,59,61,2,64,28.0,target transition ~357ms; natural connection
+VlnII,transition,56,portamento,slow,59,64,5,64,28.0,target transition ~357ms; natural connection
+VlnII,transition,56,portamento,slow,59,66,7,64,28.0,target transition ~357ms; natural connection
+VlnII,transition,56,portamento,slow,64,66,2,64,28.0,target transition ~357ms; natural connection
+VlnII,transition,56,portamento,slow,64,69,5,64,28.0,target transition ~357ms; natural connection
+VlnII,transition,56,portamento,slow,64,71,7,64,28.0,target transition ~357ms; natural connection
+VlnII,transition,56,portamento,normal,59,61,2,64,28.0,target transition ~246ms; natural connection
+VlnII,transition,56,portamento,normal,59,64,5,64,28.0,target transition ~246ms; natural connection
+VlnII,transition,56,portamento,normal,59,66,7,64,28.0,target transition ~246ms; natural connection
+VlnII,transition,56,portamento,normal,64,66,2,64,28.0,target transition ~246ms; natural connection
+VlnII,transition,56,portamento,normal,64,69,5,64,28.0,target transition ~246ms; natural connection
+VlnII,transition,56,portamento,normal,64,71,7,64,28.0,target transition ~246ms; natural connection
+VlnII,transition,56,portamento,fast,59,61,2,64,28.0,target transition ~168ms; natural connection
+VlnII,transition,56,portamento,fast,59,64,5,64,28.0,target transition ~168ms; natural connection
+VlnII,transition,56,portamento,fast,59,66,7,64,28.0,target transition ~168ms; natural connection
+VlnII,transition,56,portamento,fast,64,66,2,64,28.0,target transition ~168ms; natural connection
+VlnII,transition,56,portamento,fast,64,69,5,64,28.0,target transition ~168ms; natural connection
+VlnII,transition,56,portamento,fast,64,71,7,64,28.0,target transition ~168ms; natural connection
+VlnII,transition,68,legato,slow,59,61,2,64,28.0,target transition ~115ms; natural connection
+VlnII,transition,68,legato,slow,59,64,5,64,28.0,target transition ~115ms; natural connection
+VlnII,transition,68,legato,slow,59,66,7,64,28.0,target transition ~115ms; natural connection
+VlnII,transition,68,legato,slow,64,66,2,64,28.0,target transition ~115ms; natural connection
+VlnII,transition,68,legato,slow,64,69,5,64,28.0,target transition ~115ms; natural connection
+VlnII,transition,68,legato,slow,64,71,7,64,28.0,target transition ~115ms; natural connection
+VlnII,transition,68,legato,normal,59,61,2,64,28.0,target transition ~79ms; natural connection
+VlnII,transition,68,legato,normal,59,64,5,64,28.0,target transition ~79ms; natural connection
+VlnII,transition,68,legato,normal,59,66,7,64,28.0,target transition ~79ms; natural connection
+VlnII,transition,68,legato,normal,64,66,2,64,28.0,target transition ~79ms; natural connection
+VlnII,transition,68,legato,normal,64,69,5,64,28.0,target transition ~79ms; natural connection
+VlnII,transition,68,legato,normal,64,71,7,64,28.0,target transition ~79ms; natural connection
+VlnII,transition,68,legato,fast,59,61,2,64,28.0,target transition ~54ms; natural connection
+VlnII,transition,68,legato,fast,59,64,5,64,28.0,target transition ~54ms; natural connection
+VlnII,transition,68,legato,fast,59,66,7,64,28.0,target transition ~54ms; natural connection
+VlnII,transition,68,legato,fast,64,66,2,64,28.0,target transition ~54ms; natural connection
+VlnII,transition,68,legato,fast,64,69,5,64,28.0,target transition ~54ms; natural connection
+VlnII,transition,68,legato,fast,64,71,7,64,28.0,target transition ~54ms; natural connection
+VlnII,transition,68,portamento,slow,59,61,2,64,28.0,target transition ~294ms; natural connection
+VlnII,transition,68,portamento,slow,59,64,5,64,28.0,target transition ~294ms; natural connection
+VlnII,transition,68,portamento,slow,59,66,7,64,28.0,target transition ~294ms; natural connection
+VlnII,transition,68,portamento,slow,64,66,2,64,28.0,target transition ~294ms; natural connection
+VlnII,transition,68,portamento,slow,64,69,5,64,28.0,target transition ~294ms; natural connection
+VlnII,transition,68,portamento,slow,64,71,7,64,28.0,target transition ~294ms; natural connection
+VlnII,transition,68,portamento,normal,59,61,2,64,28.0,target transition ~203ms; natural connection
+VlnII,transition,68,portamento,normal,59,64,5,64,28.0,target transition ~203ms; natural connection
+VlnII,transition,68,portamento,normal,59,66,7,64,28.0,target transition ~203ms; natural connection
+VlnII,transition,68,portamento,normal,64,66,2,64,28.0,target transition ~203ms; natural connection
+VlnII,transition,68,portamento,normal,64,69,5,64,28.0,target transition ~203ms; natural connection
+VlnII,transition,68,portamento,normal,64,71,7,64,28.0,target transition ~203ms; natural connection
+VlnII,transition,68,portamento,fast,59,61,2,64,28.0,target transition ~138ms; natural connection
+VlnII,transition,68,portamento,fast,59,64,5,64,28.0,target transition ~138ms; natural connection
+VlnII,transition,68,portamento,fast,59,66,7,64,28.0,target transition ~138ms; natural connection
+VlnII,transition,68,portamento,fast,64,66,2,64,28.0,target transition ~138ms; natural connection
+VlnII,transition,68,portamento,fast,64,69,5,64,28.0,target transition ~138ms; natural connection
+VlnII,transition,68,portamento,fast,64,71,7,64,28.0,target transition ~138ms; natural connection
+VlnII,transition,84,legato,slow,59,61,2,64,28.0,target transition ~93ms; natural connection
+VlnII,transition,84,legato,slow,59,64,5,64,28.0,target transition ~93ms; natural connection
+VlnII,transition,84,legato,slow,59,66,7,64,28.0,target transition ~93ms; natural connection
+VlnII,transition,84,legato,slow,64,66,2,64,28.0,target transition ~93ms; natural connection
+VlnII,transition,84,legato,slow,64,69,5,64,28.0,target transition ~93ms; natural connection
+VlnII,transition,84,legato,slow,64,71,7,64,28.0,target transition ~93ms; natural connection
+VlnII,transition,84,legato,normal,59,61,2,64,28.0,target transition ~64ms; natural connection
+VlnII,transition,84,legato,normal,59,64,5,64,28.0,target transition ~64ms; natural connection
+VlnII,transition,84,legato,normal,59,66,7,64,28.0,target transition ~64ms; natural connection
+VlnII,transition,84,legato,normal,64,66,2,64,28.0,target transition ~64ms; natural connection
+VlnII,transition,84,legato,normal,64,69,5,64,28.0,target transition ~64ms; natural connection
+VlnII,transition,84,legato,normal,64,71,7,64,28.0,target transition ~64ms; natural connection
+VlnII,transition,84,legato,fast,59,61,2,64,28.0,target transition ~44ms; natural connection
+VlnII,transition,84,legato,fast,59,64,5,64,28.0,target transition ~44ms; natural connection
+VlnII,transition,84,legato,fast,59,66,7,64,28.0,target transition ~44ms; natural connection
+VlnII,transition,84,legato,fast,64,66,2,64,28.0,target transition ~44ms; natural connection
+VlnII,transition,84,legato,fast,64,69,5,64,28.0,target transition ~44ms; natural connection
+VlnII,transition,84,legato,fast,64,71,7,64,28.0,target transition ~44ms; natural connection
+VlnII,transition,84,portamento,slow,59,61,2,64,28.0,target transition ~238ms; natural connection
+VlnII,transition,84,portamento,slow,59,64,5,64,28.0,target transition ~238ms; natural connection
+VlnII,transition,84,portamento,slow,59,66,7,64,28.0,target transition ~238ms; natural connection
+VlnII,transition,84,portamento,slow,64,66,2,64,28.0,target transition ~238ms; natural connection
+VlnII,transition,84,portamento,slow,64,69,5,64,28.0,target transition ~238ms; natural connection
+VlnII,transition,84,portamento,slow,64,71,7,64,28.0,target transition ~238ms; natural connection
+VlnII,transition,84,portamento,normal,59,61,2,64,28.0,target transition ~164ms; natural connection
+VlnII,transition,84,portamento,normal,59,64,5,64,28.0,target transition ~164ms; natural connection
+VlnII,transition,84,portamento,normal,59,66,7,64,28.0,target transition ~164ms; natural connection
+VlnII,transition,84,portamento,normal,64,66,2,64,28.0,target transition ~164ms; natural connection
+VlnII,transition,84,portamento,normal,64,69,5,64,28.0,target transition ~164ms; natural connection
+VlnII,transition,84,portamento,normal,64,71,7,64,28.0,target transition ~164ms; natural connection
+VlnII,transition,84,portamento,fast,59,61,2,64,28.0,target transition ~112ms; natural connection
+VlnII,transition,84,portamento,fast,59,64,5,64,28.0,target transition ~112ms; natural connection
+VlnII,transition,84,portamento,fast,59,66,7,64,28.0,target transition ~112ms; natural connection
+VlnII,transition,84,portamento,fast,64,66,2,64,28.0,target transition ~112ms; natural connection
+VlnII,transition,84,portamento,fast,64,69,5,64,28.0,target transition ~112ms; natural connection
+VlnII,transition,84,portamento,fast,64,71,7,64,28.0,target transition ~112ms; natural connection
+VlnII,bow_change,56,legato,slow,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,56,legato,slow,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,56,legato,slow,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,56,legato,normal,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,56,legato,normal,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,56,legato,normal,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,56,legato,fast,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,56,legato,fast,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,56,legato,fast,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,slow,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,slow,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,slow,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,normal,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,normal,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,normal,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,fast,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,fast,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,68,legato,fast,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,slow,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,slow,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,slow,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,normal,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,normal,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,normal,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,fast,59,59,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,fast,64,64,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+VlnII,bow_change,84,legato,fast,71,71,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,vibrato_depth_rate,58,expressive,slow,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,slow,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,normal,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,58,expressive,fast,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,slow,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,normal,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,68,expressive,fast,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,52,52,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,52,52,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,52,52,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,52,52,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,52,52,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,60,60,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,60,60,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,60,60,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,60,60,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,60,60,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,slow,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,normal,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,67,67,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,67,67,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,67,67,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,67,67,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,vibrato_depth_rate,82,expressive,fast,67,67,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Viola,transition,56,legato,slow,52,54,2,64,28.0,target transition ~140ms; natural connection
+Viola,transition,56,legato,slow,52,57,5,64,28.0,target transition ~140ms; natural connection
+Viola,transition,56,legato,slow,52,59,7,64,28.0,target transition ~140ms; natural connection
+Viola,transition,56,legato,slow,60,62,2,64,28.0,target transition ~140ms; natural connection
+Viola,transition,56,legato,slow,60,65,5,64,28.0,target transition ~140ms; natural connection
+Viola,transition,56,legato,slow,60,67,7,64,28.0,target transition ~140ms; natural connection
+Viola,transition,56,legato,normal,52,54,2,64,28.0,target transition ~96ms; natural connection
+Viola,transition,56,legato,normal,52,57,5,64,28.0,target transition ~96ms; natural connection
+Viola,transition,56,legato,normal,52,59,7,64,28.0,target transition ~96ms; natural connection
+Viola,transition,56,legato,normal,60,62,2,64,28.0,target transition ~96ms; natural connection
+Viola,transition,56,legato,normal,60,65,5,64,28.0,target transition ~96ms; natural connection
+Viola,transition,56,legato,normal,60,67,7,64,28.0,target transition ~96ms; natural connection
+Viola,transition,56,legato,fast,52,54,2,64,28.0,target transition ~66ms; natural connection
+Viola,transition,56,legato,fast,52,57,5,64,28.0,target transition ~66ms; natural connection
+Viola,transition,56,legato,fast,52,59,7,64,28.0,target transition ~66ms; natural connection
+Viola,transition,56,legato,fast,60,62,2,64,28.0,target transition ~66ms; natural connection
+Viola,transition,56,legato,fast,60,65,5,64,28.0,target transition ~66ms; natural connection
+Viola,transition,56,legato,fast,60,67,7,64,28.0,target transition ~66ms; natural connection
+Viola,transition,56,portamento,slow,52,54,2,64,28.0,target transition ~357ms; natural connection
+Viola,transition,56,portamento,slow,52,57,5,64,28.0,target transition ~357ms; natural connection
+Viola,transition,56,portamento,slow,52,59,7,64,28.0,target transition ~357ms; natural connection
+Viola,transition,56,portamento,slow,60,62,2,64,28.0,target transition ~357ms; natural connection
+Viola,transition,56,portamento,slow,60,65,5,64,28.0,target transition ~357ms; natural connection
+Viola,transition,56,portamento,slow,60,67,7,64,28.0,target transition ~357ms; natural connection
+Viola,transition,56,portamento,normal,52,54,2,64,28.0,target transition ~246ms; natural connection
+Viola,transition,56,portamento,normal,52,57,5,64,28.0,target transition ~246ms; natural connection
+Viola,transition,56,portamento,normal,52,59,7,64,28.0,target transition ~246ms; natural connection
+Viola,transition,56,portamento,normal,60,62,2,64,28.0,target transition ~246ms; natural connection
+Viola,transition,56,portamento,normal,60,65,5,64,28.0,target transition ~246ms; natural connection
+Viola,transition,56,portamento,normal,60,67,7,64,28.0,target transition ~246ms; natural connection
+Viola,transition,56,portamento,fast,52,54,2,64,28.0,target transition ~168ms; natural connection
+Viola,transition,56,portamento,fast,52,57,5,64,28.0,target transition ~168ms; natural connection
+Viola,transition,56,portamento,fast,52,59,7,64,28.0,target transition ~168ms; natural connection
+Viola,transition,56,portamento,fast,60,62,2,64,28.0,target transition ~168ms; natural connection
+Viola,transition,56,portamento,fast,60,65,5,64,28.0,target transition ~168ms; natural connection
+Viola,transition,56,portamento,fast,60,67,7,64,28.0,target transition ~168ms; natural connection
+Viola,transition,68,legato,slow,52,54,2,64,28.0,target transition ~115ms; natural connection
+Viola,transition,68,legato,slow,52,57,5,64,28.0,target transition ~115ms; natural connection
+Viola,transition,68,legato,slow,52,59,7,64,28.0,target transition ~115ms; natural connection
+Viola,transition,68,legato,slow,60,62,2,64,28.0,target transition ~115ms; natural connection
+Viola,transition,68,legato,slow,60,65,5,64,28.0,target transition ~115ms; natural connection
+Viola,transition,68,legato,slow,60,67,7,64,28.0,target transition ~115ms; natural connection
+Viola,transition,68,legato,normal,52,54,2,64,28.0,target transition ~79ms; natural connection
+Viola,transition,68,legato,normal,52,57,5,64,28.0,target transition ~79ms; natural connection
+Viola,transition,68,legato,normal,52,59,7,64,28.0,target transition ~79ms; natural connection
+Viola,transition,68,legato,normal,60,62,2,64,28.0,target transition ~79ms; natural connection
+Viola,transition,68,legato,normal,60,65,5,64,28.0,target transition ~79ms; natural connection
+Viola,transition,68,legato,normal,60,67,7,64,28.0,target transition ~79ms; natural connection
+Viola,transition,68,legato,fast,52,54,2,64,28.0,target transition ~54ms; natural connection
+Viola,transition,68,legato,fast,52,57,5,64,28.0,target transition ~54ms; natural connection
+Viola,transition,68,legato,fast,52,59,7,64,28.0,target transition ~54ms; natural connection
+Viola,transition,68,legato,fast,60,62,2,64,28.0,target transition ~54ms; natural connection
+Viola,transition,68,legato,fast,60,65,5,64,28.0,target transition ~54ms; natural connection
+Viola,transition,68,legato,fast,60,67,7,64,28.0,target transition ~54ms; natural connection
+Viola,transition,68,portamento,slow,52,54,2,64,28.0,target transition ~294ms; natural connection
+Viola,transition,68,portamento,slow,52,57,5,64,28.0,target transition ~294ms; natural connection
+Viola,transition,68,portamento,slow,52,59,7,64,28.0,target transition ~294ms; natural connection
+Viola,transition,68,portamento,slow,60,62,2,64,28.0,target transition ~294ms; natural connection
+Viola,transition,68,portamento,slow,60,65,5,64,28.0,target transition ~294ms; natural connection
+Viola,transition,68,portamento,slow,60,67,7,64,28.0,target transition ~294ms; natural connection
+Viola,transition,68,portamento,normal,52,54,2,64,28.0,target transition ~203ms; natural connection
+Viola,transition,68,portamento,normal,52,57,5,64,28.0,target transition ~203ms; natural connection
+Viola,transition,68,portamento,normal,52,59,7,64,28.0,target transition ~203ms; natural connection
+Viola,transition,68,portamento,normal,60,62,2,64,28.0,target transition ~203ms; natural connection
+Viola,transition,68,portamento,normal,60,65,5,64,28.0,target transition ~203ms; natural connection
+Viola,transition,68,portamento,normal,60,67,7,64,28.0,target transition ~203ms; natural connection
+Viola,transition,68,portamento,fast,52,54,2,64,28.0,target transition ~138ms; natural connection
+Viola,transition,68,portamento,fast,52,57,5,64,28.0,target transition ~138ms; natural connection
+Viola,transition,68,portamento,fast,52,59,7,64,28.0,target transition ~138ms; natural connection
+Viola,transition,68,portamento,fast,60,62,2,64,28.0,target transition ~138ms; natural connection
+Viola,transition,68,portamento,fast,60,65,5,64,28.0,target transition ~138ms; natural connection
+Viola,transition,68,portamento,fast,60,67,7,64,28.0,target transition ~138ms; natural connection
+Viola,transition,84,legato,slow,52,54,2,64,28.0,target transition ~93ms; natural connection
+Viola,transition,84,legato,slow,52,57,5,64,28.0,target transition ~93ms; natural connection
+Viola,transition,84,legato,slow,52,59,7,64,28.0,target transition ~93ms; natural connection
+Viola,transition,84,legato,slow,60,62,2,64,28.0,target transition ~93ms; natural connection
+Viola,transition,84,legato,slow,60,65,5,64,28.0,target transition ~93ms; natural connection
+Viola,transition,84,legato,slow,60,67,7,64,28.0,target transition ~93ms; natural connection
+Viola,transition,84,legato,normal,52,54,2,64,28.0,target transition ~64ms; natural connection
+Viola,transition,84,legato,normal,52,57,5,64,28.0,target transition ~64ms; natural connection
+Viola,transition,84,legato,normal,52,59,7,64,28.0,target transition ~64ms; natural connection
+Viola,transition,84,legato,normal,60,62,2,64,28.0,target transition ~64ms; natural connection
+Viola,transition,84,legato,normal,60,65,5,64,28.0,target transition ~64ms; natural connection
+Viola,transition,84,legato,normal,60,67,7,64,28.0,target transition ~64ms; natural connection
+Viola,transition,84,legato,fast,52,54,2,64,28.0,target transition ~44ms; natural connection
+Viola,transition,84,legato,fast,52,57,5,64,28.0,target transition ~44ms; natural connection
+Viola,transition,84,legato,fast,52,59,7,64,28.0,target transition ~44ms; natural connection
+Viola,transition,84,legato,fast,60,62,2,64,28.0,target transition ~44ms; natural connection
+Viola,transition,84,legato,fast,60,65,5,64,28.0,target transition ~44ms; natural connection
+Viola,transition,84,legato,fast,60,67,7,64,28.0,target transition ~44ms; natural connection
+Viola,transition,84,portamento,slow,52,54,2,64,28.0,target transition ~238ms; natural connection
+Viola,transition,84,portamento,slow,52,57,5,64,28.0,target transition ~238ms; natural connection
+Viola,transition,84,portamento,slow,52,59,7,64,28.0,target transition ~238ms; natural connection
+Viola,transition,84,portamento,slow,60,62,2,64,28.0,target transition ~238ms; natural connection
+Viola,transition,84,portamento,slow,60,65,5,64,28.0,target transition ~238ms; natural connection
+Viola,transition,84,portamento,slow,60,67,7,64,28.0,target transition ~238ms; natural connection
+Viola,transition,84,portamento,normal,52,54,2,64,28.0,target transition ~164ms; natural connection
+Viola,transition,84,portamento,normal,52,57,5,64,28.0,target transition ~164ms; natural connection
+Viola,transition,84,portamento,normal,52,59,7,64,28.0,target transition ~164ms; natural connection
+Viola,transition,84,portamento,normal,60,62,2,64,28.0,target transition ~164ms; natural connection
+Viola,transition,84,portamento,normal,60,65,5,64,28.0,target transition ~164ms; natural connection
+Viola,transition,84,portamento,normal,60,67,7,64,28.0,target transition ~164ms; natural connection
+Viola,transition,84,portamento,fast,52,54,2,64,28.0,target transition ~112ms; natural connection
+Viola,transition,84,portamento,fast,52,57,5,64,28.0,target transition ~112ms; natural connection
+Viola,transition,84,portamento,fast,52,59,7,64,28.0,target transition ~112ms; natural connection
+Viola,transition,84,portamento,fast,60,62,2,64,28.0,target transition ~112ms; natural connection
+Viola,transition,84,portamento,fast,60,65,5,64,28.0,target transition ~112ms; natural connection
+Viola,transition,84,portamento,fast,60,67,7,64,28.0,target transition ~112ms; natural connection
+Viola,bow_change,56,legato,slow,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,56,legato,slow,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,56,legato,slow,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,56,legato,normal,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,56,legato,normal,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,56,legato,normal,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,56,legato,fast,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,56,legato,fast,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,56,legato,fast,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,slow,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,slow,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,slow,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,normal,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,normal,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,normal,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,fast,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,fast,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,68,legato,fast,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,slow,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,slow,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,slow,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,normal,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,normal,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,normal,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,fast,52,52,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,fast,60,60,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Viola,bow_change,84,legato,fast,67,67,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,vibrato_depth_rate,58,expressive,slow,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,slow,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,normal,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,58,expressive,fast,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,slow,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,normal,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,68,expressive,fast,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,40,40,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,40,40,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,40,40,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,40,40,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,40,40,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,48,48,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,48,48,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,48,48,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,48,48,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,48,48,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,slow,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,normal,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,55,55,0,0,0.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,55,55,0,32,12.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,55,55,0,64,28.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,55,55,0,96,48.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,vibrato_depth_rate,82,expressive,fast,55,55,0,127,72.0,4 beats; CC3 controls depth; speed profile requests slow/normal/fast human vibrato rate without metronome phase-lock
+Cello,transition,56,legato,slow,40,42,2,64,28.0,target transition ~140ms; natural connection
+Cello,transition,56,legato,slow,40,45,5,64,28.0,target transition ~140ms; natural connection
+Cello,transition,56,legato,slow,40,47,7,64,28.0,target transition ~140ms; natural connection
+Cello,transition,56,legato,slow,48,50,2,64,28.0,target transition ~140ms; natural connection
+Cello,transition,56,legato,slow,48,53,5,64,28.0,target transition ~140ms; natural connection
+Cello,transition,56,legato,slow,48,55,7,64,28.0,target transition ~140ms; natural connection
+Cello,transition,56,legato,normal,40,42,2,64,28.0,target transition ~96ms; natural connection
+Cello,transition,56,legato,normal,40,45,5,64,28.0,target transition ~96ms; natural connection
+Cello,transition,56,legato,normal,40,47,7,64,28.0,target transition ~96ms; natural connection
+Cello,transition,56,legato,normal,48,50,2,64,28.0,target transition ~96ms; natural connection
+Cello,transition,56,legato,normal,48,53,5,64,28.0,target transition ~96ms; natural connection
+Cello,transition,56,legato,normal,48,55,7,64,28.0,target transition ~96ms; natural connection
+Cello,transition,56,legato,fast,40,42,2,64,28.0,target transition ~66ms; natural connection
+Cello,transition,56,legato,fast,40,45,5,64,28.0,target transition ~66ms; natural connection
+Cello,transition,56,legato,fast,40,47,7,64,28.0,target transition ~66ms; natural connection
+Cello,transition,56,legato,fast,48,50,2,64,28.0,target transition ~66ms; natural connection
+Cello,transition,56,legato,fast,48,53,5,64,28.0,target transition ~66ms; natural connection
+Cello,transition,56,legato,fast,48,55,7,64,28.0,target transition ~66ms; natural connection
+Cello,transition,56,portamento,slow,40,42,2,64,28.0,target transition ~357ms; natural connection
+Cello,transition,56,portamento,slow,40,45,5,64,28.0,target transition ~357ms; natural connection
+Cello,transition,56,portamento,slow,40,47,7,64,28.0,target transition ~357ms; natural connection
+Cello,transition,56,portamento,slow,48,50,2,64,28.0,target transition ~357ms; natural connection
+Cello,transition,56,portamento,slow,48,53,5,64,28.0,target transition ~357ms; natural connection
+Cello,transition,56,portamento,slow,48,55,7,64,28.0,target transition ~357ms; natural connection
+Cello,transition,56,portamento,normal,40,42,2,64,28.0,target transition ~246ms; natural connection
+Cello,transition,56,portamento,normal,40,45,5,64,28.0,target transition ~246ms; natural connection
+Cello,transition,56,portamento,normal,40,47,7,64,28.0,target transition ~246ms; natural connection
+Cello,transition,56,portamento,normal,48,50,2,64,28.0,target transition ~246ms; natural connection
+Cello,transition,56,portamento,normal,48,53,5,64,28.0,target transition ~246ms; natural connection
+Cello,transition,56,portamento,normal,48,55,7,64,28.0,target transition ~246ms; natural connection
+Cello,transition,56,portamento,fast,40,42,2,64,28.0,target transition ~168ms; natural connection
+Cello,transition,56,portamento,fast,40,45,5,64,28.0,target transition ~168ms; natural connection
+Cello,transition,56,portamento,fast,40,47,7,64,28.0,target transition ~168ms; natural connection
+Cello,transition,56,portamento,fast,48,50,2,64,28.0,target transition ~168ms; natural connection
+Cello,transition,56,portamento,fast,48,53,5,64,28.0,target transition ~168ms; natural connection
+Cello,transition,56,portamento,fast,48,55,7,64,28.0,target transition ~168ms; natural connection
+Cello,transition,68,legato,slow,40,42,2,64,28.0,target transition ~115ms; natural connection
+Cello,transition,68,legato,slow,40,45,5,64,28.0,target transition ~115ms; natural connection
+Cello,transition,68,legato,slow,40,47,7,64,28.0,target transition ~115ms; natural connection
+Cello,transition,68,legato,slow,48,50,2,64,28.0,target transition ~115ms; natural connection
+Cello,transition,68,legato,slow,48,53,5,64,28.0,target transition ~115ms; natural connection
+Cello,transition,68,legato,slow,48,55,7,64,28.0,target transition ~115ms; natural connection
+Cello,transition,68,legato,normal,40,42,2,64,28.0,target transition ~79ms; natural connection
+Cello,transition,68,legato,normal,40,45,5,64,28.0,target transition ~79ms; natural connection
+Cello,transition,68,legato,normal,40,47,7,64,28.0,target transition ~79ms; natural connection
+Cello,transition,68,legato,normal,48,50,2,64,28.0,target transition ~79ms; natural connection
+Cello,transition,68,legato,normal,48,53,5,64,28.0,target transition ~79ms; natural connection
+Cello,transition,68,legato,normal,48,55,7,64,28.0,target transition ~79ms; natural connection
+Cello,transition,68,legato,fast,40,42,2,64,28.0,target transition ~54ms; natural connection
+Cello,transition,68,legato,fast,40,45,5,64,28.0,target transition ~54ms; natural connection
+Cello,transition,68,legato,fast,40,47,7,64,28.0,target transition ~54ms; natural connection
+Cello,transition,68,legato,fast,48,50,2,64,28.0,target transition ~54ms; natural connection
+Cello,transition,68,legato,fast,48,53,5,64,28.0,target transition ~54ms; natural connection
+Cello,transition,68,legato,fast,48,55,7,64,28.0,target transition ~54ms; natural connection
+Cello,transition,68,portamento,slow,40,42,2,64,28.0,target transition ~294ms; natural connection
+Cello,transition,68,portamento,slow,40,45,5,64,28.0,target transition ~294ms; natural connection
+Cello,transition,68,portamento,slow,40,47,7,64,28.0,target transition ~294ms; natural connection
+Cello,transition,68,portamento,slow,48,50,2,64,28.0,target transition ~294ms; natural connection
+Cello,transition,68,portamento,slow,48,53,5,64,28.0,target transition ~294ms; natural connection
+Cello,transition,68,portamento,slow,48,55,7,64,28.0,target transition ~294ms; natural connection
+Cello,transition,68,portamento,normal,40,42,2,64,28.0,target transition ~203ms; natural connection
+Cello,transition,68,portamento,normal,40,45,5,64,28.0,target transition ~203ms; natural connection
+Cello,transition,68,portamento,normal,40,47,7,64,28.0,target transition ~203ms; natural connection
+Cello,transition,68,portamento,normal,48,50,2,64,28.0,target transition ~203ms; natural connection
+Cello,transition,68,portamento,normal,48,53,5,64,28.0,target transition ~203ms; natural connection
+Cello,transition,68,portamento,normal,48,55,7,64,28.0,target transition ~203ms; natural connection
+Cello,transition,68,portamento,fast,40,42,2,64,28.0,target transition ~138ms; natural connection
+Cello,transition,68,portamento,fast,40,45,5,64,28.0,target transition ~138ms; natural connection
+Cello,transition,68,portamento,fast,40,47,7,64,28.0,target transition ~138ms; natural connection
+Cello,transition,68,portamento,fast,48,50,2,64,28.0,target transition ~138ms; natural connection
+Cello,transition,68,portamento,fast,48,53,5,64,28.0,target transition ~138ms; natural connection
+Cello,transition,68,portamento,fast,48,55,7,64,28.0,target transition ~138ms; natural connection
+Cello,transition,84,legato,slow,40,42,2,64,28.0,target transition ~93ms; natural connection
+Cello,transition,84,legato,slow,40,45,5,64,28.0,target transition ~93ms; natural connection
+Cello,transition,84,legato,slow,40,47,7,64,28.0,target transition ~93ms; natural connection
+Cello,transition,84,legato,slow,48,50,2,64,28.0,target transition ~93ms; natural connection
+Cello,transition,84,legato,slow,48,53,5,64,28.0,target transition ~93ms; natural connection
+Cello,transition,84,legato,slow,48,55,7,64,28.0,target transition ~93ms; natural connection
+Cello,transition,84,legato,normal,40,42,2,64,28.0,target transition ~64ms; natural connection
+Cello,transition,84,legato,normal,40,45,5,64,28.0,target transition ~64ms; natural connection
+Cello,transition,84,legato,normal,40,47,7,64,28.0,target transition ~64ms; natural connection
+Cello,transition,84,legato,normal,48,50,2,64,28.0,target transition ~64ms; natural connection
+Cello,transition,84,legato,normal,48,53,5,64,28.0,target transition ~64ms; natural connection
+Cello,transition,84,legato,normal,48,55,7,64,28.0,target transition ~64ms; natural connection
+Cello,transition,84,legato,fast,40,42,2,64,28.0,target transition ~44ms; natural connection
+Cello,transition,84,legato,fast,40,45,5,64,28.0,target transition ~44ms; natural connection
+Cello,transition,84,legato,fast,40,47,7,64,28.0,target transition ~44ms; natural connection
+Cello,transition,84,legato,fast,48,50,2,64,28.0,target transition ~44ms; natural connection
+Cello,transition,84,legato,fast,48,53,5,64,28.0,target transition ~44ms; natural connection
+Cello,transition,84,legato,fast,48,55,7,64,28.0,target transition ~44ms; natural connection
+Cello,transition,84,portamento,slow,40,42,2,64,28.0,target transition ~238ms; natural connection
+Cello,transition,84,portamento,slow,40,45,5,64,28.0,target transition ~238ms; natural connection
+Cello,transition,84,portamento,slow,40,47,7,64,28.0,target transition ~238ms; natural connection
+Cello,transition,84,portamento,slow,48,50,2,64,28.0,target transition ~238ms; natural connection
+Cello,transition,84,portamento,slow,48,53,5,64,28.0,target transition ~238ms; natural connection
+Cello,transition,84,portamento,slow,48,55,7,64,28.0,target transition ~238ms; natural connection
+Cello,transition,84,portamento,normal,40,42,2,64,28.0,target transition ~164ms; natural connection
+Cello,transition,84,portamento,normal,40,45,5,64,28.0,target transition ~164ms; natural connection
+Cello,transition,84,portamento,normal,40,47,7,64,28.0,target transition ~164ms; natural connection
+Cello,transition,84,portamento,normal,48,50,2,64,28.0,target transition ~164ms; natural connection
+Cello,transition,84,portamento,normal,48,53,5,64,28.0,target transition ~164ms; natural connection
+Cello,transition,84,portamento,normal,48,55,7,64,28.0,target transition ~164ms; natural connection
+Cello,transition,84,portamento,fast,40,42,2,64,28.0,target transition ~112ms; natural connection
+Cello,transition,84,portamento,fast,40,45,5,64,28.0,target transition ~112ms; natural connection
+Cello,transition,84,portamento,fast,40,47,7,64,28.0,target transition ~112ms; natural connection
+Cello,transition,84,portamento,fast,48,50,2,64,28.0,target transition ~112ms; natural connection
+Cello,transition,84,portamento,fast,48,53,5,64,28.0,target transition ~112ms; natural connection
+Cello,transition,84,portamento,fast,48,55,7,64,28.0,target transition ~112ms; natural connection
+Cello,bow_change,56,legato,slow,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,56,legato,slow,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,56,legato,slow,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,56,legato,normal,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,56,legato,normal,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,56,legato,normal,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,56,legato,fast,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,56,legato,fast,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,56,legato,fast,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,slow,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,slow,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,slow,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,normal,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,normal,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,normal,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,fast,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,fast,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,68,legato,fast,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,slow,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,slow,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,slow,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,normal,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,normal,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,normal,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,fast,40,40,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,fast,48,48,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"
+Cello,bow_change,84,legato,fast,55,55,0,58,25.0,"four controlled re-bows; minimize artificial accent, retain bow texture"

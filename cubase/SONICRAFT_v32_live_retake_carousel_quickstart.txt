@@ -1,0 +1,15 @@
+SONICRAFT v3.2 · CUBASE LIVE RETAKE CAROUSEL
+
+1. Select the phrase/events you want to audition.
+2. Press P (Locators to Selection), then enable Cycle.
+3. SONICRAFT Host Scope = Locator Retake or Locator Both.
+4. Set Retake Target, Amount, and Base Seed.
+5. Take Bank Mode:
+   - Manual: click A/B/C/D directly.
+   - Auto Loop: each confirmed cycle wrap advances A -> B -> C -> D -> A.
+6. Freeze Current Take when the preferred take is playing.
+7. Disable Freeze to resume cycling.
+
+Take A = exact Base Seed. B/C/D are deterministic derivatives.
+Outside the locator range the Base Seed is untouched.
+For a permanent MIDI-visible edit use PROJECT_BRIDGE_RETAKE.bat.

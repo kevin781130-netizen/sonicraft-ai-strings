@@ -1,0 +1,12 @@
+SONICRAFT v3.5 — Studio One Performance Memory
+
+1. Set Loop Range around the phrase/section to review.
+2. SONICRAFT: Host Scope = Locator Retake or Locator Both.
+3. Use Manual or Auto Loop A/B/C/D Take Bank.
+4. Performance Memory follows the playhead by default.
+5. PREV/NEXT pins the browser; UNRESOLVED finds the next phrase without a committed take.
+6. Recall A/B/C/D then AUDITION, COMMIT, FAV or REJ.
+7. FAV/REJ are review metadata and do not commit by themselves.
+8. Coverage shows completion inside the active host range.
+
+Target-host v3.5 binary validation is still required before release.

@@ -1,0 +1,18 @@
+{
+  "schema": 2,
+  "product": "SONICRAFT AI Strings Q4",
+  "version": "2.0.0-acoustic-promotion",
+  "release_pass": false,
+  "midi_lock_pass": false,
+  "vibrato_monotonic_pass": false,
+  "tempo_transition_pass": false,
+  "dropout_fallback_pass": false,
+  "abx_pass": false,
+  "abx": {
+    "listener_count": 0,
+    "trial_count": 0,
+    "generated_identification_accuracy": null,
+    "target_max_accuracy": 0.6
+  },
+  "notes": "Schema 7 keeps generic release metrics plus separate powered codec-transparency and generated-vs-real ABX evidence. Acoustic Promotion is granted only after all gates pass."
+}

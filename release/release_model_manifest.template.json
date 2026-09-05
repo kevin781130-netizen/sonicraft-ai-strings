@@ -1,0 +1,93 @@
+{
+  "schema": 7,
+  "product": "SONICRAFT AI Strings Q4",
+  "version": "2.0.0-acoustic-promotion",
+  "commercial_safe": true,
+  "release_approved": false,
+  "acoustic_promotion_id": "<64 hex>",
+  "codec": {
+    "kind": "strings_vae64",
+    "sample_rate": 48000,
+    "latent_ch": 64,
+    "latent_hz": 30.0,
+    "downsampling_ratio": 1600
+  },
+  "files": [
+    {
+      "name": "ballad_renderer_hq_v20_best.pt",
+      "role": "hq",
+      "sha256": "<64 hex>"
+    },
+    {
+      "name": "ballad_renderer_frontier_v20_shortcut.pt",
+      "role": "compact",
+      "sha256": "<64 hex>"
+    },
+    {
+      "name": "strings_vae64_decoder_v20.pt",
+      "role": "string_vae64",
+      "sha256": "<64 hex>"
+    }
+  ],
+  "provenance": {
+    "file": "training_provenance.json",
+    "sha256": "<64 hex>",
+    "contains_blocked_sources": false
+  },
+  "metrics": {
+    "file": "release_metrics.json",
+    "sha256": "<64 hex>"
+  },
+  "sound_forge": {
+    "file": "sound_forge_report.json",
+    "sha256": "<64 hex>",
+    "forge_version": "sound_forge_v19"
+  },
+  "acoustic_segments": {
+    "file": "acoustic_segments_report.json",
+    "sha256": "<64 hex>"
+  },
+  "codec_tournament": {
+    "file": "codec_tournament_v20.json",
+    "sha256": "<64 hex>",
+    "winner": "<candidate>",
+    "winner_kind": "strings_vae64"
+  },
+  "codec_abx": {
+    "file": "codec_abx_report.json",
+    "sha256": "<64 hex>",
+    "accuracy": null,
+    "target_max_accuracy": 0.6
+  },
+  "generated_real_abx": {
+    "file": "generated_real_abx_report.json",
+    "sha256": "<64 hex>",
+    "accuracy": null,
+    "target_max_accuracy": 0.6
+  },
+  "acoustic_promotion": {
+    "file": "acoustic_promotion.json",
+    "sha256": "<64 hex>",
+    "promotion_id": "<64 hex>"
+  },
+  "profile": "full_hq",
+  "sampler": {
+    "family": "shortcut",
+    "supported_steps": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "recommended_steps": 2,
+    "interval_conditioning": true
+  },
+  "training_policy": {
+    "real_probability": 0.8,
+    "modeled_probability": 0.2,
+    "modeled_timbre_anchor": false,
+    "modeled_adversarial_target": false,
+    "curriculum": "lane_locked_acoustic_promotion_v20",
+    "cleanroom_modeled_only": true
+  }
+}

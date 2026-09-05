@@ -1,0 +1,37 @@
+{
+  "version": "3.4.0-persistent-performance-comp",
+  "date": "2026-09-01",
+  "acoustic_core_changed": false,
+  "training_data_changed": false,
+  "persistent_performance_comp": {
+    "project_state_schema": 10,
+    "phrase_take_map_persistent_source": true,
+    "favorite_reject_metadata_persistent_source": true,
+    "capacity": 128,
+    "undo_redo_depth": 16,
+    "commit_across_locator": true,
+    "favorite_reject_mutually_exclusive": true,
+    "allocation_free_realtime_storage": true,
+    "controller_state_alignment_fix": true,
+    "standalone_comp_smoke": "PASS",
+    "source_state_contract": "PASS",
+    "actual_vst3_host_save_reopen_validation": false
+  },
+  "backward_compatibility": {
+    "v33_phrase_comp": "PASS",
+    "v32_carousel": "PASS",
+    "v31_locator_scope": "PASS",
+    "v30_command_lane": "PASS",
+    "v28_performance_commander": "PASS"
+  },
+  "native_core": {
+    "clean_non_vst_build": "PASS",
+    "inprocess_engine_channels": 34,
+    "promotion_guard_tamper": "PASS"
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "commercial_binary_release_approved": false
+  },
+  "acoustic_release_approved": false
+}

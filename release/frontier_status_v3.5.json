@@ -1,0 +1,63 @@
+{
+  "version": "3.5.0-performance-memory",
+  "date": "2026-09-01",
+  "acoustic_core_changed": false,
+  "training_data_changed": false,
+  "performance_memory": {
+    "follow_playhead": true,
+    "prev_next_navigation": true,
+    "next_unresolved": true,
+    "recall_take_bank": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "audition_recall": true,
+    "commit_recall": true,
+    "favorite_reject_review_only": true,
+    "clear_phrase": true,
+    "processor_status_outputs": [
+      "committed_take",
+      "recall_favorite",
+      "recall_rejected",
+      "locator_coverage",
+      "cursor_position"
+    ],
+    "state_schema": 11,
+    "browser_state_persistent_source": true,
+    "metadata_without_commit": true,
+    "locator_end_exclusive_bug_fixed": true,
+    "editor_constraint_mismatch_fixed": true
+  },
+  "backward_compatibility": {
+    "v34_state_entries_migrate_committed": true,
+    "v34_persistent_comp": "PASS",
+    "v33_phrase_comp": "PASS",
+    "v32_carousel": "PASS",
+    "v31_locator_scope": "PASS",
+    "v30_command_lane": "PASS"
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "cubase_v35_host_validation": false,
+    "studio_one_v35_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "acoustic_release_approved": false,
+  "native_core": {
+    "clean_non_vst_build": "PASS",
+    "performance_memory_smoke": "PASS",
+    "inprocess_engine_channels": 34,
+    "ort_no_torch_shape": [
+      12000,
+      34
+    ],
+    "mock_multiout_shape": [
+      12000,
+      34
+    ],
+    "torch_numpy_control_parity": "PASS",
+    "promotion_guard_tamper": "PASS"
+  }
+}

@@ -1,0 +1,19 @@
+SONICRAFT v3.1 — CUBASE HOST SCOPE
+
+FAST RETAKE
+1. Select the target event/range.
+2. Press P (Cubase: Locators to Selection).
+3. SONICRAFT > Host Scope = Locator Retake.
+4. Choose Retake Target + Amount + Seed.
+5. Play/render. Change Seed for another deterministic take.
+
+FAST DIRECTOR
+1. Select range > P.
+2. Host Scope = Locator Director (or Locator Both).
+3. Choose Host Scope Style and Host Scope Looseness.
+4. Outside the locators, your global Director settings remain unchanged.
+
+NOTES
+- Host Scope does not edit notes, keyswitches, CC1/3/11, or the v3 Command Lane.
+- For a permanent MIDI-visible edit, continue using PROJECT_BRIDGE_*.bat.
+- Current v3.1 source requires a rebuilt/validated VST3 binary on the target Windows/macOS toolchain.

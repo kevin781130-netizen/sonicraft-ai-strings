@@ -1,0 +1,19 @@
+SONICRAFT AI Strings Q4 v6.4 — Frontend research / license boundary
+
+No source code from the research-reference piano-roll projects was copied into SONICRAFT v6.4.
+The local editor implementation is clean-room, dependency-free HTML/CSS/JavaScript + Python standard library.
+
+Retained/existing framework:
+- Steinberg VSTGUI — BSD-style license. Existing project dependency for native VST3 UI.
+
+Research references only; not vendored:
+- sfztools/sfizz-ui — BSD-2-Clause; UI uses VSTGUI (BSD3).
+- AudioKit/PianoRoll — MIT.
+- other MIT piano-roll/editor examples evaluated for generic interaction patterns.
+
+Deliberately not vendored:
+- GPL/AGPL DAW or synthesizer UI code.
+- JUCE-based reference implementations (framework/license migration not justified for this release).
+- Electron/React/Node package stacks.
+
+The purpose of the research pass was to converge interaction architecture while minimizing commercial licensing, binary-size and dependency risk.

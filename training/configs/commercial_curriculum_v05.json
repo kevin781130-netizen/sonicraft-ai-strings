@@ -1,0 +1,67 @@
+{
+  "version": "0.5",
+  "product_goal": "Mandarin-ballad Q4; recording-indistinguishable realism with fail-closed commercial provenance",
+  "stages": [
+    {
+      "name": "codec_bootstrap",
+      "epochs": 30,
+      "sources": {
+        "iowa_mis": 0.52,
+        "good_sounds_cora_2025": 0.33,
+        "tinysol": 0.15
+      },
+      "purpose": "clean string tone, bow texture, dynamics; no phrase claims"
+    },
+    {
+      "name": "violin_performance_prior",
+      "epochs": 20,
+      "sources": {
+        "good_sounds_cora_2025": 0.45,
+        "ghent_ar_violin_2023": 0.25,
+        "sanidha": 0.3
+      },
+      "purpose": "real bow continuity, player variation, motion/acoustic prior; style-neutralized"
+    },
+    {
+      "name": "aligned_renderer_bootstrap",
+      "epochs": 80,
+      "sources": {
+        "iowa_mis": 0.25,
+        "good_sounds_cora_2025": 0.55,
+        "tinysol": 0.2
+      },
+      "purpose": "note/control mapping bootstrap before owned transitions"
+    },
+    {
+      "name": "realism_critic",
+      "epochs": 25,
+      "sources": {
+        "wikimedia_pd_quartets": 0.55,
+        "musicnet_audited": 0.45
+      },
+      "purpose": "ensemble spectral/dynamic/room realism only; never override MIDI"
+    },
+    {
+      "name": "owned_transition_finetune",
+      "epochs": 60,
+      "sources": {
+        "custom_owned_session": 0.85,
+        "good_sounds_cora_2025": 0.1,
+        "iowa_mis": 0.05
+      },
+      "purpose": "final Mandarin-ballad legato, vibrato, portamento, rebow and phrase behavior"
+    }
+  ],
+  "hard_rules": [
+    "No research-only/NC/unclear-rights audio in commercial release checkpoints.",
+    "No source may infer CC3 vibrato labels unless vibrato supervision is explicit or generated from owned aligned sessions.",
+    "MIDI pitch/onset/duration/articulation remain authoritative in Manual and Assist modes.",
+    "Carnatic/other style-specific sources may train acoustic texture but must not supervise Mandarin-ballad pitch ornament policy."
+  ],
+  "new_training_rules": [
+    "Use group-safe validation split by session/piece/source file.",
+    "Select EMA best-validation checkpoint for HQ teacher.",
+    "Distill compact model from HQ teacher instead of treating compact as equal-fidelity endpoint.",
+    "Audit supervision coverage before every release training run."
+  ]
+}

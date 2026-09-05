@@ -1,0 +1,89 @@
+MIT ACCELERATOR SOURCES — v1.5 PASS 2
+
+These are pinned development/training/reference snapshots. Third-party datasets, pretrained checkpoints,
+downloaded model weights, GGUF files, subjective-study audio and commercial assets are not imported by
+the source harvester unless separately audited. The lean consumer runtime does not require these repos.
+
+VIOLET — https://github.com/User-tian/VIOLET
+License: MIT source code. Dataset/checkpoints/third-party assets excluded.
+Pinned source commit: cf0975a752a7ee3cc6e11bb573f9e47c64a0ef97
+
+TorchCrepe — https://github.com/maxrmorrison/torchcrepe
+License: MIT source code. Offline training analyzer only.
+Pinned source commit: 19e2ec3d494c0797a5ff2a11408ec5838fba6681
+
+TorchFCPE — https://github.com/CNChTu/FCPE
+License: MIT source code. Offline F0 challenger only; bundled/pretrained pitch weights are not fetched by this source lock.
+Pinned source commit: 6a149c1afb1c7e7821b71869dfb31ad50c95b516
+
+Oobleck — https://github.com/Harmonai-org/oobleck
+License: MIT. Optional codec benchmark only.
+Pinned source commit: 566a8b4e923e1f3c9d8903a3276758fb2376bcc5
+
+SSSSM-DDSP — https://github.com/hyakuchiki/SSSSM-DDSP
+License: MIT. Training/reference only.
+Pinned source commit: 9068d9489808300d2b06bad3f1ab47c1aa40aee3
+
+rectified-flow — https://github.com/lqiang67/rectified-flow
+License: MIT. Reflow/few-step distillation and sampler reference.
+Pinned source commit: 14b4925ad90abdadaca1f7b5caba5555b84e810a
+
+ACE-Step VST3 / acestep.cpp-derived source — https://github.com/ace-step/acestep.vst3
+License: MIT source code. Native C++17/GGML/VST3 engineering reference only; ACE-Step model weights are excluded.
+Pinned source commit: b04bf8aec9be3bdd220050a0cc1c68d045b3b798
+
+Exact upstream license files are copied into training/third_party/vendor when a source snapshot is fetched.
+
+SoundReactor VAE — https://github.com/SonyResearch/soundreactor_vae
+License: MIT source code. 48 kHz / 64-d / 1600x continuous VAE + streaming reference only; pretrained weights and test audio excluded.
+Pinned source commit: 7d5543aa367c3542d01ba32a10805ba76f57b660
+
+EnCodec — https://github.com/facebookresearch/encodec
+License: MIT source code. Training-only discriminator/feature-matching reference; pretrained weights excluded.
+Pinned source commit: 0e2d0aed29362c8e8f52494baf3e6f99056b214f
+
+KVAE-Audio — https://github.com/kandinskylab/kvae-audio
+License: MIT source code. 2026 full-band 48 kHz / 64-d quality benchmark; upstream model weight and example assets excluded.
+Pinned source commit: 5ed41033232d7a648c7c27c557315df3f9cf1aac
+
+BigVGAN — https://github.com/NVIDIA/BigVGAN
+License: MIT source code. Training/reference-only discriminator and anti-aliased periodic activation baseline; pretrained weights/CUDA extension not shipped.
+Pinned source commit: 7d2b454564a6c7d014227f635b7423881f14bdac
+
+ONNX Runtime
+- Repository: https://github.com/microsoft/onnxruntime
+- Pinned source commit: 2e2543fbe9fae542f921d47a72d21d5a4ef0b710
+- License: MIT
+- SONICRAFT use: development/build reference for ORT-format conversion, reduced-operator custom runtimes and modular CUDA execution-provider builds. No upstream models are bundled.
+
+Shortcut Models — https://github.com/kvfrans/shortcut-models
+License: MIT. Training-only self-bootstrap / step-conditioned flow reference. SONICRAFT ships one student network only; upstream checkpoints/datasets are excluded.
+Pinned source commit: 601004348667094e1b71f30942199759412d4432
+
+MeanFlow — https://github.com/Gsunshine/meanflow
+License: MIT. Training/reference-only one-step average-velocity benchmark. JAX/JVP training stack is not a consumer dependency.
+Pinned source commit: d70cb55d298ee03c53bf6da67bec281082e4e2d9
+
+DDSP-Violin (EUSIPCO 2026) — https://github.com/JoaoerDuarte/DDSP-Violin-EUSIPCO2026
+License: MIT. Bowed-string-specific DDSP training/reference only; no upstream audio is bundled.
+Pinned source commit: 7377d7a440c2d29ff1d3b28512d0aa9c9af5e5be
+
+NESS — https://github.com/Edinburgh-Acoustics-and-Audio-Group/ness
+License: MIT. Offline physical-modelling reference/validation only; no NESS binary is shipped.
+Pinned source commit: 14c7b47e4cb32eda09bc75ad938cff90d5ff245b
+
+stable-audio-tools — https://github.com/Stability-AI/stable-audio-tools
+License: MIT. Development/training framework reference; upstream weights/assets excluded.
+Pinned source commit: 3241adba4fc2a85cf5b29d9eb68d42f40a28e820
+
+AudioCraft — https://github.com/facebookresearch/audiocraft
+License: MIT for code referenced by this source lock. Upstream non-commercial pretrained weights are explicitly excluded.
+Pinned source commit: 896ec7c47f5e5d1e5aa1e4b260c4405328bf009d
+
+Descript Audio Codec — https://github.com/descriptinc/descript-audio-codec
+License: MIT. Trainable codec baseline/challenger; upstream pretrained weights excluded from the commercial pack.
+Pinned source commit: c7cfc5d2647e26471dc394f95846a0830e7bec34
+
+ACE-Step 1.5 — https://github.com/ace-step/ACE-Step-1.5
+License: MIT. 48 kHz / 64-d / 1920x (25 Hz) VAE geometry is a development/training ABX challenger. Upstream weights/generated media excluded.
+Pinned source commit: ca1e85fe9430179831e6bc6be790c332190a3866

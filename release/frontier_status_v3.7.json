@@ -1,0 +1,74 @@
+{
+  "version": "3.7.0-audio-aware-take-judge",
+  "date": "2026-09-01",
+  "acoustic_core_changed": false,
+  "training_data_changed": false,
+  "audio_take_judge": {
+    "renders_actual_abcd": true,
+    "reuses_waveform_cache": true,
+    "async_outside_audio_callback": true,
+    "metrics": [
+      "dynamics_contour",
+      "attack_consistency",
+      "transition_smoothness",
+      "energy_stability",
+      "safety"
+    ],
+    "subjective_taste_model_claimed": false,
+    "favorite_priority": true,
+    "reject_exclusion": true,
+    "phrase_identity_guard": true,
+    "event_history_seconds": 90,
+    "protocol_type": 3,
+    "judge_payload_bytes": 100,
+    "smart_comp_prefers_judge_when_valid": true,
+    "heuristic_fallback": true,
+    "config_identity_guard": true,
+    "pinned_phrase_resolved_policy_snapshot": true,
+    "tempo_beat_sample_mapping": true,
+    "repeated_judge_cache_entries": 4,
+    "dsp_synthetic_smoke": "PASS",
+    "judge_protocol_mock_smoke": "PASS",
+    "shadow_transport_cpp_compile": "PASS",
+    "nonce_cpp_quantized_0_37": [
+      94,
+      187,
+      209,
+      143
+    ]
+  },
+  "state": {
+    "schema": 12,
+    "judge_persisted": false,
+    "controller_restore_pollution_fixed": true
+  },
+  "backward_compatibility": {
+    "v36_smart_timeline": "PASS",
+    "v35_performance_memory": "PASS",
+    "v34_persistent_comp": "PASS",
+    "v32_carousel": "PASS"
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "cubase_v37_host_validation": false,
+    "studio_one_v37_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "acoustic_release_approved": false,
+  "native_core": {
+    "clean_non_vst_build": "PASS",
+    "tempo_sample_map": "PASS",
+    "judge_protocol_cpp": "PASS",
+    "inprocess_engine_channels": 34,
+    "ort_no_torch_shape": [
+      12000,
+      34
+    ],
+    "mock_multiout_shape": [
+      12000,
+      34
+    ],
+    "torch_numpy_control_parity": "PASS",
+    "promotion_guard_tamper": "PASS"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "version": "3.1.0-host-native-locator-scope",
+  "date": "2026-09-01",
+  "acoustic_core_changed": false,
+  "training_data_changed": false,
+  "host_native_scope": {
+    "vst3_process_context_cycle_music": true,
+    "locator_retake": true,
+    "locator_director": true,
+    "locator_both": true,
+    "in_block_boundary_scheduler": true,
+    "v30_command_lane_backward_compatible": true,
+    "midi_cc_120_127_preserved": true,
+    "native_scope_smoke": "PASS",
+    "source_contract_smoke": "PASS",
+    "vst3_binary_validation": false
+  },
+  "native_core": {
+    "clean_non_vst_build": "PASS",
+    "host_cycle_scope_smoke": "PASS",
+    "host_command_lane_smoke": "PASS",
+    "performance_commander_smoke": "PASS",
+    "inprocess_engine_channels": 34
+  },
+  "release_binary_status": {
+    "windows_v31_binary_rebuilt": false,
+    "bundled_legacy_exes_are_v31": false,
+    "commercial_binary_release_approved": false
+  },
+  "acoustic_release_approved": false,
+  "notes": "v3.1 adds real host-native locator/cycle scoped performance behavior. Target VST3 binary still requires Steinberg SDK/toolchain validation. Acoustic promotion remains separately fail-closed."
+}

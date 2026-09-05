@@ -1,0 +1,58 @@
+{
+  "version": "6.2.0-acoustic-runtime-provenance",
+  "date": "2026-09-03",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "checkpoint": {
+    "schema": 1,
+    "v61_decision_environment_binding_preserved": true,
+    "acoustic_runtime_provenance_schema": 1,
+    "model_manifest_sha256": true,
+    "actual_declared_weight_sha256": true,
+    "ort_export_manifest_and_model_sha256": true,
+    "renderer_build_fingerprint": true,
+    "torch_runtime_and_device_capability": true,
+    "onnxruntime_build_device_provider_introspection": true,
+    "nvidia_driver_device_probe_best_effort": true,
+    "os_python_environment_binding": true,
+    "sample_rate_render_config_binding": true,
+    "path_independent_checkpoint_id": true,
+    "structured_runtime_drift": true,
+    "in_toto_slsa_local_envelope": true,
+    "signed_attestation_claimed": false,
+    "exact_audio_replay_claimed": false
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "windows_acoustic_runtime_qa": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "v62_python_compile": "PASS",
+    "v62_source_contract": "PASS",
+    "v62_release_installer_contract": "PASS",
+    "checkpoint_core_replay": "PASS",
+    "model_actual_hash_binding": "PASS",
+    "cross_directory_acoustic_binding_stable": "PASS",
+    "sample_rate_drift_explained": "PASS",
+    "compile_replay_survives_acoustic_drift": "PASS",
+    "in_toto_slsa_envelope_contract": "PASS",
+    "auto_loop_checkpoint_integration": "PASS",
+    "v61_checkpoint_regression": "PASS",
+    "v60_evidence_store_regression": "PASS",
+    "release_contracts_v41_to_v62": "PASS",
+    "full_non_vst_cmake_build": "PASS",
+    "native_v62_provenance_contract": "PASS",
+    "exact_audio_replay_claimed": false
+  },
+  "known_boundary": {
+    "external_preexisting_renderer_process_remote_attestation": false,
+    "note": "v6.2 captures local requested/resolved runtime provenance; the existing v5.0 renderer protocol does not cryptographically attest a separately pre-started older service process. Use a clean v6.2-launched renderer instance for release acoustic comparison."
+  }
+}

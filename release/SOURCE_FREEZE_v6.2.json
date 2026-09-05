@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "version": "6.2.0-acoustic-runtime-provenance",
+  "date": "2026-09-03",
+  "scope": "source-freeze-no-vst-binary-claim",
+  "validation": {
+    "v62_checkpoint_core": "PASS",
+    "v62_auto_loop": "PASS",
+    "v62_source_contract": "PASS",
+    "v62_release_contract": "PASS",
+    "v61_checkpoint_regression": "PASS",
+    "v60_evidence_regression": "PASS",
+    "release_contracts_v41_to_v62": "PASS",
+    "all_runtime_python_compile": "PASS",
+    "full_non_vst_cmake_build": "PASS",
+    "native_v62_contract": "PASS",
+    "steinberg_validator": "NOT_RUN",
+    "cubase": "NOT_RUN",
+    "studio_one": "NOT_RUN",
+    "bit_identical_audio_replay": "NOT_CLAIMED"
+  },
+  "files": [
+    {
+      "path": "VERSION",
+      "bytes": 34,
+      "sha256": "5a2c9b1edebc0098db0e8636a8a493e7982bc873e3ee7762d169a6613f6a3ee0"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 13833,
+      "sha256": "e4eb86c4536df84286e9e0f032cac3159cbf69ded7419323e7706741783a297f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 85995,
+      "sha256": "7e49d02a06ab6592e4c1d971dd022a00aa85846220676d7ccccb558c405d3d20"
+    },
+    {
+      "path": "START_HERE.txt",
+      "bytes": 1545,
+      "sha256": "f7dc42f01a526feaf92b3cf64f07d285dc58aa5242f7297d636ac4ce50782750"
+    },
+    {
+      "path": "START_PREBUILT_RELEASE.txt",
+      "bytes": 960,
+      "sha256": "f43bb84326a898e797663d7da0736776f61f9e8a802b3765c6934e29e105e61e"
+    },
+    {
+      "path": "runtime/acoustic_runtime_provenance_v62.py",
+      "bytes": 19276,
+      "sha256": "dc8b739d45d0b5e76439316ec46ce214a8775feed5628b12f051f178cbd76d4e"
+    },
+    {
+      "path": "runtime/performance_checkpoint_v62.py",
+      "bytes": 23034,
+      "sha256": "2350346d7fcad18249227b18ac0ab1d8c0403dd119146c74680a4b1e774d924f"
+    },
+    {
+      "path": "runtime/compile_musicxml_strings_v62.py",
+      "bytes": 18655,
+      "sha256": "140874c0322737534a488b07dc6761dc2cd6dadd1a07cc116d902956926ed140"
+    },
+    {
+      "path": "runtime/auto_loop_strings_v62.py",
+      "bytes": 51649,
+      "sha256": "8d50e350248efe6b363aa6a99a881e182b78aa2ebbe9e66d8b8ce7e3eaee5d10"
+    },
+    {
+      "path": "runtime/smoke_performance_checkpoint_v62.py",
+      "bytes": 13033,
+      "sha256": "51573681fda40e126f8596cc5046c715e0c33e8ef698e381d60a71039a5a1ffb"
+    },
+    {
+      "path": "runtime/smoke_performance_checkpoint_auto_loop_v62.py",
+      "bytes": 13245,
+      "sha256": "cde2862b14ff25405cebbfe469be4a146dff29e780b0e9b55b49382095ff1d2d"
+    },
+    {
+      "path": "runtime/smoke_performance_checkpoint_contract_v62.py",
+      "bytes": 2216,
+      "sha256": "9d0918614f7875baa64537ea14b83747e766482526141691392c4bf6bdde8905"
+    },
+    {
+      "path": "runtime/smoke_release_version_v62.py",
+      "bytes": 1969,
+      "sha256": "e6dd98ff349e33f8cd93204a79e1a3c1c720151c205940b54c0a56bb2c7c125e"
+    },
+    {
+      "path": "src/performance_checkpoint_v62.h",
+      "bytes": 1446,
+      "sha256": "5ed10f2b5b7e3a8a75ca5891567681ead81b306afbe480d3d9f503b122b492ef"
+    },
+    {
+      "path": "standalone/performance_checkpoint_smoke_v62.cpp",
+      "bytes": 1124,
+      "sha256": "8015b83ab6217aa5cce7e890bad03eca14133d89ae09ae1395a140d0a480b9c6"
+    },
+    {
+      "path": "PERFORMANCE_CHECKPOINT_V62.bat",
+      "bytes": 907,
+      "sha256": "83f8797eaebd17df6f477372637d1dbfecde670b306bcd7319d87e1cca176930"
+    },
+    {
+      "path": "COMPILE_MUSICXML_STRINGS_v62.bat",
+      "bytes": 214,
+      "sha256": "eec96804859963aec2a075c72003dfb2d9fa6b42a235df49b0d038efdc07526b"
+    },
+    {
+      "path": "AUTO_LOOP_STRINGS_v62.bat",
+      "bytes": 201,
+      "sha256": "ee303d3b7d4d42b43dc5108047f72aa4010d318e26534e5bdb9f95e6dc140c54"
+    },
+    {
+      "path": "docs/ACOUSTIC_RUNTIME_PROVENANCE_V62.md",
+      "bytes": 3895,
+      "sha256": "66c49b16ca2eabca6d35a75906fe7ca17c162f4176ca56b9a956976a44f8e135"
+    },
+    {
+      "path": "docs/VALIDATION_v6.2.md",
+      "bytes": 1321,
+      "sha256": "e2421a612c5c0323ccc75637b92d61ad7dc76034658d56a3269b2d4e5c75c406"
+    },
+    {
+      "path": "docs/CHANGELOG_v6.2.md",
+      "bytes": 1334,
+      "sha256": "11b8e18416cf878ba4dfa36cbfbc37dc36a99d8245dd533e374e5ea904000b9c"
+    },
+    {
+      "path": "docs/OPEN_SOURCE_PROVENANCE_INTEGRATIONS_V62.md",
+      "bytes": 1523,
+      "sha256": "6e1383b9c62885ae07527e7a74c33eaf086386e8b50166b3da9d14b655d4dba0"
+    },
+    {
+      "path": "release/frontier_status_v6.2.json",
+      "bytes": 2330,
+      "sha256": "a7d6f1c1e54aee78f52a2bfdb00aaacee05de7717669201770c2d2bf37205a3f"
+    },
+    {
+      "path": "installer/INSTALL_AI_RUNTIME.ps1",
+      "bytes": 10600,
+      "sha256": "1443d90ee4b9dd8a707dc1938597ee51f3cafb45728f12d86278a14c7469aa29"
+    },
+    {
+      "path": "installer/INSTALL_AI_RUNTIME_RELEASE.ps1",
+      "bytes": 10275,
+      "sha256": "1bcf93684e53c967497e54ffbda4d3fb29b842fda8ff4946297c25ee2c48b5c7"
+    },
+    {
+      "path": "installer/COLLECT_PREBUILT_APP.ps1",
+      "bytes": 9517,
+      "sha256": "a126c2ba8fd35d6d84eeb358b61b94bac9be612e4f1a1a9554172666beedf48a"
+    },
+    {
+      "path": "installer/tools/verify_prebuilt_layout.py",
+      "bytes": 7825,
+      "sha256": "c419867a6c455beddaa27a76cefa71b57158b11698bba23c62e80496d191c3d2"
+    }
+  ]
+}

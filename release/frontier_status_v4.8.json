@@ -1,0 +1,58 @@
+{
+  "version": "4.8.0-phrase-performance-critic-auto-repair",
+  "date": "2026-09-02",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "critic": {
+    "dimensions": {
+      "bow_reserve": 0.2,
+      "transition": 0.2,
+      "vibrato": 0.15,
+      "dynamics_arc": 0.15,
+      "gesture_spikes": 0.15,
+      "ensemble_alignment": 0.15
+    },
+    "audio_listening": false,
+    "auto_commit_final_winner": false
+  },
+  "repair_fanout": {
+    "A": "Conservative",
+    "B": "Balanced",
+    "C": "Expressive",
+    "D": "Original",
+    "judge_queue": true,
+    "existing_audio_judge_final_authority": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "critic_six_dimensions": "PASS",
+    "repair_A_conservative": "PASS",
+    "repair_B_balanced": "PASS",
+    "repair_C_expressive": "PASS",
+    "original_D_preserved": "PASS",
+    "judge_queue": "PASS",
+    "poisoned_score_original": 34.314,
+    "poisoned_score_A": 72.747,
+    "poisoned_score_B": 76.773,
+    "poisoned_score_C": 73.207,
+    "structural_recommendation": "B",
+    "v47_to_v41_regression": "PASS",
+    "release_contracts_v41_to_v48": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "promotion_guard": "PASS",
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740,
+    "renderer_core_changed_from_v47": false
+  }
+}

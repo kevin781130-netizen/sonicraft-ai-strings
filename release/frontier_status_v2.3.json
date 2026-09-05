@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0-native-production-pass",
+  "consumer_neural_params": 3887433,
+  "raw_fp16_mib": 7.41,
+  "standalone_host": "validated_offline_render_client",
+  "room_capture": "rights_confirmed_11_feed_pipeline",
+  "native_runtime": "promotion-gated",
+  "native_runtime_target_mib": 160,
+  "torch_default_until_promotion": true
+}

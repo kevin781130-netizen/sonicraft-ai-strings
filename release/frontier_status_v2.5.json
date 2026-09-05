@@ -1,0 +1,10 @@
+{
+  "version": "2.5.0-ultra-low-latency-engine",
+  "channel": "low-latency-rc",
+  "neural_core_changed": false,
+  "attack_quantum_ms": 40,
+  "adaptive_quantum_ms": [40, 80, 160],
+  "windows_audio": "IAudioClient3 shared event-driven with legacy waveOut fallback",
+  "midi_timestamp": "WinMM driver dwParam2",
+  "inprocess_ort": "candidate-only; no production promotion yet"
+}

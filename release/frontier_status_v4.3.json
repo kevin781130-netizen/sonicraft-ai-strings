@@ -1,0 +1,50 @@
+{
+  "version": "4.3.0-string-constraint-transition",
+  "date": "2026-09-01",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "state_schema": 13,
+  "constraint_solver": {
+    "future_score_context": true,
+    "transition_repair": true,
+    "transition_risk": true,
+    "bow_budget": true,
+    "forced_bow_change": true,
+    "adjacent_string_double_stop": true,
+    "double_stop_consolidation": true,
+    "triple_quad_stop_conservative_divisi": true,
+    "voice_bus_overload_detection": true,
+    "range_validation": true,
+    "daw_constraint_markers": true,
+    "constraints_json": true
+  },
+  "backward_compatibility": {
+    "v42_physical_bus_reused": true,
+    "v13_state_unchanged": true,
+    "v41_4x4_voice_bus_unchanged": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "constraint_solver": "PASS",
+    "transition_repair": "PASS",
+    "bow_budget": "PASS",
+    "double_stop_adjacent_string": "PASS",
+    "daw_markers": "PASS",
+    "constraint_report": "PASS",
+    "v42_physical_regression": "PASS",
+    "v41_voice_bus_regression": "PASS",
+    "v39_preference_regression": "PASS",
+    "v38_legacy_personal_protocol": "PASS",
+    "v37_judge_protocol": "PASS",
+    "native_34ch_engine": "PASS",
+    "uidesc_xml": "PASS",
+    "param_id_collisions": 0
+  }
+}

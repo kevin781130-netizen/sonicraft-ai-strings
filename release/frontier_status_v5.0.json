@@ -1,0 +1,72 @@
+{
+  "version": "5.0.0-local-shadow-render-auto-loop",
+  "date": "2026-09-03",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "shadow_auto_loop": {
+    "renderer_service_tcp": true,
+    "direct_backend_bypass": false,
+    "existing_service_reuse": true,
+    "auto_service_start": true,
+    "candidate_specific_midi_events": true,
+    "physical_opcodes": [
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "ensemble_opcodes": [
+      120,
+      121
+    ],
+    "gesture_opcode": 122,
+    "long_render_chunk_seconds": 40.0,
+    "overlap_seconds": 0.75,
+    "max_rounds": 6,
+    "winner_artifact": true,
+    "review_best_artifact": true,
+    "decision_trace": true
+  },
+  "stop_gates": {
+    "margin": 0.025,
+    "safety": 0.35,
+    "overall": 0.35,
+    "stale_policy": true,
+    "render_failure": true,
+    "round_cap": 6
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "compiled_midi_to_shadow_events": "PASS",
+    "tcp_mock_render": "PASS",
+    "long_50s_chunking": "PASS",
+    "auto_loop_review_stop": "PASS",
+    "accepted_r1_r2_winner_branch": "PASS",
+    "candidate_specific_audio_judge": "PASS",
+    "v49_learning_regression": "PASS",
+    "v48_default_regression": "PASS",
+    "v47_to_v41_regression": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "renderer_service_protocols": "PASS",
+    "promotion_guard": "PASS",
+    "tamper_rejection": "PASS",
+    "realtime_core_byte_identical_to_v49": true,
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "release": "6.4.0-frontend-final-candidate",
+  "core_baseline": "6.2.0-acoustic-runtime-provenance",
+  "status": "SOURCE_FRONTEND_FINAL_CANDIDATE",
+  "feature_freeze": true,
+  "completed": {
+    "instrument_editor_frontend": true,
+    "piano_roll_editing": true,
+    "musicxml_import": true,
+    "midi_import_export": true,
+    "note_expression_inspector": true,
+    "predictive_dynamics_editor_lane": true,
+    "retake_comp_frontend": true,
+    "stage_mixer_16_stereo_feeds": true,
+    "vstgui_workspace_convergence": true,
+    "project_to_v62_compiler_bridge": true,
+    "bat_debug_path_retained": true
+  },
+  "validation": {
+    "frontend_smoke": "PASS",
+    "editor_to_score_graph": "PASS",
+    "editor_to_v62_compiler": "PASS",
+    "javascript_syntax": "PASS",
+    "uidesc_xml": "PASS",
+    "cmake_non_vst_build": "PASS",
+    "release_version_contracts_22": "PASS",
+    "v62_checkpoint_contract": "PASS",
+    "v62_checkpoint_replay_tamper_restore": "PASS",
+    "native_v62_checkpoint": "PASS",
+    "native_v61_checkpoint": "PASS",
+    "native_v60_evidence": "PASS"
+  },
+  "not_run": {
+    "windows_v64_vst3_rebuild": true,
+    "steinberg_validator": true,
+    "cubase_real_host": true,
+    "studio_one_real_host": true,
+    "windows_product_shell_build": true,
+    "rtx5090_acoustic_qa": true,
+    "final_model_training_qa": true,
+    "bit_identical_audio_replay": true
+  },
+  "release_rule": "Do not reopen core feature expansion for binary/host/acoustic validation failures; fix them as release bugs unless evidence proves a core contract defect."
+}

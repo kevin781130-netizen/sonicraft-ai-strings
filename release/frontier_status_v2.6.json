@@ -1,0 +1,15 @@
+{
+  "version": "2.6.0-inprocess-neural-engine",
+  "channel": "inprocess-rc",
+  "neural_core_changed": false,
+  "attack_quantum_ms": 40,
+  "adaptive_quantum_ms": [
+    40,
+    80,
+    160
+  ],
+  "windows_audio": "IAudioClient3 shared event-driven with legacy waveOut fallback",
+  "midi_timestamp": "WinMM driver dwParam2",
+  "inprocess_ort": "C++ graph implemented; production default remains gated on real checkpoint parity/ABX/Windows promotion",
+  "frontier": "inprocess-neural-engine"
+}

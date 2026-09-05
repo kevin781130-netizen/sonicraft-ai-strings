@@ -1,0 +1,72 @@
+{
+  "version": "5.1.0-selective-phrase-local-repair",
+  "date": "2026-09-03",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "selective_phrase_search": {
+    "critic_localization": true,
+    "latent_risk": true,
+    "max_windows": 6,
+    "coverage_fallback": 0.55,
+    "unknown_location_fallback": true,
+    "overlap_merge": true
+  },
+  "local_shadow_render": {
+    "full_event_history": true,
+    "default_preroll_seconds": 0.85,
+    "default_postroll_seconds": 0.85,
+    "local_full_slice_equivalence_test": true,
+    "final_audio_splicing": false,
+    "one_final_full_merged_render": true
+  },
+  "local_judge": {
+    "candidate_specific": true,
+    "margin_floor": 0.025,
+    "safety_floor": 0.35,
+    "overall_floor": 0.35,
+    "ambiguous_local_full_fallback": true
+  },
+  "merge": {
+    "base": "D Original",
+    "channel_event_windows_only": true,
+    "conductor_meta_preserved": true,
+    "back_to_back_boundary_guard": true
+  },
+  "policy": {
+    "dominant_local_evidence_floor": 0.6,
+    "mixed_winners_allowed_without_global_learning": true,
+    "stale_hash_generation_guard": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "selective_search": "PASS",
+    "problem_localization_coverage": 0.364,
+    "coverage_fallback": "PASS",
+    "local_shadow_full_slice_max_error": 0.0,
+    "selective_midi_merge": "PASS",
+    "back_to_back_boundary_guard": "PASS",
+    "accepted_selective_branch": "PASS",
+    "accepted_fixture_local_margin": 0.6,
+    "accepted_fixture_total_vs_v50_four_full_fraction": 0.757,
+    "low_confidence_full_fallback": "PASS",
+    "v50_regression": "PASS",
+    "v49_to_v41_regression": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "promotion_guard": "PASS",
+    "tamper_rejection": "PASS",
+    "realtime_core_byte_identical_to_v50": true,
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

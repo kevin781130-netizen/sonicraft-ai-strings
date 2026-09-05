@@ -1,0 +1,5 @@
+SONICRAFT v4.2 — Studio One String Physical Quickstart
+
+Compile MusicXML/XML/MXL with COMPILE_MUSICXML_STRINGS_v42.bat, import the generated Type-1 MIDI,
+and edit the same per-lane CC21–31 / CC33–35 physical and expression controls.
+The physical layer is opt-in; old v4.1/no-physical MIDI remains on the prior behavior.

@@ -1,0 +1,69 @@
+{
+  "version": "5.3.0-long-form-conductor-intent",
+  "date": "2026-09-03",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "conductor_intent": {
+    "section_labels": [
+      "intro",
+      "build",
+      "sustain",
+      "climax",
+      "release",
+      "resolution"
+    ],
+    "max_sections": 8,
+    "intent_pass_score": 84.0,
+    "max_section_excess": 1.55,
+    "audio_drop_limit": 0.075,
+    "stable_D_derived_hash": true,
+    "climax_lock": true,
+    "dynamic_ceiling_lock": true,
+    "long_line_direction_lock": true,
+    "role_lock": true,
+    "tiny_section_character_prior": true
+  },
+  "full_pair_verify": {
+    "merged_vs_D": true,
+    "overall_tolerance": -0.025,
+    "safety_tolerance": -0.04,
+    "full_abcd_fallback_on_failure": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "macro_section_extraction": "PASS",
+    "section_character_labels": "PASS",
+    "climax_lock": "PASS",
+    "dynamic_ceiling_lock": "PASS",
+    "long_line_direction_lock": "PASS",
+    "role_lock": "PASS",
+    "intent_hash_stability": "PASS",
+    "intent_hash_fixture": "e0354ada2c2677218504ffae",
+    "coherence_pass_conductor_fail": "PASS",
+    "near_runner_substitution": "PASS",
+    "auto_loop_integration": "PASS",
+    "merged_vs_D_pair_verify": "PASS",
+    "v52_to_v48_contract_regression": "PASS",
+    "v51_selective_regression": "PASS",
+    "v50_chunk_regression": "PASS",
+    "v47_phrase_parity": "PASS",
+    "v46_transition_parity": "PASS",
+    "ort_12000x34": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "promotion_guard": "PASS",
+    "tamper_rejection": "PASS",
+    "realtime_core_byte_identical_to_v52": true,
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

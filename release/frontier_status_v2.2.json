@@ -1,0 +1,13 @@
+{
+  "version": "2.2.0-platform-kill-gap",
+  "consumer_neural_params": 3887433,
+  "raw_fp16_mib_approx": 7.41,
+  "vst_stereo_output_buses": 12,
+  "shadow_multiout_channels": 24,
+  "virtual_scoring_feeds": 11,
+  "room_profile": "clean-room owned/licensed IR only",
+  "native_runtime_default": "torch",
+  "ort_challenger": "implemented_not_promoted",
+  "native_runtime_target_mib": 160,
+  "production_native_promotion_complete": false
+}
