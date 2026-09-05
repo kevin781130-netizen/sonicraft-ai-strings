@@ -1,0 +1,33 @@
+name: SONICRAFT v7.0 RC - Windows VST3 + Validator
+on:
+  workflow_dispatch:
+
+jobs:
+  build-validator:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Source gate
+        shell: powershell
+        run: python scripts/rc_source_gate_v70.py
+
+      - name: Pinned VST3 build + official Validator
+        shell: powershell
+        run: ./installer/build_release_windows.ps1 -ProjectRoot $PWD
+
+      - name: Upload exact validated VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: SONICRAFT-AI-Strings-Q4-v7.0.0-rc2-VST3
+          path: release/SONICRAFT AI Strings Q4.vst3
+
+      - name: Upload build + Validator evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: SONICRAFT-AI-Strings-Q4-v7.0.0-rc2-evidence
+          path: |
+            release/rc_evidence/build-provenance.json
+            release/rc_evidence/validator-pass.json
+            release/rc_evidence/steinberg_validator.log
+            release/rc_evidence/windows_vst3_build.log
