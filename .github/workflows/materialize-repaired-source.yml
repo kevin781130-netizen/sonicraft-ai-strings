@@ -25,29 +25,18 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import base64, hashlib
-
-          old_parts = sorted(Path('.source_payload').glob('full-*.b64'))
-          if len(old_parts) != 70:
-              raise SystemExit(f'expected 70 old payload files, got {len(old_parts)}')
-          encoded = ''.join(p.read_text(encoding='ascii') for p in old_parts)
-          packed = bytearray(base64.b64decode(encoded, validate=True))
-          if len(packed) != 502500:
-              raise SystemExit(f'old packed size mismatch: {len(packed)}')
-          packed[245803] = 194
-          packed[245804] = 121
-
-          tail_parts = sorted(Path('.source_payload/repair_tail').glob('*.bin'))
-          tail = b''.join(p.read_bytes() for p in tail_parts)
-          if len(tail) != 175064:
-              raise SystemExit(f'tail size mismatch: {len(tail)}')
-          full = bytes(packed) + tail
-          if len(full) != 677564:
-              raise SystemExit(f'full archive size mismatch: {len(full)}')
-          digest = hashlib.sha256(full).hexdigest()
-          expected = '64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
-          print('ARCHIVE_SHA256', digest)
-          if digest != expected:
-              raise SystemExit(f'archive SHA mismatch: {digest}')
+          old_parts=sorted(Path('.source_payload').glob('full-*.b64'))
+          if len(old_parts)!=70: raise SystemExit(f'expected 70 old payload files, got {len(old_parts)}')
+          packed=bytearray(base64.b64decode(''.join(p.read_text(encoding='ascii') for p in old_parts),validate=True))
+          if len(packed)!=502500: raise SystemExit(f'old packed size mismatch: {len(packed)}')
+          packed[245803]=194; packed[245804]=121
+          tail=b''.join(p.read_bytes() for p in sorted(Path('.source_payload/repair_tail').glob('*.bin')))
+          if len(tail)!=175064: raise SystemExit(f'tail size mismatch: {len(tail)}')
+          full=bytes(packed)+tail
+          digest=hashlib.sha256(full).hexdigest()
+          expected='64ac9760d95459f80c949c1abc8224fe5aa9705dda6785de602e13774da7acb3'
+          print('ARCHIVE_SHA256',digest)
+          if len(full)!=677564 or digest!=expected: raise SystemExit('canonical archive mismatch')
           Path('/tmp/sonicraft_source.tar.xz').write_bytes(full)
           PY
 
@@ -59,14 +48,7 @@ jobs:
           mkdir -p /tmp/sonicraft_source
           tar -xJf /tmp/sonicraft_source.tar.xz -C /tmp/sonicraft_source
           test "$(find /tmp/sonicraft_source -type f | wc -l)" -eq 1016
-          for p in \
-            CMakeLists.txt VERSION src/processor.cpp frontend/index.html \
-            runtime/frontend_layout_gate_v70.py \
-            standalone/win32/sonicraft_product_shell_win32_v26.cpp \
-            installer/inno/SONICRAFT_AI_Strings.iss \
-            scripts/rc_source_gate_v70.py \
-            resource/SONICRAFT_AI_Strings_Q4.uidesc \
-            release/SOURCE_FREEZE_v7.0.json; do
+          for p in CMakeLists.txt VERSION src/processor.cpp frontend/index.html runtime/frontend_layout_gate_v70.py standalone/win32/sonicraft_product_shell_win32_v26.cpp installer/inno/SONICRAFT_AI_Strings.iss scripts/rc_source_gate_v70.py resource/SONICRAFT_AI_Strings_Q4.uidesc release/SOURCE_FREEZE_v7.0.json; do
             test -f "/tmp/sonicraft_source/$p" || { echo "missing $p"; exit 1; }
           done
 
@@ -74,9 +56,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          rm -rf /tmp/staging_workflows
+          mkdir -p /tmp/staging_workflows
+          cp -a .github/workflows /tmp/staging_workflows/workflows
+          cp -a .source_payload/READY_FINAL_REPAIR /tmp/READY_FINAL_REPAIR
           rsync -a --delete --exclude='.git/' /tmp/sonicraft_source/ ./
           test ! -e .source_payload
-          test ! -e .github/workflows/materialize-repaired-source.yml
           test ! -e _probe_do_not_merge.txt
           test "$(find . -path './.git' -prune -o -type f -print | wc -l)" -eq 1016
 
@@ -92,35 +77,34 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import py_compile, tempfile
-          files = sorted(p for p in Path('.').rglob('*.py') if '.git' not in p.parts)
-          if len(files) != 388:
-              raise SystemExit(f'expected 388 python files, got {len(files)}')
+          import py_compile,tempfile
+          files=sorted(p for p in Path('.').rglob('*.py') if '.git' not in p.parts)
+          if len(files)!=388: raise SystemExit(f'expected 388 python files, got {len(files)}')
           with tempfile.TemporaryDirectory() as td:
-              for i,p in enumerate(files):
-                  py_compile.compile(str(p), cfile=str(Path(td)/f'{i}.pyc'), doraise=True)
-          print('PYTHON_SYNTAX', len(files), 'PASS')
+              for i,p in enumerate(files): py_compile.compile(str(p),cfile=str(Path(td)/f'{i}.pyc'),doraise=True)
+          print('PYTHON_SYNTAX',len(files),'PASS')
           PY
 
       - name: Clean non-VST CMake build
         shell: bash
         run: |
           set -euo pipefail
-          cmake -S . -B build-ci \
-            -DSONICRAFT_BUILD_VST3=OFF \
-            -DSONICRAFT_BUILD_PRODUCT_SHELL=OFF \
-            -DSONICRAFT_BUILD_ORT_INPROCESS_PROBE=OFF
+          cmake -S . -B build-ci -DSONICRAFT_BUILD_VST3=OFF -DSONICRAFT_BUILD_PRODUCT_SHELL=OFF -DSONICRAFT_BUILD_ORT_INPROCESS_PROBE=OFF
           cmake --build build-ci --config Release -j2
           rm -rf build-ci
 
-      - name: Commit canonical source
+      - name: Commit canonical bridge
         shell: bash
         run: |
           set -euo pipefail
-          test "$(find . -path './.git' -prune -o -type f -print | wc -l)" -eq 1016
+          rm -rf .github/workflows
+          mkdir -p .github
+          cp -a /tmp/staging_workflows/workflows .github/workflows
+          mkdir -p .source_payload
+          cp -a /tmp/READY_FINAL_REPAIR .source_payload/READY_FINAL_REPAIR
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           git diff --cached --quiet && { echo 'No changes to commit'; exit 1; }
-          git commit -m 'release: materialize canonical v7.0 RC2 source'
+          git commit -m 'release: materialize canonical v7.0 RC2 bridge'
           git push origin HEAD:release/v7.0-rc2-frontend-lock
