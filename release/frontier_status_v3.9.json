@@ -1,0 +1,42 @@
+{
+  "version": "3.9.0-preference-guided-auto-comp",
+  "date": "2026-09-01",
+  "training_data_changed": false,
+  "acoustic_core_changed": false,
+  "judge_memory_v38": {
+    "local_profile": true,
+    "dimensions": [
+      "dynamics",
+      "attack",
+      "transition",
+      "stability",
+      "safety"
+    ],
+    "safety_weight_nonnegative": true,
+    "max_personal_correction": 0.12,
+    "confidence_time_constant_evidence": 13.0,
+    "legacy_judge_result_bytes": 100,
+    "personal_judge_result_bytes": 144,
+    "cross_project_profile": true,
+    "clearable": true
+  },
+  "preference_auto_comp_v39": {
+    "unresolved_only": true,
+    "one_judge_in_flight": true,
+    "min_confidence_gate": true,
+    "min_margin_gate": true,
+    "safety_floor_gate": true,
+    "single_batch_commit": true,
+    "self_training_blocked": true,
+    "cancel_discards_uncommitted_candidates": true
+  },
+  "commercial_blocker_fixed": "v3.7 runtime installer omitted audio_take_judge_v37.py; v3.9 enforces audio_take_judge_v37.py + judge_memory_v38.py in runtime/prebuilt paths",
+  "state_schema": 13,
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  }
+}

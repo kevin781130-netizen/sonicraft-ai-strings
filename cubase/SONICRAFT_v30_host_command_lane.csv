@@ -1,0 +1,19 @@
+CC,SONICRAFT parameter,Encoding / meaning
+102,AI Performance Assist,0 Manual / 64 Assist / 127 Auto
+103,Performance Style,0 Neutral / ~25 Adagio / ~51 Allegro / ~76 con Fuoco / ~102 Pop / 127 Ballade
+104,Smart Dynamics,0 Off / 127 On
+105,Smart Articulation,0 Off / 127 On
+106,Retake Target,0 Off / 18 Timbre / 36 Dynamics / 54 Vibrato / 73 Micro-Pitch / 91 Timing Feel / 109 Bow-Attack / 127 All
+107,Retake Amount,0-127 continuous
+108,Retake Seed,7-bit transport mapped deterministically to internal nonce 0-255
+109,MIDI Authority Lock,0 Off / 127 On
+110,Phrase Director,0 Off / 127 On
+111,Ensemble Looseness,0-127 continuous
+112,Auto Divisi,0 Off / 127 On
+113,Stage Perspective,0 Dry / ~42 Scoring / ~85 Wide / 127 Room
+114,Independent Polyphony,0 Off / 127 On
+115,AI Mix,0-127 continuous
+116,AI Look Ahead,0-127 continuous
+117,Layout Mode,0 Single / 127 Q4 Multi
+118,Single Section Instrument,0 Vln I / ~42 Vln II / ~85 Viola / 127 Cello
+119,Humanize,0-127 continuous

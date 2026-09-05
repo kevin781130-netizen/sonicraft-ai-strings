@@ -1,0 +1,92 @@
+{
+  "version": "5.4.0-conductor-steered-candidates",
+  "date": "2026-09-03",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "candidate_steering": {
+    "D_original_steered": false,
+    "immutable_note_identity": true,
+    "dynamic_ceiling_bounded": true,
+    "straight_vibrato_not_forced": true,
+    "progressive_budget": {
+      "intro": [
+        "A",
+        "B",
+        "D"
+      ],
+      "build": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "sustain": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "climax": [
+        "B",
+        "C",
+        "D"
+      ],
+      "release": [
+        "A",
+        "B",
+        "D"
+      ],
+      "resolution": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    "deferred_escalation_margin": 0.025
+  },
+  "downstream_safety": {
+    "audio_judge": true,
+    "global_coherence": true,
+    "conductor_lock": true,
+    "merged_vs_D_verify": true,
+    "full_abcd_fallback": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "steering_identity_lock": "PASS",
+    "dynamic_ceiling_clamp": "PASS",
+    "straight_vibrato_guard": "PASS",
+    "climax_B_mean_dynamic": 0.7998,
+    "climax_C_mean_dynamic": 0.8186,
+    "resolution_A_mean_dynamic": 0.5121,
+    "resolution_B_mean_dynamic": 0.5212,
+    "progressive_budget_skip": "PASS",
+    "progressive_budget_escalation": "PASS",
+    "intent_hash_stability": "PASS",
+    "intent_hash_fixture": "e0354ada2c2677218504ffae",
+    "v53_conductor_regression": "PASS",
+    "v52_coherence_regression": "PASS",
+    "v51_selective_regression": "PASS",
+    "v50_chunk_404000_frames": "PASS",
+    "v48_critic_regression": "PASS",
+    "v47_phrase_parity": "PASS",
+    "v46_transition_parity": "PASS",
+    "ort_12000x34": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "promotion_guard": "PASS",
+    "tamper_rejection": "PASS",
+    "realtime_core_byte_identical_to_v53": true,
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

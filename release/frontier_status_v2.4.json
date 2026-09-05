@@ -1,0 +1,11 @@
+{
+  "version": "2.4.0-realtime-product-shell",
+  "consumer_neural_params_added": 0,
+  "rolling_preview_quantum_ms": 160,
+  "mixer": {"master_pairs": 1, "aux_pairs": 11},
+  "smart_dynamics_default": false,
+  "smart_articulation_default": false,
+  "auto_runtime": "promoted ORT else Torch",
+  "realtime_product_promotion_required": true,
+  "windows_driver_validation_required": true
+}

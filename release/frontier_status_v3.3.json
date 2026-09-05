@@ -1,0 +1,39 @@
+{
+  "version": "3.3.0-phrase-take-comp",
+  "date": "2026-09-01",
+  "acoustic_core_changed": false,
+  "training_data_changed": false,
+  "phrase_take_comp": {
+    "phrase_comp": true,
+    "take_bank": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "fixed_capacity": 128,
+    "allocation_free_audio_path": true,
+    "commit_current_phrase": true,
+    "clear_comp": true,
+    "midi_rewrite": false,
+    "native_comp_smoke": "PASS",
+    "source_contract_smoke": "PASS",
+    "comp_map_persistent_serialization": false
+  },
+  "backward_compatibility": {
+    "v32_carousel": "PASS",
+    "v31_locator_scope": "PASS",
+    "v30_command_lane": "PASS",
+    "v28_performance_commander": "PASS"
+  },
+  "native_core": {
+    "clean_non_vst_build": "PASS",
+    "inprocess_engine_channels": 34
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "commercial_binary_release_approved": false
+  },
+  "acoustic_release_approved": false,
+  "notes": "v3.3 adds realtime phrase-level deterministic take comping. Comp choices are runtime-session state in this pass; persistent comp-map chunk serialization is not claimed. Target VST3 binary still requires SDK/toolchain/host validation."
+}

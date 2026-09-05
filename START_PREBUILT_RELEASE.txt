@@ -1,0 +1,14 @@
+SONICRAFT AI Strings Q4 v7.0 RC2 — WINDOWS PREBUILT RELEASE FLOW
+
+Run on the developer Windows machine:
+  RC_MACHINE_PREFLIGHT_V70.bat
+  RC_BUILD_V70.bat
+  QA_CUBASE_V70.bat
+  QA_STUDIO_ONE_V70.bat
+  QA_RTX5090_ACOUSTIC_V70.bat (after final approved model exists)
+  FINAL_GATE_V70.bat
+
+Release evidence is stored in:
+  release\rc_evidence\
+
+The VST3 SDK is pinned. The official Validator must pass. Host evidence is bound to the exact plug-in SHA-256. Missing/skipped evidence blocks approval.

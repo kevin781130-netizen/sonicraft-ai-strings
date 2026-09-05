@@ -1,0 +1,15 @@
+# v3.7 Changelog
+- Added audio-aware A/B/C/D Take Judge.
+- Added TYPE_JUDGE renderer-service protocol with 8-byte config and fixed 100-byte result payload.
+- Added deterministic v3.2 Take nonce parity contract for Judge renders.
+- Added NumPy-only Dynamics / Attack / Transition / Stability / Safety scoring.
+- Added Favorite/Reject-aware Judge winner selection.
+- Added asynchronous Shadow Renderer Judge request/result transport outside audio callback.
+- Added exact phrase-range stale-result protection.
+- Added Audio Judge UI: Run, Winner, per-take metrics, Audition Winner, Commit Winner.
+- Smart Audition / Smart Commit now prefer a valid Audio Judge winner and fall back to v3.6 heuristic.
+- Judge A/B/C/D reuses existing waveform cache.
+- Extended event-only rolling history from 18s to 90s for pinned phrase judging.
+- Fixed Controller restore pollution that could overwrite restored Follow Playhead / Recall Take / Smart Rank Mode values.
+- State schema remains v12; Judge outputs are derived/ephemeral.
+- No acoustic weights or training data changed.

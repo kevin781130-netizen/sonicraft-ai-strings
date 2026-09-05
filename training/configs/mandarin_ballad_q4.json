@@ -1,0 +1,159 @@
+{
+  "name": "SONICRAFT Mandarin Ballad Q4 HQ",
+  "goal": "recording-indistinguishable small string ensemble for Mandarin pop ballads",
+  "ensemble": {
+    "players": [
+      "Violin I",
+      "Violin II",
+      "Viola",
+      "Cello"
+    ],
+    "runtime_channels": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "double_bass": false
+  },
+  "articulations": [
+    "Sustain",
+    "Legato",
+    "Portamento",
+    "Expressive Long",
+    "Marcato",
+    "Staccato",
+    "Spiccato",
+    "Tremolo",
+    "Pizzicato",
+    "Trill",
+    "Harmonic",
+    "Flautando"
+  ],
+  "controllers": {
+    "CC1": "Dynamics/timbre",
+    "CC3": "Vibrato depth/character",
+    "CC11": "Expression",
+    "CC7": "Volume",
+    "CC10": "Pan",
+    "CC64": "Sustain/hold",
+    "CC68": "Legato override",
+    "CC91": "Room send",
+    "PitchBend": "Pitch bend / expressive slide"
+  },
+  "keyswitch": {
+    "base_midi": 24,
+    "span": 12
+  },
+  "style": {
+    "tempo_bpm": [
+      58,
+      82
+    ],
+    "priorities": [
+      "lyrical legato",
+      "warm arco",
+      "controlled portamento",
+      "slow dynamic swells",
+      "moderate natural vibrato",
+      "soft attacks",
+      "intimate dry-to-medium room"
+    ],
+    "avoid": [
+      "epic trailer bowing",
+      "excessive classical rubato",
+      "hard orchestral accents",
+      "over-wide synthetic ensemble"
+    ]
+  },
+  "audio_core": {
+    "bootstrap": "Descript DAC 44.1kHz 16kbps MIT weights",
+    "training": "fine-tune decoder on rights-cleared strings",
+    "DAW_output": "high-quality resample to host sample rate",
+    "internal_codec_rate": 44100,
+    "target_host_rate": 48000,
+    "final_timbre_priority": [
+      "custom_owned_session",
+      "iowa_mis"
+    ]
+  },
+  "commercial_core_sources": [
+    "iowa_mis",
+    "tinysol",
+    "descript_dac",
+    "good_sounds_cora_2025",
+    "mid_fild_midi",
+    "ghent_ar_violin_2023",
+    "wikimedia_pd_quartets"
+  ],
+  "blocked_until_cleared": [
+    "custom_owned_session",
+    "eep",
+    "mosa",
+    "musc",
+    "musopen",
+    "philharmonia_samples",
+    "quartset_2025",
+    "urmp",
+    "violet_csv_td"
+  ],
+  "quality_rule": "Fail closed: no unclear commercial ML-training or learned-weight-distribution rights may enter release checkpoints.",
+  "optional_safe_reference_sources": [
+    "vsco2_ce"
+  ],
+  "midi_workflow": {
+    "target_workflow": "LASS 3 / Chris Hein familiarity, AI-rendered performance",
+    "single_master_patch": true,
+    "layouts": [
+      "Single Section (traditional orchestral track workflow)",
+      "Q4 Multi (compact four-part instance)"
+    ],
+    "ai_assist_modes": [
+      "Manual",
+      "Assist",
+      "Auto"
+    ],
+    "look_ahead": "predictive phrase rendering; manual MIDI remains authoritative",
+    "hard_midi_lock": true,
+    "microperformance_ai": [
+      "bow direction",
+      "rebow",
+      "round-robin variation",
+      "vibrato onset/rate",
+      "transition shape",
+      "microtiming",
+      "microintonation"
+    ]
+  },
+  "performance_controls": {
+    "transition_speed": "AI transition duration/shape, comparable in intent to LASS transition control",
+    "short_tightness": "short-note duration/release control",
+    "attack_character": "AI note-head/attack softness-to-firmness",
+    "auto_divisi": "optional; default off for explicit Q4 writing"
+  },
+  "conditional_sources": [
+    "sanidha",
+    "musicnet_audited",
+    "openmic_2018"
+  ],
+  "internal_ai_controls": [
+    "note_progress",
+    "phrase_position",
+    "previous_interval",
+    "next_interval"
+  ],
+  "training_curriculum": "training/configs/commercial_curriculum_v05.json",
+  "renderer_v05": {
+    "release_weights": "EMA/best validation checkpoint",
+    "time_varying_articulation": true,
+    "internal_features": [
+      "note_progress",
+      "phrase_position",
+      "previous_interval",
+      "next_interval",
+      "bow_change_prob",
+      "vibrato_onset"
+    ],
+    "student_strategy": "distill compact renderer from HQ teacher after HQ convergence"
+  }
+}

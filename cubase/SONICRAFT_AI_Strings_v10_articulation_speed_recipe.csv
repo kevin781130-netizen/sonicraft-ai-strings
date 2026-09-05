@@ -1,0 +1,17 @@
+Group,Name,Type,Output,Value,Notes
+Articulation,Sustain,Attribute/Articulation,Keyswitch C0,24,Default warm arco
+Articulation,Legato,Attribute/Articulation,Keyswitch C#0,25,Primary lyrical connection
+Articulation,Portamento,Attribute/Articulation,Keyswitch D0,26,Expressive slide connection
+Articulation,Expressive Long,Attribute/Articulation,Keyswitch D#0,27,Long expressive note
+Articulation,Marcato,Attribute/Articulation,Keyswitch E0,28,Controlled accented entrance
+Articulation,Staccato,Attribute/Articulation,Keyswitch F0,29,Normal short
+Articulation,Spiccato,Attribute/Articulation,Keyswitch F#0,30,Light short
+Articulation,Tremolo,Attribute/Articulation,Keyswitch G0,31,Tremolo
+Articulation,Pizzicato,Attribute/Articulation,Keyswitch G#0,32,Pizzicato
+Articulation,Trill,Attribute/Articulation,Keyswitch A0,33,Trill
+Articulation,Harmonic,Attribute/Articulation,Keyswitch A#0,34,Harmonic
+Articulation,Flautando,Attribute/Articulation,Keyswitch B0,35,Flautando
+AI Speed,Auto Tempo,Direction/Modifier,CC20,0,Let AI infer speed from tempo/phrase
+AI Speed,Slow,Direction/Modifier,CC20,42,Select slow performance quantile
+AI Speed,Normal,Direction/Modifier,CC20,84,Select median performance quantile
+AI Speed,Fast,Direction/Modifier,CC20,127,Select fast performance quantile

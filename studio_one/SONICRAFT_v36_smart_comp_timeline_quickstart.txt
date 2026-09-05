@@ -1,0 +1,11 @@
+SONICRAFT v3.6 — Studio One Smart Comp Timeline
+
+1. Set Loop Range over the section.
+2. Host Scope = Locator Retake or Locator Both.
+3. Use Carousel / Performance Memory to review A/B/C/D.
+4. COMMIT row = persistent comp; SMART row = deterministic candidate priority.
+5. Smart Audition / Smart Commit act on the current browser phrase.
+6. FAV ONLY uses human Favorites; AUTO UNRESOLVED is explicitly heuristic.
+
+Smart Pick is not an audio-quality prediction.
+Target-host v3.6 binary validation is required before release.

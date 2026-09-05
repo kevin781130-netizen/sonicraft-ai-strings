@@ -1,0 +1,31 @@
+{
+  "schema": 3,
+  "model": "SONICRAFT AI Strings Q4",
+  "version": "2.0.0-acoustic-promotion",
+  "training_policy": {
+    "real_probability": 0.8,
+    "modeled_probability": 0.2,
+    "modeled_timbre_anchor": false,
+    "modeled_adversarial_target": false,
+    "curriculum": "lane_locked_acoustic_promotion_v20",
+    "cleanroom_modeled_only": true
+  },
+  "sources": [
+    {
+      "dataset_id": "tinysol",
+      "purpose": "rights-cleared real string support",
+      "release_blocked": false
+    },
+    {
+      "dataset_id": "synthetic_cleanroom_bowed_v18",
+      "purpose": "modeled-only exact bowed-string physics supervision",
+      "release_blocked": false,
+      "training_origin": "modeled",
+      "final_timbre_anchor": false
+    }
+  ],
+  "sound_forge_report": "sound_forge_report.json",
+  "acoustic_segments_report": "acoustic_segments_report.json",
+  "codec_tournament_report": "codec_tournament_v20.json",
+  "notes": "Only registry-cleared real recordings define final timbre/adversarial realism. Modeled material remains a 20% physics/rare-state teacher. Final v2.0 shipping eligibility additionally requires post-training acoustic promotion evidence and a tensor-preserving checkpoint seal."
+}

@@ -1,0 +1,11 @@
+# v3.6 Changelog
+- Added 8-phrase Smart Comp Timeline viewport.
+- Added per-slot Committed and Smart Pick status.
+- Added Conservative / Balanced / Adventurous Smart Rank.
+- Smart Rank uses Retake-contract-aware variation priority, not an audio-quality claim.
+- Added Smart Audition and Smart Commit.
+- Added Commit Unique Favorites for human-reviewed high-confidence bulk comping.
+- Added explicitly labeled Heuristic Auto Comp Unresolved.
+- Added fixed-memory batch commit with one Undo snapshot.
+- State schema v12 persists Smart Rank Mode.
+- No training data or acoustic weights changed.

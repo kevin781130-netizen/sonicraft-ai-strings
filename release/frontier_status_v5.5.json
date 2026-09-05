@@ -1,0 +1,42 @@
+{
+  "version": "5.5.0-candidate-utility-zero-render",
+  "date": "2026-09-03",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "new_midi_cc": false,
+  "state_schema": 13,
+  "candidate_utility": {
+    "actual_render_only_learning": true,
+    "D_always_rendered": true,
+    "high_confidence_top1_plus_D": true,
+    "medium_confidence_top2_plus_D": true,
+    "low_confidence_v54_fallback": true,
+    "audio_disagreement_escalation": true,
+    "low_margin_escalation": 0.025,
+    "stores_audio": false,
+    "stores_midi": false,
+    "stores_score_text": false
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false
+  },
+  "validation": {
+    "zero_render_high_confidence": "PASS",
+    "disagreement_escalation": "PASS",
+    "actual_render_only_memory": "PASS",
+    "skipped_candidate_no_learning": "PASS",
+    "v54_to_v48_regression": "PASS",
+    "ort_12000x34": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "promotion_guard": "PASS",
+    "tamper_rejection": "PASS",
+    "realtime_core_byte_identical_to_v54": true,
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "version": "1.8.0-frontier-sound-core",
+  "stage": "engineering-validated-training-ready",
+  "release_schema": 5,
+  "real_probability": 0.80,
+  "modeled_probability": 0.20,
+  "modeled_timbre_anchor": false,
+  "modeled_adversarial_target": false,
+  "renderer_params": 2606296,
+  "vae64_decoder_params": 1281137,
+  "raw_fp16_core_mib": 7.41,
+  "acoustic_promotion": "ABX_REQUIRED"
+}

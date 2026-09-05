@@ -1,0 +1,61 @@
+{
+  "release": "7.0.0-rc2",
+  "core_baseline": "6.2.0-acoustic-runtime-provenance",
+  "frontend_baseline": "7.0.0-rc2-frontend-layout-lock",
+  "status": "RC2_FRONTEND_LOCK",
+  "feature_freeze": true,
+  "commercial_binary_approved": false,
+  "completed_in_source": {
+    "instrument_editor": true,
+    "stage_mixer": true,
+    "checkpoint_and_runtime_provenance": true,
+    "pinned_vst3_sdk_build_contract": true,
+    "official_validator_fail_closed_contract": true,
+    "binary_build_provenance_contract": true,
+    "cubase_evidence_harness": true,
+    "studio_one_evidence_harness": true,
+    "rtx5090_acoustic_evidence_harness": true,
+    "hash_bound_final_gate": true,
+    "authenticode_public_gate": true,
+    "bat_debug_and_recovery_paths_retained": true,
+    "frontend_in_consumer_payload": true,
+    "source_and_installed_dual_layout_bats": true,
+    "host_executable_sha256_provenance": true,
+    "acoustic_model_manifest_sha256_binding": true,
+    "runtime_python_311_313_compatibility_gate": true,
+    "responsive_editor_layout_lock": true,
+    "vstgui_bounds_text_segment_gate": true,
+    "vstgui_audio_parameter_collision_guard": true,
+    "manager_windows_dpi_resize_contract": true,
+    "product_shell_per_monitor_dpi_contract": true,
+    "frontend_layout_gate_in_rc_source_gate": true
+  },
+  "pinned_dependencies": {
+    "steinberg_vst3_sdk": {
+      "version": "3.8.0",
+      "commit": "9fad9770f2ae8542ab1a548a68c1ad1ac690abe0",
+      "license": "MIT"
+    }
+  },
+  "must_be_executed_on_windows": {
+    "vst3_release_rebuild": true,
+    "steinberg_validator": true,
+    "windows_product_shell": true,
+    "cubase_real_host": true,
+    "studio_one_real_host": true
+  },
+  "must_wait_for_final_acoustic_model": {
+    "rtx5090_acoustic_qa": true,
+    "approved_model_manifest": true,
+    "real_render_checkpoint_verify": true
+  },
+  "not_claimed": [
+    "bit-identical audio replay",
+    "Cubase pass before host evidence exists",
+    "Studio One pass before host evidence exists",
+    "final acoustic quality before trained approved weights exist",
+    "real-host DPI/scaling behavior before Windows Cubase/Studio One QA",
+    "Win32 ProductShell binary build before Windows RC build gate"
+  ],
+  "release_rule": "No new core features. Frontend layout is source-locked by FRONTEND_LAYOUT_GATE_V70 and RC_SOURCE_GATE_V70. FINAL_GATE_V70 remains fail-closed and requires pinned-SDK build/Validator evidence, concrete Cubase and Studio One host executable provenance, exact VST3 SHA binding, an approved current model pack, RTX 5090 acoustic QA bound to the exact current model-manifest SHA, and no skipped host checks. PUBLIC_RELEASE additionally requires valid Authenticode evidence."
+}

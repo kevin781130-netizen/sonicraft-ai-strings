@@ -1,0 +1,10 @@
+torch
+torchaudio
+numpy
+soundfile
+requests
+tqdm
+mido
+descript-audio-codec
+
+librosa>=0.10

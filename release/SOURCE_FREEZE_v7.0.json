@@ -1,0 +1,91 @@
+{
+  "schema": 2,
+  "release": "7.0.0-rc2",
+  "status": "RC2_FRONTEND_LOCK_SOURCE_FROZEN",
+  "feature_freeze": true,
+  "core_baseline": "6.2.0-acoustic-runtime-provenance",
+  "frontend_baseline": "7.0.0-rc2-frontend-layout-lock",
+  "source_tree_hash_algorithm": "SHA256(sorted(relative_path + NUL + file_sha256 + LF)); SOURCE_FREEZE_v7.0.json excluded",
+  "source_tree_sha256": "0d00f53c8c645f75036013fbf3a28ab73be5548e6640ca185ccb711e3bffd975",
+  "file_count": 1015,
+  "critical_files": {
+    "VERSION": "ed886c3625974e6cd83053f7ec3c854479ac79783ea1ef9bdc8492785b2f69dd",
+    "CMakeLists.txt": "dbdb756877dbdb4e946f57f893b158739640d9c1ffa48b0cbce777009bbcba13",
+    "START_HERE.txt": "3e1505d35a88cbd8f3ad6cc631a21677c29ae0fbc105766484fb2baa80bd4655",
+    "README.md": "8364fd79c315949a374f2543b43ea870e5bf05138d6352ea2058db9fcaad6382",
+    "frontend/index.html": "170bbbd18e93b66d4abe17384b7710d026a01e47b7d31def0fb656d7dda38bca",
+    "frontend/editor_server.py": "a12b143b92aebfd95416c3da05ce5583ccd28434647b3798baa39e36587f4f58",
+    "resource/SONICRAFT_AI_Strings_Q4.uidesc": "b9a193d641cbb51e0e31bf0c774f2067beecdd9d51f33110cb3465531017eacf",
+    "manager_release.ps1": "e0c26275ad3d2e61d950348f4eafccadee4da5e2bf2c5e054f2c600db5a856ae",
+    "standalone/win32/sonicraft_product_shell_win32_v26.cpp": "d90d5c43566e951c847ea5f587e442f34a081e8213eefa6f015f52cfa6035f42",
+    "runtime/frontend_layout_gate_v70.py": "0686491a8581908e63269845d9f4f9f92d4c656025813a9d702214cf6761e0a8",
+    "runtime/smoke_frontend_v64.py": "e1abc98d79b29e5d026ba1fa105dd95bf96d71082456dd001b538ef5e868b864",
+    "runtime/smoke_frontend_packaging_v70.py": "9a3ad1b75200967bc1bc080cacd69567117d8a268b5913e98952bd9d5ac49ccd",
+    "runtime/smoke_runtime_installer_contract_v70.py": "01d925b6779ddfdd9a87a001fc90b3ae0048744edfd90ac3732da49f5b939d76",
+    "runtime/release_gate_v70.py": "a73f70ff0d063e4f30309cfd7c05b37f37ec3b5a76ec34b5b45fd4b789fa0874",
+    "runtime/smoke_release_gate_v70.py": "9ad84ca0a14a8765e730ef279d45a0c98c5d6de398bc1e2dc485f86a66eb252d",
+    "scripts/rc_source_gate_v70.py": "dfcedef16ce096bf50c6207f4ca888c928e3f7dfae503fb0eeb535fe8d69c019",
+    "FRONTEND_LAYOUT_GATE_V70.bat": "3f1dbbc6463570b606f68f60299855b292ae500f21a8c582ce2e7bd4b6b3ecef",
+    "FRONTEND_SMOKE_V70.bat": "47793b01dd5f2b9b4476c881d5db5f6e4f3a7504cfa8abd24c07a6cc1194f584",
+    "installer/build_release_windows.ps1": "11ef178eaa63292248a9807f64076f54413edc048b3257fac492b37471bf7ca0",
+    "installer/rc_v70/BUILD_RC_V70.ps1": "d4c1804ef0ed88a627749001ed33d7233bf4adce1b3cc83df5343276580a53fc",
+    "installer/rc_v70/RUN_HOST_QA_V70.ps1": "b7e3cae729f202751030f42cdd3eb39213a7b35c8a59004b125c4546a1e63a31",
+    "installer/rc_v70/RUN_ACOUSTIC_QA_V70.ps1": "ca948d73c3ceaff328c71cf8084ddce817c03bba5f284addd5bebbfb5669680c",
+    "installer/INSTALL_AI_RUNTIME_RELEASE.ps1": "88b9149427d9b327e8f5ecb4e1f721c8be453062dea356a87b70f1d0620bac91",
+    "installer/COLLECT_PREBUILT_APP.ps1": "05ebc13d2bde74450dc010c90cc2eefb1d853ac9d8876cf4db9f032e2c1b8a7b",
+    "installer/tools/verify_prebuilt_layout.py": "ae58c494cb94f3a84d5a4245c5ccaf0726f0b78781ce24373b6897d256e6def0",
+    "release/frontier_status_v7.0.json": "7d5b6b56fd117b840422e40667c7972b241b7e43fc2ff5215f7646ddf53a5630",
+    "release/FRONTEND_LOCK_VALIDATION_v7.0_RC2.json": "cd7b6e995263026f48be2387ed34f37392effba63b3642e74a05c1ccc5bf1f22",
+    "docs/FRONTEND_LAYOUT_LOCK_v7.0_RC2.md": "6bdd922be9b439972eaab3122f54a3654ff44d2155de24e23c5704c5f3883c13",
+    "docs/VALIDATION_v7.0.md": "b9760f6ae4f8ecb3eb017a91c74faf653f0684e04dad83e6f7707911d4740b6a",
+    "COMPILE_MUSICXML_STRINGS_v62.bat": "ca19ea4cdabd13d816e5a62f3fd587ea709f19753cc071242e04f26e275c8a79",
+    "AUTO_LOOP_STRINGS_v62.bat": "b66d3ef6a446e3c00be0fd23c4717b738c9565b2596d3db1af00d2b3cac25477",
+    "PERFORMANCE_CHECKPOINT_V62.bat": "78425423c293c50ad424ddf7fc607d3d124122d480f3100102c320b2d40263e1"
+  },
+  "pinned_dependencies": {
+    "steinberg_vst3_sdk": {
+      "version": "3.8.0",
+      "commit": "9fad9770f2ae8542ab1a548a68c1ad1ac690abe0"
+    },
+    "runtime_python": "3.11-3.13",
+    "onnxruntime": "1.29.0",
+    "torch": "2.8.0",
+    "torch_cuda_wheel": "cu128"
+  },
+  "validation_summary": {
+    "frontend_layout_gate": "PASS",
+    "frontend_editor_bridge": "PASS",
+    "frontend_consumer_packaging": "PASS",
+    "runtime_installer_compatibility": "PASS",
+    "fail_closed_hash_bound_final_gate": "PASS",
+    "release_version_contracts_23": "PASS",
+    "python_syntax_388": "PASS",
+    "cmake_non_vst_clean_build": "PASS",
+    "native_smokes_37": "PASS",
+    "rc_source_gate": "PASS"
+  },
+  "frontend_lock": {
+    "browser_responsive_constraints": "PASS",
+    "vstgui_bounds_text_segment_contract": "PASS",
+    "vstgui_audio_parameter_collision_guard": "PASS",
+    "manager_dpi_workarea_resize_contract": "PASS",
+    "product_shell_per_monitor_dpi_workarea_contract": "PASS",
+    "vstgui_window_policy": "fixed 1440x900 until real-host scaling matrix is validated"
+  },
+  "not_run": [
+    "Windows x64 v7.0 VST3 rebuild",
+    "Steinberg Validator on v7.0 Windows VST3",
+    "Windows ProductShell binary build/visual verification",
+    "Cubase real-host QA including DPI matrix",
+    "Studio One real-host QA including DPI matrix",
+    "final trained/approved acoustic model QA",
+    "RTX 5090 acoustic checkpoint QA",
+    "Authenticode public artifact verification",
+    "bit-identical audio replay"
+  ],
+  "approval": "SOURCE_FRONTEND_LOCKED_NOT_COMMERCIAL_BINARY_APPROVED_UNTIL_FINAL_GATE_V70_PASSES_ON_WINDOWS_WITH_REAL_MODEL_EVIDENCE",
+  "packaging_cleanup": {
+    "removed_stale_root_installer": "SONICRAFT_AI_Strings_v1.2_RC2_Setup_Wizard_HF1.exe",
+    "reason": "obsolete pre-v7 bootstrap; prevents accidental use of a stale installer"
+  }
+}

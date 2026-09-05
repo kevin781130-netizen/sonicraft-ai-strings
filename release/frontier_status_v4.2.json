@@ -1,0 +1,48 @@
+{
+  "version": "4.2.0-string-physical-performance",
+  "date": "2026-09-01",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "state_schema": 13,
+  "physical_graph": {
+    "string_selection": true,
+    "finger_semitone": true,
+    "position_index": true,
+    "shift_tracking": true,
+    "open_string_inference": true,
+    "bow_direction": true,
+    "bow_change": true,
+    "bow_pressure": true,
+    "contact_point": true,
+    "portamento_route": true,
+    "divisi_desk": true,
+    "planner": "deterministic ergonomic/phrase rules",
+    "true_per_string_acoustic_timbre_claimed": false
+  },
+  "physical_midi": {
+    "27": "string",
+    "28": "position",
+    "29": "bow_direction",
+    "30": "bow_change",
+    "31": "bow_pressure",
+    "32": "reserved_bank_select_lsb",
+    "33": "contact_point",
+    "34": "portamento_route",
+    "35": "divisi_desk"
+  },
+  "backward_compatibility": {
+    "physical_layer_opt_in": true,
+    "v41_voice_bus": "PASS",
+    "v13_state_unchanged": true
+  },
+  "judge": {
+    "voice_and_physical_state_in_config_identity": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  }
+}

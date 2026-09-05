@@ -1,0 +1,10 @@
+SONICRAFT v4.2 — Cubase String Physical Quickstart
+
+1. Drag MusicXML/XML/MXL onto COMPILE_MUSICXML_STRINGS_v42.bat.
+2. Import the generated MIDI.
+3. Keep Q4 Multi layout; legacy CH1–4 plus extra 4x4 voice lanes are written automatically.
+4. Edit per-note performance in MIDI CC lanes:
+   CC21 Stack, 22 Dynamics, 23 Vibrato, 24 Transition, 25 Attack, 26 Tightness
+   CC27 String, 28 Position, 29 Bow Direction, 30 Bow Change, 31 Bow Pressure
+   CC33 Contact Point, 34 Portamento Route, 35 Divisi Desk
+5. Do not use CC32 for SONICRAFT physical data; it is Bank Select LSB.

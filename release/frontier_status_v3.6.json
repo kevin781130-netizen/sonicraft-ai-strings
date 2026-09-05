@@ -1,0 +1,57 @@
+{
+  "version": "3.6.0-smart-comp-timeline",
+  "date": "2026-09-01",
+  "acoustic_core_changed": false,
+  "training_data_changed": false,
+  "smart_comp_timeline": {
+    "visible_phrase_slots": 8,
+    "committed_status_per_slot": true,
+    "smart_pick_per_slot": true,
+    "rank_modes": [
+      "conservative",
+      "balanced",
+      "adventurous"
+    ],
+    "audio_quality_prediction_claimed": false,
+    "retake_contract_aware_priority": true,
+    "favorite_dominates_rank": true,
+    "reject_excludes_candidate": true,
+    "smart_audition": true,
+    "smart_commit": true,
+    "commit_unique_favorites": true,
+    "heuristic_auto_comp_unresolved": true,
+    "batch_edit_single_undo_snapshot": true,
+    "state_schema": 12
+  },
+  "backward_compatibility": {
+    "v11_performance_memory": "PASS",
+    "v10_persistent_comp": "PASS",
+    "v9_phrase_comp": "PASS",
+    "v8_carousel": "PASS"
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "cubase_v36_host_validation": false,
+    "studio_one_v36_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "acoustic_release_approved": false,
+  "validation": {
+    "smart_comp_timeline_native": "PASS",
+    "source_contract": "PASS",
+    "clean_non_vst_build": "PASS",
+    "torch_numpy_control_parity": "PASS",
+    "ort_shape": [
+      12000,
+      34
+    ],
+    "native_engine_channels": 34,
+    "mock_multiout_shape": [
+      12000,
+      34
+    ],
+    "promotion_guard_tamper": "PASS",
+    "uidesc_xml": "PASS",
+    "release_metadata_convergence": "PASS"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "version": "4.6.0-continuous-transition-legato",
+  "date": "2026-09-02",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "new_param_ids": false,
+  "state_schema": 13,
+  "transition_graph": {
+    "phrase_level_gesture_window": true,
+    "written_pitch_trajectory": true,
+    "onset_suppression": true,
+    "transition_target_ms": true,
+    "vibrato_envelope_continuity": true,
+    "pressure_contact_energy_continuity": true,
+    "same_bow_vs_rebow": true,
+    "transition_sidecar": true,
+    "legacy_v45_gate": true
+  },
+  "preview": {
+    "vibrato_state_carry": true,
+    "cc39_scale_fix": true,
+    "hq_authoritative": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "transition_graph": "PASS",
+    "continuous_pitch_path": "PASS",
+    "onset_suppression": "PASS",
+    "transition_target_ms": "PASS",
+    "legacy_v45_gate": "PASS",
+    "torch_numpy_transition_parity": "PASS",
+    "v45_regression": "PASS",
+    "v44_to_v41_regression": "PASS",
+    "v39_to_v30_regression": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "renderer_service_34ch": "PASS",
+    "personal_protocol_100_144": "PASS",
+    "promotion_guard": "PASS",
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0,
+    "highest_explicit_param_base": 740
+  }
+}

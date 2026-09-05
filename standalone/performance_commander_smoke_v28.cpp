@@ -1,0 +1,4 @@
+#include "performance_commander_v28.h"
+#include <iostream>
+using namespace Sonicraft::PerformanceCommanderV28;
+int main(){SmartDivisi d;int c=d.noteOn(0,48),v=d.noteOn(0,60),v2=d.noteOn(0,67),v1=d.noteOn(0,76);if(c!=3||v!=2||v2!=1||v1!=0){std::cerr<<"register divisi failed\n";return 1;}if(d.noteOff(0,60)!=2||d.noteOff(0,48)!=3){std::cerr<<"note-off ownership failed\n";return 2;}Policy p{};auto flags=encodePolicyFlags(2,5,true,true,true,RetakeTarget::All,9,2,.8f,true,p);if(((flags>>8)&7)!=7||((flags>>26)&1)!=1||((flags>>27)&1)!=1){std::cerr<<"policy flags failed\n";return 3;}auto takes=buildTakeMatrix(250,8,RetakeTarget::MicroPitch,p);for(auto&t:takes)if(t.changesWrittenPitch){std::cerr<<"authority lock failed\n";return 4;}p.authorityLock=false;takes=buildTakeMatrix(1,2,RetakeTarget::MicroPitch,p);if(!takes[0].changesWrittenPitch){std::cerr<<"unlocked micro-pitch failed\n";return 5;}std::cout<<"SONICRAFT v2.8 Performance Commander smoke OK\n";return 0;}

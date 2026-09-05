@@ -1,0 +1,11 @@
+build/
+.venv/
+datasets/
+checkpoints/
+__pycache__/
+*.pyc
+*.vst3
+_deps/
+build-win64/
+release/*.vst3/
+*.log

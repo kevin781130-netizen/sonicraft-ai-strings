@@ -1,0 +1,33 @@
+{
+  "version": "1.7.0-frontier-exit",
+  "date": "2026-08-31",
+  "status": "engineering_source_candidate",
+  "frontier_assessment": "High-leverage permissive generic paths identified in this sweep are absorbed or retained as benchmarks; future consumer additions must beat hard string/DAW gates.",
+  "renderer_candidates": {
+    "v1_6_frontier_params": 3823216,
+    "v1_7_shared_params": 2601136,
+    "v1_7_tied_challenger_params": 1119856
+  },
+  "codec_decoder_params": 1281137,
+  "theoretical_raw_fp16_mib": {
+    "shared_plus_decoder": 7.40,
+    "tied_plus_decoder": 4.58
+  },
+  "generic_mit_absorbed_or_benchmarked": [
+    "Shortcut Models: single-network step-conditioned one/few-step training",
+    "MeanFlow: one-step average-velocity challenger",
+    "ONNX Runtime: reduced-operator / ORT-format / CUDA-plugin deployment path"
+  ],
+  "sonicraft_owned_frontier": [
+    "strict authored-CC versus physical-teacher validity separation",
+    "zero-weight quartet hidden re-bow and vibrato-bloom coordination",
+    "deterministic tile-level incremental DAW render reuse"
+  ],
+  "promotion_gates_remaining": [
+    "trained shared/tied held-out transition metrics",
+    "blind strings ABX for 1/2/4-step shortcut sampling",
+    "trained PyTorch-versus-ORT numerical and audio parity",
+    "Windows reduced-ORT CUDA binary size, latency and VRAM",
+    "final commercial VST3/model-pack validation"
+  ]
+}

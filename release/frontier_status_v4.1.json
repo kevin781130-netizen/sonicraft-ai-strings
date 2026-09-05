@@ -1,0 +1,67 @@
+{
+  "version": "4.1.0-strings-per-note-expression",
+  "date": "2026-09-01",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "acoustic_base_articulations_changed": false,
+  "score_graph": {
+    "musicxml": true,
+    "mxl": true,
+    "ppq": 960,
+    "tempo": true,
+    "time_signature": true,
+    "key_signature": true,
+    "ties": true,
+    "slurs": true,
+    "chords": true,
+    "expression_stack": true,
+    "unsupported_technique_warnings": true
+  },
+  "string_voice_bus": {
+    "parts": 4,
+    "explicit_voices_per_part": 4,
+    "total_midi_lanes": 16,
+    "legacy_channels_preserved": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "cc": {
+      "21": "expression_stack",
+      "22": "dynamics",
+      "23": "vibrato",
+      "24": "transition",
+      "25": "attack",
+      "26": "tightness"
+    },
+    "hq_voice_lane_identity": true,
+    "lane_specific_retake_identity": true,
+    "fifth_overlap_warning": true
+  },
+  "state_schema": 13,
+  "instrument_x_gap": {
+    "note_level_string_expression": "substantially narrowed",
+    "infinite_polyphony": "not claimed",
+    "true_unavailable_techniques": "still acoustic-data limited",
+    "ara": "not implemented"
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "steinberg_validator": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "score_voice_smoke": "PASS",
+    "hq_voice_isolation": "PASS",
+    "encoded_service_34ch": "PASS",
+    "torch_numpy_parity": "PASS",
+    "clean_non_vst_build": "PASS",
+    "legacy_multiout_34ch": "PASS",
+    "judge_regression": "PASS",
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0
+  }
+}

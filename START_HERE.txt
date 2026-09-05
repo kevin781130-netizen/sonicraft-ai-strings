@@ -1,0 +1,46 @@
+SONICRAFT AI Strings Q4 v7.0 RC2 — COMMERCIAL RELEASE GATE READY
+CORE BASELINE: v6.2 Acoustic Runtime Provenance (FEATURE-FROZEN)
+FRONTEND BASELINE: v7.0 RC2 Frontend Layout Lock (FEATURE-FROZEN)
+
+THIS PACKAGE DOES NOT ADD ANOTHER PERFORMANCE BRAIN.
+It converts the frozen product into a fail-closed Windows commercial RC workflow.
+
+SOURCE / FRONTEND PREFLIGHT
+- FRONTEND_LAYOUT_GATE_V70.bat
+- FRONTEND_SMOKE_V70.bat
+- RC_SOURCE_GATE_V70.bat
+
+WINDOWS RC ORDER
+1. RC_MACHINE_PREFLIGHT_V70.bat
+2. RC_BUILD_V70.bat
+3. QA_CUBASE_V70.bat
+4. QA_STUDIO_ONE_V70.bat
+5. After final trained/approved weights exist:
+   QA_RTX5090_ACOUSTIC_V70.bat
+6. FINAL_GATE_V70.bat
+
+PUBLIC RELEASE
+After code signing, run:
+PUBLIC_RELEASE_GATE_V70.bat
+
+DEBUG / EVIDENCE
+OPEN_RC_EVIDENCE.bat
+Existing v6.2 and v6.4 BAT/debug entry points are intentionally retained.
+
+IMPORTANT
+- Steinberg VST3 SDK is pinned to 3.8.0 commit 9fad9770f2ae8542ab1a548a68c1ad1ac690abe0.
+- Validator is built from the same pinned SDK and must PASS.
+- Cubase and Studio One evidence is bound to the exact tested VST3 SHA-256.
+- SKIP in host QA blocks approval.
+- Acoustic QA cannot pass without final approved model weights + real RTX 5090 checkpoint verification.
+- No bit-identical Audio Replay claim.
+- This source package itself is NOT a claim that Windows/DAW/model gates have already passed.
+
+READ
+  docs\RC_GATE_V7.0.md
+  docs\VALIDATION_v7.0.md
+  release\frontier_status_v7.0.json
+  docs\VALIDATION_v6.4.md
+
+FRONTEND LOCK DETAILS
+  docs\FRONTEND_LAYOUT_LOCK_v7.0_RC2.md

@@ -1,0 +1,1529 @@
+﻿part,exercise,dynamic,source_note,target_note,interval_semitones,start_beat,instruction
+VlnI,legato,mp,60,55,-5,0.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,56,-4,5.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,57,-3,10.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,58,-2,15.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,59,-1,20.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,61,1,25.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,62,2,30.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,63,3,35.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,64,4,40.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,65,5,45.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,67,7,50.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,60,72,12,55.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,57,-7,60.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,59,-5,65.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,60,-4,70.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,61,-3,75.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,62,-2,80.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,63,-1,85.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,65,1,90.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,66,2,95.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,67,3,100.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,68,4,105.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,69,5,110.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,71,7,115.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,64,76,12,120.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,55,-12,125.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,60,-7,130.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,62,-5,135.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,63,-4,140.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,64,-3,145.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,65,-2,150.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,66,-1,155.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,68,1,160.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,69,2,165.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,70,3,170.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,71,4,175.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,72,5,180.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,74,7,185.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,67,79,12,190.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,60,-12,195.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,65,-7,200.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,67,-5,205.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,68,-4,210.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,69,-3,215.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,70,-2,220.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,71,-1,225.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,73,1,230.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,74,2,235.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,75,3,240.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,76,4,245.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,77,5,250.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,79,7,255.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,72,84,12,260.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,64,-12,265.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,69,-7,270.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,71,-5,275.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,72,-4,280.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,73,-3,285.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,74,-2,290.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,75,-1,295.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,77,1,300.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,78,2,305.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,79,3,310.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,80,4,315.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,81,5,320.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,83,7,325.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,76,88,12,330.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,67,-12,335.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,72,-7,340.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,74,-5,345.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,75,-4,350.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,76,-3,355.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,77,-2,360.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,78,-1,365.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,80,1,370.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,81,2,375.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,82,3,380.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,83,4,385.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,84,5,390.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,79,86,7,395.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,72,-12,400.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,77,-7,405.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,79,-5,410.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,80,-4,415.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,81,-3,420.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,82,-2,425.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,83,-1,430.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,85,1,435.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,86,2,440.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,87,3,445.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mp,84,88,4,450.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,55,-5,455.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,56,-4,460.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,57,-3,465.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,58,-2,470.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,59,-1,475.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,61,1,480.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,62,2,485.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,63,3,490.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,64,4,495.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,65,5,500.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,67,7,505.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,60,72,12,510.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,57,-7,515.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,59,-5,520.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,60,-4,525.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,61,-3,530.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,62,-2,535.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,63,-1,540.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,65,1,545.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,66,2,550.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,67,3,555.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,68,4,560.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,69,5,565.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,71,7,570.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,64,76,12,575.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,55,-12,580.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,60,-7,585.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,62,-5,590.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,63,-4,595.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,64,-3,600.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,65,-2,605.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,66,-1,610.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,68,1,615.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,69,2,620.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,70,3,625.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,71,4,630.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,72,5,635.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,74,7,640.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,67,79,12,645.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,60,-12,650.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,65,-7,655.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,67,-5,660.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,68,-4,665.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,69,-3,670.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,70,-2,675.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,71,-1,680.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,73,1,685.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,74,2,690.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,75,3,695.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,76,4,700.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,77,5,705.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,79,7,710.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,72,84,12,715.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,64,-12,720.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,69,-7,725.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,71,-5,730.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,72,-4,735.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,73,-3,740.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,74,-2,745.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,75,-1,750.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,77,1,755.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,78,2,760.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,79,3,765.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,80,4,770.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,81,5,775.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,83,7,780.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,76,88,12,785.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,67,-12,790.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,72,-7,795.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,74,-5,800.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,75,-4,805.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,76,-3,810.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,77,-2,815.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,78,-1,820.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,80,1,825.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,81,2,830.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,82,3,835.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,83,4,840.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,84,5,845.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,79,86,7,850.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,72,-12,855.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,77,-7,860.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,79,-5,865.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,80,-4,870.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,81,-3,875.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,82,-2,880.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,83,-1,885.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,85,1,890.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,86,2,895.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,87,3,900.0,connect naturally; preserve bow/finger noise
+VlnI,legato,mf,84,88,4,905.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,55,-5,910.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,56,-4,915.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,57,-3,920.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,58,-2,925.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,59,-1,930.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,61,1,935.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,62,2,940.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,63,3,945.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,64,4,950.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,65,5,955.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,67,7,960.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,60,72,12,965.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,57,-7,970.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,59,-5,975.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,60,-4,980.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,61,-3,985.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,62,-2,990.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,63,-1,995.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,65,1,1000.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,66,2,1005.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,67,3,1010.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,68,4,1015.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,69,5,1020.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,71,7,1025.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,64,76,12,1030.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,55,-12,1035.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,60,-7,1040.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,62,-5,1045.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,63,-4,1050.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,64,-3,1055.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,65,-2,1060.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,66,-1,1065.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,68,1,1070.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,69,2,1075.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,70,3,1080.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,71,4,1085.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,72,5,1090.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,74,7,1095.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,67,79,12,1100.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,60,-12,1105.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,65,-7,1110.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,67,-5,1115.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,68,-4,1120.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,69,-3,1125.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,70,-2,1130.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,71,-1,1135.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,73,1,1140.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,74,2,1145.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,75,3,1150.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,76,4,1155.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,77,5,1160.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,79,7,1165.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,72,84,12,1170.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,64,-12,1175.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,69,-7,1180.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,71,-5,1185.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,72,-4,1190.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,73,-3,1195.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,74,-2,1200.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,75,-1,1205.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,77,1,1210.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,78,2,1215.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,79,3,1220.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,80,4,1225.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,81,5,1230.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,83,7,1235.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,76,88,12,1240.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,67,-12,1245.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,72,-7,1250.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,74,-5,1255.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,75,-4,1260.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,76,-3,1265.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,77,-2,1270.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,78,-1,1275.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,80,1,1280.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,81,2,1285.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,82,3,1290.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,83,4,1295.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,84,5,1300.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,79,86,7,1305.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,72,-12,1310.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,77,-7,1315.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,79,-5,1320.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,80,-4,1325.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,81,-3,1330.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,82,-2,1335.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,83,-1,1340.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,85,1,1345.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,86,2,1350.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,87,3,1355.0,connect naturally; preserve bow/finger noise
+VlnI,legato,f,84,88,4,1360.0,connect naturally; preserve bow/finger noise
+VlnI,portamento,mp,64,55,-9,0.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,57,-7,5.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,59,-5,10.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,60,-4,15.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,61,-3,20.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,67,3,25.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,68,4,30.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,69,5,35.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,71,7,40.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,73,9,45.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,64,76,12,50.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,55,-12,55.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,58,-9,60.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,60,-7,65.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,62,-5,70.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,63,-4,75.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,64,-3,80.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,70,3,85.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,71,4,90.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,72,5,95.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,74,7,100.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,76,9,105.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,67,79,12,110.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,60,-12,115.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,63,-9,120.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,65,-7,125.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,67,-5,130.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,68,-4,135.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,69,-3,140.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,75,3,145.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,76,4,150.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,77,5,155.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,79,7,160.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,81,9,165.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,72,84,12,170.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,64,-12,175.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,67,-9,180.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,69,-7,185.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,71,-5,190.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,72,-4,195.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,73,-3,200.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,79,3,205.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,80,4,210.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,81,5,215.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,83,7,220.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,85,9,225.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,76,88,12,230.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,67,-12,235.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,70,-9,240.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,72,-7,245.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,74,-5,250.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,75,-4,255.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,76,-3,260.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,82,3,265.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,83,4,270.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,84,5,275.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,86,7,280.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mp,79,88,9,285.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,55,-9,290.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,57,-7,295.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,59,-5,300.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,60,-4,305.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,61,-3,310.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,67,3,315.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,68,4,320.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,69,5,325.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,71,7,330.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,73,9,335.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,64,76,12,340.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,55,-12,345.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,58,-9,350.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,60,-7,355.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,62,-5,360.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,63,-4,365.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,64,-3,370.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,70,3,375.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,71,4,380.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,72,5,385.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,74,7,390.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,76,9,395.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,67,79,12,400.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,60,-12,405.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,63,-9,410.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,65,-7,415.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,67,-5,420.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,68,-4,425.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,69,-3,430.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,75,3,435.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,76,4,440.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,77,5,445.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,79,7,450.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,81,9,455.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,72,84,12,460.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,64,-12,465.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,67,-9,470.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,69,-7,475.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,71,-5,480.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,72,-4,485.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,73,-3,490.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,79,3,495.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,80,4,500.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,81,5,505.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,83,7,510.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,85,9,515.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,76,88,12,520.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,67,-12,525.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,70,-9,530.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,72,-7,535.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,74,-5,540.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,75,-4,545.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,76,-3,550.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,82,3,555.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,83,4,560.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,84,5,565.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,86,7,570.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,portamento,mf,79,88,9,575.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnI,crescendo,curve,60,60,0,0.0,hold 4 beats; follow CC curve musically
+VlnI,diminuendo,curve,60,60,0,5.0,hold 4 beats; follow CC curve musically
+VlnI,delayed_vibrato,curve,60,60,0,10.0,hold 4 beats; follow CC curve musically
+VlnI,no_vibrato,curve,60,60,0,15.0,hold 4 beats; follow CC curve musically
+VlnI,crescendo,curve,67,67,0,20.0,hold 4 beats; follow CC curve musically
+VlnI,diminuendo,curve,67,67,0,25.0,hold 4 beats; follow CC curve musically
+VlnI,delayed_vibrato,curve,67,67,0,30.0,hold 4 beats; follow CC curve musically
+VlnI,no_vibrato,curve,67,67,0,35.0,hold 4 beats; follow CC curve musically
+VlnI,crescendo,curve,76,76,0,40.0,hold 4 beats; follow CC curve musically
+VlnI,diminuendo,curve,76,76,0,45.0,hold 4 beats; follow CC curve musically
+VlnI,delayed_vibrato,curve,76,76,0,50.0,hold 4 beats; follow CC curve musically
+VlnI,no_vibrato,curve,76,76,0,55.0,hold 4 beats; follow CC curve musically
+VlnI,crescendo,curve,84,84,0,60.0,hold 4 beats; follow CC curve musically
+VlnI,diminuendo,curve,84,84,0,65.0,hold 4 beats; follow CC curve musically
+VlnI,delayed_vibrato,curve,84,84,0,70.0,hold 4 beats; follow CC curve musically
+VlnI,no_vibrato,curve,84,84,0,75.0,hold 4 beats; follow CC curve musically
+VlnII,legato,mp,59,55,-4,0.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,56,-3,5.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,57,-2,10.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,58,-1,15.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,60,1,20.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,61,2,25.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,62,3,30.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,63,4,35.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,64,5,40.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,66,7,45.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,59,71,12,50.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,55,-7,55.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,57,-5,60.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,58,-4,65.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,59,-3,70.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,60,-2,75.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,61,-1,80.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,63,1,85.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,64,2,90.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,65,3,95.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,66,4,100.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,67,5,105.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,69,7,110.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,62,74,12,115.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,55,-12,120.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,60,-7,125.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,62,-5,130.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,63,-4,135.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,64,-3,140.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,65,-2,145.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,66,-1,150.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,68,1,155.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,69,2,160.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,70,3,165.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,71,4,170.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,72,5,175.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,74,7,180.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,67,79,12,185.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,59,-12,190.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,64,-7,195.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,66,-5,200.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,67,-4,205.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,68,-3,210.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,69,-2,215.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,70,-1,220.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,72,1,225.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,73,2,230.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,74,3,235.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,75,4,240.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,76,5,245.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,78,7,250.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,71,83,12,255.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,62,-12,260.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,67,-7,265.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,69,-5,270.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,70,-4,275.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,71,-3,280.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,72,-2,285.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,73,-1,290.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,75,1,295.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,76,2,300.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,77,3,305.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,78,4,310.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,79,5,315.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,74,81,7,320.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,67,-12,325.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,72,-7,330.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,74,-5,335.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,75,-4,340.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,76,-3,345.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,77,-2,350.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,78,-1,355.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,80,1,360.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,81,2,365.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,82,3,370.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,83,4,375.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mp,79,84,5,380.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,55,-4,385.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,56,-3,390.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,57,-2,395.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,58,-1,400.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,60,1,405.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,61,2,410.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,62,3,415.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,63,4,420.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,64,5,425.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,66,7,430.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,59,71,12,435.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,55,-7,440.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,57,-5,445.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,58,-4,450.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,59,-3,455.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,60,-2,460.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,61,-1,465.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,63,1,470.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,64,2,475.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,65,3,480.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,66,4,485.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,67,5,490.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,69,7,495.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,62,74,12,500.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,55,-12,505.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,60,-7,510.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,62,-5,515.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,63,-4,520.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,64,-3,525.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,65,-2,530.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,66,-1,535.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,68,1,540.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,69,2,545.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,70,3,550.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,71,4,555.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,72,5,560.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,74,7,565.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,67,79,12,570.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,59,-12,575.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,64,-7,580.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,66,-5,585.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,67,-4,590.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,68,-3,595.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,69,-2,600.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,70,-1,605.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,72,1,610.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,73,2,615.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,74,3,620.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,75,4,625.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,76,5,630.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,78,7,635.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,71,83,12,640.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,62,-12,645.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,67,-7,650.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,69,-5,655.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,70,-4,660.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,71,-3,665.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,72,-2,670.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,73,-1,675.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,75,1,680.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,76,2,685.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,77,3,690.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,78,4,695.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,79,5,700.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,74,81,7,705.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,67,-12,710.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,72,-7,715.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,74,-5,720.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,75,-4,725.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,76,-3,730.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,77,-2,735.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,78,-1,740.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,80,1,745.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,81,2,750.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,82,3,755.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,83,4,760.0,connect naturally; preserve bow/finger noise
+VlnII,legato,mf,79,84,5,765.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,55,-4,770.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,56,-3,775.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,57,-2,780.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,58,-1,785.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,60,1,790.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,61,2,795.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,62,3,800.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,63,4,805.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,64,5,810.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,66,7,815.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,59,71,12,820.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,55,-7,825.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,57,-5,830.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,58,-4,835.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,59,-3,840.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,60,-2,845.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,61,-1,850.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,63,1,855.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,64,2,860.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,65,3,865.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,66,4,870.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,67,5,875.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,69,7,880.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,62,74,12,885.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,55,-12,890.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,60,-7,895.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,62,-5,900.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,63,-4,905.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,64,-3,910.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,65,-2,915.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,66,-1,920.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,68,1,925.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,69,2,930.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,70,3,935.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,71,4,940.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,72,5,945.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,74,7,950.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,67,79,12,955.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,59,-12,960.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,64,-7,965.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,66,-5,970.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,67,-4,975.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,68,-3,980.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,69,-2,985.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,70,-1,990.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,72,1,995.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,73,2,1000.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,74,3,1005.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,75,4,1010.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,76,5,1015.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,78,7,1020.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,71,83,12,1025.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,62,-12,1030.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,67,-7,1035.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,69,-5,1040.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,70,-4,1045.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,71,-3,1050.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,72,-2,1055.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,73,-1,1060.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,75,1,1065.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,76,2,1070.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,77,3,1075.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,78,4,1080.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,79,5,1085.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,74,81,7,1090.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,67,-12,1095.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,72,-7,1100.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,74,-5,1105.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,75,-4,1110.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,76,-3,1115.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,77,-2,1120.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,78,-1,1125.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,80,1,1130.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,81,2,1135.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,82,3,1140.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,83,4,1145.0,connect naturally; preserve bow/finger noise
+VlnII,legato,f,79,84,5,1150.0,connect naturally; preserve bow/finger noise
+VlnII,portamento,mp,62,55,-7,0.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,57,-5,5.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,58,-4,10.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,59,-3,15.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,65,3,20.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,66,4,25.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,67,5,30.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,69,7,35.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,71,9,40.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,62,74,12,45.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,55,-12,50.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,58,-9,55.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,60,-7,60.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,62,-5,65.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,63,-4,70.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,64,-3,75.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,70,3,80.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,71,4,85.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,72,5,90.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,74,7,95.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,76,9,100.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,67,79,12,105.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,59,-12,110.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,62,-9,115.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,64,-7,120.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,66,-5,125.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,67,-4,130.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,68,-3,135.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,74,3,140.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,75,4,145.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,76,5,150.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,78,7,155.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,80,9,160.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,71,83,12,165.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,62,-12,170.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,65,-9,175.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,67,-7,180.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,69,-5,185.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,70,-4,190.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,71,-3,195.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,77,3,200.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,78,4,205.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,79,5,210.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,81,7,215.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mp,74,83,9,220.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,55,-7,225.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,57,-5,230.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,58,-4,235.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,59,-3,240.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,65,3,245.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,66,4,250.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,67,5,255.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,69,7,260.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,71,9,265.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,62,74,12,270.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,55,-12,275.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,58,-9,280.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,60,-7,285.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,62,-5,290.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,63,-4,295.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,64,-3,300.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,70,3,305.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,71,4,310.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,72,5,315.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,74,7,320.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,76,9,325.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,67,79,12,330.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,59,-12,335.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,62,-9,340.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,64,-7,345.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,66,-5,350.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,67,-4,355.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,68,-3,360.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,74,3,365.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,75,4,370.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,76,5,375.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,78,7,380.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,80,9,385.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,71,83,12,390.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,62,-12,395.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,65,-9,400.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,67,-7,405.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,69,-5,410.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,70,-4,415.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,71,-3,420.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,77,3,425.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,78,4,430.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,79,5,435.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,81,7,440.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,portamento,mf,74,83,9,445.0,restrained Mandarin-ballad slide; do not exaggerate
+VlnII,crescendo,curve,59,59,0,0.0,hold 4 beats; follow CC curve musically
+VlnII,diminuendo,curve,59,59,0,5.0,hold 4 beats; follow CC curve musically
+VlnII,delayed_vibrato,curve,59,59,0,10.0,hold 4 beats; follow CC curve musically
+VlnII,no_vibrato,curve,59,59,0,15.0,hold 4 beats; follow CC curve musically
+VlnII,crescendo,curve,67,67,0,20.0,hold 4 beats; follow CC curve musically
+VlnII,diminuendo,curve,67,67,0,25.0,hold 4 beats; follow CC curve musically
+VlnII,delayed_vibrato,curve,67,67,0,30.0,hold 4 beats; follow CC curve musically
+VlnII,no_vibrato,curve,67,67,0,35.0,hold 4 beats; follow CC curve musically
+VlnII,crescendo,curve,74,74,0,40.0,hold 4 beats; follow CC curve musically
+VlnII,diminuendo,curve,74,74,0,45.0,hold 4 beats; follow CC curve musically
+VlnII,delayed_vibrato,curve,74,74,0,50.0,hold 4 beats; follow CC curve musically
+VlnII,no_vibrato,curve,74,74,0,55.0,hold 4 beats; follow CC curve musically
+Viola,legato,mp,52,48,-4,0.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,49,-3,5.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,50,-2,10.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,51,-1,15.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,53,1,20.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,54,2,25.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,55,3,30.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,56,4,35.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,57,5,40.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,59,7,45.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,52,64,12,50.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,48,-7,55.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,50,-5,60.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,51,-4,65.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,52,-3,70.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,53,-2,75.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,54,-1,80.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,56,1,85.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,57,2,90.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,58,3,95.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,59,4,100.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,60,5,105.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,62,7,110.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,55,67,12,115.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,48,-12,120.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,53,-7,125.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,55,-5,130.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,56,-4,135.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,57,-3,140.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,58,-2,145.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,59,-1,150.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,61,1,155.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,62,2,160.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,63,3,165.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,64,4,170.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,65,5,175.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,67,7,180.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,60,72,12,185.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,52,-12,190.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,57,-7,195.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,59,-5,200.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,60,-4,205.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,61,-3,210.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,62,-2,215.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,63,-1,220.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,65,1,225.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,66,2,230.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,67,3,235.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,68,4,240.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,69,5,245.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,71,7,250.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,64,76,12,255.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,55,-12,260.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,60,-7,265.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,62,-5,270.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,63,-4,275.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,64,-3,280.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,65,-2,285.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,66,-1,290.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,68,1,295.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,69,2,300.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,70,3,305.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,71,4,310.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,72,5,315.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,74,7,320.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,67,79,12,325.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,60,-12,330.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,65,-7,335.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,67,-5,340.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,68,-4,345.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,69,-3,350.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,70,-2,355.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,71,-1,360.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,73,1,365.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,74,2,370.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,75,3,375.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,76,4,380.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,77,5,385.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,72,79,7,390.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,64,-12,395.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,69,-7,400.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,71,-5,405.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,72,-4,410.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,73,-3,415.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,74,-2,420.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,75,-1,425.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,77,1,430.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,78,2,435.0,connect naturally; preserve bow/finger noise
+Viola,legato,mp,76,79,3,440.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,48,-4,445.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,49,-3,450.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,50,-2,455.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,51,-1,460.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,53,1,465.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,54,2,470.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,55,3,475.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,56,4,480.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,57,5,485.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,59,7,490.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,52,64,12,495.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,48,-7,500.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,50,-5,505.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,51,-4,510.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,52,-3,515.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,53,-2,520.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,54,-1,525.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,56,1,530.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,57,2,535.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,58,3,540.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,59,4,545.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,60,5,550.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,62,7,555.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,55,67,12,560.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,48,-12,565.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,53,-7,570.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,55,-5,575.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,56,-4,580.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,57,-3,585.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,58,-2,590.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,59,-1,595.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,61,1,600.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,62,2,605.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,63,3,610.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,64,4,615.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,65,5,620.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,67,7,625.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,60,72,12,630.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,52,-12,635.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,57,-7,640.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,59,-5,645.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,60,-4,650.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,61,-3,655.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,62,-2,660.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,63,-1,665.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,65,1,670.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,66,2,675.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,67,3,680.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,68,4,685.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,69,5,690.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,71,7,695.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,64,76,12,700.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,55,-12,705.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,60,-7,710.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,62,-5,715.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,63,-4,720.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,64,-3,725.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,65,-2,730.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,66,-1,735.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,68,1,740.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,69,2,745.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,70,3,750.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,71,4,755.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,72,5,760.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,74,7,765.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,67,79,12,770.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,60,-12,775.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,65,-7,780.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,67,-5,785.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,68,-4,790.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,69,-3,795.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,70,-2,800.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,71,-1,805.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,73,1,810.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,74,2,815.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,75,3,820.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,76,4,825.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,77,5,830.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,72,79,7,835.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,64,-12,840.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,69,-7,845.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,71,-5,850.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,72,-4,855.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,73,-3,860.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,74,-2,865.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,75,-1,870.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,77,1,875.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,78,2,880.0,connect naturally; preserve bow/finger noise
+Viola,legato,mf,76,79,3,885.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,48,-4,890.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,49,-3,895.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,50,-2,900.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,51,-1,905.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,53,1,910.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,54,2,915.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,55,3,920.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,56,4,925.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,57,5,930.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,59,7,935.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,52,64,12,940.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,48,-7,945.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,50,-5,950.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,51,-4,955.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,52,-3,960.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,53,-2,965.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,54,-1,970.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,56,1,975.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,57,2,980.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,58,3,985.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,59,4,990.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,60,5,995.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,62,7,1000.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,55,67,12,1005.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,48,-12,1010.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,53,-7,1015.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,55,-5,1020.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,56,-4,1025.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,57,-3,1030.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,58,-2,1035.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,59,-1,1040.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,61,1,1045.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,62,2,1050.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,63,3,1055.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,64,4,1060.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,65,5,1065.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,67,7,1070.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,60,72,12,1075.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,52,-12,1080.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,57,-7,1085.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,59,-5,1090.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,60,-4,1095.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,61,-3,1100.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,62,-2,1105.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,63,-1,1110.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,65,1,1115.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,66,2,1120.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,67,3,1125.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,68,4,1130.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,69,5,1135.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,71,7,1140.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,64,76,12,1145.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,55,-12,1150.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,60,-7,1155.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,62,-5,1160.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,63,-4,1165.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,64,-3,1170.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,65,-2,1175.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,66,-1,1180.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,68,1,1185.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,69,2,1190.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,70,3,1195.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,71,4,1200.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,72,5,1205.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,74,7,1210.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,67,79,12,1215.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,60,-12,1220.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,65,-7,1225.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,67,-5,1230.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,68,-4,1235.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,69,-3,1240.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,70,-2,1245.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,71,-1,1250.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,73,1,1255.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,74,2,1260.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,75,3,1265.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,76,4,1270.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,77,5,1275.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,72,79,7,1280.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,64,-12,1285.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,69,-7,1290.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,71,-5,1295.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,72,-4,1300.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,73,-3,1305.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,74,-2,1310.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,75,-1,1315.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,77,1,1320.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,78,2,1325.0,connect naturally; preserve bow/finger noise
+Viola,legato,f,76,79,3,1330.0,connect naturally; preserve bow/finger noise
+Viola,portamento,mp,55,48,-7,0.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,50,-5,5.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,51,-4,10.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,52,-3,15.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,58,3,20.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,59,4,25.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,60,5,30.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,62,7,35.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,64,9,40.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,55,67,12,45.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,48,-12,50.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,51,-9,55.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,53,-7,60.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,55,-5,65.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,56,-4,70.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,57,-3,75.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,63,3,80.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,64,4,85.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,65,5,90.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,67,7,95.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,69,9,100.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,60,72,12,105.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,52,-12,110.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,55,-9,115.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,57,-7,120.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,59,-5,125.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,60,-4,130.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,61,-3,135.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,67,3,140.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,68,4,145.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,69,5,150.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,71,7,155.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,73,9,160.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,64,76,12,165.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,55,-12,170.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,58,-9,175.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,60,-7,180.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,62,-5,185.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,63,-4,190.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,64,-3,195.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,70,3,200.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,71,4,205.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,72,5,210.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,74,7,215.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,76,9,220.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,67,79,12,225.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,60,-12,230.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,63,-9,235.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,65,-7,240.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,67,-5,245.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,68,-4,250.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,69,-3,255.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,75,3,260.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,76,4,265.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,77,5,270.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mp,72,79,7,275.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,48,-7,280.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,50,-5,285.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,51,-4,290.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,52,-3,295.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,58,3,300.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,59,4,305.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,60,5,310.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,62,7,315.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,64,9,320.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,55,67,12,325.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,48,-12,330.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,51,-9,335.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,53,-7,340.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,55,-5,345.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,56,-4,350.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,57,-3,355.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,63,3,360.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,64,4,365.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,65,5,370.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,67,7,375.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,69,9,380.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,60,72,12,385.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,52,-12,390.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,55,-9,395.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,57,-7,400.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,59,-5,405.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,60,-4,410.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,61,-3,415.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,67,3,420.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,68,4,425.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,69,5,430.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,71,7,435.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,73,9,440.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,64,76,12,445.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,55,-12,450.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,58,-9,455.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,60,-7,460.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,62,-5,465.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,63,-4,470.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,64,-3,475.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,70,3,480.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,71,4,485.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,72,5,490.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,74,7,495.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,76,9,500.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,67,79,12,505.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,60,-12,510.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,63,-9,515.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,65,-7,520.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,67,-5,525.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,68,-4,530.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,69,-3,535.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,75,3,540.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,76,4,545.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,77,5,550.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,portamento,mf,72,79,7,555.0,restrained Mandarin-ballad slide; do not exaggerate
+Viola,crescendo,curve,52,52,0,0.0,hold 4 beats; follow CC curve musically
+Viola,diminuendo,curve,52,52,0,5.0,hold 4 beats; follow CC curve musically
+Viola,delayed_vibrato,curve,52,52,0,10.0,hold 4 beats; follow CC curve musically
+Viola,no_vibrato,curve,52,52,0,15.0,hold 4 beats; follow CC curve musically
+Viola,crescendo,curve,60,60,0,20.0,hold 4 beats; follow CC curve musically
+Viola,diminuendo,curve,60,60,0,25.0,hold 4 beats; follow CC curve musically
+Viola,delayed_vibrato,curve,60,60,0,30.0,hold 4 beats; follow CC curve musically
+Viola,no_vibrato,curve,60,60,0,35.0,hold 4 beats; follow CC curve musically
+Viola,crescendo,curve,67,67,0,40.0,hold 4 beats; follow CC curve musically
+Viola,diminuendo,curve,67,67,0,45.0,hold 4 beats; follow CC curve musically
+Viola,delayed_vibrato,curve,67,67,0,50.0,hold 4 beats; follow CC curve musically
+Viola,no_vibrato,curve,67,67,0,55.0,hold 4 beats; follow CC curve musically
+Viola,crescendo,curve,76,76,0,60.0,hold 4 beats; follow CC curve musically
+Viola,diminuendo,curve,76,76,0,65.0,hold 4 beats; follow CC curve musically
+Viola,delayed_vibrato,curve,76,76,0,70.0,hold 4 beats; follow CC curve musically
+Viola,no_vibrato,curve,76,76,0,75.0,hold 4 beats; follow CC curve musically
+Cello,legato,mp,40,36,-4,0.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,37,-3,5.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,38,-2,10.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,39,-1,15.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,41,1,20.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,42,2,25.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,43,3,30.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,44,4,35.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,45,5,40.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,47,7,45.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,40,52,12,50.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,36,-7,55.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,38,-5,60.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,39,-4,65.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,40,-3,70.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,41,-2,75.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,42,-1,80.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,44,1,85.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,45,2,90.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,46,3,95.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,47,4,100.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,48,5,105.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,50,7,110.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,43,55,12,115.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,36,-12,120.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,41,-7,125.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,43,-5,130.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,44,-4,135.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,45,-3,140.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,46,-2,145.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,47,-1,150.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,49,1,155.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,50,2,160.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,51,3,165.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,52,4,170.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,53,5,175.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,55,7,180.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,48,60,12,185.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,40,-12,190.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,45,-7,195.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,47,-5,200.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,48,-4,205.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,49,-3,210.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,50,-2,215.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,51,-1,220.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,53,1,225.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,54,2,230.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,55,3,235.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,56,4,240.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,57,5,245.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,59,7,250.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,52,64,12,255.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,43,-12,260.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,48,-7,265.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,50,-5,270.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,51,-4,275.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,52,-3,280.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,53,-2,285.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,54,-1,290.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,56,1,295.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,57,2,300.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,58,3,305.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,59,4,310.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,60,5,315.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,62,7,320.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,55,67,12,325.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,48,-12,330.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,53,-7,335.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,55,-5,340.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,56,-4,345.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,57,-3,350.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,58,-2,355.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,59,-1,360.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,61,1,365.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,62,2,370.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,63,3,375.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,64,4,380.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,65,5,385.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,60,67,7,390.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,52,-12,395.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,57,-7,400.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,59,-5,405.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,60,-4,410.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,61,-3,415.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,62,-2,420.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,63,-1,425.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,65,1,430.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,66,2,435.0,connect naturally; preserve bow/finger noise
+Cello,legato,mp,64,67,3,440.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,36,-4,445.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,37,-3,450.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,38,-2,455.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,39,-1,460.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,41,1,465.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,42,2,470.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,43,3,475.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,44,4,480.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,45,5,485.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,47,7,490.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,40,52,12,495.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,36,-7,500.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,38,-5,505.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,39,-4,510.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,40,-3,515.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,41,-2,520.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,42,-1,525.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,44,1,530.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,45,2,535.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,46,3,540.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,47,4,545.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,48,5,550.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,50,7,555.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,43,55,12,560.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,36,-12,565.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,41,-7,570.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,43,-5,575.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,44,-4,580.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,45,-3,585.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,46,-2,590.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,47,-1,595.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,49,1,600.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,50,2,605.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,51,3,610.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,52,4,615.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,53,5,620.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,55,7,625.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,48,60,12,630.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,40,-12,635.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,45,-7,640.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,47,-5,645.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,48,-4,650.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,49,-3,655.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,50,-2,660.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,51,-1,665.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,53,1,670.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,54,2,675.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,55,3,680.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,56,4,685.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,57,5,690.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,59,7,695.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,52,64,12,700.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,43,-12,705.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,48,-7,710.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,50,-5,715.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,51,-4,720.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,52,-3,725.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,53,-2,730.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,54,-1,735.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,56,1,740.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,57,2,745.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,58,3,750.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,59,4,755.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,60,5,760.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,62,7,765.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,55,67,12,770.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,48,-12,775.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,53,-7,780.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,55,-5,785.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,56,-4,790.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,57,-3,795.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,58,-2,800.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,59,-1,805.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,61,1,810.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,62,2,815.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,63,3,820.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,64,4,825.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,65,5,830.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,60,67,7,835.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,52,-12,840.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,57,-7,845.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,59,-5,850.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,60,-4,855.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,61,-3,860.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,62,-2,865.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,63,-1,870.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,65,1,875.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,66,2,880.0,connect naturally; preserve bow/finger noise
+Cello,legato,mf,64,67,3,885.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,36,-4,890.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,37,-3,895.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,38,-2,900.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,39,-1,905.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,41,1,910.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,42,2,915.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,43,3,920.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,44,4,925.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,45,5,930.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,47,7,935.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,40,52,12,940.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,36,-7,945.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,38,-5,950.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,39,-4,955.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,40,-3,960.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,41,-2,965.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,42,-1,970.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,44,1,975.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,45,2,980.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,46,3,985.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,47,4,990.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,48,5,995.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,50,7,1000.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,43,55,12,1005.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,36,-12,1010.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,41,-7,1015.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,43,-5,1020.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,44,-4,1025.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,45,-3,1030.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,46,-2,1035.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,47,-1,1040.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,49,1,1045.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,50,2,1050.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,51,3,1055.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,52,4,1060.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,53,5,1065.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,55,7,1070.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,48,60,12,1075.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,40,-12,1080.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,45,-7,1085.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,47,-5,1090.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,48,-4,1095.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,49,-3,1100.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,50,-2,1105.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,51,-1,1110.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,53,1,1115.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,54,2,1120.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,55,3,1125.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,56,4,1130.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,57,5,1135.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,59,7,1140.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,52,64,12,1145.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,43,-12,1150.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,48,-7,1155.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,50,-5,1160.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,51,-4,1165.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,52,-3,1170.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,53,-2,1175.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,54,-1,1180.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,56,1,1185.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,57,2,1190.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,58,3,1195.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,59,4,1200.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,60,5,1205.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,62,7,1210.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,55,67,12,1215.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,48,-12,1220.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,53,-7,1225.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,55,-5,1230.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,56,-4,1235.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,57,-3,1240.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,58,-2,1245.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,59,-1,1250.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,61,1,1255.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,62,2,1260.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,63,3,1265.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,64,4,1270.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,65,5,1275.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,60,67,7,1280.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,52,-12,1285.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,57,-7,1290.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,59,-5,1295.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,60,-4,1300.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,61,-3,1305.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,62,-2,1310.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,63,-1,1315.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,65,1,1320.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,66,2,1325.0,connect naturally; preserve bow/finger noise
+Cello,legato,f,64,67,3,1330.0,connect naturally; preserve bow/finger noise
+Cello,portamento,mp,43,36,-7,0.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,38,-5,5.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,39,-4,10.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,40,-3,15.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,46,3,20.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,47,4,25.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,48,5,30.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,50,7,35.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,52,9,40.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,43,55,12,45.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,36,-12,50.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,39,-9,55.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,41,-7,60.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,43,-5,65.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,44,-4,70.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,45,-3,75.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,51,3,80.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,52,4,85.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,53,5,90.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,55,7,95.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,57,9,100.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,48,60,12,105.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,40,-12,110.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,43,-9,115.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,45,-7,120.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,47,-5,125.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,48,-4,130.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,49,-3,135.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,55,3,140.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,56,4,145.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,57,5,150.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,59,7,155.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,61,9,160.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,52,64,12,165.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,43,-12,170.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,46,-9,175.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,48,-7,180.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,50,-5,185.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,51,-4,190.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,52,-3,195.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,58,3,200.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,59,4,205.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,60,5,210.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,62,7,215.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,64,9,220.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,55,67,12,225.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,48,-12,230.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,51,-9,235.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,53,-7,240.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,55,-5,245.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,56,-4,250.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,57,-3,255.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,63,3,260.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,64,4,265.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,65,5,270.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mp,60,67,7,275.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,36,-7,280.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,38,-5,285.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,39,-4,290.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,40,-3,295.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,46,3,300.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,47,4,305.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,48,5,310.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,50,7,315.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,52,9,320.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,43,55,12,325.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,36,-12,330.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,39,-9,335.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,41,-7,340.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,43,-5,345.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,44,-4,350.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,45,-3,355.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,51,3,360.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,52,4,365.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,53,5,370.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,55,7,375.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,57,9,380.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,48,60,12,385.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,40,-12,390.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,43,-9,395.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,45,-7,400.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,47,-5,405.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,48,-4,410.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,49,-3,415.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,55,3,420.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,56,4,425.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,57,5,430.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,59,7,435.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,61,9,440.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,52,64,12,445.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,43,-12,450.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,46,-9,455.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,48,-7,460.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,50,-5,465.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,51,-4,470.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,52,-3,475.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,58,3,480.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,59,4,485.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,60,5,490.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,62,7,495.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,64,9,500.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,55,67,12,505.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,48,-12,510.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,51,-9,515.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,53,-7,520.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,55,-5,525.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,56,-4,530.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,57,-3,535.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,63,3,540.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,64,4,545.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,65,5,550.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,portamento,mf,60,67,7,555.0,restrained Mandarin-ballad slide; do not exaggerate
+Cello,crescendo,curve,40,40,0,0.0,hold 4 beats; follow CC curve musically
+Cello,diminuendo,curve,40,40,0,5.0,hold 4 beats; follow CC curve musically
+Cello,delayed_vibrato,curve,40,40,0,10.0,hold 4 beats; follow CC curve musically
+Cello,no_vibrato,curve,40,40,0,15.0,hold 4 beats; follow CC curve musically
+Cello,crescendo,curve,48,48,0,20.0,hold 4 beats; follow CC curve musically
+Cello,diminuendo,curve,48,48,0,25.0,hold 4 beats; follow CC curve musically
+Cello,delayed_vibrato,curve,48,48,0,30.0,hold 4 beats; follow CC curve musically
+Cello,no_vibrato,curve,48,48,0,35.0,hold 4 beats; follow CC curve musically
+Cello,crescendo,curve,55,55,0,40.0,hold 4 beats; follow CC curve musically
+Cello,diminuendo,curve,55,55,0,45.0,hold 4 beats; follow CC curve musically
+Cello,delayed_vibrato,curve,55,55,0,50.0,hold 4 beats; follow CC curve musically
+Cello,no_vibrato,curve,55,55,0,55.0,hold 4 beats; follow CC curve musically
+Cello,crescendo,curve,64,64,0,60.0,hold 4 beats; follow CC curve musically
+Cello,diminuendo,curve,64,64,0,65.0,hold 4 beats; follow CC curve musically
+Cello,delayed_vibrato,curve,64,64,0,70.0,hold 4 beats; follow CC curve musically
+Cello,no_vibrato,curve,64,64,0,75.0,hold 4 beats; follow CC curve musically

@@ -1,0 +1,514 @@
+{
+  "iowa_mis": {
+    "enabled": true,
+    "official_url": "https://theremin.music.uiowa.edu/MIS.html",
+    "license": "Official source statement: recordings may be downloaded and used for any projects, without restrictions",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "hq_codec_anchor",
+      "real_string_timbre"
+    ],
+    "final_timbre_anchor": true,
+    "notes": "2011/2012 string sessions provide 24-bit/96-kHz stereo material recorded in an anechoic chamber with Earthworks QTC-40 microphones. Primarily isolated notes; do not treat as real legato-phrase data. Preserve a source/terms snapshot and file hashes in provenance.",
+    "training_origin": "real"
+  },
+  "tinysol": {
+    "enabled": true,
+    "official_url": "https://zenodo.org/records/3685331",
+    "license": "CC-BY-4.0",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "pitch_coverage",
+      "controlled_note_supplement"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "2913 isolated notes across 14 instruments. Use only violin/viola/violoncello. TinySOL is ordinary-technique material and requires attribution.",
+    "training_origin": "real"
+  },
+  "vsco2_ce": {
+    "enabled": false,
+    "official_url": "https://github.com/sgossner/VSCO-2-CE",
+    "publisher_url": "https://versilian-studios.com/vsco-community/",
+    "license": "CC0-1.0",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "optional_articulation_reference",
+      "optional_live_preview_source"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "CC0 and legally permissive, but the repository string layout includes section material for viola/cello rather than a matched four-soloist Q4 corpus. Do not feed it into the HQ acoustic renderer by default. Optional for articulation taxonomy/LIVE preview experiments only.",
+    "training_origin": "real"
+  },
+  "descript_dac": {
+    "enabled": true,
+    "official_url": "https://github.com/descriptinc/descript-audio-codec",
+    "license": "MIT; upstream README states released model weights are under MIT",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "hq_audio_codec_bootstrap"
+    ],
+    "final_timbre_anchor": false
+  },
+  "custom_owned_session": {
+    "enabled": false,
+    "official_url": null,
+    "license": "SESSION-SPECIFIC WRITTEN RIGHTS RELEASE REQUIRED",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "final_legato_phrase_ensemble_anchor"
+    ],
+    "final_timbre_anchor": true,
+    "notes": "This entry becomes release-eligible only for a specific session after a signed performer/master agreement grants commercial ML training, derivative model/weights creation and redistribution/sublicensing, commercial generated outputs, and processing/segmentation rights. Never flip this registry flag without storing the signed clearance path in provenance.",
+    "training_origin": "real"
+  },
+  "slakh2100": {
+    "enabled": false,
+    "official_url": "https://github.com/ethman/Slakh",
+    "license": "CC-BY-4.0",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "optional_symbolic_control_pretraining_only"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Synthetic sample-library stems; never use as the final timbre target. It is rendered/sample-library material, so it never counts toward the 80% real-acoustic lane.",
+    "training_origin": "modeled"
+  },
+  "philharmonia_samples": {
+    "enabled": false,
+    "official_url": "https://philharmonia.co.uk/resources/sound-samples/",
+    "license": "Custom terms: samples may be used in commercial works but not sold or made available as-is or as a sampler instrument; ML-weight redistribution is not explicitly addressed",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "manual_review_only"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Do not train a release model until written permission explicitly covers commercial ML training and redistribution of learned weights."
+  },
+  "urmp": {
+    "enabled": false,
+    "official_url": "https://labsites.rochester.edu/air/projects/URMP.html",
+    "license": "No explicit commercial ML-training plus learned-weight redistribution grant verified",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_alignment_only"
+    ]
+  },
+  "quartset_2025": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/15708701",
+    "license": "Zenodo dataset record exposes the data but no explicit license text sufficient for commercial ML-training/weight redistribution was verified",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_quartet_only"
+    ]
+  },
+  "mosa": {
+    "enabled": false,
+    "official_url": "https://github.com/yufenhuang/mosa-music-motion-and-semantic-annotation-dataset",
+    "license": "Research-oriented usage restrictions",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_reference_only"
+    ]
+  },
+  "musc": {
+    "enabled": false,
+    "official_url": "https://github.com/MTG/violin-transcription",
+    "license": "Linked performance audio rights are not cleared for commercial model training",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_reference_only"
+    ]
+  },
+  "eep": {
+    "enabled": false,
+    "official_url": "https://www.upf.edu/web/mtg/eep",
+    "license": "Internal non-commercial use only",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "evaluation_only"
+    ]
+  },
+  "musopen": {
+    "enabled": false,
+    "official_url": "https://musopen.org/",
+    "license": "Per-recording review required; do not bulk-assume public domain or ML-training rights",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "manual_per_recording_review_only"
+    ]
+  },
+  "good_sounds_cora_2025": {
+    "enabled": true,
+    "official_url": "https://doi.org/10.34810/DATA2314",
+    "license": "CC-BY-4.0 on the 2025 CORA distribution",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "professional_violin_cello_timbre",
+      "scale_phrase_supplement",
+      "quality_rated_note_filter"
+    ],
+    "final_timbre_anchor": true,
+    "notes": "Use only the 2025 CORA distribution and record DOI/version/file hashes. 15 professional musicians; studio recordings; single notes and scales. Public dataset descriptions report 48-kHz/32-bit mono source files. Filter to good-sound/scale-good and violin/cello. Do not mix with the older Zenodo distribution without separate provenance.",
+    "training_origin": "real"
+  },
+  "good_sounds_legacy_zenodo": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/4588740",
+    "license": "CC-BY-NC-4.0 on legacy Zenodo record",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "do_not_use_for_commercial_checkpoint"
+    ],
+    "notes": "Legacy copy has non-commercial terms. The v0.3 pipeline explicitly distinguishes it from the 2025 CORA CC-BY-4.0 distribution."
+  },
+  "mid_fild_midi": {
+    "enabled": true,
+    "official_url": "https://github.com/pozalabs/MID-FiLD",
+    "license": "MIT for repository/dataset package",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "symbolic_dynamics_prior",
+      "cc_shape_pretraining",
+      "mood_role_conditioning"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "MIDI only, not acoustic training. Contains string_violin/string_viola/string_cello/string_double_bass classes plus role/mood/min_cc/max_cc metadata. Useful to pretrain performance-control priors without contaminating audio timbre."
+  },
+  "fsd50k_cc0_strings": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/4060432",
+    "license": "Per-clip; only CC0 clips may be admitted by the optional filter",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "optional_noise_room_robustness_only"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Do not use as final timbre target. FSD50K contains mixed licenses; pipeline must whitelist CC0 at clip level and bowed-string labels only.",
+    "training_origin": "real"
+  },
+  "sanidha": {
+    "enabled": false,
+    "official_url": "https://ccml.gtcmt.gatech.edu/data/Sanidha/",
+    "license": "CC-BY-4.0",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "requires_manual_access": true,
+    "training_role": [
+      "real_bow_continuity",
+      "real_player_texture",
+      "acoustic_regularization"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Studio-quality Carnatic multitracks, ~8h total. Violin has two clean multitracks per concert. Use as acoustic/bow-continuity supplement only; suppress/ignore style-specific pitch ornament conditioning so Carnatic gamaka does not leak into Mandarin-ballad performance style. Access currently requires Georgia Tech guest/VPN request.",
+    "training_origin": "real"
+  },
+  "ghent_ar_violin_2023": {
+    "enabled": true,
+    "official_url": "https://doi.org/10.5281/zenodo.8147435",
+    "license": "CC-BY-4.0",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "professional_violin_motion_audio_prior",
+      "bow_motion_transition_prior"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Use Avatar_Data professional First/Second Violin leader stereo WAV + motion/joint-angle data preferentially. Participant recordings are amateurs and are excluded from final timbre training by default.",
+    "training_origin": "real"
+  },
+  "musicnet_audited": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/5120004",
+    "license": "Per-recording Creative Commons/Public Domain provenance; commercial pipeline must whitelist only CC0/PD/CC-BY recordings and retain track provenance.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "real_chamber_context",
+      "realism_critic",
+      "ensemble_balance_reference"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Zenodo describes 330 freely licensed recordings; OpenAIRE indexes the record as CC BY. Audio provenance spans Creative Commons/Public Domain sources. v0.8 still retains track/source provenance and hashes rather than discarding them. Use primarily for real chamber context/realism critic, not isolated CC3/legato supervision.",
+    "training_origin": "real"
+  },
+  "wikimedia_pd_quartets": {
+    "enabled": true,
+    "official_url": "https://commons.wikimedia.org/",
+    "license": "Per-file verified public-domain/CC0 only",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "realism_critic",
+      "quartet_room_balance_reference"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Seed list contains only files whose Commons pages explicitly show public-domain dedication/CC0. Downloader rechecks extmetadata at runtime and refuses non-PD/non-CC0 files. Use ensemble mix for realism reference, not isolated instrument timbre.",
+    "training_origin": "real"
+  },
+  "openmic_2018": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/1432913",
+    "license": "CC-BY-4.0 dataset package; retain original track metadata/attribution",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "weak_real_world_string_context_critic"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "10-second naturally occurring music excerpts with violin/cello labels. Mixed audio only. Optional weak critic/reference data, never a primary timbre target.",
+    "training_origin": "real"
+  },
+  "violet_csv_td": {
+    "enabled": false,
+    "official_url": "https://github.com/User-tian/VIOLET",
+    "license": "VIOLET code MIT; CSV-TD dataset page states license is still being worked on/coming soon as of 2026-08-30; audio was rendered with a commercial virtual instrument.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "architecture_reference_only"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Do not ingest CSV-TD or its checkpoints into commercial release weights until explicit data/checkpoint rights are verified. Architecture ideas may be clean-room reimplemented from the MIT code/paper."
+  },
+  "vibrato_analysis_research": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/1016050",
+    "license": "Dataset page states software AGPLv3; embedded audio comes from multiple owners and the record does not provide a single commercial ML/weight-redistribution grant.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_vibrato_measurement_reference_only"
+    ],
+    "notes": "Technically valuable: violin material includes no/slow/standard/fast vibrato and pitch-trajectory annotations. Do not train release weights on its audio. Use only as a research reference for deterministic vibrato measurement design."
+  },
+  "violin_technique_2024": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/13773807",
+    "license": "Indexed as CC BY, but files are currently restricted and the record was published for reviewers; release use requires obtaining the files with the applicable terms/evidence.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "watch_request_access_only"
+    ],
+    "notes": "Excellent note+technique annotations if access/rights are clarified. Do not bypass restricted access."
+  },
+  "sorbonne_violin_acoustics_2025": {
+    "enabled": false,
+    "official_url": "https://doi.org/10.57745/VWFP0H",
+    "license": "Etalab Open License 2.0 (dataset page marks it compatible with CC-BY 2.0).",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "acoustic_validation",
+      "bowed_string_physics_reference"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Very small 2025 set containing live violin, bowing-machine open strings and hybrid synthesis for violin acoustics evaluation. Useful for codec/physics validation, not enough for phrase/transition learning.",
+    "training_origin": "real"
+  },
+  "bach_violin_audited_subset": {
+    "enabled": false,
+    "official_url": "https://github.com/salu133445/bach-violin-dataset",
+    "license": "PER-RECORDING LICENSES; each audio file retains the license of its original source.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "pending_performance_prior",
+      "pending_vibrato_phrase_mining",
+      "realism_reference"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "6.5 h / 17 violinists with score alignments is valuable for phrase, legato and vibrato mining, but the collection has mixed per-recording rights. Admit only individually audited recordings into a new source id after preserving each original license snapshot/hash. MP3/OPUS and varied rooms make it unsuitable as the primary timbre anchor."
+  },
+  "mit_bowstroke_database_research": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/1179481",
+    "license": "The Zenodo record is the CC-BY-4.0 conference paper, not a blanket license for the underlying bowstroke audio/gesture database.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_bow_change_reference_only"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Technically excellent for bow-force/position/gesture and bowstroke timing; do not use underlying audio/gesture data for commercial weights until the actual database files carry explicit compatible rights."
+  },
+  "wikimedia_violin_techniques_ccby25": {
+    "enabled": false,
+    "official_url": "https://commons.wikimedia.org/wiki/File:Violin_sounds_and_techniques.ogg",
+    "license": "CC-BY-SA-2.5 / GFDL multi-license on inspected vibrato file; ShareAlike implications for learned weights are not cleared",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_reference_only"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "v0.7 correction: do not admit audio into commercial checkpoints until legal review resolves ShareAlike treatment of model weights/derivatives. Metadata may still be referenced."
+  },
+  "arme_virtuoso_strings": {
+    "enabled": false,
+    "official_url": "https://github.com/arme-project/virtuoso-strings",
+    "license": "CC-BY-NC-SA-4.0; repository COPYRIGHT states non-commercial research/educational use only",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_timing_reference_only"
+    ],
+    "notes": "Technically excellent: professional Q4, solo/duet/trio/quartet tracks, onset annotations, normal/deadpan/speed conditions. Do not use in commercial weights without separate permission."
+  },
+  "string_performance_dataset_spd": {
+    "enabled": false,
+    "official_url": "https://metaverse-ai-lab-thu.github.io/String-Performance-Dataset-SPD/",
+    "license": "No explicit commercial ML/learned-weight redistribution license verified on public project page",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_motion_bow_reference_only"
+    ],
+    "notes": "Violin/cello audio plus dense body/hand/instrument/bow motion and contact annotations. High technical value for bow-change physics, but rights gate remains closed."
+  },
+  "violin_midi_performance_2023": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/13736820",
+    "license": "Dataset record provides aligned MIDI/pitch-bend data, but explicit per-record Rights/license was not captured in this audit; repository code is AGPL-3.0 and MIDI is aligned to external YouTube performances",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_vibrato_pitchbend_prior_only"
+    ],
+    "notes": "34h-equivalent aligned solo-violin performance descriptors with 5.8ms/10-cent resolution and pitch bends. Do not transfer derived performance labels into release weights until dataset rights are explicitly verified."
+  },
+  "single_sound_clarity_strings": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/30599",
+    "license": "Record asks for attribution/citation but an explicit standard commercial reuse license was not verified in this audit",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_spectral_reference_only"
+    ],
+    "notes": "Bowed/plucked violin and cello audio; useful for spectral validation, not admitted to commercial training until license is explicit."
+  },
+  "violin_spherical_mic_2022": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/6717415",
+    "license": "No license text shown in the Zenodo Rights field as verified 2026-08-30.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "watch_license_clarification_only"
+    ],
+    "notes": "2.9GB, 32 spot microphones, 23 expressions; technically valuable, but not admitted without an explicit commercial-compatible data license."
+  },
+  "violin_midi_highres_2024": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/13736820",
+    "license": "Dataset record provides aligned MIDI with 5.8ms/10-cent pitch-bend trajectories, but an explicit commercial-compatible record license was not verified; linked performance audio remains on YouTube and is never harvested.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_symbolic_vibrato_teacher_only"
+    ],
+    "notes": "Potentially excellent symbolic vibrato/intonation teacher. Never download or train on linked YouTube audio. Enable only after MIDI dataset rights are explicitly confirmed."
+  },
+  "vibrato_dataset_skx300": {
+    "enabled": false,
+    "official_url": "https://github.com/skx300/vibrato_dataset",
+    "license": "Repository code is Apache-2.0, but embedded audio/ground-truth provenance is mixed across CMMSD/Coler/other material; repository license alone is not treated as an audio rights grant.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_vibrato_analyzer_validation_only"
+    ]
+  },
+  "orchideasol": {
+    "enabled": false,
+    "official_url": "https://zenodo.org/records/3740399",
+    "license": "Audio governed by IRCAM Forum License; metadata CC-BY-4.0.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_role": [
+      "research_or_manual_license_review_only"
+    ],
+    "notes": "Do not confuse metadata CC BY with the audio terms."
+  },
+  "open_music_archive_pd": {
+    "enabled": false,
+    "official_url": "https://openmusicarchive.org/",
+    "license": "Per-recording; only explicit Public Domain items may enter the commercial pipeline. BY-SA items are excluded by default.",
+    "terms_checked_utc": "2026-08-30",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_role": [
+      "optional_historical_realism_reference"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Historical recordings can help realism statistics, not modern close-mic timbre. Require per-file source URL, rights statement and hash.",
+    "training_origin": "real"
+  },
+  "synthetic_cleanroom_bowed_v18": {
+    "enabled": true,
+    "official_url": null,
+    "license": "SONICRAFT-generated audio from independently authored physical DSP; permissive open-source projects may be used only as reference/validation and their audio/weights are not copied.",
+    "terms_checked_utc": "2026-08-31",
+    "commercial_safe": true,
+    "release_blocked": false,
+    "training_origin": "modeled",
+    "source_weight": 1.0,
+    "training_role": [
+      "physics_coverage",
+      "scarce_control_extremes",
+      "transition_prior",
+      "exact_bow_parameter_teacher"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Hard-capped by the v1.8+ origin-aware sampler to 20% probability mass. v1.9 Sound Forge may grade/rank it only inside the modeled lane. Codec adversarial realism uses real rows only, and modeled reconstruction is down-weighted; modeled data must never become the final timbre anchor. No SWAM audio, binaries, AMData, presets, weights or decompiled material are used."
+  }
+}

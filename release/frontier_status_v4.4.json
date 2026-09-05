@@ -1,0 +1,65 @@
+{
+  "version": "4.4.0-ensemble-bow-phrase",
+  "date": "2026-09-02",
+  "scope": "strings-only",
+  "training_data_changed": false,
+  "state_schema": 13,
+  "ensemble_coordination": {
+    "cross_part_onset_clusters": true,
+    "phrase_segmentation": true,
+    "bow_direction_sync": true,
+    "explicit_bow_marks_preserved": true,
+    "bow_conflict_reporting": true,
+    "bow_change_anchors": true,
+    "attack_spread_ms": {
+      "min": -8,
+      "max": 8
+    },
+    "phrase_breath_ms": {
+      "min": 0,
+      "max": 20
+    },
+    "roles": [
+      "lead",
+      "inner",
+      "foundation"
+    ],
+    "ensemble_sidecar": true,
+    "daw_markers": true
+  },
+  "runtime": {
+    "cc36_attack_offset": true,
+    "cc37_phrase_breath": true,
+    "legacy_opt_in": true,
+    "torch_numpy_parity": true,
+    "preview_actual_subblock_timing": false,
+    "preview_approximation": true
+  },
+  "judge": {
+    "ensemble_timing_in_config_identity": true
+  },
+  "release_binary_status": {
+    "vst3_binary_rebuilt": false,
+    "steinberg_validator": false,
+    "cubase_host_validation": false,
+    "studio_one_host_validation": false,
+    "commercial_binary_release_approved": false
+  },
+  "validation": {
+    "ensemble_solver": "PASS",
+    "explicit_bow_conflict": "PASS",
+    "cc36_cc37_compile": "PASS",
+    "hq_timing_runtime": "PASS",
+    "torch_numpy_parity": "PASS",
+    "renderer_service_34ch": "PASS",
+    "v43_regression": "PASS",
+    "v42_regression": "PASS",
+    "v41_hq_isolation": "PASS",
+    "v39_to_v28_regression": "PASS",
+    "full_non_vst_build": "PASS",
+    "native_34ch_engine": "PASS",
+    "promotion_guard": "PASS",
+    "uidesc_xml": "PASS",
+    "explicit_param_id_collisions": 0
+  }
+}
