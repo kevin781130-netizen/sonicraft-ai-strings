@@ -1,0 +1,73 @@
+name: Recover old RC2 payload prefix
+
+on:
+  push:
+    branches:
+      - release/v7.0-rc2-frontend-lock
+    paths:
+      - '.source_payload/RECOVER_PREFIX'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect recoverable source from truncated old payload
+        shell: bash
+        run: |
+          set -u
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, lzma, io, tarfile, hashlib
+
+          parts = sorted(Path('.source_payload').glob('full-*.b64'))
+          encoded = ''.join(p.read_text(encoding='ascii') for p in parts)
+          print('PART_COUNT', len(parts))
+          print('B64_CHARS', len(encoded))
+          # Existing prefix is aligned to 4 chars, so strict base64 decode is valid.
+          packed = base64.b64decode(encoded, validate=True)
+          print('PACKED_BYTES', len(packed))
+          print('PACKED_PREFIX_SHA256', hashlib.sha256(packed).hexdigest())
+
+          dec = lzma.LZMADecompressor(format=lzma.FORMAT_XZ)
+          try:
+              raw = dec.decompress(packed)
+              print('XZ_EOF', dec.eof)
+          except lzma.LZMAError as e:
+              print('XZ_ERROR', repr(e))
+              raise
+          print('TAR_PREFIX_BYTES', len(raw))
+
+          complete=[]
+          tf = tarfile.open(fileobj=io.BytesIO(raw), mode='r:')
+          for m in tf:
+              if not m.isfile():
+                  continue
+              try:
+                  f=tf.extractfile(m)
+                  data=f.read() if f else b''
+              except Exception as e:
+                  print('STOP_AT', m.name, type(e).__name__, str(e))
+                  break
+              if len(data) != m.size:
+                  print('TRUNCATED_MEMBER', m.name, len(data), m.size)
+                  break
+              complete.append((m.name, m.size, hashlib.sha256(data).hexdigest()))
+          print('COMPLETE_FILES', len(complete))
+          if complete:
+              print('FIRST_FILE', complete[0][0])
+              print('LAST_FILE', complete[-1][0])
+              print('LAST_20')
+              for x in complete[-20:]: print(x[0], x[1], x[2])
+          wanted=[
+            'CMakeLists.txt','VERSION','src/processor.cpp','frontend/index.html',
+            'runtime/frontend_layout_gate_v70.py',
+            'standalone/win32/sonicraft_product_shell_win32_v26.cpp',
+            'installer/inno/sonicraft_q4_rc_v70.iss','scripts/rc_source_gate_v70.py',
+            'resource/SONICRAFT_AI_Strings_Q4.uidesc','release/SOURCE_FREEZE_v7.0.json']
+          names={n.lstrip('./') for n,_,_ in complete}
+          for w in wanted: print('CRITICAL', w, 'YES' if w in names else 'NO')
+          PY
