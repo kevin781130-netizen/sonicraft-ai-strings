@@ -63,7 +63,7 @@ jobs:
             CMakeLists.txt VERSION src/processor.cpp frontend/index.html \
             runtime/frontend_layout_gate_v70.py \
             standalone/win32/sonicraft_product_shell_win32_v26.cpp \
-            installer/inno/sonicraft_q4_rc_v70.iss \
+            installer/inno/SONICRAFT_AI_Strings.iss \
             scripts/rc_source_gate_v70.py \
             resource/SONICRAFT_AI_Strings_Q4.uidesc \
             release/SOURCE_FREEZE_v7.0.json; do
