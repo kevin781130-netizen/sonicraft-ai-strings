@@ -1,0 +1,40 @@
+{
+  "schema": "stringcc.validation.v1.1",
+  "version": "1.1.0",
+  "sonicraft_review": {
+    "repo": "kevin781130-netizen/sonicraft-ai-strings",
+    "commit": "4f9f1915d6179ffb3d669bbb3a483c4e30643fbf",
+    "project_license": "unconfirmed-no-project-license-file-found",
+    "copied_source": false
+  },
+  "tests": {
+    "core_legacy": 40,
+    "governance": 8,
+    "total": 48,
+    "status": "passed-in-isolated-batches"
+  },
+  "install": {
+    "editable": true,
+    "governance_cli": true
+  },
+  "demo": {
+    "baseline_loss": 0.026298529411764703,
+    "selected_loss": 0.023737073684210522,
+    "governance_candidates": [
+      "shape",
+      "energy",
+      "connection",
+      "restraint"
+    ],
+    "evidence_records": 4,
+    "synthetic_objective_only": true
+  },
+  "midi_end_of_track": [
+    {
+      "track": 0,
+      "last": "end_of_track",
+      "eot_count": 1
+    }
+  ],
+  "licensing_policy": "clean-room-governance-plus-optional-process-boundary-adapter; no Sonicraft source/model/assets bundled"
+}
