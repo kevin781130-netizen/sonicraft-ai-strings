@@ -1,0 +1,60 @@
+name: SONICRAFT v7.0 RC - Commercial Source Readiness
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  source-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run RC source/compliance gate
+        run: python scripts/rc_source_gate_v70.py
+
+      - name: Validate release JSON documents
+        run: |
+          python -m json.tool release/frontier_status_v7.0.json >/dev/null
+          python -m json.tool release/commercial_readiness_v7.0_rc2.json >/dev/null
+          python -m json.tool integrations/stringcc-governance/VALIDATION_v11.json >/dev/null
+
+      - name: Python syntax checks
+        run: |
+          python -m compileall -q scripts runtime integrations/stringcc-governance/src integrations/stringcc-governance/tests
+
+      - name: Install StringCC governance bridge
+        run: python -m pip install -e integrations/stringcc-governance
+
+      - name: Install test runner
+        run: python -m pip install pytest
+
+      - name: StringCC governance regression tests
+        run: pytest -q integrations/stringcc-governance/tests
+
+      - name: Assert consumer packaging excludes optional bridge
+        shell: python
+        run: |
+          from pathlib import Path
+          text = Path('installer/COLLECT_PREBUILT_APP.ps1').read_text(encoding='utf-8', errors='ignore').lower()
+          forbidden = ['stringcc-governance', 'integrations\\stringcc']
+          hits = [token for token in forbidden if token in text]
+          if hits:
+              raise SystemExit('optional StringCC bridge leaked into consumer payload collector: ' + ', '.join(hits))
+          print('consumer payload / StringCC separation: PASS')
+
+      - name: Readiness summary
+        run: |
+          echo 'Software-side commercial readiness checks passed.'
+          echo 'Commercial/public binary approval remains blocked until external release evidence gates pass.'
