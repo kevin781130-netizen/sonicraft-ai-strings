@@ -54,6 +54,23 @@ jobs:
               raise SystemExit('optional StringCC bridge leaked into consumer payload collector: ' + ', '.join(hits))
           print('consumer payload / StringCC separation: PASS')
 
+      - name: Assert commercial license ships with installer
+        shell: python
+        run: |
+          from pathlib import Path
+          root_license = Path('LICENSE').read_text(encoding='utf-8')
+          packaged_license = Path('licenses/SONICRAFT_LICENSE.txt').read_text(encoding='utf-8')
+          if root_license != packaged_license:
+              raise SystemExit('LICENSE and licenses/SONICRAFT_LICENSE.txt drifted')
+          collector = Path('installer/COLLECT_PREBUILT_APP.ps1').read_text(encoding='utf-8', errors='ignore')
+          if "Copy-Item -Force (Join-Path $root 'licenses\\*')" not in collector:
+              raise SystemExit('consumer prebuilt collector no longer copies licenses/*')
+          inno = Path('installer/inno/SONICRAFT_AI_Strings.iss').read_text(encoding='utf-8', errors='ignore')
+          required = 'LicenseFile={#SourceRoot}\\App\\Licenses\\SONICRAFT_LICENSE.txt'
+          if required not in inno:
+              raise SystemExit('Inno installer does not present SONICRAFT license')
+          print('commercial installer license packaging: PASS')
+
       - name: Readiness summary
         run: |
           echo 'Software-side commercial readiness checks passed.'
