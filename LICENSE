@@ -1,0 +1,19 @@
+SONICRAFT AI Strings Proprietary License Notice
+
+Copyright (c) 2026 SONICRAFT AI Strings contributors. All rights reserved.
+
+Except where a file or directory contains a separate license notice, the SONICRAFT AI Strings source code, product assets, documentation, build scripts, installer scripts, release tooling, models, model manifests, and other project materials in this repository are proprietary.
+
+No permission is granted to copy, modify, merge, publish, distribute, sublicense, sell, relicense, or create derivative works from proprietary SONICRAFT AI Strings materials except under a separate written license or agreement from the applicable rights holder.
+
+This repository contains multiple licensing scopes:
+
+1. `integrations/stringcc-governance/` is separately licensed under the MIT License found in that directory. Its license applies only to that integration and does not grant rights to SONICRAFT AI Strings proprietary source, models, assets, names, or product binaries.
+2. Third-party components and dependencies remain subject to their own licenses and notices. See `licenses/THIRD_PARTY_NOTICES.txt` and any license files distributed with those components.
+3. Where an individual file contains an explicit license notice, that notice controls for that file to the extent it conflicts with this repository-level notice.
+
+Commercial distribution of SONICRAFT AI Strings binaries or installers must comply with all applicable third-party licenses and with the project's release gates. Possession of source code or a public copy of this repository does not by itself grant a commercial distribution license.
+
+No trademark rights are granted by this notice.
+
+THE PROPRIETARY MATERIALS ARE PROVIDED WITHOUT ANY WARRANTY, EXPRESS OR IMPLIED, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, EXCEPT AS MAY BE PROVIDED IN A SEPARATE WRITTEN AGREEMENT.
