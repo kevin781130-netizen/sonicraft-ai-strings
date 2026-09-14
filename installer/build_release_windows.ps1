@@ -10,9 +10,10 @@ $Log = Join-Path $EvidenceDir 'windows_vst3_build.log'
 if (Test-Path $Log) { Remove-Item -Force $Log }
 function Log([string]$m) { $line = "[$(Get-Date -Format s)] $m"; $line | Tee-Object -FilePath $Log -Append }
 function Need-Cmd([string]$name) { if (-not (Get-Command $name -ErrorAction SilentlyContinue)) { throw "$name is required." } }
-function Run-Git([string[]]$Args) {
-  & git @Args
-  if ($LASTEXITCODE -ne 0) { throw "git failed: git $($Args -join ' ')" }
+function Run-Git {
+  param([Parameter(Mandatory=$true)][string[]]$GitArgs)
+  & git @GitArgs
+  if ($LASTEXITCODE -ne 0) { throw "git failed: git $($GitArgs -join ' ')" }
 }
 
 Log 'SONICRAFT AI Strings Q4 v7.0 RC2 reproducible Windows VST3 build'
@@ -32,13 +33,13 @@ New-Item -ItemType Directory -Force -Path $deps | Out-Null
 if (-not (Test-Path (Join-Path $sdk '.git'))) {
   if (Test-Path $sdk) { Remove-Item -Recurse -Force $sdk }
   Log 'Cloning official Steinberg VST3 SDK repository (dependency cache only)...'
-  Run-Git @('clone','--filter=blob:none','--no-checkout','https://github.com/steinbergmedia/vst3sdk.git',$sdk)
+  Run-Git -GitArgs @('clone','--filter=blob:none','--no-checkout','https://github.com/steinbergmedia/vst3sdk.git',$sdk)
 }
 Log "Pinning Steinberg VST3 SDK to $Vst3SdkCommit"
-Run-Git @('-C',$sdk,'fetch','--depth','1','origin',$Vst3SdkCommit)
-Run-Git @('-C',$sdk,'checkout','--detach','--force',$Vst3SdkCommit)
-Run-Git @('-C',$sdk,'submodule','sync','--recursive')
-Run-Git @('-C',$sdk,'submodule','update','--init','--recursive','--depth','1')
+Run-Git -GitArgs @('-C',$sdk,'fetch','--depth','1','origin',$Vst3SdkCommit)
+Run-Git -GitArgs @('-C',$sdk,'checkout','--detach','--force',$Vst3SdkCommit)
+Run-Git -GitArgs @('-C',$sdk,'submodule','sync','--recursive')
+Run-Git -GitArgs @('-C',$sdk,'submodule','update','--init','--recursive','--depth','1')
 $actualSdkCommit = (& git -C $sdk rev-parse HEAD).Trim()
 if ($actualSdkCommit.ToLowerInvariant() -ne $Vst3SdkCommit.ToLowerInvariant()) { throw "VST3 SDK pin mismatch: $actualSdkCommit" }
 $sdkCmake = Get-Content (Join-Path $sdk 'CMakeLists.txt') -Raw
