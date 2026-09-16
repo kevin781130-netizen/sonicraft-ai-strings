@@ -109,4 +109,4 @@ Run the same one-command validator used by the release-contract workflow:
 python training/run_release_contract_smoke.py
 ```
 
-It syntax-compiles the release/phrase modules and runs the Schema 8 transition smoke, checkpoint-lineage smoke, and independent training-provenance smoke. The negative cases cover invalid index digests, shared promotion IDs, mismatched held-out indexes, MODELED-lane drift, failed promotion, inherited phrase lineage, and tampered attestation/lineage records.
+It syntax-compiles the release/phrase modules and runs four checks: the Schema 8 transition-evidence smoke, checkpoint-lineage smoke, independent training-provenance smoke, and an end-to-end dry run that actually invokes the manifest builder and commercial release gate with tiny fixture checkpoints. The dry run also strips checkpoint phrase markers, rewrites the manifest to Schema 7 while keeping file hashes valid, and verifies that the independent training-provenance attestation still rejects the downgrade.
