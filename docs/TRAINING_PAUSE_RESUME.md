@@ -17,9 +17,10 @@ On Windows, the preferred entrypoint is the root launcher:
 TRAIN_RENDERER_GPU.bat <the same renderer training arguments>
 ```
 
-The launcher always invokes the pausable trainer and opens the local Training
-Control Panel automatically. The original `training/train_ballad_renderer.py` remains
-the shared renderer core imported by the pausable layer; do not use it as the
+The launcher always runs a read-only GPU/data/control preflight first. Training is
+not started unless preflight passes. After that it opens the local Training Control
+Panel and invokes the pausable trainer. The original `training/train_ballad_renderer.py`
+remains the shared renderer core imported by the pausable layer; do not use it as the
 production GPU command.
 
 Keep `--out` (last checkpoint) and `--best-out` (best validation/training score)
@@ -32,6 +33,41 @@ TRAIN_RENDERER_GPU.bat --index datasets\processed\phrase_finetune\index.jsonl --
 
 The pausable layer preserves the existing renderer dataset/model/loss contract and
 adds only training-control/checkpoint behavior.
+
+## GPU preflight
+
+`TRAIN_RENDERER_GPU.bat` automatically runs:
+
+```bash
+python training/gpu_training_preflight.py <the same renderer training arguments>
+```
+
+The preflight is read-only. It checks:
+
+- PyTorch imports and CUDA is visible;
+- active GPU name, CUDA version, compute capability, total VRAM, and BF16 support;
+- the training index exists, is non-empty, and sampled rows are valid JSON;
+- sampled latent files referenced by the index exist;
+- `--out` and `--best-out` have writable parent paths;
+- a requested `--resume` checkpoint exists;
+- no stale PAUSE request is pending; and
+- current training-control state is reported before a new process is launched.
+
+Optional operator constraints can be added without changing the trainer command:
+
+```bash
+python training/gpu_training_preflight.py \
+  --index datasets/processed/phrase_finetune/index.jsonl \
+  --out Models/ballad_renderer_hq_v20_last.pt \
+  --best-out Models/ballad_renderer_hq_v20_best.pt \
+  --min-vram-gb 24 \
+  --require-bf16
+```
+
+No fixed per-preset VRAM requirement is hard-coded because the actual requirement
+depends on batch size, accumulation, latent geometry, model preset, and installed
+PyTorch/CUDA kernels. `--min-vram-gb` is therefore an explicit operator requirement,
+not a claim about the model's measured minimum.
 
 ## Windows controls
 
