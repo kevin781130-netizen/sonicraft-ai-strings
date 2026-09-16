@@ -38,6 +38,34 @@ HQ and Compact must be evaluated on the same held-out phrase latent index, but t
 
 The codec decoder is not transition-sealed; this gate concerns renderer phrase/transition behavior.
 
+## Production preflight before sealing
+
+Run the read-only preflight before either renderer checkpoint is mutated by a transition seal:
+
+```bash
+python training/scripts/schema8_release_preflight.py \
+  --codec strings_vae64 \
+  --provenance evidence/training_provenance.json \
+  --metrics evidence/release_metrics.json \
+  --sound-forge-report evidence/sound_forge.json \
+  --codec-tournament evidence/codec_tournament.json \
+  --codec-abx-report evidence/codec_abx.json \
+  --acoustic-segments evidence/acoustic_segments.json \
+  --generated-real-abx evidence/generated_real_abx.json \
+  --acoustic-promotion evidence/acoustic_promotion.json \
+  --phrase-curriculum-report datasets/processed/phrase_finetune/curriculum_report.json \
+  --phrase-finetune-index datasets/processed/phrase_finetune/index.jsonl \
+  --heldout-index datasets/processed/phrase_transition_holdout/index.jsonl \
+  --hq-transition-promotion evidence/transition_promotion_hq.json \
+  --compact-transition-promotion evidence/transition_promotion_compact.json \
+  --hq-checkpoint Models/ballad_renderer_hq_v20_best.pt \
+  --compact-checkpoint Models/ballad_renderer_frontier_v20_shortcut.pt
+```
+
+The preflight imports no `torch` and writes nothing. It validates the Schema 7 evidence bundle, REAL80/MODEL20 training policy, commercial-safe registry entries, phrase training attestation, exact curriculum-report SHA-256, the **actual combined fine-tune index file SHA-256**, the **actual held-out transition index file SHA-256**, shared held-out identity, distinct HQ/Compact promotion IDs, and the exact pre-seal HQ/Compact checkpoint file SHA-256 values targeted by the promotion reports. A stale report, wrong index, or wrong checkpoint therefore fails before sealing begins.
+
+A preflight PASS is not release approval. It does not replace renderer/codec training, held-out audio evaluation, listener ABX, transition sealing, manifest construction, or the commercial release gate.
+
 ## Seal both renderer checkpoints
 
 ```bash
@@ -109,4 +137,4 @@ Run the same one-command validator used by the release-contract workflow:
 python training/run_release_contract_smoke.py
 ```
 
-It syntax-compiles the release/phrase modules and runs five checks: Schema 8 transition-evidence validation, checkpoint-lineage inheritance/tamper validation, independent training-provenance validation, a transition-sealer contract test, and an end-to-end dry run that invokes the real sealer, manifest builder, and commercial release gate with tiny fixture checkpoints. The negative paths cover bad curriculum/index binding and a stripped-checkpoint/hand-edited Schema 7 downgrade whose file hashes remain valid; both must be rejected before release.
+It syntax-compiles the release/phrase modules and runs six checks: Schema 8 transition-evidence validation, checkpoint-lineage inheritance/tamper validation, independent training-provenance validation, transition-sealer contract validation, production-preflight validation, and an end-to-end dry run that invokes the real sealer, manifest builder, and commercial release gate with tiny fixture checkpoints. Negative paths cover bad curriculum/index binding, stale held-out files, wrong candidate checkpoints, and a stripped-checkpoint/hand-edited Schema 7 downgrade whose file hashes remain valid; all must be rejected before release.
