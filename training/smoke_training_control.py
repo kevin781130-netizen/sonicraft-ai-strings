@@ -4,6 +4,7 @@ import json
 import tempfile
 from pathlib import Path
 
+from gpu_training_preflight import _check_output, _inspect_index
 from training_control import PauseController, _strip_resume_arg, clear_pause, pause_requested, read_status, request_pause, write_status
 
 
@@ -48,11 +49,26 @@ def main() -> int:
         args = ["training/train.py", "--resume", "old.pt", "--epochs", "100", "--resume=older.pt"]
         assert _strip_resume_arg(args) == ["training/train.py", "--epochs", "100"]
 
+        latent = root / "sample_latent.npz"
+        latent.write_bytes(b"smoke")
+        index = root / "index.jsonl"
+        index.write_text(json.dumps({"file": str(latent)}) + "\n", encoding="utf-8")
+        preflight_errors: list[str] = []
+        preflight_warnings: list[str] = []
+        preflight_facts: dict = {}
+        _inspect_index(index, 8, preflight_errors, preflight_warnings, preflight_facts)
+        _check_output(root / "outputs" / "last.pt", "out", preflight_errors, preflight_facts)
+        assert preflight_errors == []
+        assert preflight_facts["index"]["rows"] == 1
+        assert preflight_facts["index"]["sample_missing_files"] == []
+        assert preflight_facts["out"]["writable"] is True
+
     repo = Path(__file__).resolve().parents[1]
     for rel in (
         "training/training_control.py",
         "training/training_control_panel.py",
         "training/train_ballad_renderer_pausable.py",
+        "training/gpu_training_preflight.py",
     ):
         src = (repo / rel).read_text(encoding="utf-8")
         compile(src, rel, "exec")
@@ -65,8 +81,12 @@ def main() -> int:
     assert '"rng_state": rng_state()' in trainer
 
     launcher = (repo / "TRAIN_RENDERER_GPU.bat").read_text(encoding="utf-8")
+    assert "gpu_training_preflight.py" in launcher
+    assert "if errorlevel 1 goto :preflight_failed" in launcher
     assert "train_ballad_renderer_pausable.py" in launcher
     assert "training_control_panel.py --open" in launcher
+    assert launcher.find("gpu_training_preflight.py") < launcher.find("training_control_panel.py --open")
+    assert launcher.find("training_control_panel.py --open") < launcher.find("train_ballad_renderer_pausable.py")
     assert "--out Models\\ballad_renderer_hq_v20_last.pt" in launcher
     assert "--best-out Models\\ballad_renderer_hq_v20_best.pt" in launcher
 
