@@ -66,7 +66,59 @@ cd training
 python smoke_cleanroom_teacher.py
 ```
 
-## 2. Connect an authorized black-box teacher
+## 2. Generate multi-note phrase supervision
+
+The phrase corpus extends the same independent physical teacher into deterministic
+multi-note training examples. It currently balances six phrase families across all
+four string instruments:
+
+- legato scale fragments;
+- portamento pairs;
+- spiccato patterns;
+- tremolo sustains;
+- expressive dynamic arcs; and
+- mixed-bowing phrases.
+
+Each phrase writes WAV, MIDI, event JSON and a 100-Hz `control_curves` NPZ sidecar.
+The sidecar contains per-frame pitch, gate, onset, articulation, legato, pitch bend,
+dynamics, vibrato, transition and timing controls, so the renderer sees the actual
+transition trajectory rather than one scalar label for the whole clip.
+
+```bash
+python training/scripts/generate_cleanroom_phrase_corpus.py \
+  --out datasets/generated/cleanroom_phrases_v1 \
+  --count 2400 \
+  --seconds 2.0 \
+  --seed 20260917
+```
+
+Smoke test:
+
+```bash
+cd training
+python smoke_cleanroom_phrase.py
+```
+
+Both `encode_dac_latents.py` and `encode_vae64_latents.py` now consume the optional
+`control_curves` sidecar. Legacy rows without a sidecar retain their previous scalar
+behavior. Phrase rows preserve `articulation_curve` in the latent NPZ, which is
+already consumed by the renderer dataset/training path.
+
+For VAE64, for example:
+
+```bash
+python training/scripts/encode_vae64_latents.py \
+  --index datasets/generated/cleanroom_phrases_v1/index.jsonl \
+  --codec checkpoints/strings_vae64.pt \
+  --out datasets/processed/cleanroom_phrases_vae64 \
+  --seconds 2.0
+```
+
+The phrase corpus remains `training_origin="modeled"` and
+`final_timbre_anchor=false`; the existing origin-aware sampler is still responsible
+for keeping modeled supervision within the intended mixture budget.
+
+## 3. Connect an authorized black-box teacher
 
 Copy `training/cleanroom_teacher_config.example.json` outside the repository and
 edit it for a small shim around the runtime/API you are actually allowed to use.
@@ -102,7 +154,7 @@ python training/build_cleanroom_teacher_dataset.py \
 
 Keep the config outside Git if it contains local/private paths.
 
-## 3. Provenance and filtering
+## 4. Provenance and filtering
 
 Each accepted row records:
 
@@ -119,7 +171,7 @@ copyright detector and cannot prove that an output is free of memorized material
 For external teachers, add a separate held-out review and similarity/memorization
 screen appropriate to the model before release.
 
-## 4. Registry gate
+## 5. Registry gate
 
 External-teacher rows use the source ID `authorized_blackbox_synthetic`. The
 repository intentionally ships only a fail-closed fragment:
@@ -138,7 +190,7 @@ that the applicable teacher/runtime terms permit:
 `training/source_policy.py` remains the final dataset gate, so an unknown or
 blocked source cannot silently enter a release checkpoint.
 
-## 5. Existing Ai Strings path
+## 6. Existing Ai Strings path
 
 The builder intentionally stops at WAV + manifest. Reuse the project's existing
 pipeline for Sound Forge, deterministic segmentation, codec/latent conversion,
