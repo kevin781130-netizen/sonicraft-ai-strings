@@ -48,8 +48,10 @@ def main() -> None:
             'modeled_fixture': {'commercial_safe': True, 'release_blocked': False},
         })
 
+        phrase_index = d / 'phrase_finetune.jsonl'
+        phrase_index.write_text('{"fixture":"phrase-finetune"}\n', encoding='utf-8')
+        phrase_index_sha = sha(phrase_index)
         curriculum = d / 'curriculum.json'
-        phrase_index_sha = 'a' * 64
         write_json(curriculum, {
             'version': 'phrase_finetune_index_v1',
             'output_index_sha256': phrase_index_sha,
@@ -83,7 +85,8 @@ def main() -> None:
         })
         codec_tournament = d / 'codec_tournament.json'
         write_json(codec_tournament, {
-            'schema': 2, 'promotion_pass': True, 'winner_kind': 'strings_vae64', 'real_anchor_count': 8,
+            'schema': 2, 'metric_family': 'stereo_phase_harmonic_strings_v20',
+            'promotion_pass': True, 'winner_kind': 'strings_vae64', 'real_anchor_count': 8,
         })
         codec_abx = d / 'codec_abx.json'
         write_json(codec_abx, {
@@ -106,9 +109,11 @@ def main() -> None:
             'shipping_codec': 'strings_vae64', 'winner_kind': 'strings_vae64', 'promotion_id': 'b' * 64,
         })
 
+        heldout_index = d / 'heldout.jsonl'
+        heldout_index.write_text('{"fixture":"heldout"}\n', encoding='utf-8')
+        heldout = sha(heldout_index)
         hq_checkpoint = d / 'hq.pt'; hq_checkpoint.write_bytes(b'hq pre-seal fixture')
         compact_checkpoint = d / 'compact.pt'; compact_checkpoint.write_bytes(b'compact pre-seal fixture')
-        heldout = 'c' * 64
         hq_promotion = d / 'hq_transition.json'
         compact_promotion = d / 'compact_transition.json'
         write_json(hq_promotion, {
@@ -128,16 +133,24 @@ def main() -> None:
             '--sound-forge-report', str(sound_forge), '--codec-tournament', str(codec_tournament),
             '--codec-abx-report', str(codec_abx), '--acoustic-segments', str(acoustic_segments),
             '--generated-real-abx', str(generated_real_abx), '--acoustic-promotion', str(acoustic_promotion),
-            '--phrase-curriculum-report', str(curriculum), '--hq-transition-promotion', str(hq_promotion),
-            '--compact-transition-promotion', str(compact_promotion), '--hq-checkpoint', str(hq_checkpoint),
+            '--phrase-curriculum-report', str(curriculum), '--phrase-finetune-index', str(phrase_index),
+            '--hq-transition-promotion', str(hq_promotion), '--compact-transition-promotion', str(compact_promotion),
+            '--hq-checkpoint', str(hq_checkpoint), '--compact-checkpoint', str(compact_checkpoint),
             '--codec', 'strings_vae64',
         ]
 
-        passed = run(common + ['--compact-checkpoint', str(compact_checkpoint)], 0)
+        passed = run(common + ['--heldout-index', str(heldout_index)], 0)
         assert 'SCHEMA 8 PREFLIGHT PASS' in passed.stdout
 
+        wrong_heldout = d / 'wrong_heldout.jsonl'; wrong_heldout.write_text('{"fixture":"wrong-heldout"}\n', encoding='utf-8')
+        stale = run(common + ['--heldout-index', str(wrong_heldout)], 1)
+        assert 'held-out transition index SHA does not match renderer promotion reports' in (stale.stdout + stale.stderr)
+
         wrong_compact = d / 'wrong_compact.pt'; wrong_compact.write_bytes(b'wrong checkpoint')
-        failed = run(common + ['--compact-checkpoint', str(wrong_compact)], 1)
+        wrong_checkpoint_args = [x for x in common]
+        idx = wrong_checkpoint_args.index('--compact-checkpoint')
+        wrong_checkpoint_args[idx + 1] = str(wrong_compact)
+        failed = run(wrong_checkpoint_args + ['--heldout-index', str(heldout_index)], 1)
         assert 'Compact candidate checkpoint SHA does not match Compact transition promotion' in (failed.stdout + failed.stderr)
 
     print('schema8 release preflight smoke: PASS')
