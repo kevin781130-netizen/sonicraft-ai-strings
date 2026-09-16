@@ -4,6 +4,14 @@ Schema 8 is the fail-closed release contract for Ai Strings builds that include 
 
 It extends Schema 7 acoustic promotion. It does not replace Sound Forge, codec tournament/ABX, generated-real ABX, provenance, or the REAL80/MODEL20 policy.
 
+## Checkpoint lineage is authoritative
+
+Renderer training derives `phrase_finetune_provenance` from the actual latent index. It is not a user-supplied release flag. If the index contains `phrase_family` rows, the checkpoint records a tamper-evident provenance marker with `required_release_schema=8`, the exact source-index SHA-256, phrase families/datasets, and a provenance ID.
+
+That marker is inherited through resume, ordinary distillation, reflow distillation, and shortcut training. The inherited marker keeps the SHA-256 of the original combined phrase fine-tune index even when a later distillation stage uses a non-phrase anchor index.
+
+Both `build_release_model_manifest.py` and `commercial_release_gate.py` open the shipping HQ/Compact checkpoints and validate this marker. If either renderer has phrase lineage, a Schema 7-or-older release is rejected. Hand-editing `release_model_manifest.json` therefore cannot turn a phrase-supervised checkpoint back into a pre-Schema-8 release.
+
 ## Required transition evidence
 
 A Schema 8 release requires all of the following in addition to Schema 7 evidence:
@@ -12,6 +20,8 @@ A Schema 8 release requires all of the following in addition to Schema 7 evidenc
 - one passed `transition_promotion_v1` report for the shipping HQ renderer;
 - one independently passed `transition_promotion_v1` report for the shipping Compact/Frontier renderer;
 - a transition seal on each exact renderer checkpoint.
+
+The phrase curriculum report records `output_index_sha256`. That digest must equal the root `phrase_source_index_sha256` embedded in both renderer lineages. This binds curriculum evidence and both shipping model families to the exact same fine-tune corpus.
 
 HQ and Compact must be evaluated on the same held-out phrase latent index, but their promotion IDs must be different because each promotion is checkpoint-specific.
 
@@ -57,6 +67,8 @@ python training/scripts/build_release_model_manifest.py \
 
 Before writing `release_model_manifest.json`, the builder reopens both renderer checkpoints and verifies:
 
+- valid tamper-evident phrase lineage on HQ and Compact;
+- phrase curriculum `output_index_sha256` equals both renderer root phrase-index hashes;
 - exact transition promotion ID;
 - exact promotion report hash;
 - exact pre-seal candidate checkpoint hash recorded in the seal;
@@ -74,15 +86,16 @@ Evidence is staged under distinct names in `Models/` so HQ and Compact promotion
 python training/scripts/commercial_release_gate.py --model-dir Models
 ```
 
-For Schema 8 the gate rejects the release if `phrase_finetune` is not true, either transition report is absent/failed/underpowered, promotion identities do not match the renderer file entries, curriculum evidence drifts outside the MODELED lane, or HQ/Compact were evaluated on different held-out phrase indexes.
+The commercial gate independently reopens HQ and Compact checkpoints. It rejects a phrase-lineage checkpoint under Schema 7 or older even if the manifest was hand-authored. For Schema 8 it additionally rejects the release if `phrase_finetune` is not true, either transition report is absent/failed/underpowered, the exact fine-tune index digest differs anywhere in the curriculum/checkpoint/manifest chain, promotion identities do not match the renderer file entries, curriculum evidence drifts outside the MODELED lane, or HQ/Compact were evaluated on different held-out phrase indexes.
 
-A Schema 7 manifest remains valid for releases that did not use this phrase fine-tune path. A phrase-fine-tuned release must be built as Schema 8; downgrading the manifest schema is not an acceptable way to bypass the transition gate.
+A Schema 7 manifest remains valid only for renderer lineages that never consumed phrase supervision.
 
 ## Dependency-light smoke
 
 ```bash
 cd training
 python smoke_release_schema8.py
+python smoke_phrase_provenance.py
 ```
 
-The smoke test covers a valid pair plus rejection of shared checkpoint promotion IDs, mismatched held-out indexes, MODELED-lane drift, and a failed renderer promotion.
+The release smoke covers a valid pair plus rejection of an invalid fine-tune index digest, shared checkpoint promotion IDs, mismatched held-out indexes, MODELED-lane drift, and a failed renderer promotion. The provenance smoke checks root-index inheritance through a non-phrase child stage and rejects a tampered lineage marker.
