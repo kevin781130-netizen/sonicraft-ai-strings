@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "product": "SONICRAFT AI Strings Q4",
+  "release": "7.0.0-rc2",
+  "commercial_safe": false,
+  "release_approved": false,
+  "training_data_rights_status": "fill_before_release",
+  "provenance": {
+    "dataset_manifest_sha256": null,
+    "training_run_manifest_sha256": null,
+    "model_card_sha256": null,
+    "rights_review_sha256": null,
+    "final_checkpoint_sha256": null,
+    "training_run_id": "",
+    "approved_by": "",
+    "approved_at": ""
+  },
+  "capabilities": {
+    "special_techniques": {
+      "col_legno": "semantic_only",
+      "sul_ponticello": "semantic_only",
+      "sul_tasto": "semantic_only",
+      "natural_harmonics": "semantic_only",
+      "artificial_harmonics": "semantic_only",
+      "con_sordino": "semantic_only",
+      "portamento_transition_variants": "semantic_only"
+    }
+  },
+  "files": [],
+  "anti_claim": "Template only. commercial_safe/release_approved must remain false until the final trained pack and provenance evidence are complete."
+}
