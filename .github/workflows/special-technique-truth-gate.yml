@@ -53,6 +53,147 @@ jobs:
           python training/final_model_manifest_gate_v70.py
           release/release_model_manifest_template_v7.0.json --allow-template
 
+      - name: Exercise evidence generators and positive gate paths
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import subprocess
+          import sys
+          import tempfile
+          from pathlib import Path
+
+          root = Path.cwd()
+          def put(path, obj):
+              path.write_text(json.dumps(obj, indent=2) + '\n', encoding='utf-8')
+          def run(*args):
+              cp = subprocess.run([sys.executable, *map(str, args)], cwd=root, capture_output=True, text=True)
+              if cp.returncode != 0:
+                  raise SystemExit((cp.stdout + '\n' + cp.stderr).strip())
+              return cp
+          def h(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+
+          with tempfile.TemporaryDirectory() as td:
+              t = Path(td)
+
+              protocol = t / 'protocol.json'
+              plan = t / 'plan.json'
+              raw = t / 'raw.json'
+              plugin = t / 'plugin.vst3'
+              model_manifest = t / 'release_model_manifest.json'
+              evidence = t / 'blind-acoustic-qa.json'
+              plugin.write_bytes(b'ci-fixture-plugin')
+              put(model_manifest, {'fixture': True})
+              put(protocol, {
+                  'schema': 1,
+                  'study_id': 'ci-positive-path',
+                  'double_blind': True,
+                  'randomized': True,
+                  'negative_control': True,
+                  'criteria': {
+                      'min_listeners': 2,
+                      'min_total_trials': 6,
+                      'realism': {'metric': 'mean_rating', 'scale_min': 1, 'scale_max': 5, 'min_mean': 3},
+                      'technique_identity': {'metric': 'accuracy', 'min_accuracy': 0.5},
+                      'negative_control': {'metric': 'accuracy', 'min_accuracy': 0.5},
+                  },
+              })
+              put(plan, {
+                  'schema': 1,
+                  'trials': [
+                      {'trial_id': 'r1', 'task': 'realism'},
+                      {'trial_id': 't1', 'task': 'technique_identity'},
+                      {'trial_id': 'n1', 'task': 'negative_control'},
+                  ],
+              })
+              responses = []
+              for listener, rating in [('L1', 4), ('L2', 5)]:
+                  responses.extend([
+                      {'listener_id': listener, 'trial_id': 'r1', 'rating': rating},
+                      {'listener_id': listener, 'trial_id': 't1', 'correct': True},
+                      {'listener_id': listener, 'trial_id': 'n1', 'correct': True},
+                  ])
+              put(raw, {'schema': 1, 'responses': responses})
+              run(
+                  'training/blind_acoustic_release_v70.py', 'emit-evidence',
+                  '--protocol', protocol,
+                  '--trial-plan', plan,
+                  '--raw-results', raw,
+                  '--plugin', plugin,
+                  '--model-manifest', model_manifest,
+                  '--out', evidence,
+              )
+              ev = json.loads(evidence.read_text(encoding='utf-8'))
+              if ev.get('overall') != 'PASS' or ev.get('plugin_sha256') != h(plugin):
+                  raise SystemExit('blind acoustic positive-path evidence mismatch')
+
+              model_root = t / 'Models'
+              model_root.mkdir()
+              weights = model_root / 'strings-final.bin'
+              weights.write_bytes(b'ci-fixture-model')
+              final_manifest = model_root / 'release_model_manifest.json'
+              put(final_manifest, {
+                  'schema': 1,
+                  'product': 'SONICRAFT AI Strings Q4',
+                  'release': '7.0.0-rc2',
+                  'commercial_safe': True,
+                  'release_approved': True,
+                  'training_data_rights_status': 'approved_for_commercial_training_and_distribution',
+                  'provenance': {
+                      'dataset_manifest_sha256': '1' * 64,
+                      'training_run_manifest_sha256': '2' * 64,
+                      'model_card_sha256': '3' * 64,
+                      'rights_review_sha256': '4' * 64,
+                      'final_checkpoint_sha256': '5' * 64,
+                      'training_run_id': 'ci-run',
+                      'approved_by': 'ci-fixture',
+                      'approved_at': '2026-01-01T00:00:00Z',
+                  },
+                  'capabilities': {'special_techniques': {'sul_ponticello': 'semantic_only'}},
+                  'files': [{'name': weights.name, 'sha256': h(weights)}],
+              })
+              run('training/final_model_manifest_gate_v70.py', final_manifest, '--model-root', model_root)
+
+              techniques = [
+                  'col_legno', 'sul_ponticello', 'sul_tasto', 'natural_harmonics',
+                  'artificial_harmonics', 'con_sordino', 'portamento_transition_variants'
+              ]
+              dataset_manifest = t / 'special-technique-dataset.json'
+              put(dataset_manifest, {
+                  'schema': 1,
+                  'product': 'SONICRAFT AI Strings Q4',
+                  'release': '7.0.0-rc2',
+                  'rights_clearance': {
+                      'status': 'approved_for_commercial_training_and_distribution',
+                      'reviewer': 'ci-fixture',
+                      'reviewed_at': '2026-01-01T00:00:00Z',
+                      'evidence_reference': 'ci-fixture-only',
+                  },
+                  'sources': [{
+                      'source_id': 's1',
+                      'rights_basis': 'owned_recording_session',
+                      'commercial_training_allowed': True,
+                      'model_distribution_allowed': True,
+                      'evidence_reference': 'ci-fixture-only',
+                      'asset_index_sha256': '6' * 64,
+                  }],
+                  'technique_coverage': {
+                      name: {
+                          'sample_count': 1,
+                          'duration_seconds': 1.0,
+                          'source_ids': ['s1'],
+                          'annotation_verified': True,
+                      } for name in techniques
+                  },
+                  'dataset_index_sha256': '7' * 64,
+                  'annotation_index_sha256': '8' * 64,
+                  'commercial_promotion_approved': True,
+              })
+              run('training/special_technique_dataset_gate_v70.py', dataset_manifest)
+
+          print('gap-closure positive-path smoke tests: PASS')
+
       - name: Assert blind-acoustic final-gate contract
         shell: python
         run: |
@@ -77,7 +218,7 @@ jobs:
               raise SystemExit('missing blind acoustic release contract')
           print('blind acoustic final-gate contract: PASS')
 
-      - name: Assert final-model provenance entrypoints
+      - name: Assert Windows QA and final-model provenance entrypoints
         shell: python
         run: |
           from pathlib import Path
@@ -85,11 +226,15 @@ jobs:
               text = Path(rel).read_text(encoding='utf-8', errors='ignore')
               if 'FINAL_MODEL_GATE_V70.bat' not in text:
                   raise SystemExit(f'{rel} does not require FINAL_MODEL_GATE_V70.bat')
-          print('final-model provenance entrypoints: PASS')
+          for rel in ('QA_BLIND_ACOUSTIC_V70.bat', 'installer/rc_v70/RUN_BLIND_ACOUSTIC_QA_V70.ps1'):
+              if not Path(rel).is_file():
+                  raise SystemExit(f'missing Windows blind acoustic QA entrypoint: {rel}')
+          print('Windows QA/final-model provenance entrypoints: PASS')
 
       - name: Summary
         run: |
           echo 'Gap-closure truth gates are internally consistent.'
+          echo 'Positive-path smoke tests exercise evidence generation and release-model/dataset validation.'
           echo 'Semantic special techniques remain non-acoustic until promoted.'
           echo 'Blind acoustic evidence can be generated only from a frozen protocol and hash-bound study artifacts.'
           echo 'Final/public release entrypoints require final-model provenance before binary approval.'
