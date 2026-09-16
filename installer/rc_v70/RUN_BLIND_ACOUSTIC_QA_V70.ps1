@@ -32,12 +32,22 @@ foreach($pair in @(
   if(-not $pair[1] -or -not(Test-Path $pair[1])){throw "Missing $($pair[0]): $($pair[1])"}
 }
 
-$python=(Get-Command python.exe -ErrorAction SilentlyContinue)
-if(-not $python){$python=(Get-Command python -ErrorAction SilentlyContinue)}
-if(-not $python){throw 'Python is required to generate blind acoustic release evidence.'}
+$pythonExe=''
+foreach($candidate in @(
+  (Join-Path $root 'runtime\venv\Scripts\python.exe'),
+  (Join-Path $root 'Runtime\venv\Scripts\python.exe')
+)){
+  if(Test-Path $candidate){$pythonExe=$candidate;break}
+}
+if(-not $pythonExe){
+  $python=(Get-Command python.exe -ErrorAction SilentlyContinue)
+  if(-not $python){$python=(Get-Command python -ErrorAction SilentlyContinue)}
+  if($python){$pythonExe=$python.Source}
+}
+if(-not $pythonExe){throw 'Python is required to generate blind acoustic release evidence.'}
 
 New-Item -ItemType Directory -Force -Path (Split-Path -Parent $Output)|Out-Null
-& $python.Source $tool emit-evidence `
+& $pythonExe $tool emit-evidence `
   --protocol $Protocol `
   --trial-plan $TrialPlan `
   --raw-results $RawResults `
