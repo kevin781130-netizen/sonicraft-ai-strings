@@ -20,11 +20,13 @@ COMPILE_TARGETS = (
     "training/shortcut_distill_renderer.py",
     "training/smoke_release_schema8_end_to_end.py",
     "training/smoke_transition_sealer_contract.py",
+    "training/smoke_schema8_release_preflight.py",
     "training/scripts/build_phrase_finetune_index.py",
     "training/scripts/build_transition_promotion.py",
     "training/scripts/evaluate_renderer_transitions.py",
     "training/scripts/seal_transition_promotion.py",
     "training/scripts/stamp_phrase_training_provenance.py",
+    "training/scripts/schema8_release_preflight.py",
     "training/scripts/build_release_model_manifest.py",
     "training/scripts/commercial_release_gate.py",
 )
@@ -34,6 +36,7 @@ SMOKE_SCRIPTS = (
     "smoke_phrase_provenance.py",
     "smoke_phrase_release_provenance.py",
     "smoke_transition_sealer_contract.py",
+    "smoke_schema8_release_preflight.py",
     "smoke_release_schema8_end_to_end.py",
 )
 
