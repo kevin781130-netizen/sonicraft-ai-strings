@@ -27,12 +27,16 @@ jobs:
         run: >-
           python -m py_compile
           scripts/special_technique_gate_v70.py
+          scripts/special_technique_semantic_audit_v70.py
           runtime/release_gate_v70.py
           training/blind_acoustic_release_v70.py
           training/special_technique_dataset_gate_v70.py
           training/final_model_manifest_gate_v70.py
 
-      - name: Validate special-technique truth boundary
+      - name: Audit special-technique parser semantics
+        run: python scripts/special_technique_semantic_audit_v70.py
+
+      - name: Validate special-technique promotion truth boundary
         run: python scripts/special_technique_gate_v70.py
 
       - name: Validate machine-readable status JSON
@@ -234,6 +238,7 @@ jobs:
       - name: Summary
         run: |
           echo 'Gap-closure truth gates are internally consistent.'
+          echo 'Parser-backed semantic audit prevents special-technique status drift.'
           echo 'Positive-path smoke tests exercise evidence generation and release-model/dataset validation.'
           echo 'Semantic special techniques remain non-acoustic until promoted.'
           echo 'Blind acoustic evidence can be generated only from a frozen protocol and hash-bound study artifacts.'
