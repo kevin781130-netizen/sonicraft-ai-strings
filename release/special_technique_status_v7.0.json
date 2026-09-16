@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "release": "7.0.0-rc2",
+  "status": "PENDING_FINAL_MODEL_EVIDENCE",
+  "truth_boundary": "Semantic preservation is not acoustic support. A technique is release-approved only after exact-model and exact-binary evidence passes the promotion gate.",
+  "techniques": {
+    "col_legno": {
+      "semantic_support": true,
+      "acoustic_release_approved": false
+    },
+    "sul_ponticello": {
+      "semantic_support": true,
+      "acoustic_release_approved": false
+    },
+    "sul_tasto": {
+      "semantic_support": true,
+      "acoustic_release_approved": false
+    },
+    "natural_harmonics": {
+      "semantic_support": true,
+      "acoustic_release_approved": false
+    },
+    "artificial_harmonics": {
+      "semantic_support": true,
+      "acoustic_release_approved": false
+    },
+    "con_sordino": {
+      "semantic_support": true,
+      "acoustic_release_approved": false
+    },
+    "portamento_transition_variants": {
+      "semantic_support": true,
+      "acoustic_release_approved": false
+    }
+  },
+  "required_evidence": {
+    "rights_cleared_dataset_provenance": false,
+    "approved_release_model_manifest": false,
+    "exact_model_manifest_sha256_binding": false,
+    "exact_vst3_sha256_binding": false,
+    "deterministic_render_cues": false,
+    "blind_technique_identity_review": false,
+    "cubase_host_evidence": false,
+    "studio_one_host_evidence": false
+  },
+  "promotion_rule": "Do not set acoustic_release_approved=true for any technique unless all required evidence is present for that technique and bound to the exact final model manifest and VST3 hashes."
+}
