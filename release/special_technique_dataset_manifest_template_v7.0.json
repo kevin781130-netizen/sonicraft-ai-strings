@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "product": "SONICRAFT AI Strings Q4",
+  "release": "7.0.0-rc2",
+  "rights_clearance": {
+    "status": "fill_before_promotion",
+    "reviewer": "",
+    "reviewed_at": "",
+    "evidence_reference": ""
+  },
+  "sources": [],
+  "technique_coverage": {
+    "col_legno": {
+      "sample_count": null,
+      "duration_seconds": null,
+      "source_ids": [],
+      "annotation_verified": false
+    },
+    "sul_ponticello": {
+      "sample_count": null,
+      "duration_seconds": null,
+      "source_ids": [],
+      "annotation_verified": false
+    },
+    "sul_tasto": {
+      "sample_count": null,
+      "duration_seconds": null,
+      "source_ids": [],
+      "annotation_verified": false
+    },
+    "natural_harmonics": {
+      "sample_count": null,
+      "duration_seconds": null,
+      "source_ids": [],
+      "annotation_verified": false
+    },
+    "artificial_harmonics": {
+      "sample_count": null,
+      "duration_seconds": null,
+      "source_ids": [],
+      "annotation_verified": false
+    },
+    "con_sordino": {
+      "sample_count": null,
+      "duration_seconds": null,
+      "source_ids": [],
+      "annotation_verified": false
+    },
+    "portamento_transition_variants": {
+      "sample_count": null,
+      "duration_seconds": null,
+      "source_ids": [],
+      "annotation_verified": false
+    }
+  },
+  "dataset_index_sha256": null,
+  "annotation_index_sha256": null,
+  "commercial_promotion_approved": false,
+  "anti_claim": "This template does not prove rights clearance, technique coverage, or commercial promotion approval."
+}
