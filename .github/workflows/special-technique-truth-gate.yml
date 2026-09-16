@@ -1,0 +1,35 @@
+name: SONICRAFT v7.0 RC - Special Technique Truth Gate
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - release/v7.0-rc2-commercial-hardening
+      - release/v7.0-rc2-gap-closure
+
+permissions:
+  contents: read
+
+jobs:
+  special-technique-truth-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate special-technique truth boundary
+        run: python scripts/special_technique_gate_v70.py
+
+      - name: Validate machine-readable status JSON
+        run: python -m json.tool release/special_technique_status_v7.0.json >/dev/null
+
+      - name: Summary
+        run: |
+          echo 'Special-technique promotion contract is internally consistent.'
+          echo 'Semantic support remains non-acoustic until final-model evidence is promoted.'
