@@ -79,7 +79,7 @@ def main() -> None:
             "def load(path, map_location=None, weights_only=False):\n"
             "    return json.loads(Path(path).read_text(encoding='utf-8'))\n"
             "def save(value, path):\n"
-            "    Path(path).write_text(json.dumps(value, indent=2, sort_keys=True) + '\\\\n', encoding='utf-8')\n"
+            "    Path(path).write_text(json.dumps(value, indent=2, sort_keys=True) + '\\n', encoding='utf-8')\n"
             "def is_tensor(value):\n    return False\n",
             encoding='utf-8',
         )
