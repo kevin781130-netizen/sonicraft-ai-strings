@@ -11,8 +11,27 @@ For production renderer training, use the pausable entrypoint:
 python training/train_ballad_renderer_pausable.py <the same renderer training arguments>
 ```
 
-It preserves the existing renderer dataset/model/loss contract and adds only the
-training-control/checkpoint layer.
+On Windows, the preferred entrypoint is the root launcher:
+
+```bat
+TRAIN_RENDERER_GPU.bat <the same renderer training arguments>
+```
+
+The launcher always invokes the pausable trainer and opens the local Training
+Control Panel automatically. The original `training/train_ballad_renderer.py` remains
+the shared renderer core imported by the pausable layer; do not use it as the
+production GPU command.
+
+Keep `--out` (last checkpoint) and `--best-out` (best validation/training score)
+as different paths so the best candidate is not overwritten by a later, worse
+epoch. For example:
+
+```bat
+TRAIN_RENDERER_GPU.bat --index datasets\processed\phrase_finetune\index.jsonl --preset hq_strings_v18 --epochs 100 --out Models\ballad_renderer_hq_v20_last.pt --best-out Models\ballad_renderer_hq_v20_best.pt
+```
+
+The pausable layer preserves the existing renderer dataset/model/loss contract and
+adds only training-control/checkpoint behavior.
 
 ## Windows controls
 
@@ -47,6 +66,10 @@ Do not power off the machine until status is `paused` or the console prints
 
 Resume uses the exact checkpoint recorded in `training/.training_status.json` and
 reconstructs the original command with `--resume <checkpoint>`.
+
+The control layer atomically switches status to `resuming` before it launches the
+child process, so a rapid double-click on RESUME cannot start two copies of the same
+training job while the child is still initializing.
 
 If the pause happened between epochs, the next epoch starts normally. If it happened
 mid-epoch, model/EMA/optimizer/scheduler/RNG progress is preserved, but that partial
