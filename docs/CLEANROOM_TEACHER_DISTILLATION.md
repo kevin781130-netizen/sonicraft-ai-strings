@@ -137,23 +137,46 @@ the actual index rows, not from a user-provided release flag. The marker declare
 `required_release_schema=8`, preserves the root phrase-index SHA-256, and is inherited
 through resume, ordinary distillation, reflow distillation, and shortcut training.
 
+Schema 8 also requires an independent training-provenance attestation. Stamp the
+existing `training_provenance.json` from the exact curriculum report before building
+the release manifest:
+
+```bash
+python training/scripts/stamp_phrase_training_provenance.py \
+  --provenance evidence/training_provenance.json \
+  --curriculum-report datasets/processed/phrase_finetune/curriculum_report.json
+```
+
+The resulting `phrase_supervision` record binds the same `output_index_sha256` to
+the exact curriculum-report SHA-256 and declares `required_release_schema=8`. This
+record is separate from checkpoint metadata, so release validation has two sources
+of phrase lineage rather than trusting a single artifact.
+
 After fine-tuning, evaluate baseline and candidate renderer checkpoints on the same
 held-out phrase latent index with `evaluate_renderer_transitions.py`, then build a
 `transition_promotion_v1` report with `build_transition_promotion.py`.
 
+Seal HQ and Compact/Frontier only after each transition promotion passes. The sealer
+rejects failed/underpowered promotion evidence and also checks that checkpoint
+`phrase_finetune_provenance.phrase_source_index_sha256` equals curriculum
+`output_index_sha256` before it writes any transition seal.
+
 A passed phrase-fine-tuned release is a **Release Schema 8** build. Both shipping
-renderer roles (HQ and Compact/Frontier) require their own checkpoint-specific
-transition promotion and transition seal, and both must use the same held-out phrase
-index. The curriculum index SHA-256 must equal the root phrase-index SHA-256 in both
-renderer lineages. The codec decoder is not transition-sealed.
+renderer roles require their own checkpoint-specific transition promotion and
+transition seal, and both must use the same held-out phrase index. Training
+provenance, curriculum evidence, HQ lineage, and Compact lineage must all identify
+the exact same fine-tune index. The codec decoder is not transition-sealed.
 
-Both the manifest builder and commercial release gate reopen the renderer checkpoints.
-If either renderer lineage contains phrase supervision, Schema 7 or older is rejected
-even if a manifest is hand-edited to claim an older schema.
+Both the manifest builder and commercial release gate reopen the staged training
+provenance plus renderer checkpoints. If either source declares phrase supervision,
+Schema 7 or older is rejected even if checkpoint markers or the manifest are edited.
+The hash/attestation scheme is a tamper-evident consistency mechanism rather than a
+digital signature; it does not claim authenticity against coordinated rewriting of
+all unsigned artifacts.
 
-See `docs/SCHEMA8_TRANSITION_RELEASE.md` for the exact seal, manifest-builder, and
-commercial-release-gate commands. Schema 8 does not weaken or replace the existing
-Schema 7 acoustic promotion requirements.
+See `docs/SCHEMA8_TRANSITION_RELEASE.md` for the exact seal, manifest-builder,
+commercial-release-gate, and dependency-light smoke commands. Schema 8 does not
+weaken or replace the existing Schema 7 acoustic promotion requirements.
 
 ## 4. Connect an authorized black-box teacher
 
