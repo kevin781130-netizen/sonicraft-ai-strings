@@ -6,6 +6,7 @@ import torch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from release_transition_gate import assert_release_evidence
 from phrase_provenance import validate_checkpoint_phrase_provenance
+from phrase_release_provenance import validate_phrase_training_attestation
 
 PRODUCT='SONICRAFT AI Strings Q4'
 
@@ -59,7 +60,12 @@ def main():
         if 'string_vae64' not in roles: die('strings_vae64 decoder role required')
     elif not {'dac','dac_base'}.issubset(roles): die('DAC fine-tune + DAC base roles required')
     prov_path=verify_evidence(md,m,'provenance'); metrics_path=verify_evidence(md,m,'metrics')
-    prov=json.loads(prov_path.read_text(encoding='utf-8')); used=prov.get('datasets') or prov.get('dataset_ids') or prov.get('sources') or []
+    prov=json.loads(prov_path.read_text(encoding='utf-8'))
+    try: phrase_training=validate_phrase_training_attestation(prov.get('phrase_supervision'))
+    except ValueError as e: die('training provenance phrase supervision invalid: '+str(e))
+    if phrase_training and schema<8: die('training provenance declares phrase supervision; Release Schema 8 is required')
+    if schema>=8 and not phrase_training: die('Schema 8 requires training_provenance.phrase_supervision attestation')
+    used=prov.get('datasets') or prov.get('dataset_ids') or prov.get('sources') or []
     used_ids=[]
     for x in used:
         k=x if isinstance(x,str) else (x.get('dataset_id') or x.get('id') or x.get('dataset') if isinstance(x,dict) else None)
@@ -118,9 +124,12 @@ def main():
         cr=json.loads(cp.read_text(encoding='utf-8')); hr=json.loads(hp.read_text(encoding='utf-8')); kr=json.loads(kp.read_text(encoding='utf-8'))
         try: assert_release_evidence(cr,{'hq':hr,'compact':kr})
         except ValueError as e: die('schema 8 transition evidence failed: '+str(e))
-        phrase_index_sha=str(cr.get('output_index_sha256','')).lower()
+        phrase_index_sha=str(cr.get('output_index_sha256','')).lower(); curriculum_sha=sha(cp)
         if str(m.get('phrase_source_index_sha256','')).lower()!=phrase_index_sha: die('schema 8 phrase source index identity mismatch')
         if str((m.get('phrase_curriculum') or {}).get('output_index_sha256','')).lower()!=phrase_index_sha: die('schema 8 phrase curriculum evidence metadata mismatch')
+        if str(phrase_training.get('source_index_sha256','')).lower()!=phrase_index_sha: die('training provenance phrase source index mismatch')
+        if str(phrase_training.get('curriculum_report_sha256','')).lower()!=curriculum_sha: die('training provenance phrase curriculum report SHA mismatch')
+        if str(m.get('phrase_training_attestation_id','')).lower()!=str(phrase_training.get('attestation_id','')).lower(): die('manifest/training phrase attestation identity mismatch')
         for role in ('hq','compact'):
             marker=phrase_lineage[role]; f=files_by_role.get(role) or {}
             if str(marker.get('phrase_source_index_sha256','')).lower()!=phrase_index_sha: die(role+' checkpoint phrase source index mismatch')
@@ -131,7 +140,6 @@ def main():
         if {k:str(v).lower() for k,v in ids.items()}!=expected_ids: die('schema 8 transition promotion identity map mismatch')
         heldout=str(hr.get('heldout_index_sha256','')).lower()
         if str(m.get('transition_heldout_index_sha256','')).lower()!=heldout: die('schema 8 shared held-out transition index mismatch')
-        curriculum_sha=sha(cp)
         for role,report in (('hq',hr),('compact',kr)):
             f=files_by_role.get(role) or {}
             if not f: die('schema 8 missing renderer role: '+role)
