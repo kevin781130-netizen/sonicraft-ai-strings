@@ -36,6 +36,7 @@ else:
         "Blind acoustic review",
         "exact release model manifest SHA-256",
         "exact VST3 SHA-256",
+        "semantic support must exist before acoustic promotion",
     ]:
         if token not in contract:
             errors.append(f"special technique contract missing token: {token!r}")
@@ -76,10 +77,20 @@ if status:
         if not isinstance(item, dict):
             errors.append(f"technique {name}: status must be an object")
             continue
+        semantic = item.get("semantic_support")
+        if semantic not in (True, False):
+            errors.append(f"technique {name}: semantic_support must be boolean")
+        detail = str(item.get("semantic_detail") or "").strip()
+        if not detail:
+            errors.append(f"technique {name}: semantic_detail is required")
         approved = item.get("acoustic_release_approved")
         if approved not in (True, False):
             errors.append(f"technique {name}: acoustic_release_approved must be boolean")
             continue
+        if approved and semantic is not True:
+            errors.append(
+                f"technique {name}: acoustic approval is forbidden until exact semantic support exists"
+            )
         if approved and not evidence_complete:
             errors.append(
                 f"technique {name}: acoustic approval is forbidden while required evidence is incomplete"
@@ -110,4 +121,4 @@ if errors:
     raise SystemExit(2)
 
 print("SONICRAFT v7.0 SPECIAL TECHNIQUE GATE: PASS")
-print(" Semantic-only techniques remain explicitly non-acoustic until evidence promotion.")
+print(" Semantic support is audited separately from acoustic promotion evidence.")
