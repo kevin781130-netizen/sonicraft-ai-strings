@@ -9,6 +9,7 @@ harmonic identity, and does not infer muted-string support from unparsed text.
 
 import importlib.util
 import json
+import sys
 import tempfile
 from pathlib import Path
 
@@ -22,6 +23,7 @@ def load_parser():
     if spec is None or spec.loader is None:
         raise RuntimeError("cannot load score_expression_graph_v40.py")
     mod = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = mod
     spec.loader.exec_module(mod)
     return mod
 
