@@ -11,6 +11,7 @@ TRAINING = ROOT / "training"
 COMPILE_TARGETS = (
     "training/phrase_curriculum.py",
     "training/phrase_provenance.py",
+    "training/phrase_release_provenance.py",
     "training/release_transition_gate.py",
     "training/transition_promotion.py",
     "training/train_ballad_renderer.py",
@@ -21,6 +22,7 @@ COMPILE_TARGETS = (
     "training/scripts/build_transition_promotion.py",
     "training/scripts/evaluate_renderer_transitions.py",
     "training/scripts/seal_transition_promotion.py",
+    "training/scripts/stamp_phrase_training_provenance.py",
     "training/scripts/build_release_model_manifest.py",
     "training/scripts/commercial_release_gate.py",
 )
@@ -28,6 +30,7 @@ COMPILE_TARGETS = (
 SMOKE_SCRIPTS = (
     "smoke_release_schema8.py",
     "smoke_phrase_provenance.py",
+    "smoke_phrase_release_provenance.py",
 )
 
 
