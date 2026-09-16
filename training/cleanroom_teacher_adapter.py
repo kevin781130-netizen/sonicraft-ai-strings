@@ -46,6 +46,9 @@ class RightsDeclaration:
     output_training_allowed: bool = False
     learned_weight_release_allowed: bool = False
     commercial_use_allowed: bool = False
+    provider: str = ""
+    evidence_reference: str = ""
+    explicit_written_permission_reference: str = ""
     notes: str = ""
 
     @classmethod
@@ -56,6 +59,11 @@ class RightsDeclaration:
             output_training_allowed=bool(value.get("output_training_allowed", False)),
             learned_weight_release_allowed=bool(value.get("learned_weight_release_allowed", False)),
             commercial_use_allowed=bool(value.get("commercial_use_allowed", False)),
+            provider=str(value.get("provider", "")),
+            evidence_reference=str(value.get("evidence_reference", "")),
+            explicit_written_permission_reference=str(
+                value.get("explicit_written_permission_reference", "")
+            ),
             notes=str(value.get("notes", "")),
         )
 
@@ -111,6 +119,20 @@ class TeacherConfig:
                 "rights.authorized_runtime_use=true and "
                 "rights.output_training_allowed=true only after you have verified those rights"
             )
+        if not cfg.rights.evidence_reference.strip():
+            raise CleanRoomTeacherError(
+                "external teacher requires rights.evidence_reference so the training permission "
+                "is documented rather than inferred"
+            )
+        provider = cfg.rights.provider.strip().lower()
+        dreamtonics_family = ("dreamtonics" in provider or "synthesizer v" in provider)
+        if dreamtonics_family and not cfg.rights.explicit_written_permission_reference.strip():
+            raise CleanRoomTeacherError(
+                "Dreamtonics' published Synthesizer V voice terms prohibit training ML systems "
+                "on generated voice audio. Keep this teacher blocked unless you have separate "
+                "explicit written permission, then record it in "
+                "rights.explicit_written_permission_reference."
+            )
         if any("{model}" in x for x in cfg.command) and not cfg.model:
             raise CleanRoomTeacherError("teacher command uses {model} but config has no model path")
         return cfg
@@ -128,6 +150,14 @@ class TeacherConfig:
                 "output_training_allowed": self.rights.output_training_allowed,
                 "learned_weight_release_allowed": self.rights.learned_weight_release_allowed,
                 "commercial_use_allowed": self.rights.commercial_use_allowed,
+                "provider": self.rights.provider,
+                "evidence_reference_sha256": (
+                    hashlib.sha256(self.rights.evidence_reference.encode("utf-8")).hexdigest()
+                    if self.rights.evidence_reference else None
+                ),
+                "explicit_written_permission_declared": bool(
+                    self.rights.explicit_written_permission_reference.strip()
+                ),
             },
         }
         if exe.is_file():
