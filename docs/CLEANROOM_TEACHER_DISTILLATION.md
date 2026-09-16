@@ -28,6 +28,22 @@ determination. The external runtime/model license controls whether its rendered
 outputs may be used for training and whether learned weights may be released or
 commercialized.
 
+### Known Synthesizer V restriction
+
+As of 2026-09-17, Dreamtonics' published usage terms for Dreamtonics-produced
+Synthesizer V voice databases explicitly prohibit training machine-learning systems
+using audio generated from the voice. Partner-produced voice databases may have
+different terms and must be checked individually.
+
+Official terms summary: https://dreamtonics.com/terms/
+
+Therefore a Synthesizer V/Dreamtonics teacher must remain blocked in this pipeline
+unless you have separate explicit written permission that grants the required
+training use. Clean-room implementation does not override a license restriction.
+The adapter requires a recorded evidence reference, and a Dreamtonics/Synthesizer V
+provider additionally requires an explicit written-permission reference before it
+will render teacher training data.
+
 ## 1. Run the independent teacher first
 
 No third-party model is needed:
@@ -68,8 +84,11 @@ weights, private tensors, encrypted sections, signatures or hidden metadata.
 
 The config is fail-closed. External rendering will not start until both
 `rights.authorized_runtime_use` and `rights.output_training_allowed` are set true
-after review. Release training stays blocked unless the two additional release
-rights flags are also true.
+after review, and `rights.evidence_reference` must document the basis for that
+permission. Release training stays blocked unless the two additional release
+rights flags are also true. For Dreamtonics/Synthesizer V, the adapter also requires
+`rights.explicit_written_permission_reference` because the published standard voice
+terms prohibit ML training on generated audio.
 
 Example:
 
