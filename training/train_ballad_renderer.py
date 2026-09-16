@@ -8,6 +8,7 @@ from models.ballad_flow_renderer import BalladFlowRenderer
 from source_policy import validate_index
 from string_source_mixer import load_registry, build_mixture_weights, build_curriculum_weights, mixture_audit, coverage_audit
 from promotion_binding import promotion_binding
+from phrase_provenance import build_phrase_provenance
 
 PRESETS = {
     'smoke': {'d_model': 64, 'layers': 2, 'heads': 4},
@@ -153,6 +154,9 @@ def main():
     validate_index(a.index,a.registry)
     if a.val_index: validate_index(a.val_index,a.registry)
     dev='cuda' if torch.cuda.is_available() else 'cpu'; ds=Segments(a.index)
+    phrase_provenance=build_phrase_provenance(ds.rows,a.index)
+    if phrase_provenance.get('enabled'):
+        print('phrase fine-tune provenance',json.dumps(phrase_provenance,sort_keys=True))
     inferred_ch,inferred_hz,inferred_kind,inferred_sr=infer_latent_geometry(ds)
     latent_ch=int(a.latent_ch or inferred_ch); latent_hz=float(a.latent_hz or inferred_hz)
     codec_kind=inferred_kind if str(a.codec_kind).lower()=='auto' else str(a.codec_kind)
@@ -187,6 +191,7 @@ def main():
         ck=torch.load(a.resume,map_location='cpu'); saved=ck.get('config',{})
         if any(saved.get(k)!=cfg[k] for k in cfg): raise RuntimeError('Resume checkpoint architecture mismatch.')
         if int(ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('Resume checkpoint latent geometry mismatch.')
+        phrase_provenance=build_phrase_provenance(ds.rows,a.index,ck.get('phrase_finetune_provenance'))
         m.load_state_dict(ck['model']); ema.load_state_dict(ck.get('ema',ck['model']))
         if 'optimizer' in ck: opt.load_state_dict(ck['optimizer'])
         if 'scheduler' in ck: sched.load_state_dict(ck['scheduler'])
@@ -233,7 +238,7 @@ def main():
             'control_dims':m.CONTROL_DIMS,'source_index':a.index,'val_index':a.val_index,'best_val':best,'schema_version':9,
             'vibrato_expert_seed':a.vibrato_expert,'performance_experts_seed':a.performance_experts,
             'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
-            'acoustic_promotion_id':promotion_id}
+            'phrase_finetune_provenance':phrase_provenance,'acoustic_promotion_id':promotion_id}
         Path(a.out).parent.mkdir(parents=True,exist_ok=True); torch.save(ck,a.out)
         score=val if vdl else sums['flow']/denom
         if score<best:
