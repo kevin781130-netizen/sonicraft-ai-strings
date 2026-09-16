@@ -27,6 +27,7 @@
     "validator_evidence_contract": "complete",
     "host_evidence_contract": "complete",
     "acoustic_evidence_contract": "complete",
+    "special_technique_promotion_contract": "complete",
     "hash_bound_final_gate": "complete",
     "authenticode_public_gate": "complete",
     "commercial_source_ci": "complete"
@@ -37,6 +38,7 @@
     "cubase_real_host_evidence": "required",
     "studio_one_real_host_evidence": "required",
     "final_trained_release_approved_model_pack": "required",
+    "special_technique_acoustic_promotion_evidence": "required_before_claiming_special_technique_acoustic_support",
     "rtx5090_acoustic_qa_bound_to_final_model_and_vst3": "required",
     "release_code_signing_identity_and_authenticode_evidence": "required_for_public_release"
   },
@@ -44,6 +46,7 @@
     "This file does not approve a commercial binary.",
     "This file does not claim any real-host pass.",
     "This file does not approve placeholder or untrained model weights.",
+    "This file does not claim acoustic support for semantic-only special techniques without promotion evidence.",
     "This file does not claim bit-identical audio replay.",
     "Public release remains blocked until PUBLIC_RELEASE_GATE_V70 passes for the final signed binary SHA-256."
   ]
