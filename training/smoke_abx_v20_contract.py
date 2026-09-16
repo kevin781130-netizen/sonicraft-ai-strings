@@ -31,7 +31,7 @@ def main():
         truth={x['trial_id']:x['answer'] for x in key['answers']}
         template=packet/'public'/'responses.csv'
         with template.open(newline='',encoding='utf-8-sig') as f:
-            rows=list(csv.DictReader(f));fields=list(f.fieldnames or [])
+            reader=csv.DictReader(f);rows=list(reader);fields=list(reader.fieldnames or [])
         assert 'listener_id' in fields and 'pick_generated' in fields
 
         for li in range(5):
