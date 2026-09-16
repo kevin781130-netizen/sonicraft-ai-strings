@@ -99,7 +99,7 @@ cd training
 python smoke_cleanroom_phrase.py
 ```
 
-Both `encode_dac_latents.py` and `encode_vae64_latents.py` now consume the optional
+Both `encode_dac_latents.py` and `encode_vae64_latents.py` consume the optional
 `control_curves` sidecar. Legacy rows without a sidecar retain their previous scalar
 behavior. Phrase rows preserve `articulation_curve` in the latent NPZ, which is
 already consumed by the renderer dataset/training path.
@@ -115,10 +115,36 @@ python training/scripts/encode_vae64_latents.py \
 ```
 
 The phrase corpus remains `training_origin="modeled"` and
-`final_timbre_anchor=false`; the existing origin-aware sampler is still responsible
-for keeping modeled supervision within the intended mixture budget.
+`final_timbre_anchor=false`; the origin-aware sampler remains responsible for
+keeping modeled supervision within the intended mixture budget.
 
-## 3. Connect an authorized black-box teacher
+## 3. Phrase fine-tune and transition promotion
+
+Build a combined latent index with phrase weighting applied only inside the MODELED
+lane:
+
+```bash
+python training/scripts/build_phrase_finetune_index.py \
+  --base-index datasets/processed/ballad_vae64/index.jsonl \
+  --phrase-index datasets/processed/cleanroom_phrases_vae64/index.jsonl \
+  --out datasets/processed/phrase_finetune/index.jsonl \
+  --report datasets/processed/phrase_finetune/curriculum_report.json
+```
+
+After fine-tuning, evaluate baseline and candidate renderer checkpoints on the same
+held-out phrase latent index with `evaluate_renderer_transitions.py`, then build a
+`transition_promotion_v1` report with `build_transition_promotion.py`.
+
+A passed phrase-fine-tuned release is now a **Release Schema 8** build. Both shipping
+renderer roles (HQ and Compact/Frontier) require their own checkpoint-specific
+transition promotion and transition seal, and both must use the same held-out phrase
+index. The codec decoder is not transition-sealed.
+
+See `docs/SCHEMA8_TRANSITION_RELEASE.md` for the exact seal, manifest-builder, and
+commercial-release-gate commands. Schema 8 does not weaken or replace the existing
+Schema 7 acoustic promotion requirements.
+
+## 4. Connect an authorized black-box teacher
 
 Copy `training/cleanroom_teacher_config.example.json` outside the repository and
 edit it for a small shim around the runtime/API you are actually allowed to use.
@@ -154,7 +180,7 @@ python training/build_cleanroom_teacher_dataset.py \
 
 Keep the config outside Git if it contains local/private paths.
 
-## 4. Provenance and filtering
+## 5. Provenance and filtering
 
 Each accepted row records:
 
@@ -171,7 +197,7 @@ copyright detector and cannot prove that an output is free of memorized material
 For external teachers, add a separate held-out review and similarity/memorization
 screen appropriate to the model before release.
 
-## 5. Registry gate
+## 6. Registry gate
 
 External-teacher rows use the source ID `authorized_blackbox_synthetic`. The
 repository intentionally ships only a fail-closed fragment:
@@ -190,84 +216,13 @@ that the applicable teacher/runtime terms permit:
 `training/source_policy.py` remains the final dataset gate, so an unknown or
 blocked source cannot silently enter a release checkpoint.
 
-## 6. Existing Ai Strings path
+## 7. Existing Ai Strings path
 
-The builder intentionally stops at WAV + manifest. Reuse the project's existing
-pipeline for Sound Forge, deterministic segmentation, codec/latent conversion,
-renderer training and distillation. This keeps the v6.2+ performance/checkpoint
-core unchanged and preserves the current provenance model.
+Reuse the project's existing Sound Forge, deterministic segmentation, codec/latent,
+renderer training and distillation pipeline. The clean-room path only adds permitted
+behavioral supervision and phrase/transition evidence; it does not import private
+teacher parameters or alter the runtime provenance boundary.
 
 For external-teacher data, keep `training_origin="modeled"` and
 `final_timbre_anchor=false`; the external teacher should supplement behavioral
 coverage rather than silently replace the real-acoustic lane.
-
-## 7. Phrase fine-tuning and transition promotion
-
-Phrase supervision is intentionally weighted **inside** the modeled lane. It never
-raises the global modeled probability above the renderer's configured REAL80/MODEL20
-policy. Build an audited fine-tune index after encoding phrase latents:
-
-```bash
-python training/scripts/build_phrase_finetune_index.py \
-  --base-index datasets/processed/ballad_vae64/index.jsonl \
-  --phrase-index datasets/processed/cleanroom_phrases_vae64/index.jsonl \
-  --out datasets/processed/phrase_finetune/index.jsonl \
-  --report datasets/processed/phrase_finetune/curriculum_report.json \
-  --phrase-modeled-share 0.65
-```
-
-The curriculum report audits sampling at training progress 0.0, 0.5 and 1.0. The
-MODELED lane must remain approximately 20% at every stage; `phrase-modeled-share`
-only allocates probability *within* that lane.
-
-Train the renderer with the merged index using the normal trainer. Keep a held-out
-phrase latent index completely separate from the fine-tune index. Evaluate the
-pre-fine-tune baseline and candidate with the same held-out index and seed:
-
-```bash
-python training/scripts/evaluate_renderer_transitions.py \
-  --checkpoint checkpoints/baseline.pt \
-  --index datasets/processed/cleanroom_phrases_heldout_vae64/index.jsonl \
-  --out evidence/transition_baseline.json
-
-python training/scripts/evaluate_renderer_transitions.py \
-  --checkpoint checkpoints/phrase_candidate.pt \
-  --index datasets/processed/cleanroom_phrases_heldout_vae64/index.jsonl \
-  --out evidence/transition_candidate.json
-```
-
-Build the transition promotion report:
-
-```bash
-python training/scripts/build_transition_promotion.py \
-  --baseline evidence/transition_baseline.json \
-  --candidate evidence/transition_candidate.json \
-  --curriculum datasets/processed/phrase_finetune/curriculum_report.json \
-  --out evidence/transition_promotion.json
-```
-
-The default gate requires paired index/seed identity, at least 48 held-out phrase
-samples, improved continuity, bounded acceleration/flow regression and a passing
-composite ratio. A failed report exits non-zero.
-
-Once the report passes, bind it to the exact candidate checkpoint without changing
-model tensors:
-
-```bash
-python training/scripts/seal_transition_promotion.py \
-  --checkpoint checkpoints/phrase_candidate.pt \
-  --promotion evidence/transition_promotion.json \
-  --curriculum datasets/processed/phrase_finetune/curriculum_report.json
-```
-
-The seal verifies the candidate file SHA-256 from the evaluation report and checks
-the tensor digest before/after metadata binding. This transition seal is additional
-evidence; it does not bypass the existing acoustic promotion, source-policy or
-commercial-release gates.
-
-Dependency-light curriculum/promotion smoke test:
-
-```bash
-cd training
-python smoke_phrase_promotion.py
-```
