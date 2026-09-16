@@ -18,6 +18,7 @@ COMPILE_TARGETS = (
     "training/distill_renderer.py",
     "training/reflow_distill_renderer.py",
     "training/shortcut_distill_renderer.py",
+    "training/smoke_release_schema8_end_to_end.py",
     "training/scripts/build_phrase_finetune_index.py",
     "training/scripts/build_transition_promotion.py",
     "training/scripts/evaluate_renderer_transitions.py",
@@ -31,6 +32,7 @@ SMOKE_SCRIPTS = (
     "smoke_release_schema8.py",
     "smoke_phrase_provenance.py",
     "smoke_phrase_release_provenance.py",
+    "smoke_release_schema8_end_to_end.py",
 )
 
 
