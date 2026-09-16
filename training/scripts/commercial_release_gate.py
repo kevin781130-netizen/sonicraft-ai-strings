@@ -1,9 +1,11 @@
 from __future__ import annotations
 import argparse, hashlib, json, sys
 from pathlib import Path
+import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from release_transition_gate import assert_release_evidence
+from phrase_provenance import validate_checkpoint_phrase_provenance
 
 PRODUCT='SONICRAFT AI Strings Q4'
 
@@ -36,13 +38,22 @@ def main():
     if schema not in (1,2,3,4,5,6,7,8) or m.get('product')!=PRODUCT: die('model manifest schema/product mismatch')
     if not m.get('commercial_safe') or not m.get('release_approved'): die('model manifest is not commercial-safe + approved')
     if (m.get('provenance') or {}).get('contains_blocked_sources'): die('model provenance reports blocked sources')
-    roles=set(); files_by_role={}
+    roles=set(); files_by_role={}; phrase_lineage={}
     for f in m.get('files',[]):
         name=f.get('name',''); p=md/name; role=f.get('role'); roles.add(role); files_by_role[role]=f
         if not name or '/' in name or '\\' in name: die('invalid model filename')
         if not p.is_file(): die('model missing: '+name)
         if sha(p)!=str(f.get('sha256','')).lower(): die('model hash mismatch: '+name)
+        if role in ('hq','compact'):
+            try: ck=torch.load(p,map_location='cpu',weights_only=False)
+            except Exception as e: die(f'{role} checkpoint metadata unreadable: {name}: {e}')
+            if not isinstance(ck,dict): die(f'{role} checkpoint must be a metadata dictionary: {name}')
+            try: marker=validate_checkpoint_phrase_provenance(ck)
+            except ValueError as e: die(f'{role} checkpoint phrase provenance invalid: {name}: {e}')
+            if marker: phrase_lineage[role]=marker
     if 'hq' not in roles: die('HQ renderer role required')
+    if phrase_lineage and schema<8: die('phrase-supervised renderer lineage requires Release Schema 8; schema downgrade is forbidden')
+    if schema>=8 and set(phrase_lineage)!={'hq','compact'}: die('Schema 8 requires phrase provenance on both HQ and Compact renderers')
     kind=str((m.get('codec') or {}).get('kind','dac44')).lower()
     if kind=='strings_vae64':
         if 'string_vae64' not in roles: die('strings_vae64 decoder role required')
@@ -107,6 +118,14 @@ def main():
         cr=json.loads(cp.read_text(encoding='utf-8')); hr=json.loads(hp.read_text(encoding='utf-8')); kr=json.loads(kp.read_text(encoding='utf-8'))
         try: assert_release_evidence(cr,{'hq':hr,'compact':kr})
         except ValueError as e: die('schema 8 transition evidence failed: '+str(e))
+        phrase_index_sha=str(cr.get('output_index_sha256','')).lower()
+        if str(m.get('phrase_source_index_sha256','')).lower()!=phrase_index_sha: die('schema 8 phrase source index identity mismatch')
+        if str((m.get('phrase_curriculum') or {}).get('output_index_sha256','')).lower()!=phrase_index_sha: die('schema 8 phrase curriculum evidence metadata mismatch')
+        for role in ('hq','compact'):
+            marker=phrase_lineage[role]; f=files_by_role.get(role) or {}
+            if str(marker.get('phrase_source_index_sha256','')).lower()!=phrase_index_sha: die(role+' checkpoint phrase source index mismatch')
+            if str(f.get('phrase_provenance_id','')).lower()!=str(marker.get('provenance_id','')).lower(): die(role+' manifest phrase provenance ID mismatch')
+            if str(f.get('phrase_source_index_sha256','')).lower()!=phrase_index_sha: die(role+' manifest phrase source index mismatch')
         ids=dict(m.get('transition_promotion_ids') or {})
         expected_ids={'hq':str(hr.get('promotion_id','')).lower(),'compact':str(kr.get('promotion_id','')).lower()}
         if {k:str(v).lower() for k,v in ids.items()}!=expected_ids: die('schema 8 transition promotion identity map mismatch')
