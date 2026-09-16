@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TRAINING = ROOT / "training"
 
 COMPILE_TARGETS = (
+    "training/blind_abx_v20.py",
     "training/phrase_curriculum.py",
     "training/phrase_provenance.py",
     "training/phrase_release_provenance.py",
@@ -18,9 +19,13 @@ COMPILE_TARGETS = (
     "training/distill_renderer.py",
     "training/reflow_distill_renderer.py",
     "training/shortcut_distill_renderer.py",
+    "training/smoke_abx_v20_contract.py",
     "training/smoke_release_schema8_end_to_end.py",
     "training/smoke_transition_sealer_contract.py",
     "training/smoke_schema8_release_preflight.py",
+    "training/scripts/prepare_blind_abx.py",
+    "training/scripts/score_abx_v20.py",
+    "training/scripts/validate_blind_abx_packet.py",
     "training/scripts/build_phrase_finetune_index.py",
     "training/scripts/build_transition_promotion.py",
     "training/scripts/evaluate_renderer_transitions.py",
@@ -32,6 +37,7 @@ COMPILE_TARGETS = (
 )
 
 SMOKE_SCRIPTS = (
+    "smoke_abx_v20_contract.py",
     "smoke_release_schema8.py",
     "smoke_phrase_provenance.py",
     "smoke_phrase_release_provenance.py",
