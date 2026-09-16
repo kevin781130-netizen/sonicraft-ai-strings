@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - 'training/**'
+      - 'TRAINING_CONTROL_PANEL.bat'
+      - 'PAUSE_TRAINING.bat'
+      - 'RESUME_TRAINING.bat'
       - 'docs/SCHEMA8_TRANSITION_RELEASE.md'
       - 'docs/SCHEMA8_PRODUCTION_RUNBOOK.md'
       - 'docs/CLEANROOM_TEACHER_DISTILLATION.md'
@@ -28,3 +31,6 @@ jobs:
 
       - name: Run release contract smoke
         run: python training/run_release_contract_smoke.py
+
+      - name: Run training pause control smoke
+        run: python training/smoke_training_control.py
