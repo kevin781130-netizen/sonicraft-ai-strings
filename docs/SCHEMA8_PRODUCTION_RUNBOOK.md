@@ -34,6 +34,29 @@ Compact/Frontier candidate checkpoints named by the plan. Keep the pre-phrase HQ
 and Compact baselines too; transition evaluation is paired against those exact
 baselines.
 
+For production renderer training, use the pausable trainer entrypoint rather than a
+hard-kill workflow:
+
+```bash
+python training/train_ballad_renderer_pausable.py <renderer training arguments>
+```
+
+On Windows, keep `TRAINING_CONTROL_PANEL.bat` available while the GPU run is active.
+It opens a localhost-only control page with status, **PAUSE TRAINING**, and
+**RESUME TRAINING**. `PAUSE_TRAINING.bat` and `RESUME_TRAINING.bat` provide the same
+controls without requiring the browser page.
+
+A pause request is cooperative. The trainer waits for the next complete optimizer
+boundary, writes model/EMA/optimizer/scheduler/RNG/provenance and progress metadata
+to the normal checkpoint, marks status `paused`, and then exits normally. Do not
+power off or reclaim the GPU until the status is `paused` or the console prints
+`[PAUSED] checkpoint saved:`.
+
+If a run is resumed after a mid-epoch pause, committed optimizer state is preserved,
+but that incomplete epoch is replayed with a fresh weighted-sampler order. This is
+the supported recovery behavior and avoids serializing half-accumulated gradients or
+DataLoader internals. See `docs/TRAINING_PAUSE_RESUME.md` for the full contract.
+
 Do not seal candidate checkpoints during training. Transition promotion reports
 bind the *pre-seal file SHA-256* and the sealer adds metadata only after all evidence
 has passed.
@@ -147,8 +170,9 @@ Use `--dry-run` first to print every command without executing it.
 
 The **non-GPU implementation work is complete**: corpus/control tooling, provenance,
 Schema 8 policy, transition evaluation/promotion, ABX preparation/validation/scoring,
-status reporting, preflight, sealing, manifest construction, commercial gating,
-production orchestration, documentation, and dependency-light CI are all present.
+status reporting, safe training pause/resume, preflight, sealing, manifest construction,
+commercial gating, production orchestration, documentation, and dependency-light CI
+are all present.
 
 What cannot be manufactured before the trained model exists is production evidence:
 
