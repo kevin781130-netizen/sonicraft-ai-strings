@@ -9,3 +9,8 @@ _deps/
 build-win64/
 release/*.vst3/
 *.log
+
+# Clean-room teacher safety: keep external/proprietary teacher assets out of Git.
+*.dnni
+*.amdata
+training/cleanroom_runs/
