@@ -131,14 +131,25 @@ python training/scripts/build_phrase_finetune_index.py \
   --report datasets/processed/phrase_finetune/curriculum_report.json
 ```
 
+The curriculum report records the exact combined index as `output_index_sha256`.
+Renderer training derives a tamper-evident `phrase_finetune_provenance` marker from
+the actual index rows, not from a user-provided release flag. The marker declares
+`required_release_schema=8`, preserves the root phrase-index SHA-256, and is inherited
+through resume, ordinary distillation, reflow distillation, and shortcut training.
+
 After fine-tuning, evaluate baseline and candidate renderer checkpoints on the same
 held-out phrase latent index with `evaluate_renderer_transitions.py`, then build a
 `transition_promotion_v1` report with `build_transition_promotion.py`.
 
-A passed phrase-fine-tuned release is now a **Release Schema 8** build. Both shipping
+A passed phrase-fine-tuned release is a **Release Schema 8** build. Both shipping
 renderer roles (HQ and Compact/Frontier) require their own checkpoint-specific
 transition promotion and transition seal, and both must use the same held-out phrase
-index. The codec decoder is not transition-sealed.
+index. The curriculum index SHA-256 must equal the root phrase-index SHA-256 in both
+renderer lineages. The codec decoder is not transition-sealed.
+
+Both the manifest builder and commercial release gate reopen the renderer checkpoints.
+If either renderer lineage contains phrase supervision, Schema 7 or older is rejected
+even if a manifest is hand-edited to claim an older schema.
 
 See `docs/SCHEMA8_TRANSITION_RELEASE.md` for the exact seal, manifest-builder, and
 commercial-release-gate commands. Schema 8 does not weaken or replace the existing
