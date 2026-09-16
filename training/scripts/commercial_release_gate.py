@@ -1,6 +1,10 @@
 from __future__ import annotations
-import argparse, hashlib, json
+import argparse, hashlib, json, sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from release_transition_gate import assert_release_evidence
+
 PRODUCT='SONICRAFT AI Strings Q4'
 
 def sha(p):
@@ -28,12 +32,13 @@ def main():
     mp=md/'release_model_manifest.json'
     if not mp.is_file(): die('release_model_manifest.json missing')
     m=json.loads(mp.read_text(encoding='utf-8'))
-    if int(m.get('schema',0)) not in (1,2,3,4,5,6,7) or m.get('product')!=PRODUCT: die('model manifest schema/product mismatch')
+    schema=int(m.get('schema',0))
+    if schema not in (1,2,3,4,5,6,7,8) or m.get('product')!=PRODUCT: die('model manifest schema/product mismatch')
     if not m.get('commercial_safe') or not m.get('release_approved'): die('model manifest is not commercial-safe + approved')
     if (m.get('provenance') or {}).get('contains_blocked_sources'): die('model provenance reports blocked sources')
-    roles=set()
+    roles=set(); files_by_role={}
     for f in m.get('files',[]):
-        name=f.get('name',''); p=md/name; roles.add(f.get('role'))
+        name=f.get('name',''); p=md/name; role=f.get('role'); roles.add(role); files_by_role[role]=f
         if not name or '/' in name or '\\' in name: die('invalid model filename')
         if not p.is_file(): die('model missing: '+name)
         if sha(p)!=str(f.get('sha256','')).lower(): die('model hash mismatch: '+name)
@@ -52,28 +57,28 @@ def main():
     for k in used_ids:
         v=reg.get(k)
         if not v or v.get('release_blocked') or not v.get('commercial_safe'): die('provenance uses blocked/unknown source: '+str(k))
-    if int(m.get('schema',0))>=5:
+    if schema>=5:
         policy=dict(m.get('training_policy') or {}); pp=dict(prov.get('training_policy') or {})
         if policy != pp: die('manifest/provenance training_policy mismatch')
         required=('real_probability','modeled_probability','modeled_timbre_anchor','modeled_adversarial_target','curriculum','cleanroom_modeled_only')
         if any(k not in policy for k in required): die('schema 5 training_policy incomplete')
         try: rp=float(policy['real_probability']); mp=float(policy['modeled_probability'])
         except Exception: die('invalid training_policy probabilities')
-        if abs(rp-.80)>1e-6 or abs(mp-.20)>1e-6 or abs(rp+mp-1.0)>1e-6: die('v1.8 release requires REAL80/MODEL20')
+        if abs(rp-.80)>1e-6 or abs(mp-.20)>1e-6 or abs(rp+mp-1.0)>1e-6: die('v1.8+ release requires REAL80/MODEL20')
         if policy['modeled_timbre_anchor'] is not False: die('modeled timbre anchor forbidden')
         if policy['modeled_adversarial_target'] is not False: die('modeled adversarial target forbidden')
         if policy['cleanroom_modeled_only'] is not True: die('clean-room material must remain modeled-only')
-        expected='lane_locked_acoustic_promotion_v20' if int(m.get('schema',0))>=7 else ('lane_locked_quality_coverage_forge_v19' if int(m.get('schema',0))>=6 else 'lane_locked_quality_coverage_v18')
+        expected='lane_locked_acoustic_promotion_v20' if schema>=7 else ('lane_locked_quality_coverage_forge_v19' if schema>=6 else 'lane_locked_quality_coverage_v18')
         if str(policy['curriculum'])!=expected: die('unexpected training curriculum')
 
-    if int(m.get('schema',0))>=6:
+    if schema>=6:
         sf_path=verify_evidence(md,m,'sound_forge'); ct_path=verify_evidence(md,m,'codec_tournament'); ca_path=verify_evidence(md,m,'codec_abx')
         sf=json.loads(sf_path.read_text(encoding='utf-8')); ct=json.loads(ct_path.read_text(encoding='utf-8')); ca=json.loads(ca_path.read_text(encoding='utf-8'))
         if int(sf.get('schema',0))!=1 or sf.get('forge_version')!='sound_forge_v19' or not sf.get('release_pass'): die('Sound Forge evidence failed')
         if int(sf.get('eligible_real_files',0))<1 or int(sf.get('eligible_modeled_files',0))<1: die('Sound Forge lacks eligible real/modeled material')
         if int(sf.get('rights_failures',0)) or int(sf.get('audio_failures',0)): die('Sound Forge unresolved rights/audio failures')
         if dict(sf.get('training_policy') or {})!=dict(m.get('training_policy') or {}): die('Sound Forge/manifest policy mismatch')
-        if int(m.get('schema',0))>=7:
+        if schema>=7:
             if int(ct.get('schema',0))!=2 or str(ct.get('metric_family',''))!='stereo_phase_harmonic_strings_v20' or not ct.get('promotion_pass'): die('v2.0 codec tournament failed')
             if int(ct.get('real_anchor_count',0))<8: die('v2.0 codec tournament requires >=8 real anchors')
             if int(ca.get('schema',0))!=2 or not ca.get('transparency_pass'): die('v2.0 codec ABX transparency failed')
@@ -86,7 +91,7 @@ def main():
         ca_acc=ca.get('accuracy'); ca_target=float(ca.get('target_max_accuracy',.60))
         if ca_acc is None or float(ca_acc)>ca_target: die('codec ABX identification exceeds target')
 
-    if int(m.get('schema',0))>=7:
+    if schema>=7:
         seg_path=verify_evidence(md,m,'acoustic_segments'); gr_path=verify_evidence(md,m,'generated_real_abx'); ap_path=verify_evidence(md,m,'acoustic_promotion')
         seg=json.loads(seg_path.read_text(encoding='utf-8')); gr=json.loads(gr_path.read_text(encoding='utf-8')); apr=json.loads(ap_path.read_text(encoding='utf-8'))
         if int(seg.get('schema',0))!=1 or seg.get('segment_version')!='acoustic_segments_v20' or not seg.get('release_pass'): die('v2.0 acoustic segmentation failed')
@@ -95,6 +100,29 @@ def main():
         if int(apr.get('schema',0))!=1 or apr.get('promotion_version')!='acoustic_promotion_v20' or not apr.get('promotion_pass'): die('acoustic promotion contract failed')
         if str(apr.get('shipping_codec','')).lower()!=kind or str(apr.get('winner_kind','')).lower()!=kind: die('acoustic promotion codec mismatch')
         if str(m.get('acoustic_promotion_id',''))!=str(apr.get('promotion_id','')): die('acoustic promotion identity mismatch')
+
+    if schema>=8:
+        if m.get('phrase_finetune') is not True: die('schema 8 requires phrase_finetune=true')
+        cp=verify_evidence(md,m,'phrase_curriculum'); hp=verify_evidence(md,m,'transition_promotion_hq'); kp=verify_evidence(md,m,'transition_promotion_compact')
+        cr=json.loads(cp.read_text(encoding='utf-8')); hr=json.loads(hp.read_text(encoding='utf-8')); kr=json.loads(kp.read_text(encoding='utf-8'))
+        try: assert_release_evidence(cr,{'hq':hr,'compact':kr})
+        except ValueError as e: die('schema 8 transition evidence failed: '+str(e))
+        ids=dict(m.get('transition_promotion_ids') or {})
+        expected_ids={'hq':str(hr.get('promotion_id','')).lower(),'compact':str(kr.get('promotion_id','')).lower()}
+        if {k:str(v).lower() for k,v in ids.items()}!=expected_ids: die('schema 8 transition promotion identity map mismatch')
+        heldout=str(hr.get('heldout_index_sha256','')).lower()
+        if str(m.get('transition_heldout_index_sha256','')).lower()!=heldout: die('schema 8 shared held-out transition index mismatch')
+        curriculum_sha=sha(cp)
+        for role,report in (('hq',hr),('compact',kr)):
+            f=files_by_role.get(role) or {}
+            if not f: die('schema 8 missing renderer role: '+role)
+            if str(f.get('transition_promotion_id','')).lower()!=expected_ids[role]: die(role+' renderer transition promotion ID mismatch')
+            if str(f.get('transition_curriculum_sha256','')).lower()!=curriculum_sha: die(role+' renderer transition curriculum SHA mismatch')
+            if str(f.get('transition_heldout_index_sha256','')).lower()!=heldout: die(role+' renderer transition held-out index mismatch')
+            tensor_sha=str(f.get('transition_tensor_sha256','')).lower()
+            if len(tensor_sha)!=64 or any(c not in '0123456789abcdef' for c in tensor_sha): die(role+' renderer transition tensor digest invalid')
+        if str((m.get('transition_promotion_hq') or {}).get('promotion_id','')).lower()!=expected_ids['hq']: die('HQ transition evidence metadata mismatch')
+        if str((m.get('transition_promotion_compact') or {}).get('promotion_id','')).lower()!=expected_ids['compact']: die('Compact transition evidence metadata mismatch')
 
     mj=json.loads(metrics_path.read_text(encoding='utf-8'))
     if not mj.get('release_pass'): die('release metrics fail')
