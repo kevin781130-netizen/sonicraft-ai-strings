@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This gate defines how currently semantic-only string techniques may become release-approved acoustic techniques without weakening the existing v7.0 feature freeze or fabricating support.
+This gate defines how special string techniques may become release-approved acoustic techniques without weakening the existing v7.0 feature freeze or fabricating support.
 
 The initial gated technique set is:
 
@@ -16,11 +16,20 @@ The initial gated technique set is:
 
 ## Current truth boundary
 
-**Semantic preservation is not acoustic support.** Until a technique passes this gate, SONICRAFT may preserve the notation/intent semantically and surface an explicit unsupported-acoustic warning, but it must not claim that the final acoustic model renders that technique faithfully.
+**Semantic preservation is not acoustic support.** Exact semantic support is itself a prerequisite: the frozen score/runtime path must preserve the identity of the requested technique before that technique can be promoted acoustically.
+
+The current parser truth is intentionally narrower than the gated target set:
+
+- `col legno`, `sul ponticello`, and `sul tasto` are preserved as direction-derived technical metadata plus explicit unsupported-technique warnings;
+- MusicXML `glissando` / `slide` map to the existing Portamento path;
+- MusicXML `harmonic` maps to one generic Harmonic articulation, but the natural/artificial distinction is not preserved;
+- `con sordino` currently has no dedicated semantic token/warning in the frozen parser.
+
+Therefore generic harmonic recognition must not be presented as exact natural-harmonic or artificial-harmonic support, and unparsed mute text must not be presented as con-sordino semantic support.
 
 ## Promotion requirements
 
-A technique is release-approved only when all of the following evidence is present and bound to the exact release model manifest SHA-256 and exact VST3 SHA-256:
+**Exact semantic support must exist before acoustic promotion.** A technique is release-approved only when semantic support is true and all of the following evidence is present and bound to the exact release model manifest SHA-256 and exact VST3 SHA-256:
 
 1. **Rights-cleared training/evaluation material**
    - provenance recorded;
@@ -53,16 +62,24 @@ A technique is release-approved only when all of the following evidence is prese
 
 ## Release behavior
 
-Before promotion:
+When exact semantics exist but acoustic promotion does not:
 
-`notation/intent -> semantic preservation -> unsupported acoustic warning`
+`notation/intent -> semantic preservation -> explicit unsupported-acoustic state`
+
+When exact semantics do not yet exist:
+
+`notation/intent -> no exact technique claim -> semantic gap remains open`
 
 After promotion:
 
-`notation/intent -> declared trained technique -> exact-model render -> blind QA evidence -> host evidence`
+`notation/intent -> exact semantic identity -> declared trained technique -> exact-model render -> blind QA evidence -> host evidence`
 
-No source-code presence, UI control, MIDI label, or test stub is sufficient to mark a technique acoustically supported.
+No source-code presence, UI control, MIDI label, generic parent articulation, or test stub is sufficient to mark a technique acoustically supported.
+
+## Executable semantic audit
+
+`scripts/special_technique_semantic_audit_v70.py` runs small MusicXML fixtures through the actual frozen parser and compares observed semantics with `release/special_technique_status_v7.0.json`. This keeps the machine-readable truth boundary tied to implementation rather than documentation alone.
 
 ## v7.0 release rule
 
-This document does not add a new performance feature to the frozen v7.0 core. It adds an evidence contract for acoustic capabilities that may only be marked supported after the final model pack exists and passes release validation.
+This document does not add a new performance feature to the frozen v7.0 core. It adds evidence and truth contracts for capabilities that may only be marked supported after the semantic path, final model pack, acoustic evidence, and host validation all agree.
