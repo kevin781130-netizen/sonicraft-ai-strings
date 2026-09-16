@@ -2,34 +2,47 @@
   "schema": 1,
   "release": "7.0.0-rc2",
   "status": "PENDING_FINAL_MODEL_EVIDENCE",
-  "truth_boundary": "Semantic preservation is not acoustic support. A technique is release-approved only after exact-model and exact-binary evidence passes the promotion gate.",
+  "truth_boundary": "Semantic preservation is not acoustic support. Exact technique semantics are claimed only when the frozen MusicXML/runtime path preserves the requested identity; generic harmonic preservation does not imply natural/artificial distinction.",
+  "parser_semantics": {
+    "generic_harmonic": {
+      "semantic_support": true,
+      "detail": "MusicXML harmonic maps to the generic Harmonic articulation; natural/artificial identity is not preserved."
+    }
+  },
   "techniques": {
     "col_legno": {
       "semantic_support": true,
+      "semantic_detail": "Direction text is preserved in note technical metadata and emitted as an unsupported-string-technique warning.",
       "acoustic_release_approved": false
     },
     "sul_ponticello": {
       "semantic_support": true,
+      "semantic_detail": "Direction text is preserved in note technical metadata and emitted as an unsupported-string-technique warning.",
       "acoustic_release_approved": false
     },
     "sul_tasto": {
       "semantic_support": true,
+      "semantic_detail": "Direction text is preserved in note technical metadata and emitted as an unsupported-string-technique warning.",
       "acoustic_release_approved": false
     },
     "natural_harmonics": {
-      "semantic_support": true,
+      "semantic_support": false,
+      "semantic_detail": "Generic harmonic is preserved, but natural harmonic identity is not distinguished from artificial harmonic.",
       "acoustic_release_approved": false
     },
     "artificial_harmonics": {
-      "semantic_support": true,
+      "semantic_support": false,
+      "semantic_detail": "Generic harmonic is preserved, but artificial harmonic identity is not distinguished from natural harmonic.",
       "acoustic_release_approved": false
     },
     "con_sordino": {
-      "semantic_support": true,
+      "semantic_support": false,
+      "semantic_detail": "The frozen MusicXML parser does not preserve a dedicated con-sordino/mute semantic token or unsupported-technique warning.",
       "acoustic_release_approved": false
     },
     "portamento_transition_variants": {
       "semantic_support": true,
+      "semantic_detail": "MusicXML glissando/slide map to the Portamento articulation and feed the existing transition path.",
       "acoustic_release_approved": false
     }
   },
@@ -43,5 +56,5 @@
     "cubase_host_evidence": false,
     "studio_one_host_evidence": false
   },
-  "promotion_rule": "Do not set acoustic_release_approved=true for any technique unless all required evidence is present for that technique and bound to the exact final model manifest and VST3 hashes."
+  "promotion_rule": "Do not set acoustic_release_approved=true unless the exact technique has semantic_support=true and all required evidence is present and bound to the exact final model manifest and VST3 hashes."
 }
