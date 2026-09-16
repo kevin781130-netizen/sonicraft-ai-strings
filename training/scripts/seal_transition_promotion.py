@@ -47,7 +47,9 @@ def main():
     if existing not in (None,'',pid): raise SystemExit('checkpoint already bound to another transition promotion')
     ck['transition_promotion_id']=pid
     ck['transition_promotion_seal']={
-        'schema':1,'promotion_id':pid,'tensor_sha256':before,'promotion_evidence':pp.name,
+        'schema':1,'promotion_id':pid,'tensor_sha256':before,
+        'promotion_evidence':pp.name,'promotion_sha256':file_sha(pp),
+        'candidate_checkpoint_sha256':candidate_sha,
         'curriculum_evidence':cp.name,'curriculum_sha256':file_sha(cp),
         'heldout_index_sha256':pr.get('heldout_index_sha256'),
     }
