@@ -129,6 +129,21 @@ The commercial gate independently reopens the staged `training_provenance.json` 
 
 A Schema 7 manifest remains valid only when neither training provenance nor either renderer lineage declares phrase supervision.
 
+## Production plan, listener ABX and post-GPU orchestration
+
+Use one local copy of `training/schema8_release_plan.example.json` as the path source of truth. The read-only status checker reports whether the run is waiting on static inputs, GPU checkpoints, transition evidence, human ABX, or finalization:
+
+```bash
+python training/scripts/schema8_release_status.py \
+  --plan schema8_release_plan.local.json
+```
+
+The generated-vs-real blind-test path is now v20-compatible end to end. `prepare_blind_abx.py` emits a public response template with `listener_id` plus a private schema-2 answer key, while retaining legacy `trials/generated_side` compatibility. Validate every packet before distribution with `validate_blind_abx_packet.py`; this checks public/private separation, audio hashes, trial identity and answer-label leakage. `score_abx_v20.py` accepts either a single response file or a directory of one CSV/JSONL file per listener and accepts current or legacy answer-key shapes.
+
+After GPU checkpoints and human ABX evidence exist, `run_schema8_post_gpu.py` can execute the deterministic path from the same plan. Its `seal` phase always reruns the exact-file read-only preflight before mutating checkpoint metadata, and `--dry-run` prints every command without executing it.
+
+See `docs/SCHEMA8_PRODUCTION_RUNBOOK.md` for the complete operational sequence.
+
 ## Dependency-light smoke
 
 Run the same one-command validator used by the release-contract workflow:
@@ -137,4 +152,4 @@ Run the same one-command validator used by the release-contract workflow:
 python training/run_release_contract_smoke.py
 ```
 
-It syntax-compiles the release/phrase modules and runs six checks: Schema 8 transition-evidence validation, checkpoint-lineage inheritance/tamper validation, independent training-provenance validation, transition-sealer contract validation, production-preflight validation, and an end-to-end dry run that invokes the real sealer, manifest builder, and commercial release gate with tiny fixture checkpoints. Negative paths cover bad curriculum/index binding, stale held-out files, wrong candidate checkpoints, and a stripped-checkpoint/hand-edited Schema 7 downgrade whose file hashes remain valid; all must be rejected before release.
+The shared runner syntax-compiles 28 release-contract modules and runs eight dependency-light smokes: blind ABX v20 packet/scoring compatibility, Schema 8 release-plan/status/orchestration, transition evidence, checkpoint-lineage inheritance/tamper handling, independent training provenance, transition-sealer binding, exact-file production preflight, and the end-to-end sealer → manifest → commercial-gate fixture. Negative paths cover legacy ABX keys, path/status drift, bad curriculum/index binding, stale held-out files, wrong candidate checkpoints, and a stripped-checkpoint/hand-edited Schema 7 downgrade whose file hashes remain valid; all must be handled fail-closed.
