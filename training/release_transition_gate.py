@@ -17,6 +17,8 @@ def curriculum_reasons(report: Mapping) -> list[str]:
     reasons = []
     if report.get('version') != PHRASE_CURRICULUM_VERSION:
         reasons.append('phrase_curriculum_version_invalid')
+    if not _sha256_like(report.get('output_index_sha256')):
+        reasons.append('phrase_curriculum_output_index_sha256_invalid')
     sweep = dict(report.get('curriculum_sweep') or {})
     if not sweep:
         reasons.append('phrase_curriculum_sweep_missing')
