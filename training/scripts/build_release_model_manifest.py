@@ -5,6 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from release_transition_gate import assert_release_evidence
+from phrase_provenance import validate_checkpoint_phrase_provenance
 
 PRODUCT='SONICRAFT AI Strings Q4'
 VERSION5='1.8.0-frontier-sound-core'
@@ -149,13 +150,25 @@ def main():
       ('ballad_renderer_frontier_v20_shortcut.pt','compact'),('ballad_renderer_frontier_v20_distilled.pt','compact'),('ballad_renderer_frontier_v19_shortcut.pt','compact'),('ballad_renderer_frontier_v19_distilled.pt','compact'),('ballad_renderer_frontier_v18_shortcut.pt','compact'),('ballad_renderer_frontier_v18_distilled.pt','compact'),('ballad_renderer_frontier_shortcut.pt','compact'),('frontier_shortcut.pt','compact'),('ballad_renderer_frontier_best.pt','compact'),('ballad_renderer_compact_best.pt','compact'),('compact_v08_distilled.pt','compact'),
       ('strings_vae64_decoder_v20.pt','string_vae64'),('strings_vae64_decoder_v19.pt','string_vae64'),('strings_vae64_decoder_v18.pt','string_vae64'),('strings_vae64_decoder.pt','string_vae64'),
       ('dac_strings_decoder.pt','dac'),('dac_strings_decoder_v04.pt','dac'),('weights_44khz_16kbps.pth','dac_base')]
-    out=[];roles=set()
+    out=[];roles=set();phrase_lineage={}
     for name,role in choices:
         p=md/name
         if p.is_file() and role not in roles:
             if role in ('hq','compact','string_vae64'): verify_checkpoint_training_mix(p,role,expected_curriculum)
-            out.append({'name':name,'role':role,'sha256':sha(p),'bytes':p.stat().st_size});roles.add(role)
+            entry={'name':name,'role':role,'sha256':sha(p),'bytes':p.stat().st_size}
+            if role in ('hq','compact'):
+                ck=torch.load(p,map_location='cpu',weights_only=False)
+                try: phrase_prov=validate_checkpoint_phrase_provenance(ck if isinstance(ck,dict) else {})
+                except ValueError as e: raise SystemExit(f'{role} checkpoint has invalid phrase provenance: {name}: {e}') from e
+                if phrase_prov:
+                    phrase_lineage[role]=phrase_prov
+                    entry.update({'phrase_provenance_id':phrase_prov['provenance_id'],'phrase_source_index_sha256':phrase_prov['phrase_source_index_sha256']})
+            out.append(entry);roles.add(role)
     if not {'hq','compact'}.issubset(roles): raise SystemExit('release requires HQ + Compact/Frontier renderers')
+    if phrase_lineage and schema<8:
+        raise SystemExit('phrase-supervised renderer lineage requires Release Schema 8; schema downgrade is forbidden')
+    if schema>=8 and set(phrase_lineage)!={'hq','compact'}:
+        raise SystemExit('Schema 8 requires phrase_finetune_provenance on both HQ and Compact renderer checkpoints')
     codec=a.codec
     if codec=='auto':codec='strings_vae64' if 'string_vae64' in roles else 'dac44'
     if codec=='strings_vae64':
@@ -202,7 +215,7 @@ def main():
         evidence['generated_real_abx']=stage_evidence(md,gp,'generated_real_abx',{'accuracy':gr.get('accuracy')})
         evidence['acoustic_promotion']=stage_evidence(md,pp,'acoustic_promotion',{'promotion_id':promotion_id})
 
-    transition_ids={}; transition_heldout=None
+    transition_ids={}; transition_heldout=None; phrase_source_index_sha=None
     if schema>=8:
         if not (a.phrase_curriculum_report and a.hq_transition_promotion and a.compact_transition_promotion):
             raise SystemExit('schema 8 requires --phrase-curriculum-report --hq-transition-promotion --compact-transition-promotion')
@@ -210,6 +223,10 @@ def main():
         cr=load_json(cp,'phrase curriculum'); hr=load_json(hp,'HQ transition promotion'); kr=load_json(kp,'Compact transition promotion')
         try: assert_release_evidence(cr,{'hq':hr,'compact':kr})
         except ValueError as e: raise SystemExit('schema 8 transition evidence failed: '+str(e)) from e
+        phrase_source_index_sha=str(cr.get('output_index_sha256','')).lower()
+        for role,marker in phrase_lineage.items():
+            if str(marker.get('phrase_source_index_sha256','')).lower()!=phrase_source_index_sha:
+                raise SystemExit(f'{role} phrase provenance does not match curriculum output index')
         csha=sha(cp); transition_heldout=str(hr.get('heldout_index_sha256','')).lower()
         reports={'hq':(hp,hr),'compact':(kp,kr)}
         for f in out:
@@ -229,7 +246,7 @@ def main():
             f.update({'transition_promotion_id':pid,'transition_tensor_sha256':td,'transition_curriculum_sha256':csha,'transition_heldout_index_sha256':str(rr.get('heldout_index_sha256','')).lower()})
             transition_ids[role]=pid
         if set(transition_ids)!={'hq','compact'}: raise SystemExit('schema 8 requires transition-sealed HQ + Compact renderer checkpoints')
-        evidence['phrase_curriculum']=stage_evidence(md,cp,'phrase_curriculum',dest_name='phrase_curriculum_report.json')
+        evidence['phrase_curriculum']=stage_evidence(md,cp,'phrase_curriculum',{'output_index_sha256':phrase_source_index_sha},dest_name='phrase_curriculum_report.json')
         evidence['transition_promotion_hq']=stage_evidence(md,hp,'transition_promotion_hq',{'promotion_id':transition_ids['hq'],'heldout_index_sha256':transition_heldout},dest_name='transition_promotion_hq.json')
         evidence['transition_promotion_compact']=stage_evidence(md,kp,'transition_promotion_compact',{'promotion_id':transition_ids['compact'],'heldout_index_sha256':transition_heldout},dest_name='transition_promotion_compact.json')
 
@@ -237,7 +254,7 @@ def main():
     m={'schema':schema,'product':PRODUCT,'version':version,'profile':'full_hq','commercial_safe':True,'release_approved':bool(a.approve),
        'codec':codec_meta,'sampler':{'family':'shortcut','supported_steps':[1,2,4,8],'recommended_steps':2,'interval_conditioning':True},
        'training_policy':policy,'files':out,'acoustic_promotion_id':promotion_id,
-       'phrase_finetune':bool(schema>=8),'transition_promotion_ids':transition_ids,'transition_heldout_index_sha256':transition_heldout,
+       'phrase_finetune':bool(schema>=8),'phrase_source_index_sha256':phrase_source_index_sha,'transition_promotion_ids':transition_ids,'transition_heldout_index_sha256':transition_heldout,
        'provenance':{'file':staged_prov.name,'sha256':sha(staged_prov),'contains_blocked_sources':False,'datasets':sorted(used)},
        'metrics':{'file':staged_metrics.name,'sha256':sha(staged_metrics)},**evidence}
     (md/'release_model_manifest.json').write_text(json.dumps(m,indent=2,ensure_ascii=False),encoding='utf-8')
