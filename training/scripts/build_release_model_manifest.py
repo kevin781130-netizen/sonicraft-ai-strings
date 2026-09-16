@@ -6,6 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from release_transition_gate import assert_release_evidence
 from phrase_provenance import validate_checkpoint_phrase_provenance
+from phrase_release_provenance import validate_phrase_training_attestation
 
 PRODUCT='SONICRAFT AI Strings Q4'
 VERSION5='1.8.0-frontier-sound-core'
@@ -125,6 +126,10 @@ def main():
     ap.add_argument('--phrase-curriculum-report'); ap.add_argument('--hq-transition-promotion'); ap.add_argument('--compact-transition-promotion')
     a=ap.parse_args(); schema=int(a.schema); md=Path(a.model_dir); prov=Path(a.provenance); metrics=Path(a.metrics); md.mkdir(parents=True,exist_ok=True)
     pj=load_json(prov,'provenance'); reg=load_json(Path(a.registry),'dataset registry'); mj=load_json(metrics,'release metrics')
+    try: phrase_training=validate_phrase_training_attestation(pj.get('phrase_supervision'))
+    except ValueError as e: raise SystemExit('training provenance phrase supervision invalid: '+str(e)) from e
+    if phrase_training and schema<8: raise SystemExit('training provenance declares phrase supervision; Release Schema 8 is required')
+    if schema>=8 and not phrase_training: raise SystemExit('Schema 8 requires training_provenance.phrase_supervision attestation')
     used=normalized_dataset_ids(pj); policy=normalized_training_policy(pj,schema)
     if not used: raise SystemExit('training provenance contains no dataset/source IDs')
     blocked=[]
@@ -223,11 +228,15 @@ def main():
         cr=load_json(cp,'phrase curriculum'); hr=load_json(hp,'HQ transition promotion'); kr=load_json(kp,'Compact transition promotion')
         try: assert_release_evidence(cr,{'hq':hr,'compact':kr})
         except ValueError as e: raise SystemExit('schema 8 transition evidence failed: '+str(e)) from e
-        phrase_source_index_sha=str(cr.get('output_index_sha256','')).lower()
+        phrase_source_index_sha=str(cr.get('output_index_sha256','')).lower(); csha=sha(cp)
+        if str(phrase_training.get('source_index_sha256','')).lower()!=phrase_source_index_sha:
+            raise SystemExit('training provenance phrase source index does not match curriculum output index')
+        if str(phrase_training.get('curriculum_report_sha256','')).lower()!=csha:
+            raise SystemExit('training provenance phrase curriculum report SHA mismatch')
         for role,marker in phrase_lineage.items():
             if str(marker.get('phrase_source_index_sha256','')).lower()!=phrase_source_index_sha:
                 raise SystemExit(f'{role} phrase provenance does not match curriculum output index')
-        csha=sha(cp); transition_heldout=str(hr.get('heldout_index_sha256','')).lower()
+        transition_heldout=str(hr.get('heldout_index_sha256','')).lower()
         reports={'hq':(hp,hr),'compact':(kp,kr)}
         for f in out:
             role=f['role']
@@ -254,7 +263,9 @@ def main():
     m={'schema':schema,'product':PRODUCT,'version':version,'profile':'full_hq','commercial_safe':True,'release_approved':bool(a.approve),
        'codec':codec_meta,'sampler':{'family':'shortcut','supported_steps':[1,2,4,8],'recommended_steps':2,'interval_conditioning':True},
        'training_policy':policy,'files':out,'acoustic_promotion_id':promotion_id,
-       'phrase_finetune':bool(schema>=8),'phrase_source_index_sha256':phrase_source_index_sha,'transition_promotion_ids':transition_ids,'transition_heldout_index_sha256':transition_heldout,
+       'phrase_finetune':bool(schema>=8),'phrase_source_index_sha256':phrase_source_index_sha,
+       'phrase_training_attestation_id':phrase_training.get('attestation_id') if phrase_training else None,
+       'transition_promotion_ids':transition_ids,'transition_heldout_index_sha256':transition_heldout,
        'provenance':{'file':staged_prov.name,'sha256':sha(staged_prov),'contains_blocked_sources':False,'datasets':sorted(used)},
        'metrics':{'file':staged_metrics.name,'sha256':sha(staged_metrics)},**evidence}
     (md/'release_model_manifest.json').write_text(json.dumps(m,indent=2,ensure_ascii=False),encoding='utf-8')
