@@ -14,3 +14,8 @@ release/*.vst3/
 *.dnni
 *.amdata
 training/cleanroom_runs/
+
+# Local training-control state; never commit live pause/status markers.
+training/.pause_training
+training/.training_status.json
+training/.training_status.json.tmp
