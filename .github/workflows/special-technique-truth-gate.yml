@@ -1,4 +1,4 @@
-name: SONICRAFT v7.0 RC - Special Technique Truth Gate
+name: SONICRAFT v7.0 RC - Gap Closure Truth Gates
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  special-technique-truth-gate:
+  gap-closure-truth-gates:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,13 +23,41 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Compile modified release gates
+        run: python -m py_compile scripts/special_technique_gate_v70.py runtime/release_gate_v70.py
+
       - name: Validate special-technique truth boundary
         run: python scripts/special_technique_gate_v70.py
 
       - name: Validate machine-readable status JSON
         run: python -m json.tool release/special_technique_status_v7.0.json >/dev/null
 
+      - name: Assert blind-acoustic final-gate contract
+        shell: python
+        run: |
+          from pathlib import Path
+          text = Path('runtime/release_gate_v70.py').read_text(encoding='utf-8')
+          required = [
+              "blind-acoustic-qa.json",
+              "blind acoustic QA not PASS",
+              "double_blind",
+              "randomized",
+              "negative_control",
+              "protocol_sha256",
+              "raw_results_sha256",
+              "blind acoustic evidence belongs to a different VST3 hash",
+              "blind acoustic evidence belongs to a different model manifest hash",
+          ]
+          missing = [token for token in required if token not in text]
+          if missing:
+              raise SystemExit('blind acoustic final-gate contract missing: ' + ', '.join(missing))
+          doc = Path('release/BLIND_ACOUSTIC_GATE_v7.0.md')
+          if not doc.is_file():
+              raise SystemExit('missing blind acoustic release contract')
+          print('blind acoustic final-gate contract: PASS')
+
       - name: Summary
         run: |
-          echo 'Special-technique promotion contract is internally consistent.'
-          echo 'Semantic support remains non-acoustic until final-model evidence is promoted.'
+          echo 'Gap-closure truth gates are internally consistent.'
+          echo 'Semantic special techniques remain non-acoustic until promoted.'
+          echo 'Final release now requires independent blind acoustic evidence bound to exact model and VST3 hashes.'
