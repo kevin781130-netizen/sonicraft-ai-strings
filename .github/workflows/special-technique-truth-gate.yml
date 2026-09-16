@@ -28,6 +28,7 @@ jobs:
           python -m py_compile
           scripts/special_technique_gate_v70.py
           scripts/special_technique_semantic_audit_v70.py
+          scripts/release_evidence_status_v70.py
           runtime/release_gate_v70.py
           training/blind_acoustic_release_v70.py
           training/special_technique_dataset_gate_v70.py
@@ -41,6 +42,26 @@ jobs:
 
       - name: Validate machine-readable status JSON
         run: python -m json.tool release/special_technique_status_v7.0.json >/dev/null
+
+      - name: Exercise read-only release evidence preflight
+        shell: python
+        run: |
+          import json
+          import subprocess
+          import sys
+          cp = subprocess.run(
+              [sys.executable, 'scripts/release_evidence_status_v70.py', '--json'],
+              capture_output=True,
+              text=True,
+          )
+          if cp.returncode != 0:
+              raise SystemExit(cp.stdout + '\n' + cp.stderr)
+          data = json.loads(cp.stdout)
+          if data.get('authoritative_gate_required') is not True:
+              raise SystemExit('preflight must never replace the authoritative gate')
+          if not isinstance(data.get('checks'), dict) or not isinstance(data.get('blocking_items'), list):
+              raise SystemExit('preflight output contract is incomplete')
+          print('release evidence preflight diagnostic contract: PASS')
 
       - name: Validate blind-acoustic protocol template
         run: >-
@@ -230,15 +251,20 @@ jobs:
               text = Path(rel).read_text(encoding='utf-8', errors='ignore')
               if 'FINAL_MODEL_GATE_V70.bat' not in text:
                   raise SystemExit(f'{rel} does not require FINAL_MODEL_GATE_V70.bat')
-          for rel in ('QA_BLIND_ACOUSTIC_V70.bat', 'installer/rc_v70/RUN_BLIND_ACOUSTIC_QA_V70.ps1'):
+          for rel in (
+              'QA_BLIND_ACOUSTIC_V70.bat',
+              'installer/rc_v70/RUN_BLIND_ACOUSTIC_QA_V70.ps1',
+              'RC_EVIDENCE_STATUS_V70.bat',
+          ):
               if not Path(rel).is_file():
-                  raise SystemExit(f'missing Windows blind acoustic QA entrypoint: {rel}')
+                  raise SystemExit(f'missing Windows release evidence entrypoint: {rel}')
           print('Windows QA/final-model provenance entrypoints: PASS')
 
       - name: Summary
         run: |
           echo 'Gap-closure truth gates are internally consistent.'
           echo 'Parser-backed semantic audit prevents special-technique status drift.'
+          echo 'Release evidence preflight is diagnostic only; authoritative final gates remain mandatory.'
           echo 'Positive-path smoke tests exercise evidence generation and release-model/dataset validation.'
           echo 'Semantic special techniques remain non-acoustic until promoted.'
           echo 'Blind acoustic evidence can be generated only from a frozen protocol and hash-bound study artifacts.'
