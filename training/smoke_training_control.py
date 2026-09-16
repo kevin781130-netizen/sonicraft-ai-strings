@@ -63,6 +63,18 @@ def main() -> int:
     assert '"optimizer": opt.state_dict()' in trainer
     assert '"scheduler": sched.state_dict()' in trainer
     assert '"rng_state": rng_state()' in trainer
+
+    launcher = (repo / "TRAIN_RENDERER_GPU.bat").read_text(encoding="utf-8")
+    assert "train_ballad_renderer_pausable.py" in launcher
+    assert "training_control_panel.py --open" in launcher
+    assert "--out Models\\ballad_renderer_hq_v20_last.pt" in launcher
+    assert "--best-out Models\\ballad_renderer_hq_v20_best.pt" in launcher
+
+    pause_doc = (repo / "docs/TRAINING_PAUSE_RESUME.md").read_text(encoding="utf-8")
+    assert "TRAIN_RENDERER_GPU.bat" in pause_doc
+    assert "Do not power off" in pause_doc
+    assert "resuming" in pause_doc
+
     print("training-control smoke: PASS")
     return 0
 
