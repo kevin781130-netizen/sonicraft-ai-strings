@@ -20,6 +20,7 @@ from release_transition_gate import assert_release_evidence
 
 PRODUCT = 'SONICRAFT AI Strings Q4'
 EXPECTED_CURRICULUM = 'lane_locked_acoustic_promotion_v20'
+EXPECTED_CODEC_METRIC_FAMILY = 'stereo_phase_harmonic_strings_v20'
 
 
 def sha256_file(path: Path) -> str:
@@ -146,6 +147,8 @@ def validate_sound_forge(report: Mapping, policy: Mapping) -> None:
 def validate_codec_tournament(report: Mapping, codec: str) -> None:
     if int(report.get('schema', 0)) != 2 or not report.get('promotion_pass'):
         fail('Schema 8 requires passed v2 codec tournament')
+    if str(report.get('metric_family', '')) != EXPECTED_CODEC_METRIC_FAMILY:
+        fail('codec tournament metric family mismatch')
     if str(report.get('winner_kind', '')).lower() != codec:
         fail('codec tournament winner does not match requested shipping codec')
     if int(report.get('real_anchor_count', 0)) < 8:
@@ -195,6 +198,8 @@ def main() -> None:
     ap.add_argument('--generated-real-abx', required=True)
     ap.add_argument('--acoustic-promotion', required=True)
     ap.add_argument('--phrase-curriculum-report', required=True)
+    ap.add_argument('--phrase-finetune-index', required=True, help='Exact combined phrase fine-tune index hashed by the curriculum report.')
+    ap.add_argument('--heldout-index', required=True, help='Exact held-out transition index hashed by both renderer promotion reports.')
     ap.add_argument('--hq-transition-promotion', required=True)
     ap.add_argument('--compact-transition-promotion', required=True)
     ap.add_argument('--hq-checkpoint', required=True, help='Pre-seal HQ checkpoint targeted by the HQ promotion report.')
@@ -212,6 +217,8 @@ def main() -> None:
     generated_real_abx_path = require_file(a.generated_real_abx, 'generated-real ABX')
     acoustic_promotion_path = require_file(a.acoustic_promotion, 'acoustic promotion')
     curriculum_path = require_file(a.phrase_curriculum_report, 'phrase curriculum')
+    phrase_index_path = require_file(a.phrase_finetune_index, 'phrase fine-tune index')
+    heldout_index_path = require_file(a.heldout_index, 'held-out transition index')
     hq_promotion_path = require_file(a.hq_transition_promotion, 'HQ transition promotion')
     compact_promotion_path = require_file(a.compact_transition_promotion, 'Compact transition promotion')
     hq_checkpoint = require_file(a.hq_checkpoint, 'HQ candidate checkpoint')
@@ -253,11 +260,18 @@ def main() -> None:
         fail('phrase transition evidence failed: ' + str(e))
 
     curriculum_sha = sha256_file(curriculum_path)
-    phrase_index_sha = str(curriculum.get('output_index_sha256', '')).lower()
+    phrase_index_sha = sha256_file(phrase_index_path)
+    reported_phrase_index_sha = str(curriculum.get('output_index_sha256', '')).lower()
+    if phrase_index_sha != reported_phrase_index_sha:
+        fail('phrase fine-tune index SHA does not match curriculum output_index_sha256')
     if str(phrase_attestation.get('source_index_sha256', '')).lower() != phrase_index_sha:
-        fail('training provenance phrase source index does not match curriculum output index')
+        fail('training provenance phrase source index does not match exact phrase fine-tune index')
     if str(phrase_attestation.get('curriculum_report_sha256', '')).lower() != curriculum_sha:
         fail('training provenance phrase curriculum report SHA mismatch')
+
+    heldout_index_sha = sha256_file(heldout_index_path)
+    if heldout_index_sha != str(hq_promotion.get('heldout_index_sha256', '')).lower():
+        fail('held-out transition index SHA does not match renderer promotion reports')
 
     hq_candidate_sha = sha256_file(hq_checkpoint)
     compact_candidate_sha = sha256_file(compact_checkpoint)
@@ -272,7 +286,7 @@ def main() -> None:
     print('acoustic_promotion_id:', acoustic_id)
     print('phrase_source_index_sha256:', phrase_index_sha)
     print('phrase_curriculum_sha256:', curriculum_sha)
-    print('heldout_index_sha256:', str(hq_promotion.get('heldout_index_sha256', '')).lower())
+    print('heldout_index_sha256:', heldout_index_sha)
     print('hq_transition_promotion_id:', str(hq_promotion.get('promotion_id', '')).lower())
     print('compact_transition_promotion_id:', str(compact_promotion.get('promotion_id', '')).lower())
     print('hq_candidate_checkpoint_sha256:', hq_candidate_sha)
