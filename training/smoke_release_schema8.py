@@ -8,9 +8,9 @@ HEX_C='c'*64
 HEX_D='d'*64
 
 
-def curriculum(modeled=.20, phrase=.55):
+def curriculum(modeled=.20, phrase=.55, index_sha=HEX_D):
     return {
-        'version':'phrase_finetune_index_v1',
+        'version':'phrase_finetune_index_v1','output_index_sha256':index_sha,
         'curriculum_sweep':{
             '0.0':{'modeled_probability':modeled,'phrase_share_within_modeled':phrase},
             '0.5':{'modeled_probability':modeled,'phrase_share_within_modeled':phrase},
@@ -30,6 +30,9 @@ def promotion(pid,candidate,heldout=HEX_C,passed=True):
 def main():
     good={'hq':promotion(HEX_A,HEX_D),'compact':promotion(HEX_B,'e'*64)}
     assert release_evidence_reasons(curriculum(),good)==[]
+
+    bad_index=release_evidence_reasons(curriculum(index_sha='not-a-sha'),good)
+    assert 'phrase_curriculum_output_index_sha256_invalid' in bad_index
 
     same_id={'hq':promotion(HEX_A,HEX_D),'compact':promotion(HEX_A,'e'*64)}
     assert 'renderer_transition_promotion_ids_not_checkpoint_specific' in release_evidence_reasons(curriculum(),same_id)
