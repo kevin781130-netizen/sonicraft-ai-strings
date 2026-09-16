@@ -136,14 +136,21 @@ python training/scripts/run_schema8_post_gpu.py \
 
 Use `--dry-run` first to print every command without executing it.
 
-## 7. What is still manual
+## 7. What is already complete vs still artifact-dependent
 
-The code path can prepare, validate, score, promote, seal, stage and gate artifacts.
-It cannot replace:
+The **non-GPU implementation work is complete**: corpus/control tooling, provenance,
+Schema 8 policy, transition evaluation/promotion, ABX preparation/validation/scoring,
+status reporting, preflight, sealing, manifest construction, commercial gating,
+production orchestration, documentation, and dependency-light CI are all present.
 
-1. actual GPU renderer training;
-2. generation of candidate audio from the trained checkpoint; or
-3. independent human listening responses for the generated-vs-real ABX.
+What cannot be manufactured before the trained model exists is production evidence:
 
-Everything after those inputs is deterministic and fail-closed through the shared
-release plan.
+1. the actual HQ and Compact/Frontier candidate checkpoints from GPU training;
+2. candidate audio rendered from those trained checkpoints;
+3. transition-evaluation/promotion reports computed against those real candidates;
+4. independent human listening responses for generated-vs-real ABX; and
+5. the final seals/manifest, which deliberately bind the exact resulting files.
+
+Items 3 and 5 are automated once the trained checkpoints exist. Item 2 requires
+running the trained model, and item 4 requires human listeners. Everything after
+those inputs is deterministic and fail-closed through the shared release plan.
