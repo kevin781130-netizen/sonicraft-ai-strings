@@ -167,7 +167,24 @@ def resume_last(status_file: str | Path | None = None) -> subprocess.Popen:
     pause_file = status.get("pause_file")
     clear_pause(pause_file)
     cmd = [python_exe, *cleaned, "--resume", checkpoint]
-    proc = subprocess.Popen(cmd, cwd=str(ROOT))
+
+    # Mark the status before spawning so a double-click cannot launch duplicate
+    # training processes while the child is still initializing.
+    status_path = _path(status_file, DEFAULT_STATUS_FILE)
+    pending = dict(status)
+    pending.pop("status_file", None)
+    pending.pop("pause_requested", None)
+    pending["state"] = "resuming"
+    pending["message"] = "Resume requested; launching the saved training command."
+    write_status(pending, status_path)
+    try:
+        creationflags = getattr(subprocess, "CREATE_NEW_CONSOLE", 0) if os.name == "nt" else 0
+        proc = subprocess.Popen(cmd, cwd=str(ROOT), creationflags=creationflags)
+    except Exception:
+        pending["state"] = "paused"
+        pending["message"] = "Resume launch failed; checkpoint remains paused and resumable."
+        write_status(pending, status_path)
+        raise
     return proc
 
 
