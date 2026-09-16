@@ -52,7 +52,7 @@ python training/scripts/seal_transition_promotion.py \
   --curriculum datasets/processed/phrase_finetune/curriculum_report.json
 ```
 
-The seal records the exact promotion-report SHA-256, pre-seal candidate checkpoint SHA-256, phrase-curriculum SHA-256, held-out index SHA-256, promotion ID, and a digest of model/EMA/decoder tensors. Saving the seal is rejected if tensor bytes change.
+The sealer rejects underpowered/failed transition evidence before touching the checkpoint. It also validates checkpoint `phrase_finetune_provenance` and requires the root phrase-index SHA-256 to equal curriculum `output_index_sha256`. A valid seal records the exact promotion-report SHA-256, pre-seal candidate checkpoint SHA-256, phrase-curriculum SHA-256, held-out index SHA-256, phrase source-index SHA-256, promotion ID, and a digest of model/EMA/decoder tensors. Saving the seal is rejected if tensor bytes change.
 
 ## Build the Schema 8 manifest
 
@@ -109,4 +109,4 @@ Run the same one-command validator used by the release-contract workflow:
 python training/run_release_contract_smoke.py
 ```
 
-It syntax-compiles the release/phrase modules and runs four checks: the Schema 8 transition-evidence smoke, checkpoint-lineage smoke, independent training-provenance smoke, and an end-to-end dry run that actually invokes the manifest builder and commercial release gate with tiny fixture checkpoints. The dry run also strips checkpoint phrase markers, rewrites the manifest to Schema 7 while keeping file hashes valid, and verifies that the independent training-provenance attestation still rejects the downgrade.
+It syntax-compiles the release/phrase modules and runs five checks: Schema 8 transition-evidence validation, checkpoint-lineage inheritance/tamper validation, independent training-provenance validation, a transition-sealer contract test, and an end-to-end dry run that invokes the real sealer, manifest builder, and commercial release gate with tiny fixture checkpoints. The negative paths cover bad curriculum/index binding and a stripped-checkpoint/hand-edited Schema 7 downgrade whose file hashes remain valid; both must be rejected before release.
