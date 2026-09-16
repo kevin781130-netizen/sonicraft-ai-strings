@@ -5,6 +5,7 @@ on:
     paths:
       - 'training/**'
       - 'docs/SCHEMA8_TRANSITION_RELEASE.md'
+      - 'docs/SCHEMA8_PRODUCTION_RUNBOOK.md'
       - 'docs/CLEANROOM_TEACHER_DISTILLATION.md'
       - '.github/workflows/release-contract-smoke.yml'
   workflow_dispatch:
