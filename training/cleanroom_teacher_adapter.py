@@ -229,6 +229,8 @@ class ExternalTeacher:
         if proc.returncode != 0:
             # Keep logs short and do not persist command lines or model paths in manifests.
             stderr = (proc.stderr or proc.stdout or "").strip().replace("\r", " ")
+            if self.config.model:
+                stderr = stderr.replace(str(self.config.model), "<MODEL>")
             raise CleanRoomTeacherError(
                 f"teacher renderer exited with {proc.returncode}: {stderr[-800:]}"
             )
