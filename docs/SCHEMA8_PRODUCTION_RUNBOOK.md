@@ -57,8 +57,10 @@ evaluations (HQ baseline/candidate and Compact baseline/candidate).
 
 ## 4. Generated-vs-real listener ABX
 
-Render the held-out real-vs-generated matched audio pairs with the trained release
-candidate, then prepare the blind packet:
+Use **rights-cleared held-out real recordings** as the real side. The clean-room
+synthetic phrase holdout is transition evidence and must not be relabeled as a real
+acoustic anchor. Render matched candidate audio from the exact trained release
+checkpoint through the shipping renderer/codec path, then prepare the blind packet:
 
 ```bash
 python training/scripts/prepare_blind_abx.py \
@@ -70,6 +72,11 @@ python training/scripts/prepare_blind_abx.py \
 python training/scripts/validate_blind_abx_packet.py \
   --packet evidence/generated_real_abx_packet
 ```
+
+Candidate-audio rendering is intentionally a post-training production artifact: the
+exact release checkpoint does not exist before GPU training, and the generated-real
+ABX must exercise that exact candidate rather than a synthetic teacher or placeholder.
+Do not substitute clean-room teacher WAVs for the generated side.
 
 Distribute **only** `public/`. Keep `private/answer_key.json` inaccessible to
 listeners until responses are locked. Give each listener a separate copy of
@@ -146,11 +153,11 @@ production orchestration, documentation, and dependency-light CI are all present
 What cannot be manufactured before the trained model exists is production evidence:
 
 1. the actual HQ and Compact/Frontier candidate checkpoints from GPU training;
-2. candidate audio rendered from those trained checkpoints;
+2. candidate audio rendered from those exact trained checkpoints against rights-cleared held-out real material;
 3. transition-evaluation/promotion reports computed against those real candidates;
 4. independent human listening responses for generated-vs-real ABX; and
 5. the final seals/manifest, which deliberately bind the exact resulting files.
 
-Items 3 and 5 are automated once the trained checkpoints exist. Item 2 requires
-running the trained model, and item 4 requires human listeners. Everything after
-those inputs is deterministic and fail-closed through the shared release plan.
+Items 3 and 5 are automated once the trained checkpoints exist. Item 2 necessarily
+runs the trained model, and item 4 necessarily requires human listeners. Everything
+after those inputs is deterministic and fail-closed through the shared release plan.
