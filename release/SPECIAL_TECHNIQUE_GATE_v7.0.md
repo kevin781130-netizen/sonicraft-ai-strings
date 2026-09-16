@@ -16,7 +16,7 @@ The initial gated technique set is:
 
 ## Current truth boundary
 
-Until a technique passes this gate, SONICRAFT may preserve the notation/intent semantically and surface an explicit unsupported-acoustic warning, but it must not claim that the final acoustic model renders that technique faithfully.
+**Semantic preservation is not acoustic support.** Until a technique passes this gate, SONICRAFT may preserve the notation/intent semantically and surface an explicit unsupported-acoustic warning, but it must not claim that the final acoustic model renders that technique faithfully.
 
 ## Promotion requirements
 
