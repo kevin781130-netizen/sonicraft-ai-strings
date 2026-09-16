@@ -22,7 +22,7 @@ echo Usage:
 echo   TRAIN_RENDERER_GPU.bat [train_ballad_renderer arguments]
 echo.
 echo Example:
-echo   TRAIN_RENDERER_GPU.bat --index datasets\processed\phrase_finetune\index.jsonl --preset hq_strings_v18 --epochs 100 --out Models\ballad_renderer_hq_v20_best.pt --best-out Models\ballad_renderer_hq_v20_best.pt
+echo   TRAIN_RENDERER_GPU.bat --index datasets\processed\phrase_finetune\index.jsonl --preset hq_strings_v18 --epochs 100 --out Models\ballad_renderer_hq_v20_last.pt --best-out Models\ballad_renderer_hq_v20_best.pt
 echo.
 echo The launcher opens the local Training Control Panel automatically.
 echo Use PAUSE_TRAINING.bat for a one-click safe pause and RESUME_TRAINING.bat to continue.
