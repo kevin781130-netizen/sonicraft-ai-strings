@@ -68,6 +68,7 @@ def main() -> int:
         "training/training_control.py",
         "training/training_control_panel.py",
         "training/train_ballad_renderer_pausable.py",
+        "training/train_performance_planner.py",
         "training/gpu_training_preflight.py",
     ):
         src = (repo / rel).read_text(encoding="utf-8")
@@ -90,10 +91,19 @@ def main() -> int:
     assert "--out Models\\ballad_renderer_hq_v20_last.pt" in launcher
     assert "--best-out Models\\ballad_renderer_hq_v20_best.pt" in launcher
 
+    planner_launcher = (repo / "TRAIN_PERFORMANCE_PLANNER.bat").read_text(encoding="utf-8")
+    assert "training_control_panel.py --open" in planner_launcher
+    assert "train_performance_planner.py" in planner_launcher
+    assert "PAUSE_TRAINING.bat" in planner_launcher
+
     pause_doc = (repo / "docs/TRAINING_PAUSE_RESUME.md").read_text(encoding="utf-8")
     assert "TRAIN_RENDERER_GPU.bat" in pause_doc
     assert "Do not power off" in pause_doc
     assert "resuming" in pause_doc
+
+    planner_doc = (repo / "docs/PERFORMANCE_PLANNER.md").read_text(encoding="utf-8")
+    assert "explicit written control wins" in planner_doc.lower()
+    assert "TRAIN_PERFORMANCE_PLANNER.bat" in planner_doc
 
     print("training-control smoke: PASS")
     return 0
