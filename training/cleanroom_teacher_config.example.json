@@ -1,0 +1,29 @@
+{
+  "name": "authorized_teacher_A",
+  "command": [
+    "C:/path/to/authorized_renderer_shim.exe",
+    "--model",
+    "{model}",
+    "--midi",
+    "{midi}",
+    "--controls",
+    "{control_json}",
+    "--output",
+    "{output}",
+    "--seed",
+    "{seed}"
+  ],
+  "model": "D:/models/teacher_A.model",
+  "timeout_seconds": 180,
+  "fingerprint_model": false,
+  "rights": {
+    "authorized_runtime_use": false,
+    "output_training_allowed": false,
+    "learned_weight_release_allowed": false,
+    "commercial_use_allowed": false,
+    "provider": "unverified",
+    "evidence_reference": "",
+    "explicit_written_permission_reference": "",
+    "notes": "Fail-closed example. Change flags only after you have verified and documented the applicable license/permission. Dreamtonics Synthesizer V generated voice audio is not eligible for ML training under the published standard voice terms without separate explicit written permission."
+  }
+}

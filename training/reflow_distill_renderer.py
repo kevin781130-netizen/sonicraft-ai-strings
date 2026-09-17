@@ -15,6 +15,7 @@ from train_ballad_renderer import Segments, collate, source_weights, PRESETS, em
 from promotion_binding import promotion_binding
 from source_policy import validate_index
 from string_source_mixer import load_registry, build_curriculum_weights, mixture_audit
+from phrase_provenance import build_phrase_provenance
 
 ROOT=Path(__file__).resolve().parents[1]
 RUNTIME=ROOT/'runtime'
@@ -56,6 +57,8 @@ def main():
     dl=DataLoader(ds,batch_size=a.batch,sampler=sampler,collate_fn=collate,num_workers=0,pin_memory=torch.cuda.is_available())
 
     tck=torch.load(a.teacher,map_location='cpu'); tcfg=dict(tck.get('config') or {})
+    phrase_provenance=build_phrase_provenance(ds.rows,a.index,tck.get('phrase_finetune_provenance'))
+    if phrase_provenance.get('enabled'): print('reflow phrase provenance',json.dumps(phrase_provenance,sort_keys=True))
     teacher=BalladFlowRenderer(latent_ch=int(tck.get('latent_ch',1024)),**tcfg).to(dev).eval()
     teacher.load_state_dict(tck.get('ema',tck['model']),strict=True); teacher.requires_grad_(False)
     latent_ch=int(tck.get('latent_ch',1024)); scfg=dict(PRESETS[a.student_preset]); student=BalladFlowRenderer(latent_ch=latent_ch,**scfg).to(dev)
@@ -98,7 +101,8 @@ def main():
         torch.save({'model':student.state_dict(),'ema':ema.state_dict(),'epoch':ep+1,'config':scfg,'preset':a.student_preset,
                     'latent_ch':latent_ch,'latent_hz':float(tck.get('latent_hz',25.0)),'codec_kind':tck.get('codec_kind','dac44'),
                     'codec_sample_rate':int(tck.get('codec_sample_rate',44100)),'teacher':a.teacher,'teacher_steps':a.teacher_steps,'recommended_steps':a.target_steps,
-                    'anchor':a.anchor,'schema_version':10,'distillation':'reflow',
-                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
+                    'anchor':a.anchor,'schema_version':10,'distillation':'reflow','source_index':a.index,
+                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
+                    'phrase_finetune_provenance':phrase_provenance,'acoustic_promotion_id':promotion_id},a.out)
 
 if __name__=='__main__': main()

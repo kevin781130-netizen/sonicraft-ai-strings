@@ -1,0 +1,17 @@
+{
+  "authorized_blackbox_synthetic": {
+    "enabled": false,
+    "official_url": null,
+    "license": "USER-SUPPLIED AUTHORIZED TEACHER; RIGHTS MUST BE VERIFIED FOR OUTPUT TRAINING AND LEARNED-WEIGHT RELEASE",
+    "terms_checked_utc": null,
+    "commercial_safe": false,
+    "release_blocked": true,
+    "training_origin": "modeled",
+    "source_weight": 0.0,
+    "training_role": [
+      "research_teacher_distillation_pending_rights_review"
+    ],
+    "final_timbre_anchor": false,
+    "notes": "Fail-closed registry fragment. Generated prompts/controls are independently authored, but teacher-output and learned-weight rights depend on the external runtime/model license. Merge into dataset_registry.json and change gates only after documenting permission. Never commit external model bytes."
+  }
+}

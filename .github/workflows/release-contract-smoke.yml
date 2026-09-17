@@ -1,0 +1,40 @@
+name: Release contract smoke
+
+on:
+  pull_request:
+    paths:
+      - 'training/**'
+      - 'TRAIN_RENDERER_GPU.bat'
+      - 'TRAIN_PERFORMANCE_PLANNER.bat'
+      - 'TRAINING_CONTROL_PANEL.bat'
+      - 'PAUSE_TRAINING.bat'
+      - 'RESUME_TRAINING.bat'
+      - 'docs/TRAINING_PAUSE_RESUME.md'
+      - 'docs/PERFORMANCE_PLANNER.md'
+      - 'docs/SCHEMA8_TRANSITION_RELEASE.md'
+      - 'docs/SCHEMA8_PRODUCTION_RUNBOOK.md'
+      - 'docs/CLEANROOM_TEACHER_DISTILLATION.md'
+      - '.github/workflows/release-contract-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run release contract smoke
+        run: python training/run_release_contract_smoke.py
+
+      - name: Run training pause control smoke
+        run: python training/smoke_training_control.py
