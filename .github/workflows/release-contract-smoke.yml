@@ -5,10 +5,12 @@ on:
     paths:
       - 'training/**'
       - 'TRAIN_RENDERER_GPU.bat'
+      - 'TRAIN_PERFORMANCE_PLANNER.bat'
       - 'TRAINING_CONTROL_PANEL.bat'
       - 'PAUSE_TRAINING.bat'
       - 'RESUME_TRAINING.bat'
       - 'docs/TRAINING_PAUSE_RESUME.md'
+      - 'docs/PERFORMANCE_PLANNER.md'
       - 'docs/SCHEMA8_TRANSITION_RELEASE.md'
       - 'docs/SCHEMA8_PRODUCTION_RUNBOOK.md'
       - 'docs/CLEANROOM_TEACHER_DISTILLATION.md'
