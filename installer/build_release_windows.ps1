@@ -64,8 +64,20 @@ $release = Join-Path $ProjectRoot 'release'
 $dest = Join-Path $release 'SONICRAFT AI Strings Q4.vst3'
 if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
 Copy-Item -Recurse -Force $bundle.FullName $dest
-$pluginBinary = Get-ChildItem (Join-Path $dest 'Contents\x86_64-win') -File -Filter '*.vst3' | Select-Object -First 1
+$binaryDir = Join-Path $dest 'Contents\x86_64-win'
+$pluginBinary = Get-ChildItem $binaryDir -File -Filter '*.vst3' | Select-Object -First 1
 if (-not $pluginBinary) { throw 'Built bundle has no x86_64-win VST3 binary.' }
+# Steinberg's Windows bundle loader derives the module filename from the bundle
+# directory name. If the release bundle is renamed for the product-facing name,
+# keep the x86_64-win module name in lockstep so the copied exact artifact remains
+# loadable and validator-safe.
+$expectedBinaryName = $dest.Name
+if ($pluginBinary.Name -cne $expectedBinaryName) {
+  $expectedBinaryPath = Join-Path $binaryDir $expectedBinaryName
+  if (Test-Path $expectedBinaryPath) { Remove-Item -Force $expectedBinaryPath }
+  Rename-Item -Path $pluginBinary.FullName -NewName $expectedBinaryName
+  $pluginBinary = Get-Item $expectedBinaryPath
+}
 $pluginHash = (Get-FileHash $pluginBinary.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
 Log "VST3 bundle ready: $dest"
 Log "VST3 binary SHA-256: $pluginHash"
