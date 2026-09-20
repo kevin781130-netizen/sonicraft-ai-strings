@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "release": "7.0.0-rc2",
+  "status": "SOURCE_COMMERCIAL_READY_PENDING_EXTERNAL_RELEASE_EVIDENCE",
+  "source_commercial_ready": true,
+  "commercial_binary_approved": false,
+  "public_release_approved": false,
+  "release_scope": {
+    "rc2_product_baseline_commit": "4f9f1915d6179ffb3d669bbb3a483c4e30643fbf",
+    "stringcc_bridge_merge_commit": "5c2f16816d40edaba1e9dcbee7ce43467d0a8f27",
+    "historical_source_freeze_record": "release/SOURCE_FREEZE_v7.0.json",
+    "stringcc_governance_bridge": "optional developer interoperability component; separately MIT licensed; excluded from consumer VST3/prebuilt payload",
+    "feature_policy": "no new performance-engine or frontend feature expansion before v7.0 commercial release"
+  },
+  "software_side_release_preparation": {
+    "project_license_boundary": "complete",
+    "third_party_notice_boundary": "complete",
+    "stringcc_license_boundary": "complete",
+    "consumer_installer_license_packaging": "complete",
+    "security_disclosure_policy": "complete",
+    "release_notes": "complete",
+    "source_gate": "complete",
+    "frontend_layout_gate": "complete",
+    "consumer_packaging_contract": "complete",
+    "runtime_installer_contract": "complete",
+    "pinned_vst3_sdk_contract": "complete",
+    "validator_evidence_contract": "complete",
+    "host_evidence_contract": "complete",
+    "acoustic_evidence_contract": "complete",
+    "blind_acoustic_evidence_generator": "complete",
+    "special_technique_promotion_contract": "complete",
+    "special_technique_dataset_provenance_contract": "complete",
+    "final_model_manifest_provenance_contract": "complete",
+    "hash_bound_final_gate": "complete",
+    "authenticode_public_gate": "complete",
+    "commercial_source_ci": "complete"
+  },
+  "external_release_inputs_and_evidence": {
+    "windows_release_vst3_and_official_validator_evidence": "required",
+    "windows_product_shell_binary_visual_verification": "required",
+    "cubase_real_host_evidence": "required",
+    "studio_one_real_host_evidence": "required",
+    "final_trained_release_approved_model_pack": "required",
+    "final_model_provenance_hashes_and_rights_review": "required",
+    "blind_acoustic_study_bound_to_final_model_and_vst3": "required",
+    "special_technique_dataset_rights_and_coverage_manifest": "required_before_claiming_special_technique_acoustic_support",
+    "special_technique_acoustic_promotion_evidence": "required_before_claiming_special_technique_acoustic_support",
+    "rtx5090_acoustic_qa_bound_to_final_model_and_vst3": "required",
+    "release_code_signing_identity_and_authenticode_evidence": "required_for_public_release"
+  },
+  "anti_claims": [
+    "This file does not approve a commercial binary.",
+    "This file does not claim any real-host pass.",
+    "This file does not approve placeholder or untrained model weights.",
+    "This file does not claim a blind acoustic study has passed.",
+    "This file does not claim acoustic support for semantic-only special techniques without promotion evidence.",
+    "This file does not claim bit-identical audio replay.",
+    "Public release remains blocked until PUBLIC_RELEASE_GATE_V70 passes for the final signed binary SHA-256."
+  ]
+}

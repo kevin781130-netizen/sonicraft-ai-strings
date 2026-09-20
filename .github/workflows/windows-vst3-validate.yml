@@ -1,12 +1,23 @@
 name: SONICRAFT v7.0 RC - Windows VST3 + Validator
+
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   build-validator:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Source gate
         shell: powershell
@@ -31,3 +42,9 @@ jobs:
             release/rc_evidence/validator-pass.json
             release/rc_evidence/steinberg_validator.log
             release/rc_evidence/windows_vst3_build.log
+
+      - name: Evidence summary
+        shell: powershell
+        run: |
+          Write-Host 'Windows CI build/Validator completed for this exact artifact.'
+          Write-Host 'This does not substitute for Cubase, Studio One, ProductShell visual, RTX 5090 acoustic, or Authenticode release evidence.'

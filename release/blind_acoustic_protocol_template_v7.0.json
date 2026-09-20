@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "study_id": "FILL_AND_FREEZE_BEFORE_STUDY",
+  "double_blind": true,
+  "randomized": true,
+  "negative_control": true,
+  "criteria": {
+    "min_listeners": null,
+    "min_total_trials": null,
+    "realism": {
+      "metric": "mean_rating",
+      "scale_min": 1,
+      "scale_max": 5,
+      "min_mean": null
+    },
+    "technique_identity": {
+      "metric": "accuracy",
+      "min_accuracy": null
+    },
+    "negative_control": {
+      "metric": "accuracy",
+      "min_accuracy": null
+    }
+  },
+  "instructions": [
+    "Replace every null acceptance threshold before the first listener session.",
+    "Freeze this exact file and retain its SHA-256 before collecting responses.",
+    "Use only blinded trial IDs in the public trial plan; keep source identity in a separate sealed answer key if needed.",
+    "Do not change thresholds after inspecting study results."
+  ]
+}

@@ -27,6 +27,7 @@ SolidCompression=yes
 OutputDir={#OutputDir}
 OutputBaseFilename=SONICRAFT_AI_Strings_Q4_{#AppVersion}_Setup
 SetupLogging=yes
+LicenseFile={#SourceRoot}\App\Licenses\SONICRAFT_LICENSE.txt
 UninstallDisplayName={#AppName}
 UninstallDisplayIcon={app}\Manager\SONICRAFT_AI_Strings_Manager.exe
 ChangesEnvironment=no
