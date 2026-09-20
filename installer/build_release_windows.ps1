@@ -71,7 +71,7 @@ if (-not $pluginBinary) { throw 'Built bundle has no x86_64-win VST3 binary.' }
 # directory name. If the release bundle is renamed for the product-facing name,
 # keep the x86_64-win module name in lockstep so the copied exact artifact remains
 # loadable and validator-safe.
-$expectedBinaryName = $dest.Name
+$expectedBinaryName = Split-Path -Leaf $dest
 if ($pluginBinary.Name -cne $expectedBinaryName) {
   $expectedBinaryPath = Join-Path $binaryDir $expectedBinaryName
   if (Test-Path $expectedBinaryPath) { Remove-Item -Force $expectedBinaryPath }
