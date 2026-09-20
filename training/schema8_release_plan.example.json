@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "codec": "strings_vae64",
+  "seed": 260917,
+  "paths": {
+    "registry": "training/dataset_registry.json",
+    "phrase_finetune_index": "datasets/processed/phrase_finetune/index.jsonl",
+    "phrase_curriculum_report": "datasets/processed/phrase_finetune/curriculum_report.json",
+    "heldout_transition_index": "datasets/processed/cleanroom_phrases_heldout_vae64/index.jsonl",
+    "training_provenance": "evidence/training_provenance.json",
+    "release_metrics": "evidence/release_metrics.json",
+    "sound_forge_report": "evidence/sound_forge.json",
+    "codec_tournament": "evidence/codec_tournament.json",
+    "codec_abx_report": "evidence/codec_abx.json",
+    "acoustic_segments": "evidence/acoustic_segments.json",
+    "generated_real_abx": "evidence/generated_real_abx.json",
+    "acoustic_promotion": "evidence/acoustic_promotion.json",
+    "hq_baseline_checkpoint": "checkpoints/ballad_renderer_hq_v20_prephrase.pt",
+    "hq_candidate_checkpoint": "Models/ballad_renderer_hq_v20_best.pt",
+    "compact_baseline_checkpoint": "checkpoints/ballad_renderer_frontier_v20_prephrase.pt",
+    "compact_candidate_checkpoint": "Models/ballad_renderer_frontier_v20_shortcut.pt",
+    "hq_baseline_eval": "evidence/transition_hq_baseline.json",
+    "hq_candidate_eval": "evidence/transition_hq_candidate.json",
+    "compact_baseline_eval": "evidence/transition_compact_baseline.json",
+    "compact_candidate_eval": "evidence/transition_compact_candidate.json",
+    "hq_transition_promotion": "evidence/transition_promotion_hq.json",
+    "compact_transition_promotion": "evidence/transition_promotion_compact.json",
+    "abx_packet": "evidence/generated_real_abx_packet",
+    "abx_responses": "evidence/generated_real_abx_responses",
+    "model_dir": "Models",
+    "release_manifest": "Models/release_model_manifest.json"
+  }
+}

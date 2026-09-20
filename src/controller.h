@@ -33,6 +33,6 @@ public:
         DEF_INTERFACE(Steinberg::Vst::IMidiMapping)
         DEF_INTERFACE(Steinberg::Vst::IKeyswitchController)
     END_DEFINE_INTERFACES(Steinberg::Vst::EditControllerEx1)
-    REFCOUNT_METHODS(Controller)
+    REFCOUNT_METHODS(Steinberg::Vst::EditControllerEx1)
 };
 }

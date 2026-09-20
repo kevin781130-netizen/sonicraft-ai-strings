@@ -3,6 +3,7 @@
 #include "ids.h"
 #include "articulations.h"
 #include "pluginterfaces/vst/ivstevents.h"
+#include "pluginterfaces/vst/ivstparameterchanges.h"
 #include "base/source/fstreamer.h"
 
 #include <algorithm>
