@@ -44,45 +44,68 @@ def _inspect_index(path: Path | None, sample_rows: int, errors: list[str], warni
         return
 
     rows = 0
-    sampled = 0
+    parsed_rows = 0
+    checked_files = 0
+    missing_file_count = 0
     missing_files: list[str] = []
     bad_json: list[int] = []
+    bad_shape: list[int] = []
+    missing_file_field: list[int] = []
     with path.open("r", encoding="utf-8") as fh:
         for lineno, line in enumerate(fh, 1):
             if not line.strip():
                 continue
             rows += 1
-            if sampled >= sample_rows:
-                continue
             try:
                 row = json.loads(line)
             except Exception:
-                bad_json.append(lineno)
+                if len(bad_json) < sample_rows:
+                    bad_json.append(lineno)
                 continue
-            sampled += 1
+            if not isinstance(row, dict):
+                if len(bad_shape) < sample_rows:
+                    bad_shape.append(lineno)
+                continue
+            parsed_rows += 1
             file_value = row.get("file")
             if not file_value:
-                warnings.append(f"index row {lineno} has no latent file field")
+                if len(missing_file_field) < sample_rows:
+                    missing_file_field.append(lineno)
                 continue
             latent = Path(str(file_value)).expanduser()
             if not latent.is_absolute():
                 latent = (ROOT / latent).resolve()
-            if not latent.exists():
-                missing_files.append(str(latent))
+            checked_files += 1
+            if not latent.is_file():
+                missing_file_count += 1
+                if len(missing_files) < sample_rows:
+                    missing_files.append(str(latent))
 
     facts["index"] = {
         "path": str(path),
         "rows": rows,
-        "sampled_rows": sampled,
+        "parsed_rows": parsed_rows,
+        "checked_files": checked_files,
+        "missing_file_count": missing_file_count,
         "sample_missing_files": missing_files,
         "bad_json_lines": bad_json,
+        "bad_shape_lines": bad_shape,
+        "missing_file_field_lines": missing_file_field,
+        "report_limit": sample_rows,
+        "full_validation": True,
     }
     if rows == 0:
         errors.append(f"training index is empty: {path}")
     if bad_json:
-        errors.append(f"training index contains invalid JSON in sampled lines: {bad_json[:8]}")
-    if missing_files:
-        errors.append(f"sampled latent files are missing ({len(missing_files)}): {missing_files[:3]}")
+        errors.append(f"training index contains invalid JSON; sample lines: {bad_json}")
+    if bad_shape:
+        errors.append(f"training index rows must be JSON objects; sample lines: {bad_shape}")
+    if missing_file_field:
+        errors.append(f"training index rows are missing latent file fields; sample lines: {missing_file_field}")
+    if missing_file_count:
+        errors.append(
+            f"training index references {missing_file_count} missing latent file(s); sample: {missing_files[:3]}"
+        )
 
 
 def _inspect_resume(path: Path | None, errors: list[str], facts: dict) -> None:
@@ -193,7 +216,8 @@ def main() -> int:
     ap.add_argument("--out")
     ap.add_argument("--best-out")
     ap.add_argument("--resume")
-    ap.add_argument("--sample-rows", type=int, default=8)
+    ap.add_argument("--sample-rows", type=int, default=8,
+                    help="Maximum failing row/path samples retained in the report; every index row is validated.")
     ap.add_argument("--min-vram-gb", type=float, default=0.0)
     ap.add_argument("--require-bf16", action="store_true")
     ap.add_argument("--allow-no-cuda", action="store_true", help="CI/self-test only; production launcher does not set this")

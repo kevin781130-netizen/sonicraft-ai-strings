@@ -4,6 +4,7 @@ import json
 import tempfile
 from pathlib import Path
 
+from accumulation import accumulation_window_size, is_optimizer_boundary
 from gpu_training_preflight import _check_output, _inspect_index
 from training_control import PauseController, _strip_resume_arg, clear_pause, pause_requested, read_status, request_pause, write_status
 
@@ -62,9 +63,35 @@ def main() -> int:
         assert preflight_facts["index"]["rows"] == 1
         assert preflight_facts["index"]["sample_missing_files"] == []
         assert preflight_facts["out"]["writable"] is True
+        assert preflight_facts["index"]["full_validation"] is True
+
+        # Tail accumulation must commit a final partial window instead of dropping gradients.
+        assert accumulation_window_size(0, 3, 2) == 2
+        assert accumulation_window_size(1, 3, 2) == 2
+        assert accumulation_window_size(2, 3, 2) == 1
+        assert not is_optimizer_boundary(0, 3, 2)
+        assert is_optimizer_boundary(1, 3, 2)
+        assert is_optimizer_boundary(2, 3, 2)
+
+        # Full preflight validation must catch a missing latent beyond the reporting limit.
+        full_index = root / "full_index.jsonl"
+        full_index.write_text(
+            "".join(json.dumps({"file": str(latent)}) + "\n" for _ in range(8))
+            + json.dumps({"file": str(root / "missing_latent.npz")}) + "\n",
+            encoding="utf-8",
+        )
+        full_errors: list[str] = []
+        full_warnings: list[str] = []
+        full_facts: dict = {}
+        _inspect_index(full_index, 2, full_errors, full_warnings, full_facts)
+        assert full_facts["index"]["rows"] == 9
+        assert full_facts["index"]["checked_files"] == 9
+        assert full_facts["index"]["missing_file_count"] == 1
+        assert full_errors
 
     repo = Path(__file__).resolve().parents[1]
     for rel in (
+        "training/accumulation.py",
         "training/training_control.py",
         "training/training_control_panel.py",
         "training/train_ballad_renderer_pausable.py",

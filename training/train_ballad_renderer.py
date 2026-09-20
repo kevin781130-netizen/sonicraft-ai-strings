@@ -4,6 +4,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader, WeightedRandomSampler
+from accumulation import accumulation_window_size, is_optimizer_boundary
 from models.ballad_flow_renderer import BalladFlowRenderer
 from source_policy import validate_index
 from string_source_mixer import load_registry, build_mixture_weights, build_curriculum_weights, mixture_audit, coverage_audit
@@ -168,6 +169,7 @@ def main():
     modeled_sources={str(k).lower() for k,v in registry.items() if str(v.get('training_origin','real')).lower()=='modeled'}
     sampler=WeightedRandomSampler(mix_w,max(len(ds),128),replacement=True)
     dl=DataLoader(ds,batch_size=a.batch,sampler=sampler,num_workers=0,pin_memory=torch.cuda.is_available(),collate_fn=collate)
+    total_batches=len(dl)
     vdl=None
     if a.val_index:
         vds=Segments(a.val_index); vdl=DataLoader(vds,batch_size=a.batch,shuffle=False,num_workers=0,collate_fn=collate)
@@ -216,9 +218,10 @@ def main():
             set_expert_trainable(True); print('unfroze physical experts for end-to-end HQ refinement')
         m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'continuity':0.,'accel':0.,'modeled_fraction':0.}; steps=0
         for bi,batch in enumerate(dl):
-            with ampctx(): loss,met=run_batch(m,batch,dev,True,a.cond_dropout,modeled_sources,a.modeled_flow_weight); loss=loss/a.accum
+            window_size=accumulation_window_size(bi,total_batches,a.accum)
+            with ampctx(): loss,met=run_batch(m,batch,dev,True,a.cond_dropout,modeled_sources,a.modeled_flow_weight); loss=loss/window_size
             loss.backward()
-            if (bi+1)%a.accum==0:
+            if is_optimizer_boundary(bi,total_batches,a.accum):
                 torch.nn.utils.clip_grad_norm_(m.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,m,a.ema)
             for k,v in met.items(): sums[k]+=float(v)
             steps+=1

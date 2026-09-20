@@ -22,6 +22,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, WeightedRandomSampler
+from accumulation import accumulation_window_size, is_optimizer_boundary
 
 import train_ballad_renderer as base
 from phrase_provenance import build_phrase_provenance
@@ -316,13 +317,14 @@ def main() -> int:
 
             for bi, batch in enumerate(dl):
                 current_batch = bi + 1
+                window_size = accumulation_window_size(bi, total_batches, a.accum)
                 with ampctx():
                     loss, met = base.run_batch(m, batch, dev, True, a.cond_dropout,
                                                modeled_sources, a.modeled_flow_weight)
-                    loss = loss / a.accum
+                    loss = loss / window_size
                 loss.backward()
 
-                optimizer_boundary = (bi + 1) % a.accum == 0
+                optimizer_boundary = is_optimizer_boundary(bi, total_batches, a.accum)
                 if optimizer_boundary:
                     torch.nn.utils.clip_grad_norm_(m.parameters(), 1.0)
                     opt.step()
