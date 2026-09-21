@@ -21,6 +21,7 @@ from train_ballad_renderer import Segments, collate, source_weights, PRESETS, em
 from promotion_binding import promotion_binding
 from source_policy import validate_index
 from string_source_mixer import load_registry, build_curriculum_weights, mixture_audit
+from phrase_provenance import build_phrase_provenance
 
 CONTROL_NAMES=(
     'pitch','gate','onset','velocity','dynamics','vibrato','expression','legato','pitchbend',
@@ -158,6 +159,7 @@ def main():
     if a.recommend_steps<1 or a.max_steps%a.recommend_steps: raise SystemExit('--recommend-steps must divide max-steps')
     validate_index(a.index,a.registry); dev='cuda' if torch.cuda.is_available() else 'cpu'
     ds=Segments(a.index); latent_ch,latent_hz,codec_kind,codec_sr=infer_latent_geometry(ds)
+    phrase_provenance=build_phrase_provenance(ds.rows,a.index)
     registry=load_registry(a.registry); weights=build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=0.0)
     print('shortcut string mixture',json.dumps(mixture_audit(ds.rows,weights,registry),sort_keys=True))
     modeled_sources={str(k).lower() for k,v in registry.items() if str(v.get('training_origin','real')).lower()=='modeled'}
@@ -173,9 +175,11 @@ def main():
         ck=torch.load(a.init,map_location='cpu')
         if dict(ck.get('config') or {})!=cfg: raise RuntimeError('init checkpoint architecture does not match shortcut preset')
         if int(ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('init latent geometry mismatch')
+        phrase_provenance=build_phrase_provenance(ds.rows,a.index,ck.get('phrase_finetune_provenance'))
         m.load_state_dict(ck.get('model',ck.get('ema')),strict=True)
         ema.load_state_dict(ck.get('ema',ck.get('model')),strict=True)
         print('initialized shortcut model from',a.init)
+    if phrase_provenance.get('enabled'): print('shortcut phrase provenance',json.dumps(phrase_provenance,sort_keys=True))
 
     opt=torch.optim.AdamW(m.parameters(),lr=a.lr,weight_decay=.01,betas=(.9,.95))
     use_amp=(dev=='cuda' and torch.cuda.is_bf16_supported())
@@ -201,6 +205,7 @@ def main():
                     'sampling_family':'shortcut','supported_steps':[2**i for i in range(int(math.log2(a.max_steps))+1)],
                     'recommended_steps':int(a.recommend_steps),'max_shortcut_steps':int(a.max_steps),
                     'schema_version':12,'distillation':'string_perceptual_shortcut','source_index':a.index,
-                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
+                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
+                    'phrase_finetune_provenance':phrase_provenance,'acoustic_promotion_id':promotion_id},a.out)
 
 if __name__=='__main__': main()

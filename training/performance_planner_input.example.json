@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "tempo_bpm": 72,
+  "beats_per_bar": 4,
+  "instrument": 0,
+  "notes": [
+    {
+      "pitch": 67,
+      "start_beats": 0,
+      "duration_beats": 1,
+      "velocity": 0.72
+    },
+    {
+      "pitch": 69,
+      "start_beats": 1,
+      "duration_beats": 1,
+      "velocity": 0.76,
+      "written_controls": {
+        "articulation": "legato",
+        "dynamics": 0.82,
+        "legato": 1.0
+      }
+    },
+    {
+      "pitch": 72,
+      "start_beats": 2,
+      "duration_beats": 2,
+      "velocity": 0.8
+    }
+  ]
+}

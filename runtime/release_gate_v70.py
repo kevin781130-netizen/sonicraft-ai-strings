@@ -11,11 +11,19 @@ def sha256(p: Path) -> str:
         for b in iter(lambda:f.read(1024*1024),b''): h.update(b)
     return h.hexdigest()
 
+def valid_sha256(value) -> bool:
+    text=str(value or '').lower()
+    return len(text)==64 and all(c in '0123456789abcdef' for c in text)
+
 def load_json(path: Path, failures: list[str], label: str):
     if not path.is_file():
         failures.append(f'missing {path.name}')
         return None
-    try: return json.loads(path.read_text(encoding='utf-8-sig'))
+    try:
+        value = json.loads(path.read_text(encoding='utf-8-sig'))
+        if not isinstance(value, dict) or not value:
+            raise ValueError('expected a non-empty JSON object')
+        return value
     except Exception as e:
         failures.append(f'invalid {label}: {e}')
         return None
@@ -32,7 +40,7 @@ def verify_model_pack(root: Path, failures: list[str], evidence: dict) -> str|No
     if not m: return None
     manifest_sha=sha256(mp).lower()
     evidence['model_manifest_sha256']=manifest_sha
-    approved=bool(m.get('commercial_safe')) and bool(m.get('release_approved'))
+    approved=m.get('commercial_safe') is True and m.get('release_approved') is True
     evidence['model_approved']=approved
     if not approved: failures.append('model manifest is not commercial_safe + release_approved')
     files=m.get('files',[])
@@ -47,7 +55,7 @@ def verify_model_pack(root: Path, failures: list[str], evidence: dict) -> str|No
         if actual!=expected: failures.append(f'model hash mismatch: {name}')
     return manifest_sha
 
-def evaluate(root: Path, public: bool=False) -> tuple[int,dict]:
+def _evaluate(root: Path, public: bool=False) -> tuple[int,dict]:
     ev=root/'release'/'rc_evidence';ev.mkdir(parents=True,exist_ok=True)
     failures=[];evidence={}
     build=load_json(ev/'build-provenance.json',failures,'build provenance')
@@ -55,7 +63,8 @@ def evaluate(root: Path, public: bool=False) -> tuple[int,dict]:
     cubase=load_json(ev/'host-qa-cubase.json',failures,'Cubase evidence')
     studio=load_json(ev/'host-qa-studio-one.json',failures,'Studio One evidence')
     acoustic=load_json(ev/'acoustic-qa.json',failures,'acoustic evidence')
-    for label,obj in [('build provenance',build),('validator evidence',val),('Cubase evidence',cubase),('Studio One evidence',studio),('acoustic evidence',acoustic)]:
+    blind=load_json(ev/'blind-acoustic-qa.json',failures,'blind acoustic evidence')
+    for label,obj in [('build provenance',build),('validator evidence',val),('Cubase evidence',cubase),('Studio One evidence',studio),('acoustic evidence',acoustic),('blind acoustic evidence',blind)]:
         if obj and obj.get('release')!=RELEASE:
             failures.append(f'{label} belongs to release {obj.get("release")!r}, expected {RELEASE}')
     expected_sdk='9fad9770f2ae8542ab1a548a68c1ad1ac690abe0'
@@ -87,6 +96,25 @@ def evaluate(root: Path, public: bool=False) -> tuple[int,dict]:
     if acoustic:
         evidence['acoustic']=acoustic.get('overall')
         if acoustic.get('overall')!='PASS': failures.append('RTX/model acoustic QA not PASS')
+    if blind:
+        evidence['blind_acoustic']=blind.get('overall')
+        if blind.get('overall')!='PASS': failures.append('blind acoustic QA not PASS')
+        if blind.get('product')!='SONICRAFT AI Strings Q4': failures.append('blind acoustic evidence product mismatch')
+        protocol=blind.get('protocol') or {}
+        if protocol.get('double_blind') is not True: failures.append('blind acoustic protocol is not double-blind')
+        if protocol.get('randomized') is not True: failures.append('blind acoustic protocol is not randomized')
+        if protocol.get('negative_control') is not True: failures.append('blind acoustic protocol lacks negative control')
+        if not isinstance(protocol.get('listener_count'),int) or protocol.get('listener_count',0)<=0:
+            failures.append('blind acoustic protocol lacks positive listener_count')
+        if not isinstance(protocol.get('trial_count'),int) or protocol.get('trial_count',0)<=0:
+            failures.append('blind acoustic protocol lacks positive trial_count')
+        if not valid_sha256(blind.get('protocol_sha256')): failures.append('blind acoustic evidence lacks protocol SHA-256')
+        if not valid_sha256(blind.get('raw_results_sha256')): failures.append('blind acoustic evidence lacks raw-results SHA-256')
+        results=blind.get('results') or {}
+        if (results.get('realism') or {}).get('status')!='PASS': failures.append('blind acoustic realism result not PASS')
+        if (results.get('technique_identity') or {}).get('status')!='PASS': failures.append('blind acoustic technique-identity result not PASS')
+        if (results.get('sample_size') or {}).get('status')!='PASS': failures.append('blind acoustic sample-size result not PASS')
+        if (results.get('negative_control') or {}).get('status')!='PASS': failures.append('blind acoustic negative-control result not PASS')
 
     binp=locate_vst3_binary(root)
     if not binp: failures.append('release VST3 binary missing')
@@ -102,12 +130,21 @@ def evaluate(root: Path, public: bool=False) -> tuple[int,dict]:
             ah=str(acoustic.get('plugin_sha256','')).lower()
             if not ah: failures.append('acoustic evidence is not bound to a VST3 hash')
             elif ah!=current: failures.append('acoustic evidence belongs to a different VST3 hash')
+        if blind:
+            bh=str(blind.get('plugin_sha256','')).lower()
+            if not valid_sha256(bh): failures.append('blind acoustic evidence is not bound to a valid VST3 hash')
+            elif bh!=current: failures.append('blind acoustic evidence belongs to a different VST3 hash')
     model_manifest_sha=verify_model_pack(root,failures,evidence)
     if acoustic:
         acoustic_model_sha=str(acoustic.get('model_manifest_sha256','')).lower()
         if not acoustic_model_sha: failures.append('acoustic evidence is not bound to a model manifest hash')
         elif model_manifest_sha and acoustic_model_sha!=model_manifest_sha:
             failures.append('acoustic evidence belongs to a different model manifest hash')
+    if blind:
+        blind_model_sha=str(blind.get('model_manifest_sha256','')).lower()
+        if not valid_sha256(blind_model_sha): failures.append('blind acoustic evidence is not bound to a valid model manifest hash')
+        elif model_manifest_sha and blind_model_sha!=model_manifest_sha:
+            failures.append('blind acoustic evidence belongs to a different model manifest hash')
 
     if public:
         sig=load_json(ev/'authenticode-pass.json',failures,'Authenticode evidence')
@@ -131,6 +168,32 @@ def evaluate(root: Path, public: bool=False) -> tuple[int,dict]:
         return 2,result
     marker.write_text(f'{status}\n{result["checked_at"]}\n',encoding='ascii')
     return 0,result
+
+def evaluate(root: Path, public: bool=False) -> tuple[int,dict]:
+    """Invalid evidence must revoke prior approvals, including on schema errors."""
+    ev = root/'release'/'rc_evidence'
+    ev.mkdir(parents=True, exist_ok=True)
+    markers = [ev/'RC_APPROVED.txt', ev/'PUBLIC_RELEASE_APPROVED.txt']
+    # Public approval also implies RC approval. Invalidate the relevant previous
+    # marker before parsing so a crash cannot leave a stale success for this run.
+    for marker in markers if public else markers[:1]:
+        marker.unlink(missing_ok=True)
+    try:
+        code, result = _evaluate(root, public)
+    except (ValueError, TypeError, AttributeError, KeyError, OSError) as exc:
+        code = 2
+        result = {
+            'schema': 1, 'product': 'SONICRAFT AI Strings Q4', 'release': RELEASE,
+            'status': 'BLOCKED', 'public_release': public,
+            'checked_at': datetime.now(timezone.utc).isoformat(),
+            'evidence': {}, 'failures': [f'invalid release evidence: {type(exc).__name__}: {exc}'],
+        }
+    if code:
+        for marker in markers:
+            marker.unlink(missing_ok=True)
+    out = ev/('public-release-gate.json' if public else 'rc-final-gate.json')
+    out.write_text(json.dumps(result, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
+    return code, result
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--root',default=str(Path(__file__).resolve().parents[1]));ap.add_argument('--public',action='store_true');a=ap.parse_args()
