@@ -67,7 +67,10 @@ raise SystemExit(int(os.environ.get('HANDOFF_PREFLIGHT_EXIT' if name == 'gpu_tra
                 env = dict(os.environ, HANDOFF_PREFLIGHT_EXIT=str(preflight), HANDOFF_TRAIN_EXIT=str(trainer))
                 # cmd.exe, not a textual BAT inspection, is the behavior under test.
                 command = subprocess.list2cmdline([str(root/name), *args])
-                return subprocess.run([os.environ.get('COMSPEC', 'cmd.exe'), '/d', '/c', command],
+                # Pass one cmd command line: Python list quoting uses backslash
+                # escapes, which cmd.exe does not understand around BAT paths.
+                comspec = os.environ.get('COMSPEC', 'cmd.exe')
+                return subprocess.run(f'"{comspec}" /d /s /c "{command}"',
                                       cwd=root, env=env, capture_output=True, text=True, timeout=30)
             args = ['--index', 'data with spaces.jsonl']
             failed = run('TRAIN_RENDERER_GPU.bat', args, preflight=7)
