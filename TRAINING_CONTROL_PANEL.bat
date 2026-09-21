@@ -1,14 +1,7 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-where python >nul 2>nul
-if not errorlevel 1 (
-  python training\training_control_panel.py --open
-) else (
-  py -3 training\training_control_panel.py --open
-)
-if errorlevel 1 (
-  echo.
-  echo Failed to start SONICRAFT Training Control.
-  pause
-)
+call "%~dp0scripts\SELECT_TRAINING_PYTHON.bat"
+if errorlevel 1 exit /b 2
+"%SONICRAFT_TRAIN_PY%" training\training_control_panel.py --open
+exit /b %errorlevel%

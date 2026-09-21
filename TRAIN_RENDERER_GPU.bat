@@ -1,28 +1,17 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-
 if "%~1"=="" goto :usage
-
-where python >nul 2>nul
-if not errorlevel 1 (
-  echo Running SONICRAFT GPU training preflight...
-  python training\gpu_training_preflight.py %*
-  if errorlevel 1 goto :preflight_failed
-  start "SONICRAFT Training Control" python training\training_control_panel.py --open
-  python training\train_ballad_renderer_pausable.py %*
-  exit /b %errorlevel%
-)
-
+call "%~dp0scripts\SELECT_TRAINING_PYTHON.bat"
+if errorlevel 1 exit /b 2
 echo Running SONICRAFT GPU training preflight...
-py -3 training\gpu_training_preflight.py %*
+"%SONICRAFT_TRAIN_PY%" training\gpu_training_preflight.py %*
 if errorlevel 1 goto :preflight_failed
-start "SONICRAFT Training Control" py -3 training\training_control_panel.py --open
-py -3 training\train_ballad_renderer_pausable.py %*
+start "SONICRAFT Training Control" "%SONICRAFT_TRAIN_PY%" training\training_control_panel.py --open
+"%SONICRAFT_TRAIN_PY%" training\train_ballad_renderer_pausable.py %*
 exit /b %errorlevel%
 
 :preflight_failed
-echo.
 echo GPU training was NOT started because preflight failed.
 echo Fix the reported issue and run the same command again.
 exit /b 2

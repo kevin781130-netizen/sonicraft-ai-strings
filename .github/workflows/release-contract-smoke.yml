@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'training/**'
+      - 'scripts/SELECT_TRAINING_PYTHON.bat'
+      - 'scripts/SETUP_TRAINING.bat'
       - 'TRAIN_RENDERER_GPU.bat'
       - 'TRAIN_PERFORMANCE_PLANNER.bat'
       - 'TRAINING_CONTROL_PANEL.bat'
@@ -16,6 +18,8 @@ on:
       - 'docs/CLEANROOM_TEACHER_DISTILLATION.md'
       - '.github/workflows/release-contract-smoke.yml'
   workflow_dispatch:
+  push:
+    branches: [main]
 
 permissions:
   contents: read
@@ -38,3 +42,17 @@ jobs:
 
       - name: Run training pause control smoke
         run: python training/smoke_training_control.py
+
+  local-training-handoff:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check local training preflight and actual Windows launchers
+        run: python training/smoke_local_training_handoff.py

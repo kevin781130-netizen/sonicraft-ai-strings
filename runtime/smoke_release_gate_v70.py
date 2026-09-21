@@ -26,6 +26,17 @@ with tempfile.TemporaryDirectory() as td:
     (ev/'host-qa-studio-one.json').write_text(json.dumps(host_base))
     (ev/'acoustic-qa.json').write_text(json.dumps({'release':RELEASE,'overall':'PASS','plugin_sha256':ph,'model_manifest_sha256':mh}))
 
+    # Synthetic fixtures are confined to this temporary tree, never real evidence.
+    blind_base={'release':RELEASE,'product':'SONICRAFT AI Strings Q4','overall':'PASS',
+                'plugin_sha256':ph,'model_manifest_sha256':mh,
+                'protocol_sha256':'12'*32,'raw_results_sha256':'34'*32,
+                'protocol':{'double_blind':True,'randomized':True,'negative_control':True,
+                            'listener_count':5,'trial_count':60},
+                'results':{key:{'status':'PASS'} for key in
+                           ('sample_size','realism','technique_identity','negative_control')}}
+    blind_path=ev/'blind-acoustic-qa.json'
+    blind_path.write_text(json.dumps(blind_base))
+
     code,res=evaluate(r,False);assert code==0 and res['status']=='RC_APPROVED' and (ev/'RC_APPROVED.txt').exists(),res
 
     # Stale host evidence must revoke approval.
@@ -43,4 +54,39 @@ with tempfile.TemporaryDirectory() as td:
     code,res=evaluate(r,True);assert code==2 and res['status']=='BLOCKED'
     (ev/'authenticode-pass.json').write_text(json.dumps({'release':RELEASE,'status':'Valid','plugin_sha256':ph}))
     code,res=evaluate(r,True);assert code==0 and res['status']=='PUBLIC_RELEASE_APPROVED',res
+
+    # Every malformed/missing evidence file must block and revoke BOTH markers.
+    paths=[ev/name for name in ('build-provenance.json','validator-pass.json',
+           'host-qa-cubase.json','host-qa-studio-one.json','acoustic-qa.json',
+           'blind-acoustic-qa.json','authenticode-pass.json')]+[mp]
+    for path in paths:
+        original=path.read_bytes()
+        for payload in (None, b'{}', b'[]', b'null', b'"PASS"', b'{broken'):
+            for marker in ('RC_APPROVED.txt','PUBLIC_RELEASE_APPROVED.txt'):
+                (ev/marker).write_text('stale approval')
+            if payload is None: path.unlink()
+            else: path.write_bytes(payload)
+            code,res=evaluate(r,True)
+            assert code==2 and res['status']=='BLOCKED', (path,payload,res)
+            assert not (ev/'RC_APPROVED.txt').exists()
+            assert not (ev/'PUBLIC_RELEASE_APPROVED.txt').exists()
+            path.write_bytes(original)
+
+    for field,value in [('protocol',[]),('results',['invalid']),
+                        ('plugin_sha256','00'*32),('model_manifest_sha256','00'*32)]:
+        bad=dict(blind_base);bad[field]=value
+        blind_path.write_text(json.dumps(bad))
+        code,res=evaluate(r,False);assert code==2,res
+    for section in ('sample_size','realism','technique_identity','negative_control'):
+        bad=json.loads(json.dumps(blind_base));bad['results'][section]['status']='FAIL'
+        blind_path.write_text(json.dumps(bad))
+        code,res=evaluate(r,False);assert code==2,res
+    blind_path.write_text(json.dumps(blind_base))
+    original=mp.read_bytes()
+    bad=json.loads(original);bad['release_approved']='false'
+    mp.write_text(json.dumps(bad))
+    code,res=evaluate(r,False)
+    assert code==2 and 'model manifest is not commercial_safe + release_approved' in res['failures']
+    mp.write_bytes(original)
+    code,res=evaluate(r,True);assert code==0,res
 print('SONICRAFT v7.0 fail-closed/hash-bound final gate smoke PASS')

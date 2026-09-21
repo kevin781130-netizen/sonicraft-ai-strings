@@ -28,6 +28,10 @@ def _existing_parent(path: Path) -> Path:
 def _check_output(path: Path | None, label: str, errors: list[str], facts: dict) -> None:
     if path is None:
         return
+    if path.exists() and not path.is_file():
+        errors.append(f'{label} must be a file path, not a directory: {path}')
+    if path.is_file() and not os.access(path, os.W_OK):
+        errors.append(f'{label} file is not writable: {path}')
     parent = _existing_parent(path.parent)
     writable = parent.exists() and parent.is_dir() and os.access(parent, os.W_OK)
     facts[label] = {"path": str(path), "existing_parent": str(parent), "writable": bool(writable)}
@@ -117,12 +121,14 @@ def _inspect_resume(path: Path | None, errors: list[str], facts: dict) -> None:
         errors.append(f"resume checkpoint does not exist: {path}")
 
 
-def _inspect_control(errors: list[str], warnings: list[str], facts: dict) -> None:
-    pending = pause_requested(DEFAULT_PAUSE_FILE)
-    status = read_status(DEFAULT_STATUS_FILE)
+def _inspect_control(errors: list[str], warnings: list[str], facts: dict,
+                     pause_file: Path = DEFAULT_PAUSE_FILE,
+                     status_file: Path = DEFAULT_STATUS_FILE) -> None:
+    pending = pause_requested(pause_file)
+    status = read_status(status_file)
     facts["training_control"] = {
-        "pause_file": str(DEFAULT_PAUSE_FILE),
-        "status_file": str(DEFAULT_STATUS_FILE),
+        "pause_file": str(pause_file),
+        "status_file": str(status_file),
         "pending_pause": bool(pending),
         "state": str(status.get("state", "unknown")),
         "pid": status.get("pid"),
@@ -194,10 +200,18 @@ def build_report(args: argparse.Namespace, unknown: list[str]) -> dict:
     }
 
     _inspect_index(_resolve(args.index), args.sample_rows, errors, warnings, facts)
+    if args.val_index:
+        val_facts: dict = {}
+        val_errors: list[str] = []
+        _inspect_index(_resolve(args.val_index), args.sample_rows, val_errors, warnings, val_facts)
+        facts['val_index'] = val_facts.get('index', {})
+        errors.extend(f'validation index: {error}' for error in val_errors)
     _check_output(_resolve(args.out), "out", errors, facts)
     _check_output(_resolve(args.best_out), "best_out", errors, facts)
+    if _resolve(args.out) == _resolve(args.best_out):
+        errors.append('--out and --best-out must be different files to preserve the best checkpoint')
     _inspect_resume(_resolve(args.resume), errors, facts)
-    _inspect_control(errors, warnings, facts)
+    _inspect_control(errors, warnings, facts, _resolve(args.pause_file), _resolve(args.status_file))
     _inspect_cuda(args.allow_no_cuda, args.require_bf16, args.min_vram_gb, errors, warnings, facts)
 
     return {
@@ -213,8 +227,11 @@ def main() -> int:
         description="Read-only SONICRAFT GPU renderer training preflight. Unknown trainer args are ignored."
     )
     ap.add_argument("--index")
-    ap.add_argument("--out")
-    ap.add_argument("--best-out")
+    ap.add_argument("--val-index")
+    ap.add_argument("--out", default="checkpoints/ballad_renderer_last.pt")
+    ap.add_argument("--best-out", default="checkpoints/ballad_renderer_best.pt")
+    ap.add_argument("--pause-file", default=str(DEFAULT_PAUSE_FILE))
+    ap.add_argument("--status-file", default=str(DEFAULT_STATUS_FILE))
     ap.add_argument("--resume")
     ap.add_argument("--sample-rows", type=int, default=8,
                     help="Maximum failing row/path samples retained in the report; every index row is validated.")
@@ -241,7 +258,7 @@ def main() -> int:
             )
         idx = report["facts"].get("index")
         if idx:
-            print(f"Index: {idx.get('rows')} rows | sampled {idx.get('sampled_rows')} | {idx.get('path')}")
+            print(f"Index: {idx.get('rows')} rows | checked {idx.get('checked_files')} files | {idx.get('path')}")
         for warning in report["warnings"]:
             print(f"[WARN] {warning}")
         for error in report["errors"]:

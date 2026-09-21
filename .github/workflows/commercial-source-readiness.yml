@@ -24,6 +24,9 @@ jobs:
       - name: Run RC source/compliance gate
         run: python scripts/rc_source_gate_v70.py
 
+      - name: Exercise final gate approval and malformed-evidence revocation
+        run: python runtime/smoke_release_gate_v70.py
+
       - name: Validate release JSON documents
         run: |
           python -m json.tool release/frontier_status_v7.0.json >/dev/null

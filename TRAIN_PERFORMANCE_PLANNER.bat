@@ -1,18 +1,11 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-
 if "%~1"=="" goto :usage
-
-where python >nul 2>nul
-if not errorlevel 1 (
-  start "SONICRAFT Training Control" python training\training_control_panel.py --open
-  python training\train_performance_planner.py %*
-  exit /b %errorlevel%
-)
-
-start "SONICRAFT Training Control" py -3 training\training_control_panel.py --open
-py -3 training\train_performance_planner.py %*
+call "%~dp0scripts\SELECT_TRAINING_PYTHON.bat"
+if errorlevel 1 exit /b 2
+start "SONICRAFT Training Control" "%SONICRAFT_TRAIN_PY%" training\training_control_panel.py --open
+"%SONICRAFT_TRAIN_PY%" training\train_performance_planner.py %*
 exit /b %errorlevel%
 
 :usage
