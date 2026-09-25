@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse, copy, json, random
+import argparse, copy, json, random, os
 from pathlib import Path
 import numpy as np
 import torch
@@ -190,7 +190,10 @@ def main():
         m.load_state_dict(ck['model']); ema.load_state_dict(ck.get('ema',ck['model']))
         if 'optimizer' in ck: opt.load_state_dict(ck['optimizer'])
         if 'scheduler' in ck: sched.load_state_dict(ck['scheduler'])
-        start=int(ck.get('epoch',0)); best=float(ck.get('best_val',best)); print('resumed',a.resume,'at',start)
+        start=int(ck.get('epoch',0)); best=float(ck.get('best_val',best)); print('resumed',a.resume,'at',start,'target',a.epochs)
+        if start>=a.epochs:
+            print('renderer target already complete; nothing to do')
+            return
 
     expert_modules=(m.vibrato_physics,m.performance_experts)
     def set_expert_trainable(flag: bool):
@@ -204,8 +207,8 @@ def main():
     print('renderer params',sum(p.numel() for p in m.parameters()),'device',dev,'segments',len(ds),cfg,'controls',m.CONTROL_DIMS,'bf16',use_amp,
           'codec',codec_kind,'latent',latent_ch,'@',latent_hz,'Hz')
 
-    for ep in range(start,start+a.epochs):
-        progress=(ep-start)/max(1,a.epochs-1)
+    for ep in range(start,a.epochs):
+        progress=ep/max(1,a.epochs-1)
         sampler.weights=torch.as_tensor(source_weights(ds.rows,a.registry,a.real_ratio,a.modeled_ratio,progress=progress),dtype=torch.double)
         if expert_loaded and a.expert_freeze_epochs>0 and ep==start+a.expert_freeze_epochs:
             set_expert_trainable(True); print('unfroze physical experts for end-to-end HQ refinement')
@@ -238,5 +241,9 @@ def main():
         score=val if vdl else sums['flow']/denom
         if score<best:
             best=score; ck['best_val']=best; torch.save(ck,a.best_out)
+        stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if stop_file and Path(stop_file).exists():
+            print('[SAFE STOP] renderer checkpoint saved at epoch',ep+1,'->',a.out)
+            return
 
 if __name__=='__main__': main()
