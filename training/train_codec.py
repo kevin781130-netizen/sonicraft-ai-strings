@@ -116,7 +116,7 @@ def main():
         progress=ep/max(1,a.epochs-1)
         sampler.weights=torch.as_tensor(build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=progress,require_modeled=a.require_modeled),dtype=torch.double)
         m.train(); probe.train(); disc.train()
-        sums={'g':0.,'recon':0.,'real_recon':0.,'modeled_recon':0.,'physics':0.,'physics_metric':0.,'kl':0.,'adv':0.,'fm':0.,'d':0.}; steps=0
+        sums={'g':0.,'recon':0.,'real_recon':0.,'modeled_recon':0.,'physics':0.,'physics_metric':0.,'kl':0.,'adv':0.,'fm':0.,'d':0.}; steps=0; interrupted=False
         adv_on=ep>=a.adv_start
         for wav,rows in dl:
             wav=wav.to(dev,non_blocking=True); mm=modeled_mask(rows,registry,device=dev); rm=~mm
@@ -155,8 +155,14 @@ def main():
             for k,v in [('g',gloss),('recon',recon),('real_recon',real_recon),('modeled_recon',modeled_recon),('physics',physics),('physics_metric',physics_metric),('kl',kl),('adv',adv),('fm',fm),('d',dloss)]:
                 sums[k]+=float(v.detach())
             steps+=1
+            stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+            if stop_file and Path(stop_file).exists() and steps < len(dl):
+                interrupted=True
+                print('[SAFE STOP] request seen after batch',steps,'of',len(dl))
+                break
         q={k:v/max(1,steps) for k,v in sums.items()}; print(f"epoch {ep+1:03d} "+' '.join(f'{k}={v:.5f}' for k,v in q.items()))
-        cfg=m.config(); common={'epoch':ep+1,'codec_kind':'strings_vae64','codec_sample_rate':m.sample_rate,
+        saved_epoch=ep if interrupted else ep+1
+        cfg=m.config(); common={'epoch':saved_epoch,'partial_epoch':(ep+1 if interrupted else None),'partial_batches':(steps if interrupted else None),'codec_kind':'strings_vae64','codec_sample_rate':m.sample_rate,
              'latent_ch':m.latent_dim,'latent_hz':m.latent_hz,'downsampling_ratio':m.downsampling_ratio,'config':cfg,
              'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_recon_weight':a.modeled_recon_weight,'curriculum':curriculum},
              'acoustic_promotion_id':promotion_id,
@@ -166,8 +172,11 @@ def main():
         # Deliberately no probe/discriminator/encoder optimizer in consumer artifact.
         atomic_torch_save({**common,'decoder':m.decoder.state_dict(),'decoder_params':dec},decoder_out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if interrupted:
+            print('[SAFE STOP] partial epoch checkpoint saved; epoch',ep+1,'will replay on resume ->',a.out)
+            return
         if stop_file and Path(stop_file).exists():
-            print('[SAFE STOP] checkpoint saved at epoch',ep+1,'->',a.out)
+            print('[SAFE STOP] checkpoint saved at completed epoch',ep+1,'->',a.out)
             return
 
 if __name__=='__main__': main()
