@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse, copy, json
+import argparse, copy, json, os
 from pathlib import Path
 import torch
 from torch.utils.data import DataLoader, WeightedRandomSampler
@@ -11,7 +11,7 @@ from string_source_mixer import load_registry, build_curriculum_weights, mixture
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--index',default='datasets/processed/ballad_dac/index.jsonl')
-    ap.add_argument('--teacher',required=True); ap.add_argument('--out',default='checkpoints/compact_distilled.pt')
+    ap.add_argument('--teacher',required=True); ap.add_argument('--out',default='checkpoints/compact_distilled.pt'); ap.add_argument('--resume')
     ap.add_argument('--epochs',type=int,default=60); ap.add_argument('--batch',type=int,default=2); ap.add_argument('--accum',type=int,default=1)
     ap.add_argument('--registry',default='training/dataset_registry.json'); ap.add_argument('--alpha',type=float,default=.55)
     ap.add_argument('--real-ratio',type=float,default=.80); ap.add_argument('--modeled-ratio',type=float,default=.20)
@@ -27,7 +27,21 @@ def main():
     teacher=BalladFlowRenderer(latent_ch=latent_ch,**tcfg).to(dev).eval(); teacher.load_state_dict(tck.get('ema',tck['model']))
     student=BalladFlowRenderer(latent_ch=latent_ch,**PRESETS[a.student_preset]).to(dev); ema=copy.deepcopy(student).eval().requires_grad_(False)
     opt=torch.optim.AdamW(student.parameters(),1.0e-4,weight_decay=.01,betas=(.9,.95))
-    for ep in range(a.epochs):
+    start=0
+    if a.resume:
+        ck=torch.load(a.resume,map_location='cpu')
+        if dict(ck.get('config') or {})!=dict(PRESETS[a.student_preset]):
+            raise RuntimeError('resume distill architecture mismatch')
+        if int(ck.get('latent_ch',latent_ch))!=latent_ch:
+            raise RuntimeError('resume distill latent geometry mismatch')
+        student.load_state_dict(ck['model'],strict=True); ema.load_state_dict(ck.get('ema',ck['model']),strict=True)
+        if 'optimizer' in ck: opt.load_state_dict(ck['optimizer'])
+        start=int(ck.get('epoch',0))
+        print('resumed distillation',a.resume,'at epoch',start,'target',a.epochs)
+        if start>=a.epochs:
+            print('distillation target already complete; nothing to do')
+            return
+    for ep in range(start,a.epochs):
         progress=ep/max(1,a.epochs-1); sampler.weights=torch.as_tensor(build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=progress),dtype=torch.double)
         student.train(); total=cont_total=0.; n=0; opt.zero_grad(set_to_none=True)
         for bi,batch in enumerate(dl):
@@ -52,6 +66,10 @@ def main():
                 torch.nn.utils.clip_grad_norm_(student.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,student,.999)
             total+=float(loss.detach()); cont_total+=float(continuity.detach()); n+=1
         print(f'epoch {ep+1:03d} distill={total/max(1,n):.6f} transition={cont_total/max(1,n):.6f}')
-        Path(a.out).parent.mkdir(parents=True,exist_ok=True); torch.save({'model':student.state_dict(),'ema':ema.state_dict(),'epoch':ep+1,'config':PRESETS[a.student_preset],'teacher':a.teacher,'distill_alpha':a.alpha,'schema_version':10,'latent_ch':latent_ch,'latent_hz':float(tck.get('latent_hz',25.0)),'codec_kind':tck.get('codec_kind','dac44'),'codec_sample_rate':int(tck.get('codec_sample_rate',44100)),
+        Path(a.out).parent.mkdir(parents=True,exist_ok=True); torch.save({'model':student.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':ep+1,'config':PRESETS[a.student_preset],'teacher':a.teacher,'distill_alpha':a.alpha,'schema_version':10,'latent_ch':latent_ch,'latent_hz':float(tck.get('latent_hz',25.0)),'codec_kind':tck.get('codec_kind','dac44'),'codec_sample_rate':int(tck.get('codec_sample_rate',44100)),
                     'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
+        stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if stop_file and Path(stop_file).exists():
+            print('[SAFE STOP] distillation checkpoint saved at epoch',ep+1,'->',a.out)
+            return
 if __name__=='__main__': main()
