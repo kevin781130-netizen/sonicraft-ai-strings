@@ -209,7 +209,7 @@ def main():
           'latent',latent_ch,'@',latent_hz,'codec',codec_kind)
     for ep in range(start,a.epochs):
         progress=ep/max(1,a.epochs-1); sampler.weights=torch.as_tensor(build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=progress),dtype=torch.double)
-        m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'bootstrap':0.,'endpoint':0.,'continuity':0.,'mean_h':0.,'modeled_fraction':0.}; n=0
+        m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'bootstrap':0.,'endpoint':0.,'continuity':0.,'mean_h':0.,'modeled_fraction':0.}; n=0; interrupted=False
         for bi,batch in enumerate(dl):
             z,c,dsnames=split_batch(batch,dev)
             sw=torch.tensor([a.modeled_flow_weight if str(x).lower() in modeled_sources else 1.0 for x in dsnames],device=dev,dtype=z.dtype)
@@ -219,17 +219,26 @@ def main():
                 torch.nn.utils.clip_grad_norm_(m.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,m,a.ema)
             for k,v in met.items(): sums[k]+=float(v)
             n+=1
+            stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+            if stop_file and Path(stop_file).exists() and n < len(dl):
+                interrupted=True
+                print('[SAFE STOP] request seen after batch',n,'of',len(dl))
+                break
         print(f"epoch {ep+1:03d} flow={sums['flow']/max(1,n):.6f} shortcut={sums['bootstrap']/max(1,n):.6f} end={sums['endpoint']/max(1,n):.6f} cont={sums['continuity']/max(1,n):.6f} mean_h={sums['mean_h']/max(1,n):.3f} modeled={sums['modeled_fraction']/max(1,n):.3f}")
         Path(a.out).parent.mkdir(parents=True,exist_ok=True)
-        atomic_torch_save({'model':m.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':ep+1,'config':cfg,'preset':a.preset,
+        saved_epoch=ep if interrupted else ep+1
+        atomic_torch_save({'model':m.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':saved_epoch,'partial_epoch':(ep+1 if interrupted else None),'partial_batches':(n if interrupted else None),'config':cfg,'preset':a.preset,
                     'latent_ch':latent_ch,'latent_hz':latent_hz,'codec_kind':codec_kind,'codec_sample_rate':codec_sr,
                     'sampling_family':'shortcut','supported_steps':[2**i for i in range(int(math.log2(a.max_steps))+1)],
                     'recommended_steps':int(a.recommend_steps),'max_shortcut_steps':int(a.max_steps),
                     'schema_version':12,'distillation':'string_perceptual_shortcut','source_index':a.index,
                     'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if interrupted:
+            print('[SAFE STOP] partial shortcut epoch saved; epoch',ep+1,'will replay on resume ->',a.out)
+            return
         if stop_file and Path(stop_file).exists():
-            print('[SAFE STOP] shortcut checkpoint saved at epoch',ep+1,'->',a.out)
+            print('[SAFE STOP] shortcut checkpoint saved at completed epoch',ep+1,'->',a.out)
             return
 
 if __name__=='__main__': main()
