@@ -13,6 +13,7 @@ foreach($n in @('__init__.py','adaptive_flow_dit.py','ballad_flow_renderer.py','
 Copy-Item -Force (Join-Path $root 'cubase\*') (Join-Path $app 'Cubase')
 Copy-Item -Force (Join-Path $root 'licenses\*') (Join-Path $app 'Licenses')
 Copy-Item -Force (Join-Path $root 'frontend\index.html') (Join-Path $app 'Frontend\index.html')
+Copy-Item -Force (Join-Path $root 'frontend\note-tools.js') (Join-Path $app 'Frontend\note-tools.js')
 Copy-Item -Force (Join-Path $root 'frontend\editor_server.py') (Join-Path $app 'Frontend\editor_server.py')
 Copy-Item -Force (Join-Path $root 'frontend\README_FRONTEND_V64.md') (Join-Path $app 'Frontend\README_FRONTEND_V64.md')
 Copy-Item -Force (Join-Path $root 'installer\OPEN_INSTRUMENT_EDITOR_RELEASE.bat') (Join-Path $app 'Tools\OPEN_INSTRUMENT_EDITOR.bat')

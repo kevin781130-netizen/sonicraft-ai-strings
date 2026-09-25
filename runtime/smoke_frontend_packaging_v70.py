@@ -14,6 +14,7 @@ def main() -> int:
     collect=(ROOT/'installer/COLLECT_PREBUILT_APP.ps1').read_text(encoding='utf-8', errors='ignore')
     for token in [
         "Frontend\\index.html",
+        "Frontend\\note-tools.js",
         "Frontend\\editor_server.py",
         "Tools\\OPEN_INSTRUMENT_EDITOR.bat",
         "COMPILE_MUSICXML_STRINGS_v62.bat",
@@ -23,7 +24,7 @@ def main() -> int:
         require(token in collect, f'prebuilt collector missing {token}')
 
     verify=(ROOT/'installer/tools/verify_prebuilt_layout.py').read_text(encoding='utf-8', errors='ignore')
-    for token in ['Frontend/index.html','Frontend/editor_server.py','Tools/OPEN_INSTRUMENT_EDITOR.bat']:
+    for token in ['Frontend/index.html','Frontend/note-tools.js','Frontend/editor_server.py','Tools/OPEN_INSTRUMENT_EDITOR.bat']:
         require(token in verify, f'prebuilt verifier missing {token}')
 
     mgr=(ROOT/'manager_release.ps1').read_text(encoding='utf-8', errors='ignore')
