@@ -220,7 +220,7 @@ def main():
         sampler.weights=torch.as_tensor(source_weights(ds.rows,a.registry,a.real_ratio,a.modeled_ratio,progress=progress),dtype=torch.double)
         if expert_loaded and a.expert_freeze_epochs>0 and ep==start+a.expert_freeze_epochs:
             set_expert_trainable(True); print('unfroze physical experts for end-to-end HQ refinement')
-        m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'continuity':0.,'accel':0.,'modeled_fraction':0.}; steps=0
+        m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'continuity':0.,'accel':0.,'modeled_fraction':0.}; steps=0; interrupted=False
         for bi,batch in enumerate(dl):
             with ampctx(): loss,met=run_batch(m,batch,dev,True,a.cond_dropout,modeled_sources,a.modeled_flow_weight); loss=loss/a.accum
             loss.backward()
@@ -228,7 +228,26 @@ def main():
                 torch.nn.utils.clip_grad_norm_(m.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,m,a.ema)
             for k,v in met.items(): sums[k]+=float(v)
             steps+=1
-        sched.step(); denom=max(1,steps)
+            stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+            if stop_file and Path(stop_file).exists() and steps < len(dl):
+                interrupted=True
+                print('[SAFE STOP] request seen after batch',steps,'of',len(dl))
+                break
+        denom=max(1,steps)
+        if interrupted:
+            msg=f"epoch {ep+1:03d} PARTIAL train_flow={sums['flow']/denom:.6f} cont={sums['continuity']/denom:.6f} accel={sums['accel']/denom:.6f} modeled={sums['modeled_fraction']/denom:.3f}"
+            print(msg)
+            ck={'model':m.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'scheduler':sched.state_dict(),
+                'epoch':ep,'partial_epoch':ep+1,'partial_batches':steps,'config':cfg,'preset':a.preset,'latent_ch':latent_ch,'latent_hz':latent_hz,
+                'codec_kind':codec_kind,'codec_sample_rate':codec_sample_rate,'articulations':12,
+                'control_dims':m.CONTROL_DIMS,'source_index':a.index,'val_index':a.val_index,'best_val':best,'schema_version':9,
+                'vibrato_expert_seed':a.vibrato_expert,'performance_experts_seed':a.performance_experts,
+                'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
+                'acoustic_promotion_id':promotion_id}
+            atomic_torch_save(ck,a.out)
+            print('[SAFE STOP] partial renderer epoch saved; epoch',ep+1,'will replay on resume ->',a.out)
+            return
+        sched.step()
         msg=f"epoch {ep+1:03d} train_flow={sums['flow']/denom:.6f} cont={sums['continuity']/denom:.6f} accel={sums['accel']/denom:.6f} modeled={sums['modeled_fraction']/denom:.3f} lr={sched.get_last_lr()[0]:.2e}"
         val=float('nan')
         if vdl:
@@ -251,7 +270,7 @@ def main():
             best=score; ck['best_val']=best; atomic_torch_save(ck,a.best_out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
         if stop_file and Path(stop_file).exists():
-            print('[SAFE STOP] renderer checkpoint saved at epoch',ep+1,'->',a.out)
+            print('[SAFE STOP] renderer checkpoint saved at completed epoch',ep+1,'->',a.out)
             return
 
 if __name__=='__main__': main()
