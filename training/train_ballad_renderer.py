@@ -9,6 +9,14 @@ from source_policy import validate_index
 from string_source_mixer import load_registry, build_mixture_weights, build_curriculum_weights, mixture_audit, coverage_audit
 from promotion_binding import promotion_binding
 
+
+def atomic_torch_save(obj, path):
+    p=Path(path)
+    p.parent.mkdir(parents=True,exist_ok=True)
+    tmp=p.with_name(p.name+'.tmp')
+    torch.save(obj,tmp)
+    os.replace(tmp,p)
+
 PRESETS = {
     'smoke': {'d_model': 64, 'layers': 2, 'heads': 4},
     'compact': {'d_model': 384, 'layers': 8, 'heads': 8},
@@ -237,10 +245,10 @@ def main():
             'vibrato_expert_seed':a.vibrato_expert,'performance_experts_seed':a.performance_experts,
             'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
             'acoustic_promotion_id':promotion_id}
-        Path(a.out).parent.mkdir(parents=True,exist_ok=True); torch.save(ck,a.out)
+        atomic_torch_save(ck,a.out)
         score=val if vdl else sums['flow']/denom
         if score<best:
-            best=score; ck['best_val']=best; torch.save(ck,a.best_out)
+            best=score; ck['best_val']=best; atomic_torch_save(ck,a.best_out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
         if stop_file and Path(stop_file).exists():
             print('[SAFE STOP] renderer checkpoint saved at epoch',ep+1,'->',a.out)
