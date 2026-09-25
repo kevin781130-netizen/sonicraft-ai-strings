@@ -61,7 +61,7 @@ def main():
     if a.arch=='legacy':
         m=StringCodec().to(dev); opt=torch.optim.AdamW(m.parameters(),2e-4,betas=(.8,.99))
         print('legacy codec params',sum(p.numel() for p in m.parameters()),'device',dev,'clips',len(ds))
-        for ep in range(start,a.epochs):
+        for ep in range(a.epochs):
             m.train(); tot=0.
             for wav,_rows in dl:
                 wav=wav.to(dev); rec=m(wav); n=min(wav.shape[-1],rec.shape[-1]); wav=wav[...,:n]; rec=rec[...,:n]
@@ -104,7 +104,7 @@ def main():
     ampctx=lambda: torch.autocast(device_type='cuda',dtype=torch.bfloat16,enabled=use_amp)
     decoder_out=Path(a.decoder_out) if a.decoder_out else Path(a.out).with_name('strings_vae64_decoder.pt')
 
-    for ep in range(a.epochs):
+    for ep in range(start,a.epochs):
         progress=ep/max(1,a.epochs-1)
         sampler.weights=torch.as_tensor(build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=progress,require_modeled=a.require_modeled),dtype=torch.double)
         m.train(); probe.train(); disc.train()
