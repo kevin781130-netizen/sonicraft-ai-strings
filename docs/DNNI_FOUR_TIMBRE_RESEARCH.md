@@ -50,3 +50,15 @@ The chain trains a VAE64 acoustic codec, encodes the four capture lanes, trains 
 Every raw capture row is tagged `release_blocked=true`, `commercial_safe=false`, and `cleanroom_eligible=false`. The existing latent encoder does not preserve every release-policy flag, so the research wrapper additionally requires the immutable research identity markers `dataset=dnni_research_timbre_*` and `source_kind=proprietary_teacher_render_research_only` before it will bypass the **commercial training source check for that process only**. It does not alter the standard release/promotion gates and must not be used to claim a clean-room commercial checkpoint.
 
 The manifest uses `training_origin=real` only to tell the existing research loss code that captured teacher audio is the acoustic target rather than the SONICRAFT physics-model lane. That label is a sampler/loss-control mechanism here; it is **not** a rights or provenance claim that the audio is a rights-cleared real-instrument recording.
+
+
+## One-click train / safe stop / auto resume
+
+From the repository root on Windows:
+
+- Double-click `TRAIN_DNNI_5090.bat` to start the whole RTX 5090 pipeline.
+- Double-click `STOP_DNNI_5090.bat` while training to request a safe stop after the current epoch is checkpointed.
+- Double-click `TRAIN_DNNI_5090.bat` again later; existing VAE64, HQ renderer, distillation, and shortcut checkpoints are detected automatically and resumed.
+- A direct Ctrl+C/window close still preserves the last completed epoch checkpoint, but the unfinished epoch may need to be repeated.
+
+The main pipeline uses `SONICRAFT_STOP_FILE` only when launched by the DNNI BAT. Normal SONICRAFT commercial training commands are unaffected.
