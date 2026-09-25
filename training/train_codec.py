@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse, json
+import argparse, json, os
 from pathlib import Path
 import torch
 from torch.utils.data import DataLoader, WeightedRandomSampler
@@ -28,6 +28,7 @@ def main():
     ap.add_argument('--manifest',action='append',required=True)
     ap.add_argument('--out',default='checkpoints/strings_vae64.pt')
     ap.add_argument('--decoder-out',default=None)
+    ap.add_argument('--resume',help='Resume VAE64 training from a checkpoint; --epochs remains the total target epoch count.')
     ap.add_argument('--arch',choices=('vae64','legacy'),default='vae64')
     ap.add_argument('--width',type=int,default=24,help='VAE64 base width. 16=micro, 24=balanced frontier.')
     ap.add_argument('--epochs',type=int,default=80); ap.add_argument('--batch',type=int,default=4)
@@ -60,7 +61,7 @@ def main():
     if a.arch=='legacy':
         m=StringCodec().to(dev); opt=torch.optim.AdamW(m.parameters(),2e-4,betas=(.8,.99))
         print('legacy codec params',sum(p.numel() for p in m.parameters()),'device',dev,'clips',len(ds))
-        for ep in range(a.epochs):
+        for ep in range(start,a.epochs):
             m.train(); tot=0.
             for wav,_rows in dl:
                 wav=wav.to(dev); rec=m(wav); n=min(wav.shape[-1],rec.shape[-1]); wav=wav[...,:n]; rec=rec[...,:n]
@@ -77,6 +78,25 @@ def main():
     disc=MultiResolutionSTFTDiscriminator().to(dev)
     opt=torch.optim.AdamW(list(m.parameters())+list(probe.parameters()),a.lr,betas=(.8,.99),weight_decay=1e-3)
     dopt=torch.optim.AdamW(disc.parameters(),a.disc_lr,betas=(.8,.99),weight_decay=1e-3)
+    start=0
+    if a.resume:
+        ck=torch.load(a.resume,map_location='cpu')
+        if str(ck.get('codec_kind','')).lower()!='strings_vae64':
+            raise RuntimeError('resume checkpoint is not strings_vae64')
+        saved_cfg=dict(ck.get('config') or {})
+        current_cfg=m.config()
+        if saved_cfg and saved_cfg!=current_cfg:
+            raise RuntimeError(f'resume codec architecture mismatch: saved={saved_cfg} current={current_cfg}')
+        m.load_state_dict(ck['model'],strict=True)
+        if 'physics_probe' in ck: probe.load_state_dict(ck['physics_probe'],strict=True)
+        if 'discriminator' in ck: disc.load_state_dict(ck['discriminator'],strict=True)
+        if 'optimizer' in ck: opt.load_state_dict(ck['optimizer'])
+        if 'd_optimizer' in ck: dopt.load_state_dict(ck['d_optimizer'])
+        start=int(ck.get('epoch',0))
+        print('resumed codec',a.resume,'at epoch',start,'target',a.epochs)
+        if start>=a.epochs:
+            print('codec target already complete; nothing to do')
+            return
     total=sum(p.numel() for p in m.parameters()); dec=sum(p.numel() for p in m.decoder.parameters()); pp=sum(p.numel() for p in probe.parameters())
     print('VAE64 params',total,'decoder_only',dec,'training_probe',pp,'device',dev,'clips',len(ds),'width',a.width,
           'latent',m.latent_dim,'downsample',m.downsampling_ratio,'latent_hz',m.latent_hz)
@@ -133,9 +153,13 @@ def main():
              'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_recon_weight':a.modeled_recon_weight,'curriculum':curriculum},
              'acoustic_promotion_id':promotion_id,
              'physics_probe_training_only':True,'physics_metric_weight':a.physics_metric_weight,'sound_forge':'sound_forge_v19'}
-        torch.save({**common,'model':m.state_dict(),'physics_probe':probe.state_dict(),'optimizer':opt.state_dict(),'discriminator':disc.state_dict()},a.out)
+        torch.save({**common,'model':m.state_dict(),'physics_probe':probe.state_dict(),'optimizer':opt.state_dict(),'d_optimizer':dopt.state_dict(),'discriminator':disc.state_dict()},a.out)
         decoder_out.parent.mkdir(parents=True,exist_ok=True)
         # Deliberately no probe/discriminator/encoder optimizer in consumer artifact.
         torch.save({**common,'decoder':m.decoder.state_dict(),'decoder_params':dec},decoder_out)
+        stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if stop_file and Path(stop_file).exists():
+            print('[SAFE STOP] checkpoint saved at epoch',ep+1,'->',a.out)
+            return
 
 if __name__=='__main__': main()
