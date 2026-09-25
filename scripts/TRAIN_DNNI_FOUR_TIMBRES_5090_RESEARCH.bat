@@ -26,6 +26,12 @@ echo ============================================================
 echo.
 echo Safe stop: double-click STOP_DNNI_5090.bat
 echo Resume:    double-click TRAIN_DNNI_5090.bat again
+echo Status:    double-click STATUS_DNNI_5090.bat
+echo.
+
+echo [CHECKPOINT PREFLIGHT]
+python training\scripts\dnni_training_status.py
+if errorlevel 1 goto :BAD_CHECKPOINT
 echo.
 
 if not exist "%ROOT%\capture_plan.jsonl" (
@@ -117,6 +123,16 @@ echo The current epoch was saved successfully.
 echo Double-click TRAIN_DNNI_5090.bat later to continue automatically.
 echo ============================================================
 exit /b 0
+
+:BAD_CHECKPOINT
+echo.
+echo ============================================================
+echo [INVALID/CORRUPT CHECKPOINT DETECTED]
+echo Automatic resume has been blocked to protect your training state.
+echo Run STATUS_DNNI_5090.bat for details.
+echo Rename or move the bad checkpoint, then start TRAIN_DNNI_5090.bat again.
+echo ============================================================
+exit /b 2
 
 :FAIL
 set "EC=%ERRORLEVEL%"
