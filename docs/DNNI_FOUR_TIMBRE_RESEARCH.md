@@ -57,7 +57,7 @@ The manifest uses `training_origin=real` only to tell the existing research loss
 From the repository root on Windows:
 
 - Double-click `TRAIN_DNNI_5090.bat` to start the whole RTX 5090 pipeline.
-- Double-click `STOP_DNNI_5090.bat` while training to request a safe stop after the current epoch is checkpointed.
+- Double-click `STOP_DNNI_5090.bat` while training to request a safe stop after the current batch/optimizer step. A partial epoch checkpoint is saved and that epoch is replayed when training resumes.
 - Double-click `TRAIN_DNNI_5090.bat` again later; existing VAE64, HQ renderer, distillation, and shortcut checkpoints are detected automatically and resumed.
 - A direct Ctrl+C/window close still preserves the last completed epoch checkpoint, but the unfinished epoch may need to be repeated.
 
@@ -70,4 +70,4 @@ For normal use, double-click `DNNI_5090_MANAGER.bat`. It provides Start/Resume, 
 
 `STATUS_DNNI_5090.bat` reports capture rows, latent rows, and epoch progress for all four trainable stages. The main trainer runs the same checkpoint-health scan before auto-resume. If a checkpoint cannot be loaded or its expected identity is wrong, automatic resume is blocked instead of overwriting it.
 
-Checkpoint writes for VAE64, HQ renderer, distillation and shortcut training are atomic: the new checkpoint is first written to a sibling `.tmp` file and replaces the previous `.pt` only after the write succeeds. This preserves the last complete checkpoint if Windows, Python, or the training process is interrupted during serialization.
+Checkpoint writes for VAE64, HQ renderer, distillation and shortcut training are atomic: the new checkpoint is first written to a sibling `.tmp` file and replaces the previous `.pt` only after the write succeeds. This preserves the last complete checkpoint if Windows, Python, or the training process is interrupted during serialization. Safe-stop requests are checked inside the training loop after a batch/optimizer step; partial checkpoints record `partial_epoch` and `partial_batches`, while `epoch` remains the last fully completed epoch so resume never skips unfinished work.
