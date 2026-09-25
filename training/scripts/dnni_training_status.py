@@ -44,7 +44,8 @@ def validate_checkpoint(kind: str, path: Path, target: int):
         return {"kind":kind,"path":str(path),"state":"invalid","epoch":epoch,"target":target,"valid":False,"error":"; ".join(errors)}
     state="complete" if epoch>=target else "resumable"
     return {"kind":kind,"path":str(path),"state":state,"epoch":epoch,"target":target,"valid":True,
-            "percent":round(min(100.0,100.0*epoch/max(1,target)),1)}
+            "percent":round(min(100.0,100.0*epoch/max(1,target)),1),
+            "partial_epoch":ck.get("partial_epoch"),"partial_batches":ck.get("partial_batches")}
 
 def count_jsonl(path: Path):
     if not path.exists(): return 0
@@ -78,7 +79,10 @@ def print_human(s):
         label=st["kind"].upper().ljust(9)
         state=st["state"].upper().ljust(9)
         if st["valid"]:
-            print(f"{label} {state} epoch {st['epoch']:>3}/{st['target']:<3}  {st.get('percent',0):>5.1f}%")
+            suffix=""
+            if st.get("partial_epoch"):
+                suffix=f"  partial epoch {st['partial_epoch']} @ batch {st.get('partial_batches')}"
+            print(f"{label} {state} epoch {st['epoch']:>3}/{st['target']:<3}  {st.get('percent',0):>5.1f}%{suffix}")
         else:
             extra=f" - {st.get('error','')}" if st.get("error") else ""
             print(f"{label} {state}{extra}")
