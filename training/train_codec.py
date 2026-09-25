@@ -23,6 +23,14 @@ def recon_loss(fake, real):
 
 from promotion_binding import promotion_binding
 
+
+def atomic_torch_save(obj, path):
+    p=Path(path)
+    p.parent.mkdir(parents=True,exist_ok=True)
+    tmp=p.with_name(p.name+'.tmp')
+    torch.save(obj,tmp)
+    os.replace(tmp,p)
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--manifest',action='append',required=True)
@@ -68,7 +76,7 @@ def main():
                 loss=(wav-rec).abs().mean()+0.7*mrstft_loss(rec,wav)
                 opt.zero_grad(set_to_none=True); loss.backward(); torch.nn.utils.clip_grad_norm_(m.parameters(),5.); opt.step(); tot+=loss.item()
             print(f'epoch {ep+1:03d} loss={tot/max(1,len(dl)):.5f}')
-            torch.save({'model':m.state_dict(),'latent':96,'epoch':ep+1,'codec_kind':'legacy_stringcodec','latent_hz':187.5,'codec_sample_rate':48000,
+            atomic_torch_save({'model':m.state_dict(),'latent':96,'epoch':ep+1,'codec_kind':'legacy_stringcodec','latent_hz':187.5,'codec_sample_rate':48000,
                         'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
         return
 
@@ -153,10 +161,10 @@ def main():
              'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_recon_weight':a.modeled_recon_weight,'curriculum':curriculum},
              'acoustic_promotion_id':promotion_id,
              'physics_probe_training_only':True,'physics_metric_weight':a.physics_metric_weight,'sound_forge':'sound_forge_v19'}
-        torch.save({**common,'model':m.state_dict(),'physics_probe':probe.state_dict(),'optimizer':opt.state_dict(),'d_optimizer':dopt.state_dict(),'discriminator':disc.state_dict()},a.out)
+        atomic_torch_save({**common,'model':m.state_dict(),'physics_probe':probe.state_dict(),'optimizer':opt.state_dict(),'d_optimizer':dopt.state_dict(),'discriminator':disc.state_dict()},a.out)
         decoder_out.parent.mkdir(parents=True,exist_ok=True)
         # Deliberately no probe/discriminator/encoder optimizer in consumer artifact.
-        torch.save({**common,'decoder':m.decoder.state_dict(),'decoder_params':dec},decoder_out)
+        atomic_torch_save({**common,'decoder':m.decoder.state_dict(),'decoder_params':dec},decoder_out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
         if stop_file and Path(stop_file).exists():
             print('[SAFE STOP] checkpoint saved at epoch',ep+1,'->',a.out)
