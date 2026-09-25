@@ -24,7 +24,7 @@ echo SONICRAFT AI Strings - DNNI Four Timbres - RTX 5090
 echo AUTO RESUME ENABLED
 echo ============================================================
 echo.
-echo Safe stop: double-click STOP_DNNI_5090.bat
+echo Safe stop: double-click STOP_DNNI_5090.bat ^(after current batch/step^)
 echo Resume:    double-click TRAIN_DNNI_5090.bat again
 echo Status:    double-click STATUS_DNNI_5090.bat
 echo.
@@ -119,7 +119,7 @@ exit /b 0
 echo.
 echo ============================================================
 echo [SAFE STOP COMPLETE]
-echo The current epoch was saved successfully.
+echo The current training state was saved successfully.
 echo Double-click TRAIN_DNNI_5090.bat later to continue automatically.
 echo ============================================================
 exit /b 0
