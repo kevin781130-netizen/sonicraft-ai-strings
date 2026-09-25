@@ -12,8 +12,11 @@ set "RAW=%ROOT%\rendered\index.jsonl"
 set "LATENTS=%ROOT%\latents\index.jsonl"
 set "STOPFILE=%CD%\checkpoints\dnni4_stop_after_epoch.flag"
 set "SONICRAFT_STOP_FILE=%STOPFILE%"
+set "LOGROOT=logs\dnni5090"
+set "PYTHONUNBUFFERED=1"
 
 if not exist checkpoints mkdir checkpoints
+if not exist "%LOGROOT%" mkdir "%LOGROOT%"
 if exist "%STOPFILE%" (
   echo [INFO] Clearing stale safe-stop request from previous run.
   del /q "%STOPFILE%" >nul 2>&1
@@ -36,12 +39,12 @@ echo.
 
 if not exist "%ROOT%\capture_plan.jsonl" (
   echo [SETUP] Creating four-timbre capture plan...
-  python training\scripts\generate_dnni_capture_plan.py || goto :FAIL
+  python training\scripts\run_logged.py --log "%LOGROOT%\capture_plan.log" -- python training\scripts\generate_dnni_capture_plan.py || goto :FAIL
 )
 
 if not exist "%RAW%" (
   echo [SETUP] Building render manifest from captured WAV files...
-  python training\scripts\build_dnni_render_manifest.py
+  python training\scripts\run_logged.py --log "%LOGROOT%\render_manifest.log" -- python training\scripts\build_dnni_render_manifest.py
   if errorlevel 1 (
     echo.
     echo [ERROR] Rendered WAV capture set is not complete yet.
@@ -50,8 +53,8 @@ if not exist "%RAW%" (
   )
 )
 
-echo [GPU CHECK]
-python -c "import torch; assert torch.cuda.is_available(), 'CUDA GPU not available'; p=torch.cuda.get_device_properties(0); print('GPU:',p.name); print('VRAM GiB:',round(p.total_memory/1024**3,2)); print('CUDA:',torch.version.cuda); print('BF16:',torch.cuda.is_bf16_supported())" || goto :FAIL
+echo [GPU / ENVIRONMENT CHECK]
+python training\scripts\run_logged.py --log "%LOGROOT%\preflight.log" -- python training\scripts\dnni_5090_preflight.py || goto :FAIL
 echo.
 
 echo [1/5] VAE64 acoustic codec
@@ -60,7 +63,7 @@ if exist "checkpoints\dnni4_vae64_research.pt" (
   set "CODEC_RESUME=--resume checkpoints\dnni4_vae64_research.pt"
   echo [AUTO RESUME] Found codec checkpoint.
 )
-python training\train_codec.py --manifest "%RAW%" --arch vae64 --width 32 --epochs 100 --batch 4 --real-ratio 1.0 --modeled-ratio 0.0 --modeled-recon-weight 1.0 --physics-weight 0.0 --physics-metric-weight 0.0 --out checkpoints\dnni4_vae64_research.pt --decoder-out checkpoints\dnni4_vae64_decoder_research.pt !CODEC_RESUME!
+python training\scripts\run_logged.py --log "%LOGROOT%\01_codec.log" -- python training\train_codec.py --manifest "%RAW%" --arch vae64 --width 32 --epochs 100 --batch 4 --real-ratio 1.0 --modeled-ratio 0.0 --modeled-recon-weight 1.0 --physics-weight 0.0 --physics-metric-weight 0.0 --out checkpoints\dnni4_vae64_research.pt --decoder-out checkpoints\dnni4_vae64_decoder_research.pt !CODEC_RESUME!
 if errorlevel 1 goto :FAIL
 if exist "%STOPFILE%" goto :PAUSED
 
@@ -69,7 +72,7 @@ echo [2/5] Encode four-timbre VAE64 latents
 if exist "%LATENTS%" (
   echo [SKIP] Latent index already exists: %LATENTS%
 ) else (
-  python training\scripts\encode_vae64_latents.py --index "%RAW%" --codec checkpoints\dnni4_vae64_research.pt --out %ROOT%\latents || goto :FAIL
+  python training\scripts\run_logged.py --log "%LOGROOT%\02_latents.log" -- python training\scripts\encode_vae64_latents.py --index "%RAW%" --codec checkpoints\dnni4_vae64_research.pt --out %ROOT%\latents || goto :FAIL
 )
 if exist "%STOPFILE%" goto :PAUSED
 
@@ -80,7 +83,7 @@ if exist "checkpoints\dnni4_renderer_hq_research_last.pt" (
   set "RENDER_RESUME=--resume checkpoints\dnni4_renderer_hq_research_last.pt"
   echo [AUTO RESUME] Found HQ renderer checkpoint.
 )
-python training\scripts\run_dnni_research_entry.py renderer -- --index "%LATENTS%" --preset hq_strings_v18 --epochs 260 --batch 2 --accum 2 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_renderer_hq_research_last.pt --best-out checkpoints\dnni4_renderer_hq_research_best.pt !RENDER_RESUME!
+python training\scripts\run_logged.py --log "%LOGROOT%\03_renderer.log" -- python training\scripts\run_dnni_research_entry.py renderer -- --index "%LATENTS%" --preset hq_strings_v18 --epochs 260 --batch 2 --accum 2 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_renderer_hq_research_last.pt --best-out checkpoints\dnni4_renderer_hq_research_best.pt !RENDER_RESUME!
 if errorlevel 1 goto :FAIL
 if exist "%STOPFILE%" goto :PAUSED
 
@@ -91,7 +94,7 @@ if exist "checkpoints\dnni4_frontier_research.pt" (
   set "DISTILL_RESUME=--resume checkpoints\dnni4_frontier_research.pt"
   echo [AUTO RESUME] Found distillation checkpoint.
 )
-python training\scripts\run_dnni_research_entry.py distill -- --index "%LATENTS%" --teacher checkpoints\dnni4_renderer_hq_research_best.pt --student-preset frontier_core_dit --epochs 130 --batch 2 --accum 2 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_frontier_research.pt !DISTILL_RESUME!
+python training\scripts\run_logged.py --log "%LOGROOT%\04_distill.log" -- python training\scripts\run_dnni_research_entry.py distill -- --index "%LATENTS%" --teacher checkpoints\dnni4_renderer_hq_research_best.pt --student-preset frontier_core_dit --epochs 130 --batch 2 --accum 2 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_frontier_research.pt !DISTILL_RESUME!
 if errorlevel 1 goto :FAIL
 if exist "%STOPFILE%" goto :PAUSED
 
@@ -102,7 +105,7 @@ if exist "checkpoints\dnni4_frontier_shortcut_research.pt" (
   set "SHORTCUT_RESUME=--resume checkpoints\dnni4_frontier_shortcut_research.pt"
   echo [AUTO RESUME] Found shortcut checkpoint.
 )
-python training\scripts\run_dnni_research_entry.py shortcut -- --index "%LATENTS%" --init checkpoints\dnni4_frontier_research.pt --preset frontier_core_dit --max-steps 8 --recommend-steps 2 --epochs 55 --batch 1 --accum 1 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_frontier_shortcut_research.pt !SHORTCUT_RESUME!
+python training\scripts\run_logged.py --log "%LOGROOT%\05_shortcut.log" -- python training\scripts\run_dnni_research_entry.py shortcut -- --index "%LATENTS%" --init checkpoints\dnni4_frontier_research.pt --preset frontier_core_dit --max-steps 8 --recommend-steps 2 --epochs 55 --batch 1 --accum 1 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_frontier_shortcut_research.pt !SHORTCUT_RESUME!
 if errorlevel 1 goto :FAIL
 if exist "%STOPFILE%" goto :PAUSED
 
@@ -111,6 +114,8 @@ echo ============================================================
 echo [DONE] ALL TRAINING STAGES COMPLETE
 echo Final checkpoint:
 echo checkpoints\dnni4_frontier_shortcut_research.pt
+echo Logs:
+echo %LOGROOT%
 echo ============================================================
 if exist "%STOPFILE%" del /q "%STOPFILE%" >nul 2>&1
 exit /b 0
