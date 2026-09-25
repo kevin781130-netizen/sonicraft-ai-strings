@@ -22,6 +22,14 @@ from promotion_binding import promotion_binding
 from source_policy import validate_index
 from string_source_mixer import load_registry, build_curriculum_weights, mixture_audit
 
+
+def atomic_torch_save(obj, path):
+    p=Path(path)
+    p.parent.mkdir(parents=True,exist_ok=True)
+    tmp=p.with_name(p.name+'.tmp')
+    torch.save(obj,tmp)
+    os.replace(tmp,p)
+
 CONTROL_NAMES=(
     'pitch','gate','onset','velocity','dynamics','vibrato','expression','legato','pitchbend',
     'transition_speed','short_tightness','attack_character','note_progress','phrase_position',
@@ -213,7 +221,7 @@ def main():
             n+=1
         print(f"epoch {ep+1:03d} flow={sums['flow']/max(1,n):.6f} shortcut={sums['bootstrap']/max(1,n):.6f} end={sums['endpoint']/max(1,n):.6f} cont={sums['continuity']/max(1,n):.6f} mean_h={sums['mean_h']/max(1,n):.3f} modeled={sums['modeled_fraction']/max(1,n):.3f}")
         Path(a.out).parent.mkdir(parents=True,exist_ok=True)
-        torch.save({'model':m.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':ep+1,'config':cfg,'preset':a.preset,
+        atomic_torch_save({'model':m.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':ep+1,'config':cfg,'preset':a.preset,
                     'latent_ch':latent_ch,'latent_hz':latent_hz,'codec_kind':codec_kind,'codec_sample_rate':codec_sr,
                     'sampling_family':'shortcut','supported_steps':[2**i for i in range(int(math.log2(a.max_steps))+1)],
                     'recommended_steps':int(a.recommend_steps),'max_shortcut_steps':int(a.max_steps),
