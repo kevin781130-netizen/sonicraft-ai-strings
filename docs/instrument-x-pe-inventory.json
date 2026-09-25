@@ -1,0 +1,460 @@
+[
+  {
+    "path": "app/instx.exe",
+    "sha256": "a2f1bc1a7c5ab18a1314130a6b602c9bb7be98fe5c560f657a19a1f89dff137c",
+    "machine": "0x8664",
+    "resource_types": [
+      3,
+      14,
+      16,
+      24
+    ],
+    "sections": [
+      {
+        "name": ".text",
+        "rva": 4096,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".rdata",
+        "rva": 23195648,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".data",
+        "rva": 29585408,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".pdata",
+        "rva": 30371840,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".fptable",
+        "rva": 30998528,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": "_RDATA",
+        "rva": 31002624,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".VpX",
+        "rva": 31203328,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".}00",
+        "rva": 35606528,
+        "raw": 1024,
+        "size": 8192
+      },
+      {
+        "name": ".U,`",
+        "rva": 35614720,
+        "raw": 9216,
+        "size": 18429440
+      },
+      {
+        "name": ".rsrc",
+        "rva": 54046720,
+        "raw": 18438656,
+        "size": 44032
+      }
+    ]
+  },
+  {
+    "path": "commonpf64/Common Files/ARA/Instrument X ARA Plugin.vst3",
+    "sha256": "5159ee40019c6dcc01228eedb375eb039add59b2adcf4f617be79d9092a17ab2",
+    "machine": "0x8664",
+    "resource_types": [
+      16,
+      24
+    ],
+    "sections": [
+      {
+        "name": ".text",
+        "rva": 4096,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".rdata",
+        "rva": 23576576,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".data",
+        "rva": 29806592,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".pdata",
+        "rva": 30593024,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".fptable",
+        "rva": 31240192,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": "_RDATA",
+        "rva": 31244288,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".Xe3",
+        "rva": 31444992,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".\"^A",
+        "rva": 34512896,
+        "raw": 1024,
+        "size": 5632
+      },
+      {
+        "name": ".N'S",
+        "rva": 34521088,
+        "raw": 6656,
+        "size": 17218048
+      },
+      {
+        "name": ".rsrc",
+        "rva": 51740672,
+        "raw": 17224704,
+        "size": 1536
+      },
+      {
+        "name": ".reloc",
+        "rva": 51744768,
+        "raw": 17226240,
+        "size": 512
+      }
+    ]
+  },
+  {
+    "path": "commonpf64/Common Files/VST3/Instrument X Plugin.vst3",
+    "sha256": "d854fa5a0c464bf93430a9f295d31d8aad03939d40c8103ae5345fdcd2d2ef9b",
+    "machine": "0x8664",
+    "resource_types": [
+      16,
+      24
+    ],
+    "sections": [
+      {
+        "name": ".text",
+        "rva": 4096,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".rdata",
+        "rva": 23400448,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".data",
+        "rva": 29593600,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".pdata",
+        "rva": 30371840,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".fptable",
+        "rva": 31010816,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": "_RDATA",
+        "rva": 31014912,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".$~`",
+        "rva": 31215616,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".g)d",
+        "rva": 34295808,
+        "raw": 1024,
+        "size": 5632
+      },
+      {
+        "name": ".1V5",
+        "rva": 34304000,
+        "raw": 6656,
+        "size": 17163264
+      },
+      {
+        "name": ".rsrc",
+        "rva": 51470336,
+        "raw": 17169920,
+        "size": 1536
+      },
+      {
+        "name": ".reloc",
+        "rva": 51474432,
+        "raw": 17171456,
+        "size": 512
+      }
+    ]
+  },
+  {
+    "path": "commonpf64/Common Files/VST3/Instrument X ARA Plugin.vst3",
+    "sha256": "5159ee40019c6dcc01228eedb375eb039add59b2adcf4f617be79d9092a17ab2",
+    "machine": "0x8664",
+    "resource_types": [
+      16,
+      24
+    ],
+    "sections": [
+      {
+        "name": ".text",
+        "rva": 4096,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".rdata",
+        "rva": 23576576,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".data",
+        "rva": 29806592,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".pdata",
+        "rva": 30593024,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".fptable",
+        "rva": 31240192,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": "_RDATA",
+        "rva": 31244288,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".Xe3",
+        "rva": 31444992,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".\"^A",
+        "rva": 34512896,
+        "raw": 1024,
+        "size": 5632
+      },
+      {
+        "name": ".N'S",
+        "rva": 34521088,
+        "raw": 6656,
+        "size": 17218048
+      },
+      {
+        "name": ".rsrc",
+        "rva": 51740672,
+        "raw": 17224704,
+        "size": 1536
+      },
+      {
+        "name": ".reloc",
+        "rva": 51744768,
+        "raw": 17226240,
+        "size": 512
+      }
+    ]
+  },
+  {
+    "path": "commonpf64/Common Files/Avid/Audio/Plug-Ins/InstrumentX.aaxplugin/Contents/x64/InstrumentX.aaxplugin",
+    "sha256": "8beeaf825ed0726dca4a8311f512ff3c15af1c22b8650fd0610b67ba24ad12b1",
+    "machine": "0x8664",
+    "resource_types": [
+      16,
+      24
+    ],
+    "sections": [
+      {
+        "name": ".text",
+        "rva": 4096,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".rdata",
+        "rva": 23367680,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".data",
+        "rva": 29556736,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".pdata",
+        "rva": 30326784,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".fptable",
+        "rva": 30961664,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": "_RDATA",
+        "rva": 30965760,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".19t",
+        "rva": 31166464,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".JZ\"",
+        "rva": 34181120,
+        "raw": 1024,
+        "size": 5632
+      },
+      {
+        "name": ".SgE",
+        "rva": 34189312,
+        "raw": 6656,
+        "size": 17043456
+      },
+      {
+        "name": ".rsrc",
+        "rva": 51232768,
+        "raw": 17050112,
+        "size": 1536
+      },
+      {
+        "name": ".reloc",
+        "rva": 51236864,
+        "raw": 17051648,
+        "size": 512
+      }
+    ]
+  },
+  {
+    "path": "commonpf64/Common Files/Avid/Audio/Plug-Ins/InstrumentXARAPlugin.aaxplugin/Contents/x64/InstrumentXARAPlugin.aaxplugin",
+    "sha256": "a06ce6605d521deb0b299aafd70096d585bb87a4468beb19c3dce10f0571107a",
+    "machine": "0x8664",
+    "resource_types": [
+      16,
+      24
+    ],
+    "sections": [
+      {
+        "name": ".text",
+        "rva": 4096,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".rdata",
+        "rva": 23539712,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".data",
+        "rva": 29765632,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".pdata",
+        "rva": 30539776,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".fptable",
+        "rva": 31186944,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": "_RDATA",
+        "rva": 31191040,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".j8s",
+        "rva": 31391744,
+        "raw": 0,
+        "size": 0
+      },
+      {
+        "name": ".4@g",
+        "rva": 34406400,
+        "raw": 1024,
+        "size": 5632
+      },
+      {
+        "name": ".KDQ",
+        "rva": 34414592,
+        "raw": 6656,
+        "size": 17128448
+      },
+      {
+        "name": ".rsrc",
+        "rva": 51544064,
+        "raw": 17135104,
+        "size": 1536
+      },
+      {
+        "name": ".reloc",
+        "rva": 51548160,
+        "raw": 17136640,
+        "size": 512
+      }
+    ]
+  }
+]

@@ -22,3 +22,14 @@ Run `DEBUG_EDITOR_V64.bat`. Console output is retained in `logs/frontend_v64/edi
 
 ## Architectural boundary
 The editor does not implement a second compiler or acoustic renderer. It produces editable source intent and delegates actual compile/render work to the frozen v6.2 runtime. This prevents the UI from becoming another source of performance logic drift.
+
+## Note tools and transport
+
+The Score page now includes scoped note scaling and gap closing, Shift-click
+multi-selection, track selection, group edits, Undo/Redo, bar/pitch navigation and
+current-track synthesized preview with optional silence skipping. Space toggles
+preview; Escape pauses, and Stop resets the playhead. The sine preview is for
+pitch/timing checks; use Compile / Auto-Loop for acoustic rendering.
+
+Keep `note-tools.js` beside `index.html` when distributing the frontend. Details,
+provenance and tests: `docs/INSTRUMENT_X_FRONTEND_RECOVERY.md`.
