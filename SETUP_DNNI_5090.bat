@@ -8,7 +8,7 @@ echo ============================================================
 echo SONICRAFT AI Strings - RTX 5090 Training Environment
 echo ============================================================
 echo.
-echo Recommended path: Python 3.11 + PyTorch 2.12 + CUDA 13.0 wheel.
+echo Recommended path: Python 3.11 + PyTorch 2.11.0 + TorchAudio 2.11.0 + CUDA 13.0.
 echo.
 
 where py >nul 2>&1
@@ -31,8 +31,8 @@ call .venv\Scripts\activate.bat || goto :FAIL
 echo [2/5] Updating pip...
 python -m pip install --upgrade pip setuptools wheel || goto :FAIL
 
-echo [3/5] Installing Blackwell-capable PyTorch CUDA 13.0...
-python -m pip install --upgrade torch==2.12.0 torchaudio==2.12.0 --index-url https://download.pytorch.org/whl/cu130 || goto :FAIL
+echo [3/5] Installing matched Blackwell-capable PyTorch/TorchAudio CUDA 13.0 wheels...
+python -m pip install --upgrade torch==2.11.0 torchaudio==2.11.0 --index-url https://download.pytorch.org/whl/cu130 || goto :FAIL
 
 echo [4/5] Installing SONICRAFT training dependencies...
 python -m pip install -r training\requirements.txt --upgrade-strategy only-if-needed || goto :FAIL
