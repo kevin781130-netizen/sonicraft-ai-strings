@@ -9,6 +9,14 @@ from promotion_binding import promotion_binding
 from source_policy import validate_index
 from string_source_mixer import load_registry, build_curriculum_weights, mixture_audit
 
+
+def atomic_torch_save(obj, path):
+    p=Path(path)
+    p.parent.mkdir(parents=True,exist_ok=True)
+    tmp=p.with_name(p.name+'.tmp')
+    torch.save(obj,tmp)
+    os.replace(tmp,p)
+
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--index',default='datasets/processed/ballad_dac/index.jsonl')
     ap.add_argument('--teacher',required=True); ap.add_argument('--out',default='checkpoints/compact_distilled.pt'); ap.add_argument('--resume')
@@ -66,7 +74,7 @@ def main():
                 torch.nn.utils.clip_grad_norm_(student.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,student,.999)
             total+=float(loss.detach()); cont_total+=float(continuity.detach()); n+=1
         print(f'epoch {ep+1:03d} distill={total/max(1,n):.6f} transition={cont_total/max(1,n):.6f}')
-        Path(a.out).parent.mkdir(parents=True,exist_ok=True); torch.save({'model':student.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':ep+1,'config':PRESETS[a.student_preset],'teacher':a.teacher,'distill_alpha':a.alpha,'schema_version':10,'latent_ch':latent_ch,'latent_hz':float(tck.get('latent_hz',25.0)),'codec_kind':tck.get('codec_kind','dac44'),'codec_sample_rate':int(tck.get('codec_sample_rate',44100)),
+        atomic_torch_save({'model':student.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':ep+1,'config':PRESETS[a.student_preset],'teacher':a.teacher,'distill_alpha':a.alpha,'schema_version':10,'latent_ch':latent_ch,'latent_hz':float(tck.get('latent_hz',25.0)),'codec_kind':tck.get('codec_kind','dac44'),'codec_sample_rate':int(tck.get('codec_sample_rate',44100)),
                     'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
         if stop_file and Path(stop_file).exists():
