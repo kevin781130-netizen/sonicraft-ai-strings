@@ -51,7 +51,7 @@ def main():
             return
     for ep in range(start,a.epochs):
         progress=ep/max(1,a.epochs-1); sampler.weights=torch.as_tensor(build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=progress),dtype=torch.double)
-        student.train(); total=cont_total=0.; n=0; opt.zero_grad(set_to_none=True)
+        student.train(); total=cont_total=0.; n=0; interrupted=False; opt.zero_grad(set_to_none=True)
         for bi,batch in enumerate(dl):
             *vals,dsnames=batch; vals=[x.to(dev) for x in vals]
             (z,p,g,o,vel,d,vib,exp,leg,pb,ts,st,ac,np_,phr,pi,ni,bow,vib_on,
@@ -73,11 +73,20 @@ def main():
             if (bi+1)%a.accum==0:
                 torch.nn.utils.clip_grad_norm_(student.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,student,.999)
             total+=float(loss.detach()); cont_total+=float(continuity.detach()); n+=1
+            stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+            if stop_file and Path(stop_file).exists() and n < len(dl):
+                interrupted=True
+                print('[SAFE STOP] request seen after batch',n,'of',len(dl))
+                break
         print(f'epoch {ep+1:03d} distill={total/max(1,n):.6f} transition={cont_total/max(1,n):.6f}')
-        atomic_torch_save({'model':student.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':ep+1,'config':PRESETS[a.student_preset],'teacher':a.teacher,'distill_alpha':a.alpha,'schema_version':10,'latent_ch':latent_ch,'latent_hz':float(tck.get('latent_hz',25.0)),'codec_kind':tck.get('codec_kind','dac44'),'codec_sample_rate':int(tck.get('codec_sample_rate',44100)),
+        saved_epoch=ep if interrupted else ep+1
+        atomic_torch_save({'model':student.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':saved_epoch,'partial_epoch':(ep+1 if interrupted else None),'partial_batches':(n if interrupted else None),'config':PRESETS[a.student_preset],'teacher':a.teacher,'distill_alpha':a.alpha,'schema_version':10,'latent_ch':latent_ch,'latent_hz':float(tck.get('latent_hz',25.0)),'codec_kind':tck.get('codec_kind','dac44'),'codec_sample_rate':int(tck.get('codec_sample_rate',44100)),
                     'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if interrupted:
+            print('[SAFE STOP] partial distillation epoch saved; epoch',ep+1,'will replay on resume ->',a.out)
+            return
         if stop_file and Path(stop_file).exists():
-            print('[SAFE STOP] distillation checkpoint saved at epoch',ep+1,'->',a.out)
+            print('[SAFE STOP] distillation checkpoint saved at completed epoch',ep+1,'->',a.out)
             return
 if __name__=='__main__': main()
