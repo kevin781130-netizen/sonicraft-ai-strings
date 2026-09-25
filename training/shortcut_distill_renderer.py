@@ -10,7 +10,7 @@ adapting it to continuous string latents and strict MIDI-authority conditioning:
 
 This is training-only. It adds no teacher or auxiliary model to the consumer package.
 """
-import argparse, copy, math, random, json
+import argparse, copy, math, random, json, os
 from pathlib import Path
 import numpy as np
 import torch
@@ -142,6 +142,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--index',default='datasets/processed/ballad_vae64/index.jsonl')
     ap.add_argument('--init',help='Optional matching v1.7 flow checkpoint to initialize student/EMA.')
+    ap.add_argument('--resume',help='Resume shortcut training from its own checkpoint; takes precedence over --init.')
     ap.add_argument('--out',default='checkpoints/frontier_shortcut.pt')
     ap.add_argument('--preset',choices=PRESETS,default='frontier_shared_dit')
     ap.add_argument('--max-steps',type=int,default=8,help='Power-of-two training grid. Produces 1/2/4/... step inference.')
@@ -169,7 +170,15 @@ def main():
         raise SystemExit('shortcut training requires a preset with interval_conditioning=True')
     m=BalladFlowRenderer(latent_ch=latent_ch,**cfg).to(dev)
     ema=copy.deepcopy(m).eval().requires_grad_(False)
-    if a.init:
+    resume_ck=None
+    if a.resume:
+        resume_ck=torch.load(a.resume,map_location='cpu')
+        if dict(resume_ck.get('config') or {})!=cfg: raise RuntimeError('resume shortcut architecture mismatch')
+        if int(resume_ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('resume shortcut latent geometry mismatch')
+        m.load_state_dict(resume_ck.get('model',resume_ck.get('ema')),strict=True)
+        ema.load_state_dict(resume_ck.get('ema',resume_ck.get('model')),strict=True)
+        print('loaded shortcut resume checkpoint',a.resume)
+    elif a.init:
         ck=torch.load(a.init,map_location='cpu')
         if dict(ck.get('config') or {})!=cfg: raise RuntimeError('init checkpoint architecture does not match shortcut preset')
         if int(ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('init latent geometry mismatch')
@@ -178,11 +187,19 @@ def main():
         print('initialized shortcut model from',a.init)
 
     opt=torch.optim.AdamW(m.parameters(),lr=a.lr,weight_decay=.01,betas=(.9,.95))
+    start=0
+    if resume_ck is not None:
+        if 'optimizer' in resume_ck: opt.load_state_dict(resume_ck['optimizer'])
+        start=int(resume_ck.get('epoch',0))
+        print('resumed shortcut at epoch',start,'target',a.epochs)
+        if start>=a.epochs:
+            print('shortcut target already complete; nothing to do')
+            return
     use_amp=(dev=='cuda' and torch.cuda.is_bf16_supported())
     ampctx=lambda: torch.autocast(device_type='cuda',dtype=torch.bfloat16,enabled=use_amp)
     print('shortcut params',sum(p.numel() for p in m.parameters()),'preset',a.preset,'max_steps',a.max_steps,
           'latent',latent_ch,'@',latent_hz,'codec',codec_kind)
-    for ep in range(a.epochs):
+    for ep in range(start,a.epochs):
         progress=ep/max(1,a.epochs-1); sampler.weights=torch.as_tensor(build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=progress),dtype=torch.double)
         m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'bootstrap':0.,'endpoint':0.,'continuity':0.,'mean_h':0.,'modeled_fraction':0.}; n=0
         for bi,batch in enumerate(dl):
@@ -196,11 +213,15 @@ def main():
             n+=1
         print(f"epoch {ep+1:03d} flow={sums['flow']/max(1,n):.6f} shortcut={sums['bootstrap']/max(1,n):.6f} end={sums['endpoint']/max(1,n):.6f} cont={sums['continuity']/max(1,n):.6f} mean_h={sums['mean_h']/max(1,n):.3f} modeled={sums['modeled_fraction']/max(1,n):.3f}")
         Path(a.out).parent.mkdir(parents=True,exist_ok=True)
-        torch.save({'model':m.state_dict(),'ema':ema.state_dict(),'epoch':ep+1,'config':cfg,'preset':a.preset,
+        torch.save({'model':m.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':ep+1,'config':cfg,'preset':a.preset,
                     'latent_ch':latent_ch,'latent_hz':latent_hz,'codec_kind':codec_kind,'codec_sample_rate':codec_sr,
                     'sampling_family':'shortcut','supported_steps':[2**i for i in range(int(math.log2(a.max_steps))+1)],
                     'recommended_steps':int(a.recommend_steps),'max_shortcut_steps':int(a.max_steps),
                     'schema_version':12,'distillation':'string_perceptual_shortcut','source_index':a.index,
                     'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
+        stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if stop_file and Path(stop_file).exists():
+            print('[SAFE STOP] shortcut checkpoint saved at epoch',ep+1,'->',a.out)
+            return
 
 if __name__=='__main__': main()
