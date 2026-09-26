@@ -1,0 +1,98 @@
+{
+  "schema": "sonicraft-dnni-observed-operation-constraints-v1",
+  "source": "15-model structural scans plus spectral diagnostics on Violin/Flute/French Horn/Tuba",
+  "truth_boundary": "Numerical and negative structural evidence only; no proprietary op names, activations, recurrence equations, graph direction or permutation maps are asserted.",
+  "latent_width": 512,
+  "family_start": 40304640,
+  "spectral_sample_roles": [
+    "violin",
+    "flute",
+    "french_horn",
+    "tuba"
+  ],
+  "spectral_matrix_medians": [
+    {
+      "matrix_index": 0,
+      "effective_rank": 388.289,
+      "rank_1e4_min": 511,
+      "identity_distance": 0.9999997,
+      "orthogonality_error": 0.8802
+    },
+    {
+      "matrix_index": 1,
+      "effective_rank": 397.5039,
+      "rank_1e4_min": 512,
+      "identity_distance": 0.9999995,
+      "orthogonality_error": 0.8556
+    },
+    {
+      "matrix_index": 2,
+      "effective_rank": 400.2899,
+      "rank_1e4_min": 511,
+      "identity_distance": 0.9999984,
+      "orthogonality_error": 0.8539
+    },
+    {
+      "matrix_index": 3,
+      "effective_rank": 407.602,
+      "rank_1e4_min": 512,
+      "identity_distance": 0.9999993,
+      "orthogonality_error": 0.7451
+    },
+    {
+      "matrix_index": 4,
+      "effective_rank": 397.948,
+      "rank_1e4_min": 511,
+      "identity_distance": 0.9999969,
+      "orthogonality_error": 0.7808
+    },
+    {
+      "matrix_index": 5,
+      "effective_rank": 375.5009,
+      "rank_1e4_min": 510,
+      "identity_distance": 1.0000001,
+      "orthogonality_error": 0.9144
+    },
+    {
+      "matrix_index": 6,
+      "effective_rank": 381.3286,
+      "rank_1e4_min": 511,
+      "identity_distance": 0.9999966,
+      "orthogonality_error": 0.9063
+    }
+  ],
+  "family_constraints": {
+    "dense_full_rank_like": true,
+    "low_rank_like": false,
+    "identity_like": false,
+    "near_orthogonal": false
+  },
+  "metadata_literal_dimension_scan": {
+    "sections": [
+      "section1",
+      "section3",
+      "section4"
+    ],
+    "uint32_le_targets": [
+      64,
+      128,
+      256,
+      288,
+      448,
+      512
+    ],
+    "total_occurrences_across_all_15_models": 0
+  },
+  "adapter_projection_direct_weight_scan": {
+    "comparisons": 120,
+    "exact_matches_after_fp16_quantization": 0,
+    "transpose_matches_after_fp16_quantization": 0,
+    "value_multiset_matches_after_fp16_quantization": 0
+  },
+  "structural_interpretation": [
+    "The four-module 512-state family uses general dense transforms rather than obvious identity/orthogonal/low-rank matrices.",
+    "Known dimensions are not stored as plain uint32 descriptors in section1/section3/section4.",
+    "The 64-row instrument-specific tail and 64-wide FP32 projection candidates are dimensionally aligned but independently parameterized.",
+    "A 64-dimensional instrument-adapter/state-subspace interpretation remains structurally plausible but semantically unproven."
+  ]
+}
