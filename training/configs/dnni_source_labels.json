@@ -65,9 +65,9 @@
       "dnni_header_size": 140,
       "companion_wm_sha256": "2aa732c201316a106824cbcfdf194ba66dd47a7474cf56b4392a11819efb037d",
       "companion_wm_size": 208,
-      "label_zh": "長笛",
-      "label_en": "Flute",
-      "instrument_role": "flute",
+      "label_zh": "短笛",
+      "label_en": "Piccolo",
+      "instrument_role": "piccolo",
       "instrument_family": "woodwind",
       "identity_status": "confirmed",
       "identity_authority": "user_supplied",
@@ -81,7 +81,10 @@
       "section3_bytes": 1803390,
       "section4_offset": 134345854,
       "section4_bytes": 131488,
-      "footer_bytes": 256
+      "footer_bytes": 256,
+      "corrected_from_label_en": "Flute",
+      "corrected_from_label_zh": "長笛",
+      "corrected_date": "2026-09-26"
     }
   ],
   "pending_intake": []
