@@ -168,7 +168,14 @@
         512,
         512
       ],
-      "shape_confidence": "structurally-linked"
+      "shape_confidence": "structurally-linked",
+      "last_matrix_split": {
+        "shared_rows_candidate": 448,
+        "instrument_specific_rows_candidate": 64,
+        "evidence": "four modules: first 448 KiB exact across all 15 models; final 64 KiB model-specific",
+        "relation": "matches independently observed 64-wide FP32 projection family",
+        "confidence": "structural-candidate"
+      }
     },
     "right_bank": {
       "offset": 54984704,
