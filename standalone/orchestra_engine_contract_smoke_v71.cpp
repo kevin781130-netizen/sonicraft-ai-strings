@@ -27,6 +27,13 @@ int main() {
     block.model.weightsHashVerified = true;
     block.model.weightsOffset = 36864;
     block.model.weightsBytes = 132502456;
+    const auto layout = analyzeDnniObservedRuntimeLayout(block.model.weightsBytes);
+    block.model.layoutVerified = layout.compatible;
+    block.model.sharedCoreBytes = DnniObservedRuntimeLayout::kSharedCoreBytes;
+    block.model.variableTailBytes = layout.variableTailBytes;
+    block.model.tailSubblockBytes = DnniObservedRuntimeLayout::kTailSubblockBytes;
+    block.model.candidateMicGroups = layout.candidateGroupCount;
+    block.model.tailSubblockCount = layout.tailSubblockCount;
     assert(block.valid());
 
     const auto& d = orchestraInstrumentDescriptor(
