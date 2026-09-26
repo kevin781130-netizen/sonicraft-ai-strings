@@ -35,8 +35,8 @@ FAMILY_MODULE_STRIDE = 3_670_016
 FAMILY_MATRIX_BYTES = 524_288
 FAMILY_MATRIX_COUNT = 7
 FAMILY_BYTES = FAMILY_MODULE_COUNT * FAMILY_MODULE_STRIDE
-FAMILY_LAST_SHARED_BYTES = 448 * 1024
-FAMILY_LAST_VARIABLE_BYTES = 64 * 1024
+FAMILY_LAST_SHARED_BYTES = 506 * 1024
+FAMILY_LAST_VARIABLE_BYTES = 6 * 1024
 
 
 def _read(model, rel: int, n: int) -> bytes:
@@ -133,19 +133,39 @@ def probe_projection_banks(models) -> dict:
         matrices = []
         for matrix_index in range(FAMILY_MATRIX_COUNT):
             rel = module_start + matrix_index * FAMILY_MATRIX_BYTES
-            stats = _consensus_stats(models, rel, FAMILY_MATRIX_BYTES)
+            if matrix_index < FAMILY_MATRIX_COUNT - 1:
+                stats = _consensus_stats(models, rel, FAMILY_MATRIX_BYTES)
+                dtype = "float16_le" if fp16_plausible(stats) else "unknown"
+                shape_candidate = [LATENT_WIDTH, LATENT_WIDTH]
+                shape_confidence = (
+                    "structurally-linked"
+                    if FAMILY_MATRIX_BYTES // 2 == LATENT_WIDTH * LATENT_WIDTH
+                    else "none"
+                )
+            else:
+                prefix_stats = _consensus_stats(models, rel, FAMILY_LAST_SHARED_BYTES)
+                suffix_stats = _consensus_stats(
+                    models, rel + FAMILY_LAST_SHARED_BYTES, FAMILY_LAST_VARIABLE_BYTES
+                )
+                suffix_dtype = (
+                    "float32_le" if fp32_candidate(suffix_stats)
+                    else ("float16_le" if fp16_plausible(suffix_stats) else "mixed_or_unknown")
+                )
+                dtype = "split"
+                shape_candidate = None
+                shape_confidence = "split-boundary-verified"
+
             matrices.append({
                 "index": matrix_index,
                 "relative_offset": rel,
                 "bytes": FAMILY_MATRIX_BYTES,
-                "dtype": "float16_le" if fp16_plausible(stats) else "unknown",
-                "fp16_elements": FAMILY_MATRIX_BYTES // 2,
-                "shape_candidate": [LATENT_WIDTH, LATENT_WIDTH],
-                "shape_confidence": (
-                    "structurally-linked"
-                    if FAMILY_MATRIX_BYTES // 2 == LATENT_WIDTH * LATENT_WIDTH
-                    else "none"
+                "dtype": dtype,
+                "fp16_elements": (
+                    FAMILY_MATRIX_BYTES // 2
+                    if matrix_index < FAMILY_MATRIX_COUNT - 1 else None
                 ),
+                "shape_candidate": shape_candidate,
+                "shape_confidence": shape_confidence,
                 "exact_identity_models": _exact_identity_count(
                     models, rel, FAMILY_MATRIX_BYTES
                 ),
@@ -153,6 +173,15 @@ def probe_projection_banks(models) -> dict:
         last_rel = module_start + (FAMILY_MATRIX_COUNT - 1) * FAMILY_MATRIX_BYTES
         last_shared_models = _exact_identity_count(
             models, last_rel, FAMILY_LAST_SHARED_BYTES
+        )
+        suffix_stats = _consensus_stats(
+            models,
+            last_rel + FAMILY_LAST_SHARED_BYTES,
+            FAMILY_LAST_VARIABLE_BYTES,
+        )
+        suffix_dtype = (
+            "float32_le" if fp32_candidate(suffix_stats)
+            else ("float16_le" if fp16_plausible(suffix_stats) else "mixed_or_unknown")
         )
         last_variable_models = _exact_identity_count(
             models,
@@ -169,9 +198,25 @@ def probe_projection_banks(models) -> dict:
                 "variable_tail_bytes": FAMILY_LAST_VARIABLE_BYTES,
                 "shared_prefix_exact_identity_models": last_shared_models,
                 "variable_tail_exact_identity_models": last_variable_models,
-                "row_major_512_candidate": {
-                    "shared_rows": 448,
-                    "instrument_specific_rows": 64,
+                "shared_prefix": {
+                    "bytes": FAMILY_LAST_SHARED_BYTES,
+                    "dtype": "float16_le",
+                    "fp16_values": FAMILY_LAST_SHARED_BYTES // 2,
+                    "row_major_512_candidate_rows": 506,
+                },
+                "instrument_specific_suffix": {
+                    "bytes": FAMILY_LAST_VARIABLE_BYTES,
+                    "dtype": suffix_dtype,
+                    "value_count": (
+                        FAMILY_LAST_VARIABLE_BYTES // 4
+                        if suffix_dtype == "float32_le"
+                        else FAMILY_LAST_VARIABLE_BYTES // 2
+                    ),
+                    "512_wide_vector_count": (
+                        (FAMILY_LAST_VARIABLE_BYTES // 4) // LATENT_WIDTH
+                        if suffix_dtype == "float32_le"
+                        else (FAMILY_LAST_VARIABLE_BYTES // 2) // LATENT_WIDTH
+                    ),
                 },
             },
         })
@@ -179,10 +224,23 @@ def probe_projection_banks(models) -> dict:
     all_bank_patterns_match = all(
         b["matches_expected_pattern"] for b in banks
     )
-    all_family_fp16 = all(
+    all_regular_matrices_fp16 = all(
         m["dtype"] == "float16_le"
         for module in modules
-        for m in module["matrices"]
+        for m in module["matrices"][:-1]
+    )
+    split_suffix_pattern = [
+        module["last_matrix_split"]["instrument_specific_suffix"]["dtype"]
+        for module in modules
+    ]
+    split_pattern_verified = (
+        split_suffix_pattern[:3] == ["float16_le", "float16_le", "float16_le"]
+        and split_suffix_pattern[3:] == ["float32_le"]
+        and all(
+            module["last_matrix_split"]["shared_prefix_exact_identity_models"] == len(models)
+            and module["last_matrix_split"]["variable_tail_exact_identity_models"] == 1
+            for module in modules
+        )
     )
 
     return {
@@ -202,10 +260,14 @@ def probe_projection_banks(models) -> dict:
             "module_stride_bytes": FAMILY_MODULE_STRIDE,
             "matrix_bytes": FAMILY_MATRIX_BYTES,
             "matrices_per_module": FAMILY_MATRIX_COUNT,
-            "all_matrices_fp16_plausible": all_family_fp16,
+            "all_regular_matrices_fp16_plausible": all_regular_matrices_fp16,
+            "last_matrix_suffix_dtype_pattern": split_suffix_pattern,
+            "last_matrix_split_verified": split_pattern_verified,
             "modules": modules,
         },
-        "sandwich_verified": all_bank_patterns_match and all_family_fp16,
+        "sandwich_verified": (
+            all_bank_patterns_match and all_regular_matrices_fp16 and split_pattern_verified
+        ),
         "candidate_fragment": {
             "left_bank_dimensions": [128, 256, 256, 256],
             "middle_latent_width": LATENT_WIDTH,
