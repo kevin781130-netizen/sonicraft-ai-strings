@@ -56,13 +56,15 @@ def bundle_identity(path: Path):
     if len(out)!=4: raise ValueError(f"expected 4 imported timbres, found {len(out)}")
     return out
 
-def jsonl_identity(path: Path, *, drop_paths=False):
+def jsonl_identity(path: Path, *, drop_paths=False, drop_display=False):
     rows=[]
     for line in path.read_text(encoding="utf-8").splitlines():
         if not line.strip(): continue
         r=json.loads(line)
         if drop_paths:
             r={k:v for k,v in r.items() if k not in {"audio","path","file"}}
+        if drop_display:
+            r={k:v for k,v in r.items() if k not in {"timbre_label","articulation_name"}}
         rows.append(r)
     rows.sort(key=lambda x:str(x.get("capture_id") or x.get("audio_sha256") or ""))
     return rows
@@ -95,7 +97,7 @@ def compute(config=DEFAULT_CONFIG,bundle=DEFAULT_BUNDLE,plan=DEFAULT_PLAN,render
         if not p.exists(): raise FileNotFoundError(str(p))
     cfg=config_identity(config)
     bun=bundle_identity(bundle)
-    plan_rows=jsonl_identity(plan)
+    plan_rows=jsonl_identity(plan,drop_display=True)
     render_rows=jsonl_identity(render,drop_paths=True)
     validate_alignment(cfg,bun,plan_rows,render_rows)
     payload={
