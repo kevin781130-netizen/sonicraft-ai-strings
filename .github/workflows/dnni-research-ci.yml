@@ -33,7 +33,7 @@ on:
       - "training/scripts/slice_dnni_batch_bounces.py"
       - "PREPARE_DNNI_CAPTURE.bat"
       - "SLICE_DNNI_BOUNCES.bat"
-      - ".github/workflows/dnni-research-ci.yml"
+      - "training/tests/dnni_batch_capture_smoke.py"\n      - ".github/workflows/dnni-research-ci.yml"
   workflow_dispatch:
 
 permissions:
@@ -91,15 +91,7 @@ jobs:
       - name: Smoke four-long-MIDI and four-long-WAV slicing
         shell: pwsh
         run: |
-          $root = Join-Path $env:RUNNER_TEMP "dnni_batch_smoke"
-          New-Item -ItemType Directory -Force -Path $root | Out-Null
-          python training/scripts/generate_dnni_capture_plan.py --out "$root/plan.jsonl" --pitches-per-timbre 1 --velocities 0.70 --seconds 0.10
-          python training/scripts/generate_dnni_batch_capture_midi.py --plan "$root/plan.jsonl" --out "$root/batch" --lead-sec 0.20 --gap-sec 0.10
-          python -c "import json,sys,numpy as np,soundfile as sf,pathlib; mp=json.load(open(sys.argv[1],encoding='utf-8')); out=pathlib.Path(sys.argv[2]); out.mkdir(parents=True,exist_ok=True); sr=8000; [(lambda g: sf.write(out/f'{g[\"timbre_id\"]}.wav', (lambda x: x)(np.concatenate([np.zeros(int(sr*.2),np.float32), np.ones(max(1,int(sr*(g[\"duration_sec\"]-.2))),np.float32)*.1])), sr))(g) for g in mp['timbres']]" "$root/batch/batch_capture_map.json" "$root/bounces"
-          python training/scripts/slice_dnni_batch_bounces.py --map "$root/batch/batch_capture_map.json" --root "$root" --bounces "$root/bounces"
-          python training/scripts/build_dnni_render_manifest.py --plan "$root/plan.jsonl" --root "$root" --out "$root/rendered/index.jsonl"
-          $count = (Get-Content "$root/rendered/index.jsonl").Count
-          if ($count -ne 48) { throw "Expected 48 sliced manifest rows, got $count" }
+          python training/tests/dnni_batch_capture_smoke.py
       - name: Status helper clean-checkout smoke
         shell: pwsh
         run: |
