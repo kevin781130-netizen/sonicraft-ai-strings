@@ -8,7 +8,7 @@ namespace Sonicraft::AIStrings {
 enum class Part : uint8_t { Violin1=0, Violin2=1, Viola=2, Cello=3 };
 struct PartControl {
     float dynamics=.62f,vibrato=.50f,expression=.90f,volume=.86f,pan=.50f,room=.18f,pitchBend=.50f;
-    bool sustain=true,legato=true; int articulation=0;
+    bool sustain=false,legato=true; int articulation=0;
     float transitionSpeed=.50f,shortTightness=.50f,attackCharacter=.38f,speedProfile=0.f;
     bool continuousGesture=false;
 };

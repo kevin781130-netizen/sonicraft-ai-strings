@@ -33,7 +33,7 @@ public:
     Steinberg::tresult PLUGIN_API setState(Steinberg::IBStream* state) override;
     Steinberg::tresult PLUGIN_API getState(Steinberg::IBStream* state) override;
 public:
-    struct Controls { float dyn=.62f,vib=.50f,exp=.90f,vol=.86f,pan=.50f,sus=1.f,leg=1.f,room=.18f,bend=.50f,art=0.f,transition=.50f,tightness=.50f,attack=.38f,speedProfile=0.f,stack=0.f; };
+    struct Controls { float dyn=.62f,vib=.50f,exp=.90f,vol=.86f,pan=.50f,sus=0.f,leg=1.f,room=.18f,bend=.50f,art=0.f,transition=.50f,tightness=.50f,attack=.38f,speedProfile=0.f,stack=0.f; };
     struct VoiceLaneOverride {
         float stack=0.f,dyn=.62f,vib=.50f,transition=.50f,attack=.38f,tightness=.50f,art=0.f,bend=.50f;
         std::uint8_t mask=0;

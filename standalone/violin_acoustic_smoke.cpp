@@ -55,5 +55,25 @@ int main() {
         assert(acousticOverrideIndex(float(instrument+1)/15.f)==instrument);
     }
     assert(acousticOverrideIndex(0.f)==-1);
+    // A DAW note-off must release by default; CC64 sustains only while held.
+    {
+        PreviewEngine voice;voice.setSampleRate(48000);voice.setPartInstrument(0,0);
+        PartControl c;assert(!c.sustain);
+        float left[512]{},right[512]{};
+        voice.noteOnVoice(0,0,69,.8f,c);voice.render(left,right,512);
+        voice.noteOffVoice(0,0,69);
+        for(int b=0;b<300;++b){std::fill(std::begin(left),std::end(left),0.f);std::fill(std::begin(right),std::end(right),0.f);voice.render(left,right,512);}
+        for(float sample:left)assert(std::abs(sample)<1e-5f);
+
+        voice.setPartSustain(0,true);c.sustain=true;
+        voice.noteOnVoice(0,0,69,.8f,c);voice.render(left,right,512);
+        voice.noteOffVoice(0,0,69);
+        voice.render(left,right,512);
+        double held=0;for(float sample:left)held+=double(sample)*sample;
+        assert(held>1e-8);
+        voice.setPartSustain(0,false);
+        for(int b=0;b<300;++b){std::fill(std::begin(left),std::end(left),0.f);std::fill(std::begin(right),std::end(right),0.f);voice.render(left,right,512);}
+        for(float sample:left)assert(std::abs(sample)<1e-5f);
+    }
     std::cout<<"Violin acoustic voice block parity / legato smoke OK\n";
 }

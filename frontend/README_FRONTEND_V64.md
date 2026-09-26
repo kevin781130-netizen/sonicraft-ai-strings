@@ -37,3 +37,18 @@ and MIDI export do not carry a VST3 plug-in preset or set the DAW's plug-in
 parameters; select the acoustic voice in the VST3 editor after loading the MIDI
 into the DAW. The 15 voices are procedural acoustic previews, not trained
 instrument models or recordings from the benchmark product.
+
+## DAW MIDI performance
+
+Compose notes in the DAW. For an acoustic preview, set Playback Layout to
+**Single** and choose the Acoustic Voice in the VST3 editor. Use MIDI channel 1
+for ordinary notes and CC1 dynamics, CC3 vibrato, CC11 expression, CC7 volume,
+CC64 sustain pedal, CC68 legato, and pitch bend. The 12 articulation keyswitches
+are MIDI notes 24–35 (C0–B0 at the plug-in's MIDI numbering). On MIDI channels
+5–16, CC21–39 provide optional lane-level performance controls where mapped;
+keyswitches on these explicit lanes select their own articulation.
+
+Sustain pedal now starts **off** on newly created instances: note-off releases
+the note. An existing saved project restores its saved pedal value. The four
+legacy solo parts retain their own Q4 mode and can be selected independently of
+the 15 acoustic preview instruments.

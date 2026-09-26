@@ -225,8 +225,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         engine.setPartSpeedProfile(p, c.speedProfile);
     };
 
-    auto mergedVoiceControl = [&](int lane) noexcept -> Controls {
-        const int p=stringPartForMidiChannel(lane);
+    auto mergedVoiceControl = [&](int lane,int partOverride=-1) noexcept -> Controls {
+        const int p=partOverride>=0?partOverride:stringPartForMidiChannel(lane);
         Controls c=(p>=0&&p<kPartCount)?part[p]:Controls{};
         const auto& o=voiceLane[std::clamp(lane,0,15)];
         if(o.mask&0x01)c.stack=o.stack;
@@ -423,7 +423,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             const int vp=stringPartForMidiChannel(ensembleLane);
             if(vp>=0){
                 const auto c=mergedVoiceControl(ensembleLane);
-                engine.updateVoiceLaneControl(ensembleLane,previewVoiceControl(ensembleLane,c));
+                engine.updateVoiceLaneControl(ensembleLane,previewVoiceControl(ensembleLane,
+                    layoutMode<.5f&&acousticOverrideIndex(acousticPreviewInstrument)>=0?mergedVoiceControl(ensembleLane,0):c));
                 const int packed=packArticulationExpression(artFromNormalized(c.art),expressionStackFromNormalized(c.stack));
                 shadow.pushMidi(ShadowRenderClient::Control,projectStart+offset,encodeShadowStringPart(vp,ensembleLane),
                                 opcode,packed,v,static_cast<float>(hostTempoBpm),toShadow(c));
@@ -448,7 +449,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             const int vp=stringPartForMidiChannel(physicalLane);
             if(vp>=0){
                 const auto c=mergedVoiceControl(physicalLane);
-                engine.updateVoiceLaneControl(physicalLane,previewVoiceControl(physicalLane,c));
+                engine.updateVoiceLaneControl(physicalLane,previewVoiceControl(physicalLane,
+                    layoutMode<.5f&&acousticOverrideIndex(acousticPreviewInstrument)>=0?mergedVoiceControl(physicalLane,0):c));
                 const int packed=packArticulationExpression(artFromNormalized(c.art),expressionStackFromNormalized(c.stack));
                 shadow.pushMidi(ShadowRenderClient::Control,projectStart+offset,encodeShadowStringPart(vp,physicalLane),opcode,packed,v,
                                 static_cast<float>(hostTempoBpm),toShadow(c));
@@ -471,7 +473,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             const int vp=stringPartForMidiChannel(lane);
             if(vp>=0){
                 const auto c=mergedVoiceControl(lane);
-                engine.updateVoiceLaneControl(lane,previewVoiceControl(lane,c));
+                engine.updateVoiceLaneControl(lane,previewVoiceControl(lane,
+                    layoutMode<.5f&&acousticOverrideIndex(acousticPreviewInstrument)>=0?mergedVoiceControl(lane,0):c));
                 const int packed=packArticulationExpression(artFromNormalized(c.art),expressionStackFromNormalized(c.stack));
                 shadow.pushMidi(ShadowRenderClient::Control,projectStart+offset,encodeShadowStringPart(vp,lane),0,packed,0.f,
                                 static_cast<float>(hostTempoBpm),toShadow(c));
@@ -498,6 +501,11 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                 case kParamPartSpeedProfileBase: c.speedProfile = v; engine.setPartSpeedProfile(p, v); break;
                 default: break;
             }
+            // Acoustic Single listens to the DAW's channel-1 CC lane. Refresh
+            // already sounding voices as well as the next note's snapshot.
+            if(p==0 && layoutMode<.5f && acousticOverrideIndex(acousticPreviewInstrument)>=0)
+                for(int lane=0;lane<16;++lane)
+                    engine.updateVoiceLaneControl(lane,previewVoiceControl(lane,mergedVoiceControl(lane,0)));
             shadow.pushControl(projectStart + offset, p, static_cast<float>(hostTempoBpm), toShadow(c));
             return;
         }
@@ -847,15 +855,20 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             const int rawCh=on?e.noteOn.channel:e.noteOff.channel;
             const int note=on?e.noteOn.pitch:e.noteOff.pitch;
             if(rawCh<0||rawCh>=16)return;
-            const int selected=std::clamp(int(singleInstrument*3.f+.5f),0,3);
+            const int selected=0; // Stable channel-1 CC mapping for every acoustic instrument.
             engine.setPartInstrument(selected,acoustic);
             if(isKeyswitch(note)){
-                if(on)engine.setPartArticulation(selected,articulationFromKeyswitch(note));
+                if(on){
+                    const int art=articulationFromKeyswitch(note);
+                    if(rawCh>=4 || voiceLane[rawCh].mask!=0){
+                        auto& lane=voiceLane[rawCh];lane.art=float(art)/float(kArticulationCount-1);lane.mask|=0x40;
+                    }else{part[selected].art=float(art)/float(kArticulationCount-1);engine.setPartArticulation(selected,art);}
+                }
                 return;
             }
             if(on){
-                auto c=toPreviewControl(part[selected]);
-                c.continuousGesture=c.legato && c.articulation==(int)Articulation::Legato;
+                auto c=previewVoiceControl(rawCh,mergedVoiceControl(rawCh,selected));
+                c.continuousGesture=c.continuousGesture||(c.legato && c.articulation==(int)Articulation::Legato);
                 engine.noteOnVoice(selected,rawCh,note,e.noteOn.velocity,c);
             }else engine.noteOffVoice(selected,rawCh,note);
             return;
