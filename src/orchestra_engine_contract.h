@@ -1,6 +1,7 @@
 #pragma once
 
 #include "orchestra_instruments.h"
+#include "dnni_runtime_layout.h"
 #include <algorithm>
 #include <array>
 #include <cstdint>
@@ -96,9 +97,15 @@ struct OrchestraModelBinding {
     bool present {false};
     bool sourceHashVerified {false};
     bool weightsHashVerified {false};
+    bool layoutVerified {false};
     std::uint64_t fileSize {0};
     std::uint64_t weightsOffset {0};
     std::uint64_t weightsBytes {0};
+    std::uint64_t sharedCoreBytes {0};
+    std::uint64_t variableTailBytes {0};
+    std::uint64_t tailSubblockBytes {0};
+    int candidateMicGroups {0};
+    int tailSubblockCount {0};
 };
 
 struct OrchestraRenderBlock {
@@ -117,7 +124,7 @@ struct OrchestraRenderBlock {
     }
 
     bool valid() const noexcept {
-        if (!model.present || !model.sourceHashVerified || !model.weightsHashVerified) return false;
+        if (!model.present || !model.sourceHashVerified || !model.weightsHashVerified || !model.layoutVerified) return false;
         if (performance.tempoBpm < 1.f || performance.tempoBpm > 1000.f) return false;
         for (std::uint16_t i = 0; i < noteCount; ++i) {
             const auto& n = notes[i];
