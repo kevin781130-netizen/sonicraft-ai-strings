@@ -141,5 +141,51 @@
         ]
       ]
     }
-  ]
+  ],
+  "sandwich_fragment": {
+    "evidence_file": "training/configs/dnni_observed_projection_bank.json",
+    "left_bank": {
+      "offset": 39256064,
+      "dimensions": [
+        128,
+        256,
+        256,
+        256
+      ],
+      "dtype_pattern": [
+        "float32_le",
+        "float16_le",
+        "float16_le",
+        "float16_le"
+      ]
+    },
+    "middle_family": {
+      "offset": 40304640,
+      "module_count": 4,
+      "latent_width": 512,
+      "matrices_per_module": 7,
+      "shape_candidate": [
+        512,
+        512
+      ],
+      "shape_confidence": "structurally-linked"
+    },
+    "right_bank": {
+      "offset": 54984704,
+      "dimensions": [
+        128,
+        256,
+        256,
+        256
+      ],
+      "dtype_pattern": [
+        "float32_le",
+        "float16_le",
+        "float16_le",
+        "float16_le"
+      ]
+    },
+    "direction": "unknown",
+    "op_semantics": "unknown"
+  }
 }
