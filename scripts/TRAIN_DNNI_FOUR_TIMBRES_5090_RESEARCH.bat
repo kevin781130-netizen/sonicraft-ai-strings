@@ -156,10 +156,16 @@ if errorlevel 1 goto :FAIL
 if exist "%STOPFILE%" goto :PAUSED
 
 echo.
+echo [FINALIZE] Writing checkpoint integrity manifest...
+python training\scripts\dnni_training_finalize.py || goto :FAIL
+
+echo.
 echo ============================================================
 echo [DONE] ALL TRAINING STAGES COMPLETE
 echo Final checkpoint:
 echo checkpoints\dnni4_frontier_shortcut_research.pt
+echo Integrity manifest:
+echo checkpoints\dnni4_training_complete.json
 echo Logs:
 echo %LOGROOT%
 echo ============================================================
