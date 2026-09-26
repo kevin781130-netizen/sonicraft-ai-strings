@@ -1141,6 +1141,18 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     const int selectedOrchestraInstrument=orchestraInstrumentIndexFromNormalized(orchestraInstrument);
     emitOutputParam(kParamOrchestraModelReady,(orchestraCatalogLoaded&&orchestraCatalog.ready(selectedOrchestraInstrument))?1.f:0.f);
     emitOutputParam(kParamOrchestraCatalogCoverage,orchestraCatalogLoaded?std::clamp(float(orchestraCatalog.presentCount())/float(kOrchestraInstrumentCount),0.f,1.f):0.f);
+    bool conditionerReady=false;
+    float conditionerEnergy=0.f;
+    for(int lane=0;lane<16;++lane){
+        if(!orchestraConditioningLaneReady[lane]) continue;
+        conditionerReady=true;
+        double sum=0.0;
+        for(float v:orchestraConditioningLane[lane].latent512) sum+=double(v)*double(v);
+        const float rms=static_cast<float>(std::sqrt(sum/double(orchestraConditioningLane[lane].latent512.size())));
+        conditionerEnergy=std::max(conditionerEnergy,std::clamp(rms,0.f,1.f));
+    }
+    emitOutputParam(kParamOrchestraConditionerReady,conditionerReady?1.f:0.f);
+    emitOutputParam(kParamOrchestraConditioningEnergy,conditionerEnergy);
     return kResultOk;
 }
 
