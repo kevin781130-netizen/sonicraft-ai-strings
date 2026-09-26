@@ -5,6 +5,7 @@ on:
     paths:
       - "training/dnni_reference.py"
       - "runtime/dnni_model_shell.py"
+      - "frontend/editor_server.py"
       - "training/tests/dnni_model_shell_smoke.py"
       - "DNNI_MODEL_SHELL.bat"
       - "training/configs/dnni_source_labels.json"
@@ -72,6 +73,7 @@ jobs:
           $files = @(
             "training/dnni_reference.py",
             "runtime/dnni_model_shell.py",
+            "frontend/editor_server.py",
             "training/tests/dnni_model_shell_smoke.py",
             "training/train_codec.py",
             "training/train_ballad_renderer.py",
