@@ -4,10 +4,17 @@
     {
       "slot": 1,
       "timbre_id": "timbre_1",
-      "label": "Timbre 1",
+      "label": "Cello",
       "instrument": 0,
-      "midi_low": 55,
-      "midi_high": 96
+      "midi_low": 36,
+      "midi_high": 81,
+      "label_zh": "大提琴",
+      "instrument_role": "cello",
+      "source_uuid": "524a7afe-57b4-58f8-8799-5f8f04c447e9",
+      "source_dnni_sha256": "e59bf9fb3207673f520064128ca541df0ea9026aa242f3ac2986523e56fe0311",
+      "weights_sha256": "1983232c566a6c44b2d82327c5ccd45bdd11470dc73474b0857fbcbd6640bc57",
+      "identity_status": "confirmed",
+      "identity_authority": "user_supplied"
     },
     {
       "slot": 2,
@@ -27,18 +34,32 @@
     {
       "slot": 3,
       "timbre_id": "timbre_3",
-      "label": "Timbre 3",
+      "label": "Violin",
       "instrument": 2,
-      "midi_low": 48,
-      "midi_high": 84
+      "midi_low": 55,
+      "midi_high": 100,
+      "label_zh": "小提琴",
+      "instrument_role": "violin",
+      "source_uuid": "8d70f130-20f6-5a3d-b942-102ad8e59312",
+      "source_dnni_sha256": "3967477a49d00326de9cf3c2ef85754d7a4a261cbb92db706468de9c39c267fb",
+      "weights_sha256": "36b925e6116890d767bef2c82bdfaf3c84bf145e9ddec9cfbc96cd83e9527a15",
+      "identity_status": "confirmed",
+      "identity_authority": "user_supplied"
     },
     {
       "slot": 4,
       "timbre_id": "timbre_4",
-      "label": "Timbre 4",
+      "label": "Viola",
       "instrument": 3,
-      "midi_low": 36,
-      "midi_high": 72
+      "midi_low": 48,
+      "midi_high": 88,
+      "label_zh": "中提琴",
+      "instrument_role": "viola",
+      "source_uuid": "7abf09cb-41a5-5531-b2ed-f69615a81be8",
+      "source_dnni_sha256": "251a2789047ed85fd296f89aaf1703b37a15c60ace4c4e1c74059de410be0a4a",
+      "weights_sha256": "c65bcd3be3bd85be0230efae42788d61f1a0f49c702bf23e96641d28fa66882f",
+      "identity_status": "confirmed",
+      "identity_authority": "user_supplied"
     }
   ]
 }
