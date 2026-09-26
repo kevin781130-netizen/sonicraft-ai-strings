@@ -36,6 +36,7 @@ def main():
     student=BalladFlowRenderer(latent_ch=latent_ch,**PRESETS[a.student_preset]).to(dev); ema=copy.deepcopy(student).eval().requires_grad_(False)
     opt=torch.optim.AdamW(student.parameters(),1.0e-4,weight_decay=.01,betas=(.9,.95))
     data_fingerprint=os.environ.get('SONICRAFT_DATA_FINGERPRINT') or None
+    recipe_fingerprint=os.environ.get('SONICRAFT_RECIPE_FINGERPRINT') or None
     start=0
     if a.resume:
         ck=torch.load(a.resume,map_location='cpu')
@@ -43,6 +44,8 @@ def main():
             raise RuntimeError('resume distill architecture mismatch')
         if data_fingerprint and ck.get('data_fingerprint')!=data_fingerprint:
             raise RuntimeError(f'resume distill data fingerprint mismatch: saved={ck.get("data_fingerprint")} current={data_fingerprint}')
+        if recipe_fingerprint and ck.get('recipe_fingerprint')!=recipe_fingerprint:
+            raise RuntimeError(f'resume distill recipe fingerprint mismatch: saved={ck.get("recipe_fingerprint")} current={recipe_fingerprint}')
         if int(ck.get('latent_ch',latent_ch))!=latent_ch:
             raise RuntimeError('resume distill latent geometry mismatch')
         student.load_state_dict(ck['model'],strict=True); ema.load_state_dict(ck.get('ema',ck['model']),strict=True)
@@ -84,7 +87,7 @@ def main():
         print(f'epoch {ep+1:03d} distill={total/max(1,n):.6f} transition={cont_total/max(1,n):.6f}')
         saved_epoch=ep if interrupted else ep+1
         atomic_torch_save({'model':student.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':saved_epoch,'partial_epoch':(ep+1 if interrupted else None),'partial_batches':(n if interrupted else None),'config':PRESETS[a.student_preset],'teacher':a.teacher,'distill_alpha':a.alpha,'schema_version':10,'latent_ch':latent_ch,'latent_hz':float(tck.get('latent_hz',25.0)),'codec_kind':tck.get('codec_kind','dac44'),'codec_sample_rate':int(tck.get('codec_sample_rate',44100)),
-                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint},a.out)
+                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint,'recipe_fingerprint':recipe_fingerprint},a.out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
         if interrupted:
             print('[SAFE STOP] partial distillation epoch saved; epoch',ep+1,'will replay on resume ->',a.out)
