@@ -19,6 +19,10 @@ on:
       - "runtime/dnni_tensor_shape_probe.py"
       - "runtime/dnni_graph_fragment_probe.py"
       - "runtime/dnni_projection_bank_probe.py"
+      - "runtime/dnni_operation_semantics_probe.py"
+      - "training/tests/dnni_operation_semantics_smoke.py"
+      - "training/configs/dnni_observed_operation_constraints.json"
+      - "PROBE_DNNI_OPERATION_SEMANTICS.bat"
       - "training/tests/dnni_projection_bank_smoke.py"
       - "training/configs/dnni_observed_projection_bank.json"
       - "training/tests/dnni_graph_fragment_smoke.py"
@@ -113,6 +117,8 @@ jobs:
             "runtime/dnni_tensor_shape_probe.py",
             "runtime/dnni_graph_fragment_probe.py",
             "runtime/dnni_projection_bank_probe.py",
+            "runtime/dnni_operation_semantics_probe.py",
+            "training/tests/dnni_operation_semantics_smoke.py",
             "training/tests/dnni_projection_bank_smoke.py",
             "training/tests/dnni_graph_fragment_smoke.py",
             "training/tests/dnni_tensor_shape_smoke.py",
@@ -148,6 +154,10 @@ jobs:
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+      - name: Smoke DNNI operation semantics
+        shell: pwsh
+        run: |
+          python training/tests/dnni_operation_semantics_smoke.py
       - name: Smoke DNNI projection bank
         shell: pwsh
         run: |
