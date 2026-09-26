@@ -99,6 +99,7 @@ enum ParamKey : Steinberg::Vst::ParamID {
     kParamStageFeedGainBase = 812,        // 812..827 Spot/Tree/Wide/Room/Rear/Mid/Far/Gallery
     kParamStageOutputGain = 828,
     kParamAcousticPreviewInstrument = 829, // 0 Q4 legacy, 1..15 independent acoustic previews
+    kParamAcousticPlayerCount = 830, // 1..16 independent players per acoustic note
 };
 inline Steinberg::Vst::ParamID voiceParam(Steinberg::Vst::ParamID base, int channel) {
     return base + static_cast<Steinberg::Vst::ParamID>(channel);

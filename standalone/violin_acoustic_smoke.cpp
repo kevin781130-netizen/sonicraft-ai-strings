@@ -1,4 +1,6 @@
 #include "../src/preview_engine.h"
+#include "../src/acoustic_performance.h"
+#include "../src/acoustic_stage.h"
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -72,6 +74,51 @@ int main() {
             assert(power>1e-9);
             voice.noteOffVoice(0,0,60);voice.noteOffVoice(0,1,67);
         }
+    }
+    for(int instrument=0;instrument<15;++instrument){
+        double signatures[3]{};
+        for(int variant=0;variant<3;++variant){
+            const int players=variant==0?1:(variant==1?4:16);
+            PreviewEngine voice;voice.setSampleRate(48000);voice.setPartInstrument(0,instrument);
+            PartControl c;c.sustain=false;
+            voice.noteOnVoice(0,0,60,.7f,c,players);
+            double weighted=0;
+            for(int b=0;b<8;++b){
+                float left[256]{},right[256]{};voice.render(left,right,256);
+                for(int i=0;i<256;++i){
+                    assert(std::isfinite(left[i])&&std::isfinite(right[i]));
+                    assert(std::abs(left[i])<1.f&&std::abs(right[i])<1.f);
+                    weighted+=(double(left[i])-.6*right[i])*(1+(i%13)*.01);
+                }
+            }
+            signatures[variant]=weighted;
+            voice.noteOffVoice(0,0,60);
+        }
+        assert(std::abs(signatures[0]-signatures[1])>1e-5);
+        assert(std::abs(signatures[1]-signatures[2])>1e-5);
+    }
+    {
+        PartControl c;
+        const auto manual=shapeAcousticPerformance(c,0,0,72,60,.9f,false,0,0.f,.27f,true);
+        assert(manual.dynamics==c.dynamics && manual.vibrato==c.vibrato && manual.pitchBend==c.pitchBend);
+        const auto smart=shapeAcousticPerformance(c,0,0,72,60,.9f,true,0,0.f,.27f,true);
+        assert(smart.dynamics>c.dynamics);
+        const auto timbre=shapeAcousticPerformance(c,0,0,72,60,.9f,false,1,1.f,.27f,true);
+        assert(timbre.toneColor!=1.f);
+        const auto locked=shapeAcousticPerformance(c,0,0,72,60,.9f,false,4,1.f,.27f,true);
+        const auto unlocked=shapeAcousticPerformance(c,0,0,72,60,.9f,false,4,1.f,.27f,false);
+        assert(locked.pitchBend==c.pitchBend && unlocked.pitchBend!=c.pitchBend);
+        assert(timbre.toneColor==shapeAcousticPerformance(c,0,0,72,60,.9f,false,1,1.f,.27f,true).toneColor);
+    }
+    {
+        float masterL[4]{.3f,.2f,-.1f,.4f},masterR[4]{.1f,-.2f,.3f,.2f};
+        float spotL[4]{},spotR[4]{},galleryL[4]{},galleryR[4]{};
+        std::array<float*,16> feedsL{},feedsR{};
+        feedsL[0]=spotL;feedsR[0]=spotR;
+        feedsL[15]=galleryL;feedsR[15]=galleryR;
+        renderAcousticStageFeeds(masterL,masterR,feedsL,feedsR,4);
+        assert(std::isfinite(spotL[0])&&std::isfinite(galleryR[0]));
+        assert(spotL[0]!=galleryL[0] && spotR[1]!=galleryR[1]);
     }
     assert(acousticOverrideIndex(0.f)==-1);
     // A DAW note-off must release by default; CC64 sustains only while held.

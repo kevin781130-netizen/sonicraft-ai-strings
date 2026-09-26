@@ -9,11 +9,11 @@ enum class Part : uint8_t { Violin1=0, Violin2=1, Viola=2, Cello=3 };
 struct PartControl {
     float dynamics=.62f,vibrato=.50f,expression=.90f,volume=.86f,pan=.50f,room=.18f,pitchBend=.50f;
     bool sustain=false,legato=true; int articulation=0;
-    float transitionSpeed=.50f,shortTightness=.50f,attackCharacter=.38f,speedProfile=0.f;
+    float transitionSpeed=.50f,shortTightness=.50f,attackCharacter=.38f,speedProfile=0.f,toneColor=1.f,onsetDelayMs=0.f;
     bool continuousGesture=false;
 };
 struct Voice {
-    bool active=false; int note=-1,channel=0,lane=-1,articulation=0,instrument=0; double phase=0.0,vibPhase=0.0,tremPhase=0.0,vibJitterPhase=0.0;
+    bool active=false; int note=-1,channel=0,lane=-1,articulation=0,instrument=0,player=0,players=1,startDelay=0; double phase=0.0,vibPhase=0.0,tremPhase=0.0,vibJitterPhase=0.0;
     double env=0.0,target=0.0,baseFreq=440.0,ageSeconds=0.0; float velocity=0.8f; bool releasing=false,keyReleased=false,legatoHandoff=false;
     PartControl localControl{};
     // Fixed-size, per-voice acoustic state: no allocation or random_device on the audio thread.
@@ -37,7 +37,7 @@ public:
     void setPartSustain(int p,bool v);
     void noteOn(int channel,int note,float velocity);
     void noteOff(int channel,int note);
-    void noteOnVoice(int part,int lane,int note,float velocity,const PartControl& control);
+    void noteOnVoice(int part,int lane,int note,float velocity,const PartControl& control,int players=1);
     void noteOffVoice(int part,int lane,int note);
     void updateVoiceLaneControl(int lane,const PartControl& control);
     void render(float* left,float* right,int32_t n); void allNotesOff();

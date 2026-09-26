@@ -25,10 +25,14 @@ The editor does not implement a second compiler or acoustic renderer. It produce
 
 ## VST3 acoustic preview in the DAW
 
-The VST3 custom editor's **Score** page now has a **Playback Layout** menu and
-an **Acoustic Voice · Single Layout** menu. Choose **Single**, then one of the
+The VST3 custom editor's **Score** page has **Playback Layout**, **Acoustic
+Voice** and **Players · Single** menus. Choose **Single**, then one of the
 15 instrument names to route incoming DAW MIDI to the selected acoustic preview
-renderer. **Q4 Legacy** keeps the previous voice. **Q4 Multi** continues to use
+renderer. Set **Players** to 1–16 to render independent performers per MIDI note,
+with small timing, tuning and stereo placement differences. The performer count
+is saved in the DAW project and can be automated. One plug-in instance remains
+one instrument; add instances on separate DAW tracks for different instruments.
+**Q4 Legacy** keeps the previous voice. **Q4 Multi** continues to use
 the four string parts and ignores the acoustic preview selection; its separate
 **Legacy Solo Part** menu chooses among those four parts for Single legacy mode.
 
@@ -58,5 +62,16 @@ body modes, and share the same 12 articulation keyswitches, polyphonic MIDI,
 CC/pitch automation, pedal release and sample-rate behavior. This makes the
 DAW performance interface consistent across instruments. Articulations on wind
 instruments are synthetic interpretations; these are not recorded or trained
-instrument models. Multi-mic DAW outputs and AI retake rendering are features
-of the older Q4 path and are not active for the acoustic preview path.
+instrument models.
+
+For acoustic previews, opt-in **Smart Dynamics** now shapes each new note using
+velocity and the preceding melodic interval while keeping the authored CC as
+the anchor. **Retake Target**, **Amount**, and **Seed** shape the next notes by
+deterministic changes to color, dynamics, vibrato, onset feel, or attack. A
+locked score does not permit the Micro-Pitch retake to alter authored bend.
+These are SONICRAFT procedural retakes, not neural audio retakes, and the Q4
+take-judge/comp memory is separate. Existing 16 auxiliary output buses now
+carry independent synthetic stage perspectives for the preview. The stage
+mixer can rebuild the master from these feeds when the host activates its
+outputs. The feeds are derived from the same dry synthesis, not from recorded
+or measured microphones; the host must enable the buses to route them.

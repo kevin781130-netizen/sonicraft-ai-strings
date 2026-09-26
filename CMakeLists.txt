@@ -162,7 +162,7 @@ if(SONICRAFT_BUILD_VST3)
   endif()
   add_subdirectory(${VST3_SDK_ROOT} ${CMAKE_BINARY_DIR}/vst3sdk EXCLUDE_FROM_ALL)
   smtg_add_vst3plugin(SonicraftAIStringsQ4
-      src/factory.cpp src/ids.h src/processor.h src/articulations.h src/processor.cpp
+      src/factory.cpp src/ids.h src/processor.h src/articulations.h src/acoustic_performance.h src/acoustic_stage.h src/processor.cpp
       src/controller.h src/controller.cpp src/preview_engine.h src/preview_engine.cpp
       src/shadow_render_client.h src/shadow_render_client.cpp src/preference_client_v38.h src/preference_client_v38.cpp src/preference_auto_comp_v39.h)
   target_include_directories(SonicraftAIStringsQ4 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

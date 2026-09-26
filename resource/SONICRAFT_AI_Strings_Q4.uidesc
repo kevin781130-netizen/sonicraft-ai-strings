@@ -35,6 +35,7 @@
     <control-tag name="Layout" tag="104" />
     <control-tag name="Instrument" tag="105" />
     <control-tag name="AcousticPreviewInstrument" tag="829" />
+    <control-tag name="AcousticPlayerCount" tag="830" />
     <control-tag name="AIAssist" tag="106" />
     <control-tag name="LookAhead" tag="107" />
     <control-tag name="AutoDivisi" tag="108" />
@@ -234,10 +235,12 @@
     <view class="CViewContainer" origin="0,0" size="1384,786" background-color="BG2">
       <view class="CTextLabel" origin="24,18" size="310,26" title="SCORE / PERFORMANCE EDITOR" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
       <view class="CTextLabel" origin="24,48" size="620,18" title="MusicXML / MIDI → notes → articulation → predictive dynamics → render" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-      <view class="CTextLabel" origin="760,17" size="185,16" title="PLAYBACK LAYOUT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-      <view class="COptionMenu" origin="760,38" size="196,30" control-tag="Layout" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
-      <view class="CTextLabel" origin="995,17" size="320,16" title="ACOUSTIC VOICE · SINGLE LAYOUT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-      <view class="COptionMenu" origin="995,38" size="360,30" control-tag="AcousticPreviewInstrument" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
+      <view class="CTextLabel" origin="760,17" size="145,16" title="PLAYBACK LAYOUT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+      <view class="COptionMenu" origin="760,38" size="145,30" control-tag="Layout" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
+      <view class="CTextLabel" origin="922,17" size="250,16" title="ACOUSTIC VOICE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+      <view class="COptionMenu" origin="922,38" size="250,30" control-tag="AcousticPreviewInstrument" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
+      <view class="CTextLabel" origin="1188,17" size="166,16" title="PLAYERS · SINGLE" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+      <view class="COptionMenu" origin="1188,38" size="166,30" control-tag="AcousticPlayerCount" font="Body" font-color="Text" back-color="Panel" frame-color="Line" frame-width="1" round-radius="5" menu-popup-style="true" />
       <view class="CViewContainer" origin="24,82" size="190,676" background-color="Panel">
         <view class="CTextLabel" origin="16,14" size="150,18" title="SECTIONS" font="Head" font-color="Text" text-alignment="left" transparent="true" />
         <view class="CSegmentButton" origin="16,44" size="166,30" control-tag="ActivePart" segment-names="VLN I,VLN II,VIOLA,CELLO" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
