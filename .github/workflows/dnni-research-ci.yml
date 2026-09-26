@@ -36,6 +36,8 @@ on:
       - "training/tests/dnni_batch_capture_smoke.py"
       - "training/configs/dnni_5090_training.json"
       - "training/scripts/dnni_training_config.py"
+      - "training/scripts/dnni_failure_diagnose.py"
+      - "RESET_DNNI_STAGE.bat"
       - ".github/workflows/dnni-research-ci.yml"
   workflow_dispatch:
 
@@ -77,6 +79,7 @@ jobs:
             "training/scripts/generate_dnni_batch_capture_midi.py",
             "training/scripts/slice_dnni_batch_bounces.py",
             "training/scripts/dnni_training_config.py",
+            "training/scripts/dnni_failure_diagnose.py",
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
@@ -105,6 +108,10 @@ jobs:
         shell: pwsh
         run: |
           python training/scripts/dnni_training_status.py --json
+      - name: Failure diagnosis smoke
+        shell: pwsh
+        run: |
+          python training/scripts/dnni_failure_diagnose.py --logs "$env:RUNNER_TEMP/no_logs_here"
       - name: Logged runner propagates success
         shell: pwsh
         run: |
