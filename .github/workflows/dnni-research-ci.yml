@@ -40,6 +40,10 @@ on:
       - "RESET_DNNI_STAGE.bat"
       - "training/scripts/dnni_training_finalize.py"
       - "VERIFY_DNNI_RESULT.bat"
+      - "training/scripts/generate_dnni_identification_probe.py"
+      - "training/scripts/identify_dnni_instruments.py"
+      - "training/tests/dnni_identification_smoke.py"
+      - "IDENTIFY_DNNI_TIMBRES.bat"
       - ".github/workflows/dnni-research-ci.yml"
   workflow_dispatch:
 
@@ -83,6 +87,9 @@ jobs:
             "training/scripts/dnni_training_config.py",
             "training/scripts/dnni_failure_diagnose.py",
             "training/scripts/dnni_training_finalize.py",
+            "training/scripts/generate_dnni_identification_probe.py",
+            "training/scripts/identify_dnni_instruments.py",
+            "training/tests/dnni_identification_smoke.py",
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
@@ -107,6 +114,10 @@ jobs:
         run: |
           python training/scripts/dnni_training_config.py --write-cmd "$env:RUNNER_TEMP/dnni_recipe.cmd"
           python -c "import copy,sys; sys.path.insert(0,'training/scripts'); import dnni_training_config as d; c=d.load('training/configs/dnni_5090_training.json'); r=d.stage_fingerprint(c,'renderer'); q=d.stage_fingerprint(c,'codec'); c2=copy.deepcopy(c); c2['renderer']['epochs']+=10; assert d.stage_fingerprint(c2,'renderer')==r; c3=copy.deepcopy(c); c3['renderer']['batch']+=1; assert d.stage_fingerprint(c3,'renderer')!=r; assert d.stage_fingerprint(c3,'codec')==q"
+      - name: Identify shuffled synthetic violin viola cello bass
+        shell: pwsh
+        run: |
+          python training/tests/dnni_identification_smoke.py
       - name: Status helper clean-checkout smoke
         shell: pwsh
         run: |
