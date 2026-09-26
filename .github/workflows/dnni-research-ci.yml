@@ -18,6 +18,9 @@ on:
       - "runtime/dnni_shared_region_probe.py"
       - "runtime/dnni_tensor_shape_probe.py"
       - "runtime/dnni_graph_fragment_probe.py"
+      - "runtime/dnni_projection_bank_probe.py"
+      - "training/tests/dnni_projection_bank_smoke.py"
+      - "training/configs/dnni_observed_projection_bank.json"
       - "training/tests/dnni_graph_fragment_smoke.py"
       - "training/configs/dnni_observed_graph_fragment.json"
       - "training/tests/dnni_tensor_shape_smoke.py"
@@ -109,6 +112,8 @@ jobs:
             "runtime/dnni_shared_region_probe.py",
             "runtime/dnni_tensor_shape_probe.py",
             "runtime/dnni_graph_fragment_probe.py",
+            "runtime/dnni_projection_bank_probe.py",
+            "training/tests/dnni_projection_bank_smoke.py",
             "training/tests/dnni_graph_fragment_smoke.py",
             "training/tests/dnni_tensor_shape_smoke.py",
             "training/tests/dnni_shared_region_smoke.py",
@@ -143,6 +148,10 @@ jobs:
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+      - name: Smoke DNNI projection bank
+        shell: pwsh
+        run: |
+          python training/tests/dnni_projection_bank_smoke.py
       - name: Smoke DNNI graph fragment
         shell: pwsh
         run: |
