@@ -5,6 +5,7 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 using namespace Sonicraft::AIStrings;
 
@@ -46,8 +47,8 @@ int main() {
     assert(renderer.noteOn(0,69,frame,perf,features));
     assert(renderer.activeVoiceCount()==1);
 
-    std::array<float,n> left{};
-    std::array<float,n> right{};
+    std::vector<float> left(n,0.f);
+    std::vector<float> right(n,0.f);
     renderer.render(left.data(),right.data(),n,1.f);
     const double onRms=rms(left.data()+4096,n-4096);
     assert(std::isfinite(onRms));
@@ -58,18 +59,19 @@ int main() {
     assert(coarsePitch>300.0 && coarsePitch<3000.0);
 
     renderer.noteOff(0,69);
-    std::array<float,n> releaseL{};
-    std::array<float,n> releaseR{};
-    renderer.render(releaseL.data(),releaseR.data(),n,1.f);
+    constexpr int releaseN=int(sr*4.0);
+    std::vector<float> releaseL(releaseN,0.f);
+    std::vector<float> releaseR(releaseN,0.f);
+    renderer.render(releaseL.data(),releaseR.data(),releaseN,1.f);
     assert(renderer.activeVoiceCount()==0);
-    assert(rms(releaseL.data()+36000,12000)<0.002);
+    assert(rms(releaseL.data()+releaseN-12000,12000)<0.0005);
 
     perf.instrument=OrchestraInstrument::Trombone;
     frame.midiPitch=57.f;
     assert(conditioner.condition(frame,perf,features));
     assert(renderer.noteOn(1,57,frame,perf,features));
-    std::array<float,8192> brassL{};
-    std::array<float,8192> brassR{};
+    std::vector<float> brassL(8192,0.f);
+    std::vector<float> brassR(8192,0.f);
     renderer.render(brassL.data(),brassR.data(),int(brassL.size()),1.f);
     assert(rms(brassL.data(),int(brassL.size()))>0.001);
 
