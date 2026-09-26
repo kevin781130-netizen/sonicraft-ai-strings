@@ -24,6 +24,10 @@ def main() -> int:
     ap.add_argument("model_dir", nargs="?", default="models/dnni")
     ap.add_argument("--registry", default="training/configs/dnni_source_labels.json")
     ap.add_argument("--dtype-map", default=None)
+    ap.add_argument("--shared-regions", default=None)
+    ap.add_argument("--tensor-map", default=None)
+    ap.add_argument("--projection-bank", default=None)
+    ap.add_argument("--graph-fragment", default=None)
     ap.add_argument("--out", default="violin_a4_golden_path.json")
     args = ap.parse_args()
 
@@ -43,9 +47,14 @@ def main() -> int:
     if tail < GROUP_BYTES or tail % GROUP_BYTES:
         raise SystemExit("Violin weights do not match the observed shared-core/tail layout.")
 
-    dtype_map = None
-    if args.dtype_map:
-        dtype_map = json.loads(Path(args.dtype_map).read_text(encoding="utf-8"))
+    def maybe_json(path):
+        return json.loads(Path(path).read_text(encoding="utf-8")) if path else None
+
+    dtype_map = maybe_json(args.dtype_map)
+    shared_regions = maybe_json(args.shared_regions)
+    tensor_map = maybe_json(args.tensor_map)
+    projection_bank = maybe_json(args.projection_bank)
+    graph_fragment = maybe_json(args.graph_fragment)
 
     result = {
         "schema": "sonicraft-dnni-golden-path-v1",
@@ -94,11 +103,17 @@ def main() -> int:
             },
             "candidate_mic_group_count": tail // GROUP_BYTES,
         },
-        "dtype_map": dtype_map,
+        "evidence_bundle": {
+            "dtype_map": dtype_map,
+            "shared_regions": shared_regions,
+            "tensor_map": tensor_map,
+            "projection_bank": projection_bank,
+            "graph_fragment": graph_fragment,
+        },
         "ready_for_audio_inference": False,
         "blocking_unknowns": [
-            "shared-core tensor boundaries/shapes beyond high-confidence dtype spans",
-            "graph operation order and connectivity",
+            "graph operation direction/order beyond the verified dimension fragment",
+            "nonlinear activation/state-update semantics",
             "exact note/phrase conditioning tensor schema",
             "output representation and acoustic decoder",
             "candidate mic-tail semantic mapping",
