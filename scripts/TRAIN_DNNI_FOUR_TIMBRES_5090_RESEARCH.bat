@@ -14,6 +14,7 @@ set "STOPFILE=%CD%\checkpoints\dnni4_stop_after_epoch.flag"
 set "SONICRAFT_STOP_FILE=%STOPFILE%"
 set "LOGROOT=logs\dnni5090"
 set "PYTHONUNBUFFERED=1"
+set "DNNI_CURRENT_STAGE="
 
 if not exist checkpoints mkdir checkpoints
 if not exist "%LOGROOT%" mkdir "%LOGROOT%"
@@ -94,6 +95,7 @@ python training\scripts\run_logged.py --log "%LOGROOT%\preflight.log" -- python 
 echo.
 
 echo [1/5] VAE64 acoustic codec
+set "DNNI_CURRENT_STAGE=codec"
 set "SONICRAFT_RECIPE_FINGERPRINT=!DNNI_CODEC_RECIPE_FINGERPRINT!"
 set "CODEC_RESUME="
 if exist "checkpoints\dnni4_vae64_research.pt" (
@@ -106,6 +108,7 @@ if exist "%STOPFILE%" goto :PAUSED
 
 echo.
 echo [2/5] Encode four-timbre VAE64 latents
+set "DNNI_CURRENT_STAGE=codec"
 if exist "%LATENTS%" (
   echo [SKIP] Latent index already exists: %LATENTS%
 ) else (
@@ -115,6 +118,7 @@ if exist "%STOPFILE%" goto :PAUSED
 
 echo.
 echo [3/5] HQ four-timbre renderer
+set "DNNI_CURRENT_STAGE=renderer"
 set "SONICRAFT_RECIPE_FINGERPRINT=!DNNI_RENDER_RECIPE_FINGERPRINT!"
 set "RENDER_RESUME="
 if exist "checkpoints\dnni4_renderer_hq_research_last.pt" (
@@ -127,6 +131,7 @@ if exist "%STOPFILE%" goto :PAUSED
 
 echo.
 echo [4/5] Frontier Core distillation
+set "DNNI_CURRENT_STAGE=distill"
 set "SONICRAFT_RECIPE_FINGERPRINT=!DNNI_DISTILL_RECIPE_FINGERPRINT!"
 set "DISTILL_RESUME="
 if exist "checkpoints\dnni4_frontier_research.pt" (
@@ -139,6 +144,7 @@ if exist "%STOPFILE%" goto :PAUSED
 
 echo.
 echo [5/5] Shortcut distillation
+set "DNNI_CURRENT_STAGE=shortcut"
 set "SONICRAFT_RECIPE_FINGERPRINT=!DNNI_SHORTCUT_RECIPE_FINGERPRINT!"
 set "SHORTCUT_RESUME="
 if exist "checkpoints\dnni4_frontier_shortcut_research.pt" (
@@ -187,6 +193,9 @@ echo.
 echo ============================================================
 echo [TRAINING STOPPED WITH ERROR] code=%EC%
 echo Existing checkpoints are kept.
-echo Fix the error, then double-click TRAIN_DNNI_5090.bat to resume.
+echo.
+python training\scripts\dnni_failure_diagnose.py --logs "%LOGROOT%"
+echo.
+echo Fix the reported issue, then double-click TRAIN_DNNI_5090.bat to resume.
 echo ============================================================
 exit /b %EC%
