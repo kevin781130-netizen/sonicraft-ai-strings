@@ -30,6 +30,7 @@ def main() -> int:
     ap.add_argument("--graph-fragment", default=None)
     ap.add_argument("--operation-constraints", default=None)
     ap.add_argument("--recurrent-signature", default=None)
+    ap.add_argument("--recurrent-hypothesis", default=None)
     ap.add_argument("--out", default="violin_a4_golden_path.json")
     args = ap.parse_args()
 
@@ -59,6 +60,7 @@ def main() -> int:
     graph_fragment = maybe_json(args.graph_fragment)
     operation_constraints = maybe_json(args.operation_constraints)
     recurrent_signature = maybe_json(args.recurrent_signature)
+    recurrent_hypothesis = maybe_json(args.recurrent_hypothesis)
 
     result = {
         "schema": "sonicraft-dnni-golden-path-v1",
@@ -115,6 +117,7 @@ def main() -> int:
             "graph_fragment": graph_fragment,
             "operation_constraints": operation_constraints,
             "recurrent_signature": recurrent_signature,
+            "recurrent_hypothesis": recurrent_hypothesis,
         },
         "ready_for_audio_inference": False,
         "blocking_unknowns": [
