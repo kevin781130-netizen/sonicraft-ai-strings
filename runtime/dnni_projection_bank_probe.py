@@ -35,6 +35,8 @@ FAMILY_MODULE_STRIDE = 3_670_016
 FAMILY_MATRIX_BYTES = 524_288
 FAMILY_MATRIX_COUNT = 7
 FAMILY_BYTES = FAMILY_MODULE_COUNT * FAMILY_MODULE_STRIDE
+FAMILY_LAST_SHARED_BYTES = 448 * 1024
+FAMILY_LAST_VARIABLE_BYTES = 64 * 1024
 
 
 def _read(model, rel: int, n: int) -> bytes:
@@ -148,11 +150,30 @@ def probe_projection_banks(models) -> dict:
                     models, rel, FAMILY_MATRIX_BYTES
                 ),
             })
+        last_rel = module_start + (FAMILY_MATRIX_COUNT - 1) * FAMILY_MATRIX_BYTES
+        last_shared_models = _exact_identity_count(
+            models, last_rel, FAMILY_LAST_SHARED_BYTES
+        )
+        last_variable_models = _exact_identity_count(
+            models,
+            last_rel + FAMILY_LAST_SHARED_BYTES,
+            FAMILY_LAST_VARIABLE_BYTES,
+        )
         modules.append({
             "index": module_index,
             "relative_offset": module_start,
             "bytes": FAMILY_MODULE_STRIDE,
             "matrices": matrices,
+            "last_matrix_split": {
+                "shared_prefix_bytes": FAMILY_LAST_SHARED_BYTES,
+                "variable_tail_bytes": FAMILY_LAST_VARIABLE_BYTES,
+                "shared_prefix_exact_identity_models": last_shared_models,
+                "variable_tail_exact_identity_models": last_variable_models,
+                "row_major_512_candidate": {
+                    "shared_rows": 448,
+                    "instrument_specific_rows": 64,
+                },
+            },
         })
 
     all_bank_patterns_match = all(
