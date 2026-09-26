@@ -361,6 +361,35 @@ def dnni_log_tail(limit: int = 12000) -> dict:
 
 
 
+def dnni_model_catalog() -> dict:
+    """Read-only catalog of private local DNNI containers."""
+    model_root = ROOT / "models" / "dnni"
+    model_root.mkdir(parents=True, exist_ok=True)
+    runtime_dir = ROOT / "runtime"
+    if str(runtime_dir) not in sys.path:
+        sys.path.insert(0, str(runtime_dir))
+    try:
+        from dnni_model_shell import DnniModelCatalog, load_registry
+        registry_path = ROOT / "training" / "configs" / "dnni_source_labels.json"
+        registry = load_registry(registry_path)
+        catalog = DnniModelCatalog(registry)
+        models = catalog.scan(model_root, recursive=True)
+        return {
+            "ok": True,
+            "directory": str(model_root),
+            "count": len(models),
+            "models": [m.summary() for m in models],
+        }
+    except Exception as exc:
+        return {
+            "ok": False,
+            "directory": str(model_root),
+            "count": 0,
+            "models": [],
+            "message": f"{type(exc).__name__}: {exc}",
+        }
+
+
 def run_bat(bat_name: str, project: dict) -> dict:
     if os.name != "nt":
         return {
@@ -421,6 +450,7 @@ class Handler(SimpleHTTPRequestHandler):
                 "compile_bat": resolve_bat("COMPILE_MUSICXML_STRINGS_v62.bat").exists(),
                 "auto_loop_bat": resolve_bat("AUTO_LOOP_STRINGS_v62.bat").exists(),
                 "dnni_training": (ROOT / "training" / "scripts" / "dnni_training_status.py").exists(),
+                "dnni_model_shell": (ROOT / "runtime" / "dnni_model_shell.py").exists(),
                 "root": str(ROOT),
                 "logs": str(LOGS),
             })
@@ -433,6 +463,9 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if parsed.path == "/api/dnni/log":
             self._json(200, dnni_log_tail())
+            return
+        if parsed.path == "/api/models/dnni":
+            self._json(200, dnni_model_catalog())
             return
         super().do_GET()
 
