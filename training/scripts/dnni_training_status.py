@@ -80,6 +80,8 @@ def status():
     else:
         source={"imported":False,"path":str(bundle)}
     plan=root/"capture_plan.jsonl"
+    batch_map=root/"batch_capture/batch_capture_map.json"
+    batch_bounces=[root/f"batch_bounces/timbre_{i}.wav" for i in range(1,5)]
     raw=root/"rendered/index.jsonl"
     lat=root/"latents/index.jsonl"
     fingerprint=None; fp_error=None
@@ -101,6 +103,9 @@ def status():
         "data_fingerprint":fingerprint,
         "fingerprint_error":fp_error,
         "capture_plan_rows":count_jsonl(plan),
+        "batch_capture_map":batch_map.exists(),
+        "batch_bounces_present":sum(1 for p in batch_bounces if p.exists()),
+        "batch_bounces_expected":4,
         "render_manifest_rows":count_jsonl(raw),
         "latent_rows":count_jsonl(lat),
         "latent_provenance":latent_status,
@@ -121,6 +126,8 @@ def print_human(s):
         print("DNNI source  : not imported")
         if src.get("error"): print("  ERROR:",src["error"])
     print(f"Capture plan : {s['capture_plan_rows']} rows")
+    print("Batch MIDI   :", "ready" if s.get("batch_capture_map") else "not prepared")
+    print(f"Long bounces : {s.get('batch_bounces_present',0)}/{s.get('batch_bounces_expected',4)}")
     print(f"Render WAVs  : {s['render_manifest_rows']} manifest rows")
     print(f"Latents      : {s['latent_rows']} rows")
     if s.get("data_fingerprint"): print("Data hash    :",str(s["data_fingerprint"])[:20]+"...")
