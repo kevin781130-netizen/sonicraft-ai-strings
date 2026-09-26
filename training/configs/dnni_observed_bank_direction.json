@@ -1,0 +1,92 @@
+{
+  "schema": "sonicraft-dnni-observed-bank-direction-v1",
+  "source": "15 confirmed DNNI v4 models, bank adjacency plus numerical diagnostics",
+  "truth_boundary": "Structural directionality candidate only; actual execution direction is not decoded.",
+  "serialization": {
+    "left_bank": [
+      39256064,
+      40304640
+    ],
+    "family": [
+      40304640,
+      54984704
+    ],
+    "right_bank": [
+      54984704,
+      56033280
+    ]
+  },
+  "left_bank": {
+    "plain_dense_blocks": 4,
+    "nominal_widths": [
+      128,
+      256,
+      256,
+      256
+    ],
+    "fp16_exp31_counts_by_block": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "producer_rms_gain_medians": [
+      1.2718,
+      0.9621,
+      0.9054,
+      0.903
+    ],
+    "producer_gain_balance_ratio": 1.413
+  },
+  "right_bank": {
+    "plain_dense_blocks": 2,
+    "nominal_widths": [
+      128,
+      256,
+      256,
+      256
+    ],
+    "fp16_exp31_counts_by_block": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        35,
+        35
+      ],
+      [
+        19,
+        19
+      ]
+    ],
+    "note": "blocks 2/3 are not safe to interpret as ordinary homogeneous FP16 dense matrices"
+  },
+  "left_right_spectral_pairing": {
+    "block0_median_correlation": 0.9707,
+    "block1_median_correlation": 0.9992,
+    "note": "strong spectrum similarity without direct/tied weight equality"
+  },
+  "candidate_direction": {
+    "left": "stronger producer/input-side candidate",
+    "middle": "512-state processing candidate",
+    "right": "stronger consumer/packed-output-side candidate",
+    "confidence": "moderate structural"
+  }
+}

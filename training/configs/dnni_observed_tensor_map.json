@@ -1,0 +1,100 @@
+{
+  "schema": "sonicraft-dnni-observed-tensor-map-v1",
+  "source": "15 confirmed DNNI v4 models, exact cross-model axis-invariance analysis",
+  "truth_boundary": "High-confidence matrix boundaries/shapes only. No permutation maps, tensor names, graph connectivity, layer semantics, input schema or decoder semantics are asserted.",
+  "modules": {
+    "count": 4,
+    "stride_bytes": 3670016,
+    "relative_offsets": [
+      0,
+      3670016,
+      7340032,
+      11010048
+    ]
+  },
+  "per_module": {
+    "matrix_count": 7,
+    "matrix_bytes": 524288,
+    "dtype_candidate": "float16_le",
+    "shape": [
+      512,
+      512
+    ],
+    "variable_prefix": {
+      "matrix_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "bytes": 2097152,
+      "cross_model_value_multiset": "exactly equal for all 15 models",
+      "ordering_behavior": {
+        "matrix_0": "column multiset invariant across all 15 models",
+        "matrix_1": "row multiset invariant across all 15 models",
+        "matrix_2": "row multiset invariant across all 15 models",
+        "matrix_3": "row multiset invariant across all 15 models"
+      }
+    },
+    "shared_suffix": {
+      "matrix_indices": [
+        4,
+        5,
+        6
+      ],
+      "bytes": 1572864,
+      "cross_model_bytes": "exactly identical for all 15 models"
+    }
+  },
+  "shape_discrimination": {
+    "tested": [
+      [
+        128,
+        2048
+      ],
+      [
+        256,
+        1024
+      ],
+      [
+        512,
+        512
+      ],
+      [
+        1024,
+        256
+      ],
+      [
+        2048,
+        128
+      ]
+    ],
+    "unique_shape_satisfying_matrix0_column_and_matrix3_row_invariance_across_all_four_modules": [
+      512,
+      512
+    ]
+  },
+  "caution": "The model-specific ordering may represent ordinary parameter/channel ordering or a packing/protection transform. This record intentionally does not reconstruct or publish any permutation mapping.",
+  "basis_order_equivalence": {
+    "reference_model": "Violin",
+    "evaluated_cases": 56,
+    "observations": [
+      {
+        "relation": "matrix_1 row ordering == matrix_2 row ordering",
+        "matches": 56,
+        "total": 56
+      },
+      {
+        "relation": "matrix_1 row ordering == matrix_3 row ordering",
+        "matches": 0,
+        "total": 56
+      },
+      {
+        "relation": "matrix_0 column ordering == matrix_1 row ordering",
+        "matches": 0,
+        "total": 56
+      }
+    ],
+    "interpretation": "Structural channel-basis equivalence only. No ordering vector or transform is stored or reconstructed."
+  }
+}

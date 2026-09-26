@@ -9,3 +9,6 @@ _deps/
 build-win64/
 release/*.vst3/
 *.log
+dnni_input/
+archive/dnni5090/
+models/dnni/

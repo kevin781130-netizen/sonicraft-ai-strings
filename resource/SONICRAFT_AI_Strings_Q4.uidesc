@@ -216,6 +216,7 @@
     <control-tag name="Mic15" tag="826" />
     <control-tag name="Mic16" tag="827" />
     <control-tag name="StageOutput" tag="828" />
+    <control-tag name="OrchestraInstrument" tag="829" />
   </control-tags>
   <template name="MainView" class="CViewContainer" origin="0,0" size="1440,900" minSize="1440,900" maxSize="1440,900" background-color="BG" autosize="left top right bottom">
     <view class="CTextLabel" origin="28,17" size="360,30" title="SONICRAFT AI STRINGS" font="Title" font-color="Text" text-alignment="left" transparent="true" />
@@ -237,7 +238,7 @@
         <view class="CTextLabel" origin="16,14" size="150,18" title="SECTIONS" font="Head" font-color="Text" text-alignment="left" transparent="true" />
         <view class="CSegmentButton" origin="16,44" size="166,30" control-tag="ActivePart" segment-names="VLN I,VLN II,VIOLA,CELLO" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent" frame-width="1" round-radius="6" style="horizontal" />
         <view class="CTextLabel" origin="16,92" size="130,16" title="INSTRUMENT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CSegmentButton" origin="16,112" size="158,28" control-tag="Instrument" segment-names="SOLO,SECTION" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
+        <view class="COptionMenu" origin="16,112" size="158,28" control-tag="OrchestraInstrument" font="Small" font-color="Text" back-color="Panel2" frame-color="Line" frame-width="1" round-rect-radius="6" menu-popup-style="true" />
         <view class="CTextLabel" origin="16,160" size="130,16" title="POLYPHONY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSegmentButton" origin="16,180" size="158,28" control-tag="Polyphony" segment-names="1,2,4,8" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
         <view class="CTextLabel" origin="16,230" size="130,16" title="SMART INPUT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />

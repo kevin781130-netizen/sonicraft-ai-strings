@@ -16,7 +16,7 @@ using namespace Steinberg::Vst;
 namespace Sonicraft::AIStrings {
 namespace {
 
-constexpr int kStateVersion = 14;
+constexpr int kStateVersion = 16;
 constexpr int kAuxFeedCount = 16;
 constexpr std::size_t kMaxAutomationPointsPerBlock = 4096;
 
@@ -29,6 +29,27 @@ struct AutomationPoint {
 int artFromNormalized(float v) noexcept {
     return std::clamp(static_cast<int>(v * static_cast<float>(kArticulationCount - 1) + .5f),
                       0, kArticulationCount - 1);
+}
+
+std::uint32_t orchestraArticulationBits(const Processor::Controls& c) noexcept {
+    std::uint32_t bits = 0;
+    switch (static_cast<Articulation>(artFromNormalized(c.art))) {
+        case Articulation::Sustain:        bits |= kArtSustain; break;
+        case Articulation::Legato:         bits |= kArtSustain | kArtLegato; break;
+        case Articulation::Portamento:     bits |= kArtPortamento; break;
+        case Articulation::ExpressiveLong: bits |= kArtSustain | kArtTenuto; break;
+        case Articulation::Marcato:        bits |= kArtMarcato | kArtAccent; break;
+        case Articulation::Staccato:       bits |= kArtStaccato; break;
+        case Articulation::Spiccato:       bits |= kArtStaccato | kArtAccent; break;
+        case Articulation::Tremolo:        bits |= kArtTremolo; break;
+        case Articulation::Pizzicato:      bits |= kArtPizzicato; break;
+        case Articulation::Trill:          bits |= kArtTrill; break;
+        case Articulation::Harmonic:       bits |= kArtHarmonic; break;
+        case Articulation::Flautando:      bits |= kArtSustain; break;
+    }
+    if (c.leg >= .5f) bits |= kArtLegato;
+    if (c.sus >= .5f && bits == 0) bits |= kArtSustain;
+    return bits ? bits : kArtSustain;
 }
 
 bool decodeGestureVoiceParam(ParamID id, int& channel, ParamID& base) noexcept {
@@ -129,6 +150,7 @@ tresult PLUGIN_API Processor::initialize(FUnknown* context) {
     addAudioOutput(STR16("Far L"), SpeakerArr::kStereo, kAux, 0);
     addAudioOutput(STR16("Far R"), SpeakerArr::kStereo, kAux, 0);
     addAudioOutput(STR16("Gallery"), SpeakerArr::kStereo, kAux, 0);
+    orchestraCatalogLoaded = orchestraCatalog.load(defaultDnniCatalogPath());
     return kResultOk;
 }
 
@@ -158,6 +180,9 @@ tresult PLUGIN_API Processor::setBusArrangements(SpeakerArrangement*, int32 numI
 tresult PLUGIN_API Processor::setupProcessing(ProcessSetup& setup) {
     engine.setSampleRate(setup.sampleRate);
     shadow.configure(setup.sampleRate);
+    orchestraConditioner.reset(setup.sampleRate);
+    orchestraRenderer.reset(setup.sampleRate);
+    orchestraConditioningLaneReady.fill(false);
     return AudioEffect::setupProcessing(setup);
 }
 
@@ -196,6 +221,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     if (lastProjectEnd != 0 &&
         (projectStart < lastProjectEnd - data.numSamples || projectStart > lastProjectEnd + data.numSamples * 4LL)) {
         shadow.resetTimeline(projectStart);
+        orchestraRenderer.allNotesOff();
     }
     lastProjectEnd = projectStart + data.numSamples;
 
@@ -315,7 +341,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         add(q(s.retakeNonce,16777215));add(q(s.retakeAmount,4095));add(q(s.retakeTarget,7));add(q(aiAssist,2));add(q(s.performanceStyle,5));
         add(smartDynamics>=.5f);add(smartArticulation>=.5f);add(midiAuthorityLock>=.5f);add(s.phraseDirector>=.5f);add(q(s.ensembleLooseness,4095));
         add(q(stagePerspective,3));add(polyphony>=.5f);add(q(mode,2));add(q(lookAhead,4095));add(multiOutActive);
-        add(q(layoutMode,1));add(q(singleInstrument,3));add(autoDivisi>=.5f);
+        add(q(layoutMode,1));add(q(singleInstrument,3));add(autoDivisi>=.5f);add(q(orchestraInstrument,14));
         add(uint64_t(std::llround(std::clamp(phraseTempo,20.f,400.f)*100.f)));
         add(uint64_t(favoriteMask&0x0F));add(uint64_t(rejectMask&0x0F));
         for(const auto& c:part){for(float v:{c.dyn,c.vib,c.exp,c.vol,c.pan,c.sus,c.leg,c.room,c.bend,c.art,c.transition,c.tightness,c.attack,c.speedProfile})add(q(v,4095));}
@@ -528,6 +554,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             case kParamStageMixerEnable: stageMixerEnable=v; break;
             case kParamStageMasterGain: stageMasterGain=v; break;
             case kParamStageOutputGain: stageOutputGain=v; break;
+            case kParamOrchestraInstrument: orchestraInstrument=v; runtimeState(offset); break;
+            case kParamOrchestraRendererMix: orchestraRendererMix=std::clamp(v,0.f,1.f); break;
             case kParamHostScopeMode: hostScopeMode=v; runtimeState(offset); break;
             case kParamHostScopeStyle: hostScopeStyle=v; runtimeState(offset); break;
             case kParamHostScopeLooseness: hostScopeLooseness=v; runtimeState(offset); break;
@@ -838,6 +866,66 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     std::size_t scopeBoundaryIndex = 0;
     int32 cursor = 0;
 
+    auto conditionOrchestraNote = [&](int rawCh, int note, float velocity,
+                                      const Controls& c, int32 pos) noexcept {
+        if (rawCh < 0 || rawCh >= 16) return;
+
+        MusicalControlFrame frame{};
+        frame.midiPitch = static_cast<float>(note);
+        frame.notePhase = 0.f;
+        frame.durationBeats = 1.f;
+        frame.velocity = std::clamp(velocity, 0.f, 1.f);
+        frame.dynamics = c.dyn;
+        frame.expression = c.exp;
+        frame.vibrato = c.vib;
+        frame.pitchCents = (c.bend - .5f) * 200.f;
+        frame.transition = c.transition;
+        frame.attackCharacter = c.attack;
+        if (blockQuarterValid) {
+            const double q = quarterAtOffset(pos);
+            const double p = q - std::floor(q / 4.0) * 4.0;
+            frame.phrasePosition = static_cast<float>(std::clamp(p / 4.0, 0.0, 1.0));
+        }
+        frame.articulationBits = orchestraArticulationBits(c);
+
+        OrchestraPerformanceState performance{};
+        performance.instrument = static_cast<OrchestraInstrument>(
+            orchestraInstrumentIndexFromNormalized(orchestraInstrument));
+        performance.tempoBpm = static_cast<float>(hostTempoBpm);
+        performance.humanize = humanize;
+        performance.smartDynamics = smartDynamics;
+        performance.smartArticulation = smartArticulation;
+        performance.polyphony = polyphony;
+        performance.phraseDirector = phraseDirector;
+        performance.retakeAmount = retakeAmount;
+        performance.retakeSeed = static_cast<std::uint32_t>(
+            std::clamp(retakeNonce, 0.f, 1.f) * 4294967295.0);
+        performance.retakeTargetMask = static_cast<std::uint32_t>(
+            std::clamp(retakeTarget, 0.f, 1.f) * 65535.f);
+        performance.mic.enabled = stageMixerEnable >= .5f;
+        performance.mic.masterGain = stageMasterGain;
+        performance.mic.outputGain = stageOutputGain;
+        performance.mic.feedGain = stageFeedGain;
+
+        orchestraConditioningLaneReady[rawCh] = orchestraConditioner.condition(
+            frame, performance, orchestraConditioningLane[rawCh]);
+        if (orchestraConditioningLaneReady[rawCh]) {
+            orchestraRenderer.noteOn(
+                rawCh, note, frame, performance, orchestraConditioningLane[rawCh]);
+        }
+    };
+
+    auto renderSegment = [&](int32 start, int32 count) noexcept {
+        if (count <= 0) return;
+        engine.render(out[0] + start, out[1] + start, count);
+        // Stage mixer reconstructs the master from aux feeds later in the block, so
+        // the first clean-room renderer path is intentionally disabled while that
+        // legacy stage-reconstruction mode is active.
+        if (stageMixerEnable < .5f)
+            orchestraRenderer.render(
+                out[0] + start, out[1] + start, count, orchestraRendererMix);
+    };
+
     auto handleEvent = [&](const Event& e, int32 pos) noexcept {
         if (e.type == Event::kNoteOnEvent) {
             const int rawCh = e.noteOn.channel;
@@ -881,6 +969,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                 }
             } else if(laneExplicit) {
                 const auto c=mergedVoiceControl(rawCh);
+                conditionOrchestraNote(rawCh,note,e.noteOn.velocity,c,pos);
                 const int baseArt=artFromNormalized(c.art);
                 const auto stack=expressionStackFromNormalized(c.stack);
                 engine.noteOnVoice(ch,rawCh,note,e.noteOn.velocity,previewVoiceControl(rawCh,c));
@@ -888,6 +977,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                                 packArticulationExpression(baseArt,stack),e.noteOn.velocity,
                                 static_cast<float>(hostTempoBpm),toShadow(c));
             } else {
+                conditionOrchestraNote(rawCh,note,e.noteOn.velocity,part[ch],pos);
                 engine.noteOn(ch, note, e.noteOn.velocity);
                 shadow.pushMidi(ShadowRenderClient::NoteOn, projectStart + pos, ch, note,
                                 artFromNormalized(part[ch].art), e.noteOn.velocity,
@@ -905,6 +995,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                 if (owner > 0) { ch = owner - 1; divisiOwner[rawCh][note] = 0; divisiActive[ch] = std::max(0, divisiActive[ch]-1); }
             }
             if (ch < 0 || ch >= kPartCount || isKeyswitch(note)) return;
+            orchestraRenderer.noteOff(rawCh, note);
             if(laneExplicit){
                 const auto c=mergedVoiceControl(rawCh);
                 engine.noteOffVoice(ch,rawCh,note);
@@ -929,7 +1020,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         const int32 nextPos = std::min({nextAuto, nextMidi, nextScope});
 
         if (nextPos > cursor) {
-            engine.render(out[0] + cursor, out[1] + cursor, nextPos - cursor);
+            renderSegment(cursor, nextPos - cursor);
             cursor = nextPos;
         }
 
@@ -958,7 +1049,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     }
 
     if (cursor < data.numSamples)
-        engine.render(out[0] + cursor, out[1] + cursor, data.numSamples - cursor);
+        renderSegment(cursor, data.numSamples - cursor);
 
     // v3.9: one async Audio Judge at a time; candidates commit once at batch end (one Undo snapshot).
     if(preferenceAutoCompRunning){
@@ -1066,6 +1157,27 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     emitOutputParam(kParamJudgeWinnerSafety,judgeMatches && judge.winner>=0 && judge.winner<4 ? judge.safety[judge.winner] : 0.f);
     const auto profile=personalProfile();emitOutputParam(kParamPersonalConfidence,profile.confidence);emitOutputParam(kParamPersonalEvidence,std::clamp(profile.evidence/20.f,0.f,1.f));for(int i=0;i<5;++i)emitOutputParam(personalParam(kParamPersonalWeightBase,i),std::clamp((profile.weights[i]+1.f)*.5f,0.f,1.f));for(int i=0;i<4;++i)emitOutputParam(personalParam(kParamPersonalScoreBase,i),judgeMatches?judge.personal[i]:0.f);
     emitOutputParam(kParamPreferenceAutoCompStatus,preferenceAutoCompRunning?(preferenceAutoCompWaiting?2.f/3.f:1.f/3.f):(preferenceJobCount>0?1.f:0.f));emitOutputParam(kParamPreferenceAutoCompProgress,preferenceJobCount>0?std::clamp(float(preferenceJobIndex)/float(preferenceJobCount),0.f,1.f):0.f);emitOutputParam(kParamPreferenceAutoCompCommitted,std::clamp(float(preferenceCandidateCount)/128.f,0.f,1.f));emitOutputParam(kParamPreferenceAutoCompReview,std::clamp(float(preferenceReviewCount)/128.f,0.f,1.f));
+    const int selectedOrchestraInstrument=orchestraInstrumentIndexFromNormalized(orchestraInstrument);
+    emitOutputParam(kParamOrchestraModelReady,(orchestraCatalogLoaded&&orchestraCatalog.ready(selectedOrchestraInstrument))?1.f:0.f);
+    emitOutputParam(kParamOrchestraCatalogCoverage,orchestraCatalogLoaded?std::clamp(float(orchestraCatalog.presentCount())/float(kOrchestraInstrumentCount),0.f,1.f):0.f);
+    bool conditionerReady=false;
+    float conditionerEnergy=0.f;
+    for(int lane=0;lane<16;++lane){
+        if(!orchestraConditioningLaneReady[lane]) continue;
+        conditionerReady=true;
+        double sum=0.0;
+        for(float v:orchestraConditioningLane[lane].latent512) sum+=double(v)*double(v);
+        const float rms=static_cast<float>(std::sqrt(sum/double(orchestraConditioningLane[lane].latent512.size())));
+        conditionerEnergy=std::max(conditionerEnergy,std::clamp(rms,0.f,1.f));
+    }
+    emitOutputParam(kParamOrchestraConditionerReady,conditionerReady?1.f:0.f);
+    emitOutputParam(kParamOrchestraConditioningEnergy,conditionerEnergy);
+    emitOutputParam(
+        kParamOrchestraRendererActive,
+        std::clamp(
+            float(orchestraRenderer.activeVoiceCount()) /
+                float(OrchestraRendererV71::kMaxVoices),
+            0.f, 1.f));
     return kResultOk;
 }
 
@@ -1105,6 +1217,10 @@ tresult PLUGIN_API Processor::setState(IBStream* state) {
         stageMixerEnable=0.f;stageMasterGain=1.f;stageOutputGain=1.f;
         stageFeedGain={{.25f,.35f,.25f,.45f,.62f,.45f,.28f,.28f,.20f,.20f,0.f,.12f,.12f,.06f,.06f,0.f}};
     }
+    if(version>=15){if(!s.readFloat(orchestraInstrument))return kResultFalse;}
+    else orchestraInstrument=orchestraInstrumentNormalizedFromIndex(3);
+    if(version>=16){if(!s.readFloat(orchestraRendererMix))return kResultFalse;}
+    else orchestraRendererMix=0.f;
     phraseTakeComp.resetAll();
     if(version>=10){
         int32 compCount=0;
@@ -1150,6 +1266,7 @@ tresult PLUGIN_API Processor::getState(IBStream* state) {
     if(!s.writeInt32(static_cast<int32>(memoryCursorKey)) || !s.writeFloat(smartRankMode) || !s.writeFloat(personalTasteEnable) || !s.writeFloat(personalTasteStrength) || !s.writeFloat(personalTasteLearn) || !s.writeFloat(preferenceMinConfidence) || !s.writeFloat(preferenceMinMargin) || !s.writeFloat(preferenceSafetyFloor)) return kResultFalse;
     if(!s.writeFloat(stageMixerEnable)||!s.writeFloat(stageMasterGain)||!s.writeFloat(stageOutputGain))return kResultFalse;
     for(float g:stageFeedGain)if(!s.writeFloat(g))return kResultFalse;
+    if(!s.writeFloat(orchestraInstrument)||!s.writeFloat(orchestraRendererMix))return kResultFalse;
     std::array<PersistentTakeCompEntry,PersistentPhraseTakeComp::kCapacity> compEntries{};
     const int compCount=phraseTakeComp.exportEntries(compEntries);
     if(!s.writeInt32(static_cast<int32>(compCount))) return kResultFalse;

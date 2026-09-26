@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse, json
+import argparse, json, os
 from pathlib import Path
 import torch
 from torch.utils.data import DataLoader, WeightedRandomSampler
@@ -23,11 +23,20 @@ def recon_loss(fake, real):
 
 from promotion_binding import promotion_binding
 
+
+def atomic_torch_save(obj, path):
+    p=Path(path)
+    p.parent.mkdir(parents=True,exist_ok=True)
+    tmp=p.with_name(p.name+'.tmp')
+    torch.save(obj,tmp)
+    os.replace(tmp,p)
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--manifest',action='append',required=True)
     ap.add_argument('--out',default='checkpoints/strings_vae64.pt')
     ap.add_argument('--decoder-out',default=None)
+    ap.add_argument('--resume',help='Resume VAE64 training from a checkpoint; --epochs remains the total target epoch count.')
     ap.add_argument('--arch',choices=('vae64','legacy'),default='vae64')
     ap.add_argument('--width',type=int,default=24,help='VAE64 base width. 16=micro, 24=balanced frontier.')
     ap.add_argument('--epochs',type=int,default=80); ap.add_argument('--batch',type=int,default=4)
@@ -67,7 +76,7 @@ def main():
                 loss=(wav-rec).abs().mean()+0.7*mrstft_loss(rec,wav)
                 opt.zero_grad(set_to_none=True); loss.backward(); torch.nn.utils.clip_grad_norm_(m.parameters(),5.); opt.step(); tot+=loss.item()
             print(f'epoch {ep+1:03d} loss={tot/max(1,len(dl)):.5f}')
-            torch.save({'model':m.state_dict(),'latent':96,'epoch':ep+1,'codec_kind':'legacy_stringcodec','latent_hz':187.5,'codec_sample_rate':48000,
+            atomic_torch_save({'model':m.state_dict(),'latent':96,'epoch':ep+1,'codec_kind':'legacy_stringcodec','latent_hz':187.5,'codec_sample_rate':48000,
                         'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
         return
 
@@ -77,6 +86,31 @@ def main():
     disc=MultiResolutionSTFTDiscriminator().to(dev)
     opt=torch.optim.AdamW(list(m.parameters())+list(probe.parameters()),a.lr,betas=(.8,.99),weight_decay=1e-3)
     dopt=torch.optim.AdamW(disc.parameters(),a.disc_lr,betas=(.8,.99),weight_decay=1e-3)
+    data_fingerprint=os.environ.get('SONICRAFT_DATA_FINGERPRINT') or None
+    recipe_fingerprint=os.environ.get('SONICRAFT_RECIPE_FINGERPRINT') or None
+    start=0
+    if a.resume:
+        ck=torch.load(a.resume,map_location='cpu')
+        if str(ck.get('codec_kind','')).lower()!='strings_vae64':
+            raise RuntimeError('resume checkpoint is not strings_vae64')
+        if data_fingerprint and ck.get('data_fingerprint')!=data_fingerprint:
+            raise RuntimeError(f'resume codec data fingerprint mismatch: saved={ck.get("data_fingerprint")} current={data_fingerprint}')
+        if recipe_fingerprint and ck.get('recipe_fingerprint')!=recipe_fingerprint:
+            raise RuntimeError(f'resume codec recipe fingerprint mismatch: saved={ck.get("recipe_fingerprint")} current={recipe_fingerprint}')
+        saved_cfg=dict(ck.get('config') or {})
+        current_cfg=m.config()
+        if saved_cfg and saved_cfg!=current_cfg:
+            raise RuntimeError(f'resume codec architecture mismatch: saved={saved_cfg} current={current_cfg}')
+        m.load_state_dict(ck['model'],strict=True)
+        if 'physics_probe' in ck: probe.load_state_dict(ck['physics_probe'],strict=True)
+        if 'discriminator' in ck: disc.load_state_dict(ck['discriminator'],strict=True)
+        if 'optimizer' in ck: opt.load_state_dict(ck['optimizer'])
+        if 'd_optimizer' in ck: dopt.load_state_dict(ck['d_optimizer'])
+        start=int(ck.get('epoch',0))
+        print('resumed codec',a.resume,'at epoch',start,'target',a.epochs)
+        if start>=a.epochs:
+            print('codec target already complete; nothing to do')
+            return
     total=sum(p.numel() for p in m.parameters()); dec=sum(p.numel() for p in m.decoder.parameters()); pp=sum(p.numel() for p in probe.parameters())
     print('VAE64 params',total,'decoder_only',dec,'training_probe',pp,'device',dev,'clips',len(ds),'width',a.width,
           'latent',m.latent_dim,'downsample',m.downsampling_ratio,'latent_hz',m.latent_hz)
@@ -84,11 +118,11 @@ def main():
     ampctx=lambda: torch.autocast(device_type='cuda',dtype=torch.bfloat16,enabled=use_amp)
     decoder_out=Path(a.decoder_out) if a.decoder_out else Path(a.out).with_name('strings_vae64_decoder.pt')
 
-    for ep in range(a.epochs):
+    for ep in range(start,a.epochs):
         progress=ep/max(1,a.epochs-1)
         sampler.weights=torch.as_tensor(build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=progress,require_modeled=a.require_modeled),dtype=torch.double)
         m.train(); probe.train(); disc.train()
-        sums={'g':0.,'recon':0.,'real_recon':0.,'modeled_recon':0.,'physics':0.,'physics_metric':0.,'kl':0.,'adv':0.,'fm':0.,'d':0.}; steps=0
+        sums={'g':0.,'recon':0.,'real_recon':0.,'modeled_recon':0.,'physics':0.,'physics_metric':0.,'kl':0.,'adv':0.,'fm':0.,'d':0.}; steps=0; interrupted=False
         adv_on=ep>=a.adv_start
         for wav,rows in dl:
             wav=wav.to(dev,non_blocking=True); mm=modeled_mask(rows,registry,device=dev); rm=~mm
@@ -127,15 +161,29 @@ def main():
             for k,v in [('g',gloss),('recon',recon),('real_recon',real_recon),('modeled_recon',modeled_recon),('physics',physics),('physics_metric',physics_metric),('kl',kl),('adv',adv),('fm',fm),('d',dloss)]:
                 sums[k]+=float(v.detach())
             steps+=1
+            stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+            if stop_file and Path(stop_file).exists() and steps < len(dl):
+                interrupted=True
+                print('[SAFE STOP] request seen after batch',steps,'of',len(dl))
+                break
         q={k:v/max(1,steps) for k,v in sums.items()}; print(f"epoch {ep+1:03d} "+' '.join(f'{k}={v:.5f}' for k,v in q.items()))
-        cfg=m.config(); common={'epoch':ep+1,'codec_kind':'strings_vae64','codec_sample_rate':m.sample_rate,
+        saved_epoch=ep if interrupted else ep+1
+        cfg=m.config(); common={'epoch':saved_epoch,'partial_epoch':(ep+1 if interrupted else None),'partial_batches':(steps if interrupted else None),'codec_kind':'strings_vae64','codec_sample_rate':m.sample_rate,
              'latent_ch':m.latent_dim,'latent_hz':m.latent_hz,'downsampling_ratio':m.downsampling_ratio,'config':cfg,
              'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_recon_weight':a.modeled_recon_weight,'curriculum':curriculum},
              'acoustic_promotion_id':promotion_id,
-             'physics_probe_training_only':True,'physics_metric_weight':a.physics_metric_weight,'sound_forge':'sound_forge_v19'}
-        torch.save({**common,'model':m.state_dict(),'physics_probe':probe.state_dict(),'optimizer':opt.state_dict(),'discriminator':disc.state_dict()},a.out)
+             'physics_probe_training_only':True,'physics_metric_weight':a.physics_metric_weight,'sound_forge':'sound_forge_v19',
+             'data_fingerprint':data_fingerprint,'recipe_fingerprint':recipe_fingerprint}
+        atomic_torch_save({**common,'model':m.state_dict(),'physics_probe':probe.state_dict(),'optimizer':opt.state_dict(),'d_optimizer':dopt.state_dict(),'discriminator':disc.state_dict()},a.out)
         decoder_out.parent.mkdir(parents=True,exist_ok=True)
         # Deliberately no probe/discriminator/encoder optimizer in consumer artifact.
-        torch.save({**common,'decoder':m.decoder.state_dict(),'decoder_params':dec},decoder_out)
+        atomic_torch_save({**common,'decoder':m.decoder.state_dict(),'decoder_params':dec},decoder_out)
+        stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if interrupted:
+            print('[SAFE STOP] partial epoch checkpoint saved; epoch',ep+1,'will replay on resume ->',a.out)
+            return
+        if stop_file and Path(stop_file).exists():
+            print('[SAFE STOP] checkpoint saved at completed epoch',ep+1,'->',a.out)
+            return
 
 if __name__=='__main__': main()

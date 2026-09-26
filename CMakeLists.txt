@@ -39,6 +39,20 @@ add_executable(SonicraftPreferenceClientSmokeV38 standalone/preference_client_sm
 target_include_directories(SonicraftPreferenceClientSmokeV38 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_executable(SonicraftPreferenceAutoCompSmokeV39 standalone/preference_auto_comp_smoke_v39.cpp)
 target_include_directories(SonicraftPreferenceAutoCompSmokeV39 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(SonicraftOrchestraEngineContractSmokeV71 standalone/orchestra_engine_contract_smoke_v71.cpp)
+target_include_directories(SonicraftOrchestraEngineContractSmokeV71 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(SonicraftOrchestraConditioningContractSmokeV71 standalone/orchestra_conditioning_contract_smoke_v71.cpp)
+target_include_directories(SonicraftOrchestraConditioningContractSmokeV71 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(SonicraftOrchestraConditionerSmokeV71 standalone/orchestra_conditioner_smoke_v71.cpp src/orchestra_conditioner_v71.cpp)
+target_include_directories(SonicraftOrchestraConditionerSmokeV71 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(SonicraftOrchestraRendererSmokeV71 standalone/orchestra_renderer_smoke_v71.cpp src/orchestra_conditioner_v71.cpp src/orchestra_renderer_v71.cpp)
+target_include_directories(SonicraftOrchestraRendererSmokeV71 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(SonicraftOrchestraRendererDemoV71 standalone/orchestra_renderer_demo_v71.cpp src/orchestra_conditioner_v71.cpp src/orchestra_renderer_v71.cpp)
+target_include_directories(SonicraftOrchestraRendererDemoV71 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(SonicraftDnniManifestSmokeV71 standalone/dnni_manifest_smoke_v71.cpp)
+target_include_directories(SonicraftDnniManifestSmokeV71 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(SonicraftDnniRuntimeLayoutSmokeV71 standalone/dnni_runtime_layout_smoke_v71.cpp)
+target_include_directories(SonicraftDnniRuntimeLayoutSmokeV71 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_executable(SonicraftStringExpressionSmokeV41 standalone/string_expression_smoke_v41.cpp src/preview_engine.cpp)
 target_include_directories(SonicraftStringExpressionSmokeV41 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_executable(SonicraftStringPhysicalSmokeV42 standalone/string_physical_smoke_v42.cpp)
@@ -162,6 +176,8 @@ if(SONICRAFT_BUILD_VST3)
   smtg_add_vst3plugin(SonicraftAIStringsQ4
       src/factory.cpp src/ids.h src/processor.h src/articulations.h src/processor.cpp
       src/controller.h src/controller.cpp src/preview_engine.h src/preview_engine.cpp
+      src/orchestra_conditioner_v71.h src/orchestra_conditioner_v71.cpp
+      src/orchestra_renderer_v71.h src/orchestra_renderer_v71.cpp
       src/shadow_render_client.h src/shadow_render_client.cpp src/preference_client_v38.h src/preference_client_v38.cpp src/preference_auto_comp_v39.h)
   target_include_directories(SonicraftAIStringsQ4 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
   target_link_libraries(SonicraftAIStringsQ4 PRIVATE sdk vstgui_support)

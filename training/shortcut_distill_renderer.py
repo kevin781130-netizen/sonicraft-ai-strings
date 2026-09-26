@@ -10,7 +10,7 @@ adapting it to continuous string latents and strict MIDI-authority conditioning:
 
 This is training-only. It adds no teacher or auxiliary model to the consumer package.
 """
-import argparse, copy, math, random, json
+import argparse, copy, math, random, json, os
 from pathlib import Path
 import numpy as np
 import torch
@@ -21,6 +21,14 @@ from train_ballad_renderer import Segments, collate, source_weights, PRESETS, em
 from promotion_binding import promotion_binding
 from source_policy import validate_index
 from string_source_mixer import load_registry, build_curriculum_weights, mixture_audit
+
+
+def atomic_torch_save(obj, path):
+    p=Path(path)
+    p.parent.mkdir(parents=True,exist_ok=True)
+    tmp=p.with_name(p.name+'.tmp')
+    torch.save(obj,tmp)
+    os.replace(tmp,p)
 
 CONTROL_NAMES=(
     'pitch','gate','onset','velocity','dynamics','vibrato','expression','legato','pitchbend',
@@ -142,6 +150,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--index',default='datasets/processed/ballad_vae64/index.jsonl')
     ap.add_argument('--init',help='Optional matching v1.7 flow checkpoint to initialize student/EMA.')
+    ap.add_argument('--resume',help='Resume shortcut training from its own checkpoint; takes precedence over --init.')
     ap.add_argument('--out',default='checkpoints/frontier_shortcut.pt')
     ap.add_argument('--preset',choices=PRESETS,default='frontier_shared_dit')
     ap.add_argument('--max-steps',type=int,default=8,help='Power-of-two training grid. Produces 1/2/4/... step inference.')
@@ -169,7 +178,17 @@ def main():
         raise SystemExit('shortcut training requires a preset with interval_conditioning=True')
     m=BalladFlowRenderer(latent_ch=latent_ch,**cfg).to(dev)
     ema=copy.deepcopy(m).eval().requires_grad_(False)
-    if a.init:
+    resume_ck=None
+    if a.resume:
+        resume_ck=torch.load(a.resume,map_location='cpu')
+        if dict(resume_ck.get('config') or {})!=cfg: raise RuntimeError('resume shortcut architecture mismatch')
+        if data_fingerprint and resume_ck.get('data_fingerprint')!=data_fingerprint: raise RuntimeError(f'resume shortcut data fingerprint mismatch: saved={resume_ck.get("data_fingerprint")} current={data_fingerprint}')
+        if recipe_fingerprint and resume_ck.get('recipe_fingerprint')!=recipe_fingerprint: raise RuntimeError(f'resume shortcut recipe fingerprint mismatch: saved={resume_ck.get("recipe_fingerprint")} current={recipe_fingerprint}')
+        if int(resume_ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('resume shortcut latent geometry mismatch')
+        m.load_state_dict(resume_ck.get('model',resume_ck.get('ema')),strict=True)
+        ema.load_state_dict(resume_ck.get('ema',resume_ck.get('model')),strict=True)
+        print('loaded shortcut resume checkpoint',a.resume)
+    elif a.init:
         ck=torch.load(a.init,map_location='cpu')
         if dict(ck.get('config') or {})!=cfg: raise RuntimeError('init checkpoint architecture does not match shortcut preset')
         if int(ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('init latent geometry mismatch')
@@ -178,13 +197,23 @@ def main():
         print('initialized shortcut model from',a.init)
 
     opt=torch.optim.AdamW(m.parameters(),lr=a.lr,weight_decay=.01,betas=(.9,.95))
+    data_fingerprint=os.environ.get('SONICRAFT_DATA_FINGERPRINT') or None
+    recipe_fingerprint=os.environ.get('SONICRAFT_RECIPE_FINGERPRINT') or None
+    start=0
+    if resume_ck is not None:
+        if 'optimizer' in resume_ck: opt.load_state_dict(resume_ck['optimizer'])
+        start=int(resume_ck.get('epoch',0))
+        print('resumed shortcut at epoch',start,'target',a.epochs)
+        if start>=a.epochs:
+            print('shortcut target already complete; nothing to do')
+            return
     use_amp=(dev=='cuda' and torch.cuda.is_bf16_supported())
     ampctx=lambda: torch.autocast(device_type='cuda',dtype=torch.bfloat16,enabled=use_amp)
     print('shortcut params',sum(p.numel() for p in m.parameters()),'preset',a.preset,'max_steps',a.max_steps,
           'latent',latent_ch,'@',latent_hz,'codec',codec_kind)
-    for ep in range(a.epochs):
+    for ep in range(start,a.epochs):
         progress=ep/max(1,a.epochs-1); sampler.weights=torch.as_tensor(build_curriculum_weights(ds.rows,registry,a.real_ratio,a.modeled_ratio,progress=progress),dtype=torch.double)
-        m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'bootstrap':0.,'endpoint':0.,'continuity':0.,'mean_h':0.,'modeled_fraction':0.}; n=0
+        m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'bootstrap':0.,'endpoint':0.,'continuity':0.,'mean_h':0.,'modeled_fraction':0.}; n=0; interrupted=False
         for bi,batch in enumerate(dl):
             z,c,dsnames=split_batch(batch,dev)
             sw=torch.tensor([a.modeled_flow_weight if str(x).lower() in modeled_sources else 1.0 for x in dsnames],device=dev,dtype=z.dtype)
@@ -194,13 +223,26 @@ def main():
                 torch.nn.utils.clip_grad_norm_(m.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,m,a.ema)
             for k,v in met.items(): sums[k]+=float(v)
             n+=1
+            stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+            if stop_file and Path(stop_file).exists() and n < len(dl):
+                interrupted=True
+                print('[SAFE STOP] request seen after batch',n,'of',len(dl))
+                break
         print(f"epoch {ep+1:03d} flow={sums['flow']/max(1,n):.6f} shortcut={sums['bootstrap']/max(1,n):.6f} end={sums['endpoint']/max(1,n):.6f} cont={sums['continuity']/max(1,n):.6f} mean_h={sums['mean_h']/max(1,n):.3f} modeled={sums['modeled_fraction']/max(1,n):.3f}")
         Path(a.out).parent.mkdir(parents=True,exist_ok=True)
-        torch.save({'model':m.state_dict(),'ema':ema.state_dict(),'epoch':ep+1,'config':cfg,'preset':a.preset,
+        saved_epoch=ep if interrupted else ep+1
+        atomic_torch_save({'model':m.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'epoch':saved_epoch,'partial_epoch':(ep+1 if interrupted else None),'partial_batches':(n if interrupted else None),'config':cfg,'preset':a.preset,
                     'latent_ch':latent_ch,'latent_hz':latent_hz,'codec_kind':codec_kind,'codec_sample_rate':codec_sr,
                     'sampling_family':'shortcut','supported_steps':[2**i for i in range(int(math.log2(a.max_steps))+1)],
                     'recommended_steps':int(a.recommend_steps),'max_shortcut_steps':int(a.max_steps),
                     'schema_version':12,'distillation':'string_perceptual_shortcut','source_index':a.index,
-                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
+                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint,'recipe_fingerprint':recipe_fingerprint},a.out)
+        stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if interrupted:
+            print('[SAFE STOP] partial shortcut epoch saved; epoch',ep+1,'will replay on resume ->',a.out)
+            return
+        if stop_file and Path(stop_file).exists():
+            print('[SAFE STOP] shortcut checkpoint saved at completed epoch',ep+1,'->',a.out)
+            return
 
 if __name__=='__main__': main()

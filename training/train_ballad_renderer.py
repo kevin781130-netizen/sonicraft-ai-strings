@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse, copy, json, random
+import argparse, copy, json, random, os
 from pathlib import Path
 import numpy as np
 import torch
@@ -8,6 +8,14 @@ from models.ballad_flow_renderer import BalladFlowRenderer
 from source_policy import validate_index
 from string_source_mixer import load_registry, build_mixture_weights, build_curriculum_weights, mixture_audit, coverage_audit
 from promotion_binding import promotion_binding
+
+
+def atomic_torch_save(obj, path):
+    p=Path(path)
+    p.parent.mkdir(parents=True,exist_ok=True)
+    tmp=p.with_name(p.name+'.tmp')
+    torch.save(obj,tmp)
+    os.replace(tmp,p)
 
 PRESETS = {
     'smoke': {'d_model': 64, 'layers': 2, 'heads': 4},
@@ -29,11 +37,18 @@ PRESETS = {
     # v1.8 high-capacity sound teacher: same authority/physics semantics as frontier, but enough capacity to absorb real timbre before distillation.
     'hq_strings_v18': {'d_model': 512, 'layers': 10, 'heads': 8, 'backbone': 'adaln_dit', 'mlp_ratio': 3.0, 'dropout': 0.0,
                        'attention_impl': 'sdpa', 'shared_adaln': True, 'interval_conditioning': True, 'expert_fusion': 'joint', 'split_vibrato_validity': True},
+    # Research-only four-timbre variant. instruments=4 prevents slot 4 (ID 3) from indexing a 3-row embedding.
+    'hq_dnni4': {'d_model': 512, 'layers': 10, 'heads': 8, 'backbone': 'adaln_dit', 'mlp_ratio': 3.0, 'dropout': 0.0,
+                 'attention_impl': 'sdpa', 'shared_adaln': True, 'interval_conditioning': True, 'expert_fusion': 'joint',
+                 'split_vibrato_validity': True, 'instruments': 4},
     # v1.8 frontier core: only ~5K new parameters for hidden quartet/phrase intelligence.
     # The adapter is zero-start and therefore behavior-neutral until quartet fine-tuning.
     'frontier_core_dit': {'d_model': 192, 'layers': 6, 'heads': 8, 'backbone': 'adaln_dit', 'mlp_ratio': 2.0, 'dropout': 0.0,
                           'attention_impl': 'sdpa', 'shared_adaln': True, 'interval_conditioning': True, 'expert_fusion': 'joint', 'split_vibrato_validity': True,
                           'frontier_context_dim': 14, 'context_rank': 24},
+    'frontier_core_dnni4': {'d_model': 192, 'layers': 6, 'heads': 8, 'backbone': 'adaln_dit', 'mlp_ratio': 2.0, 'dropout': 0.0,
+                            'attention_impl': 'sdpa', 'shared_adaln': True, 'interval_conditioning': True, 'expert_fusion': 'joint',
+                            'split_vibrato_validity': True, 'frontier_context_dim': 14, 'context_rank': 24, 'instruments': 4},
 }
 
 class Segments(Dataset):
@@ -119,7 +134,8 @@ def run_batch(model,batch,dev,train=True,cond_dropout=.08,modeled_sources=None,m
     on=interp(o).clamp(0,1); lg=interp(leg).clamp(0,1); bw=interp(bow).clamp(0,1)
     vb=interp(vib).clamp(0,1); vk_i=interp(vk).clamp(0,1)
     art_i=torch.nn.functional.interpolate(art_curve[:,None].float(),size=T,mode='nearest')[:,0].long()
-    port=(art_i==2).float()
+    ak_i=interp(ak).clamp(0,1)
+    port=(art_i==2).float()*ak_i
     weight=(1.0 + 1.75*on + 0.50*lg + 0.70*port + 0.30*bw + 0.35*vb*vk_i)[:,None,:]
     per_flow=((pred-target).pow(2)*weight).mean(dim=(1,2))
     modeled_sources=set(modeled_sources or ())
@@ -182,15 +198,22 @@ def main():
         print('[INFO] performance expert checkpoint not found; HQ will train its submodule end-to-end:',a.performance_experts)
     ema=copy.deepcopy(m).eval().requires_grad_(False)
     opt=torch.optim.AdamW(m.parameters(),a.lr,weight_decay=.01,betas=(.9,.95)); sched=torch.optim.lr_scheduler.CosineAnnealingLR(opt,T_max=max(1,a.epochs),eta_min=a.lr*.08)
+    data_fingerprint=os.environ.get('SONICRAFT_DATA_FINGERPRINT') or None
+    recipe_fingerprint=os.environ.get('SONICRAFT_RECIPE_FINGERPRINT') or None
     start=0; best=float('inf')
     if a.resume:
         ck=torch.load(a.resume,map_location='cpu'); saved=ck.get('config',{})
         if any(saved.get(k)!=cfg[k] for k in cfg): raise RuntimeError('Resume checkpoint architecture mismatch.')
+        if data_fingerprint and ck.get('data_fingerprint')!=data_fingerprint: raise RuntimeError(f'Resume checkpoint data fingerprint mismatch: saved={ck.get("data_fingerprint")} current={data_fingerprint}')
+        if recipe_fingerprint and ck.get('recipe_fingerprint')!=recipe_fingerprint: raise RuntimeError(f'Resume checkpoint recipe fingerprint mismatch: saved={ck.get("recipe_fingerprint")} current={recipe_fingerprint}')
         if int(ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('Resume checkpoint latent geometry mismatch.')
         m.load_state_dict(ck['model']); ema.load_state_dict(ck.get('ema',ck['model']))
         if 'optimizer' in ck: opt.load_state_dict(ck['optimizer'])
         if 'scheduler' in ck: sched.load_state_dict(ck['scheduler'])
-        start=int(ck.get('epoch',0)); best=float(ck.get('best_val',best)); print('resumed',a.resume,'at',start)
+        start=int(ck.get('epoch',0)); best=float(ck.get('best_val',best)); print('resumed',a.resume,'at',start,'target',a.epochs)
+        if start>=a.epochs:
+            print('renderer target already complete; nothing to do')
+            return
 
     expert_modules=(m.vibrato_physics,m.performance_experts)
     def set_expert_trainable(flag: bool):
@@ -204,12 +227,12 @@ def main():
     print('renderer params',sum(p.numel() for p in m.parameters()),'device',dev,'segments',len(ds),cfg,'controls',m.CONTROL_DIMS,'bf16',use_amp,
           'codec',codec_kind,'latent',latent_ch,'@',latent_hz,'Hz')
 
-    for ep in range(start,start+a.epochs):
-        progress=(ep-start)/max(1,a.epochs-1)
+    for ep in range(start,a.epochs):
+        progress=ep/max(1,a.epochs-1)
         sampler.weights=torch.as_tensor(source_weights(ds.rows,a.registry,a.real_ratio,a.modeled_ratio,progress=progress),dtype=torch.double)
         if expert_loaded and a.expert_freeze_epochs>0 and ep==start+a.expert_freeze_epochs:
             set_expert_trainable(True); print('unfroze physical experts for end-to-end HQ refinement')
-        m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'continuity':0.,'accel':0.,'modeled_fraction':0.}; steps=0
+        m.train(); opt.zero_grad(set_to_none=True); sums={'flow':0.,'continuity':0.,'accel':0.,'modeled_fraction':0.}; steps=0; interrupted=False
         for bi,batch in enumerate(dl):
             with ampctx(): loss,met=run_batch(m,batch,dev,True,a.cond_dropout,modeled_sources,a.modeled_flow_weight); loss=loss/a.accum
             loss.backward()
@@ -217,7 +240,26 @@ def main():
                 torch.nn.utils.clip_grad_norm_(m.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,m,a.ema)
             for k,v in met.items(): sums[k]+=float(v)
             steps+=1
-        sched.step(); denom=max(1,steps)
+            stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+            if stop_file and Path(stop_file).exists() and steps < len(dl):
+                interrupted=True
+                print('[SAFE STOP] request seen after batch',steps,'of',len(dl))
+                break
+        denom=max(1,steps)
+        if interrupted:
+            msg=f"epoch {ep+1:03d} PARTIAL train_flow={sums['flow']/denom:.6f} cont={sums['continuity']/denom:.6f} accel={sums['accel']/denom:.6f} modeled={sums['modeled_fraction']/denom:.3f}"
+            print(msg)
+            ck={'model':m.state_dict(),'ema':ema.state_dict(),'optimizer':opt.state_dict(),'scheduler':sched.state_dict(),
+                'epoch':ep,'partial_epoch':ep+1,'partial_batches':steps,'config':cfg,'preset':a.preset,'latent_ch':latent_ch,'latent_hz':latent_hz,
+                'codec_kind':codec_kind,'codec_sample_rate':codec_sample_rate,'articulations':12,
+                'control_dims':m.CONTROL_DIMS,'source_index':a.index,'val_index':a.val_index,'best_val':best,'schema_version':9,
+                'vibrato_expert_seed':a.vibrato_expert,'performance_experts_seed':a.performance_experts,
+                'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
+                'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint,'recipe_fingerprint':recipe_fingerprint}
+            atomic_torch_save(ck,a.out)
+            print('[SAFE STOP] partial renderer epoch saved; epoch',ep+1,'will replay on resume ->',a.out)
+            return
+        sched.step()
         msg=f"epoch {ep+1:03d} train_flow={sums['flow']/denom:.6f} cont={sums['continuity']/denom:.6f} accel={sums['accel']/denom:.6f} modeled={sums['modeled_fraction']/denom:.3f} lr={sched.get_last_lr()[0]:.2e}"
         val=float('nan')
         if vdl:
@@ -233,10 +275,14 @@ def main():
             'control_dims':m.CONTROL_DIMS,'source_index':a.index,'val_index':a.val_index,'best_val':best,'schema_version':9,
             'vibrato_expert_seed':a.vibrato_expert,'performance_experts_seed':a.performance_experts,
             'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
-            'acoustic_promotion_id':promotion_id}
-        Path(a.out).parent.mkdir(parents=True,exist_ok=True); torch.save(ck,a.out)
+            'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint,'recipe_fingerprint':recipe_fingerprint}
+        atomic_torch_save(ck,a.out)
         score=val if vdl else sums['flow']/denom
         if score<best:
-            best=score; ck['best_val']=best; torch.save(ck,a.best_out)
+            best=score; ck['best_val']=best; atomic_torch_save(ck,a.best_out)
+        stop_file=os.environ.get('SONICRAFT_STOP_FILE')
+        if stop_file and Path(stop_file).exists():
+            print('[SAFE STOP] renderer checkpoint saved at completed epoch',ep+1,'->',a.out)
+            return
 
 if __name__=='__main__': main()

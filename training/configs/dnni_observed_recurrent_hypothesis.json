@@ -1,0 +1,77 @@
+{
+  "schema": "sonicraft-dnni-observed-recurrent-hypothesis-v1",
+  "source": "15 confirmed DNNI v4 models; grouped GRU-style numerical plausibility test",
+  "truth_boundary": "One public GRU-style candidate equation only. This is not identification of the proprietary runtime.",
+  "candidate_assumptions": {
+    "input_width": 506,
+    "hidden_width": 512,
+    "shared_slab": "512x506 row-major input projection",
+    "matrix_grouping": {
+      "input": [
+        0,
+        1,
+        2
+      ],
+      "recurrent": [
+        3,
+        4,
+        5
+      ]
+    },
+    "gate_order": [
+      "reset",
+      "update",
+      "candidate"
+    ],
+    "steps": 8,
+    "input": "deterministic synthetic normalized vector",
+    "initial_hidden_state": "zeros",
+    "input_width_status": "supported as internal projection width by exact byte accounting; not established as direct musical control width",
+    "input_width_evidence_file": "training/configs/dnni_observed_module_accounting.json"
+  },
+  "aggregate": [
+    {
+      "module": 0,
+      "final_state_l2_norm_range": [
+        0.83325118,
+        0.93777364
+      ],
+      "max_abs_across_models": 0.13605884,
+      "max_gate_saturation_fraction": 0
+    },
+    {
+      "module": 1,
+      "final_state_l2_norm_range": [
+        0.9646737,
+        1.0443238
+      ],
+      "max_abs_across_models": 0.17769524,
+      "max_gate_saturation_fraction": 0
+    },
+    {
+      "module": 2,
+      "final_state_l2_norm_range": [
+        1.00559461,
+        1.07499135
+      ],
+      "max_abs_across_models": 0.16326046,
+      "max_gate_saturation_fraction": 0
+    },
+    {
+      "module": 3,
+      "final_state_l2_norm_range": [
+        1.71557307,
+        1.84031355
+      ],
+      "max_abs_across_models": 0.2914511,
+      "max_gate_saturation_fraction": 0
+    }
+  ],
+  "success_gate": {
+    "all_15_models_all_4_modules_finite": true,
+    "gate_saturation_below_1_percent": true,
+    "interpretation": "Demonstrates finite/stable state evolution for one public GRU-style candidate using the internal 506-wide projection layout. It does not identify the true operation or the producer of the 506-vector."
+  },
+  "next_blocker": "Recover or constrain the producer of the 506-wide internal vector, then map pitch/timing/dynamics/articulation upstream.",
+  "structural_status": "numerical plausibility test on a strongly supported internal 506-wide projection candidate"
+}
