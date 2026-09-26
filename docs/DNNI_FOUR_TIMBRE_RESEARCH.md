@@ -95,3 +95,40 @@ The renderer and runtime model also gate legato/portamento expert activation wit
 ## Synthesizer V Studio 2 export boundary
 
 The documented SV2 scripting API can create/edit project data and tracks, and `Track.setBounced()` can mark whether a track is included in file export. The documented audio export itself remains a Render Panel / **Bounce to Files** operation. This integration therefore does not depend on an undocumented render CLI or private scripting call. Once WAV captures exist in the expected paths, manifest creation, latent encoding, training, resume, status, and recovery are automated.
+
+
+## Four-bounce capture workflow
+
+The manual export bottleneck is reduced to four long bounces:
+
+1. Run `PREPARE_DNNI_CAPTURE.bat`.
+2. The tool generates the regular capture plan plus four long MIDI files under `datasets/dnni_four_timbres/batch_capture/`.
+3. In Synthesizer V Studio 2, import one MIDI per timbre and assign the matching installed voice/timbre.
+4. Bounce exactly four long WAV files to:
+   - `datasets/dnni_four_timbres/batch_bounces/timbre_1.wav`
+   - `.../timbre_2.wav`
+   - `.../timbre_3.wav`
+   - `.../timbre_4.wav`
+5. Run `SLICE_DNNI_BOUNCES.bat`, or simply run `TRAIN_DNNI_5090.bat`; the main trainer detects all four long bounces and slices them automatically.
+
+The generated MIDI uses a 60 BPM deterministic timeline with lead/gap spacing. The slicer detects the first rendered onset and estimates a constant timeline offset, so export that trims or retains the initial silence can still be aligned before the individual capture WAVs are written.
+
+Synthesizer V Studio 2 officially supports MIDI import and documents WAV export through the Render Panel / Bounce to Files. This workflow uses those documented paths and does not depend on a private render CLI:
+- https://sv2.docs.dreamtonics.com/en/inst-plugin
+- https://sv2.docs.dreamtonics.com/en/render
+
+## Data fingerprint and stale-artifact protection
+
+Before training, SONICRAFT computes a portable SHA-256 fingerprint over the semantic four-timbre configuration, imported DNNI source/weight hashes, capture plan, capture controls, and rendered-audio hashes. Absolute local drive paths and display-only timbre labels are excluded.
+
+The fingerprint is stored in the VAE64, HQ renderer, Frontier distill, shortcut checkpoints, and latent provenance. A stale/missing fingerprint blocks automatic resume. This catches cases such as replacing one DNNI package, re-rendering a WAV, changing a model-relevant timbre ID/instrument ID/MIDI range, or mixing latents from an older dataset.
+
+If a data change is intentional, use `RESET_DNNI_5090.bat` (or Manager option **Archive / Reset**). It moves old checkpoints/latents/logs into `archive/dnni5090/<timestamp>/` and never deletes the DNNI source packages or rendered WAVs.
+
+Changing only the human-readable `label` in `training/configs/dnni_four_timbres.json` does not invalidate model artifacts.
+
+## Four-timbre model geometry
+
+The normal SONICRAFT string presets historically default to three instrument embeddings. The DNNI research lane uses dedicated `hq_dnni4` and `frontier_core_dnni4` presets with `instruments=4`, so timbre IDs 0, 1, 2 and 3 all have valid embeddings. The standard commercial presets are not changed.
+
+Velocity from the generated MIDI is also marked unverified by default. Unless independently verified, the research manifest uses a neutral velocity/dynamics condition instead of teaching a possibly false MIDI-velocity-to-timbre relationship.
