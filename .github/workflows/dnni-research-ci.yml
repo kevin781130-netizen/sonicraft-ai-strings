@@ -33,7 +33,8 @@ on:
       - "training/scripts/slice_dnni_batch_bounces.py"
       - "PREPARE_DNNI_CAPTURE.bat"
       - "SLICE_DNNI_BOUNCES.bat"
-      - "training/tests/dnni_batch_capture_smoke.py"\n      - "training/configs/dnni_5090_training.json"
+      - "training/tests/dnni_batch_capture_smoke.py"
+      - "training/configs/dnni_5090_training.json"
       - "training/scripts/dnni_training_config.py"
       - ".github/workflows/dnni-research-ci.yml"
   workflow_dispatch:
