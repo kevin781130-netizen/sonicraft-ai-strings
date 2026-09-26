@@ -1,0 +1,98 @@
+{
+  "schema": "sonicraft-dnni-observed-conditioning-interface-v1",
+  "source": "15 confirmed DNNI v4 models, exact-byte boundary plus dtype consensus",
+  "truth_boundary": "Verified byte equality/dtype/dimension-compatibility only. Musical feature semantics and graph direction remain unknown.",
+  "latent_width": 512,
+  "terminal_block_evidence": {
+    "final_block_bytes": 524288,
+    "exact_common_prefix_bytes_by_module": [
+      519152,
+      519152,
+      519152,
+      519152
+    ],
+    "instrument_specific_suffix_bytes_by_module": [
+      5136,
+      5136,
+      5136,
+      5136
+    ],
+    "suffix_dtype_pattern": [
+      "float16_le",
+      "float16_le",
+      "float16_le",
+      "float32_le"
+    ],
+    "suffix_packet_candidates": [
+      {
+        "module": 0,
+        "value_count": 2568,
+        "scalar_prefix_candidate": 8,
+        "vector_width_candidate": 512,
+        "vector_count_candidate": 5
+      },
+      {
+        "module": 1,
+        "value_count": 2568,
+        "scalar_prefix_candidate": 8,
+        "vector_width_candidate": 512,
+        "vector_count_candidate": 5
+      },
+      {
+        "module": 2,
+        "value_count": 2568,
+        "scalar_prefix_candidate": 8,
+        "vector_width_candidate": 512,
+        "vector_count_candidate": 5
+      },
+      {
+        "module": 3,
+        "value_count": 1284,
+        "scalar_prefix_candidate": 4,
+        "vector_width_candidate": 256,
+        "vector_count_candidate": 5
+      }
+    ],
+    "old_506_boundary_bytes": 518144,
+    "additional_common_bytes_after_old_506_boundary": 1008,
+    "old_506_conditioning_width_supported": false,
+    "conclusion": "The 506-wide conditioning interpretation is falsified as a verified tensor boundary. The recurrent finite-state probe remains only a numerical stress test."
+  },
+  "adjacent_projection_interface": {
+    "left_bank_offset": 39256064,
+    "family_offset": 40304640,
+    "right_bank_offset": 54984704,
+    "per_bank_pattern": [
+      {
+        "dtype": "float32_le",
+        "latent_width": 512,
+        "other_width": 128
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      }
+    ],
+    "patterns_match_left_and_right": true,
+    "boundary_equalities": [
+      "39256064 + 1048576 == 40304640",
+      "40304640 + 4*3670016 == 54984704"
+    ],
+    "stronger_conditioning_candidates": [
+      128,
+      256
+    ],
+    "direction": "unknown"
+  }
+}
