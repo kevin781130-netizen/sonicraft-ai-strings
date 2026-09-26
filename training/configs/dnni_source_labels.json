@@ -71,7 +71,17 @@
       "instrument_family": "woodwind",
       "identity_status": "confirmed",
       "identity_authority": "user_supplied",
-      "confirmed_date": "2026-09-26"
+      "confirmed_date": "2026-09-26",
+      "weights_offset": 36864,
+      "weights_bytes": 132502456,
+      "weights_sha256": "64fa9a1a09626ab913b6ef1b1eb5832fd9f59ccda78a9b18243b80588243bfd2",
+      "section1_offset": 140,
+      "section1_bytes": 34645,
+      "section3_offset": 132542464,
+      "section3_bytes": 1803390,
+      "section4_offset": 134345854,
+      "section4_bytes": 131488,
+      "footer_bytes": 256
     }
   ],
   "pending_intake": []
