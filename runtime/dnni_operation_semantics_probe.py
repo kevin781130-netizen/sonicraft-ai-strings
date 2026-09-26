@@ -138,6 +138,73 @@ def _family_spectral_summary(models) -> dict:
     }
 
 
+def _pairwise_tied_weight_scan(models) -> dict:
+    sample = _sample_models(models)
+    max_direct = {"abs_correlation": 0.0}
+    max_transpose = {"abs_correlation": 0.0}
+    comparisons = 0
+
+    for model in sample:
+        for module_index in range(MODULE_COUNT):
+            mats = []
+            for matrix_index in range(MATRIX_COUNT):
+                rel = (
+                    FAMILY_START
+                    + module_index * MODULE_STRIDE
+                    + matrix_index * MATRIX_BYTES
+                )
+                a = np.frombuffer(
+                    _read(model, rel, MATRIX_BYTES), dtype="<f2"
+                ).astype(np.float32).reshape(LATENT, LATENT)
+                mats.append(np.nan_to_num(a))
+
+            for i in range(MATRIX_COUNT):
+                ai = mats[i].ravel()
+                ni = max(float(np.linalg.norm(ai)), 1e-30)
+                for j in range(i + 1, MATRIX_COUNT):
+                    bj = mats[j]
+                    nj = max(float(np.linalg.norm(bj)), 1e-30)
+                    direct = float(np.dot(ai, bj.ravel()) / (ni * nj))
+                    transposed = float(np.dot(ai, bj.T.ravel()) / (ni * nj))
+                    comparisons += 1
+                    if abs(direct) > max_direct["abs_correlation"]:
+                        max_direct = {
+                            "abs_correlation": abs(direct),
+                            "correlation": direct,
+                            "instrument_role": (
+                                model.registry_match.instrument_role
+                                if model.registry_match else model.path.name
+                            ),
+                            "module_index": module_index,
+                            "matrix_pair": [i, j],
+                        }
+                    if abs(transposed) > max_transpose["abs_correlation"]:
+                        max_transpose = {
+                            "abs_correlation": abs(transposed),
+                            "correlation": transposed,
+                            "instrument_role": (
+                                model.registry_match.instrument_role
+                                if model.registry_match else model.path.name
+                            ),
+                            "module_index": module_index,
+                            "matrix_pair": [i, j],
+                        }
+
+    return {
+        "sample_roles": [
+            m.registry_match.instrument_role if m.registry_match else m.path.name
+            for m in sample
+        ],
+        "comparisons": comparisons,
+        "max_direct_normalized_correlation": max_direct,
+        "max_transpose_normalized_correlation": max_transpose,
+        "tied_or_transpose_pair_detected": (
+            max_direct["abs_correlation"] >= 0.90
+            or max_transpose["abs_correlation"] >= 0.90
+        ),
+    }
+
+
 def _metadata_dimension_scan(models) -> dict:
     section_keys = ("section1", "section3", "section4")
     out = {}
@@ -254,6 +321,7 @@ def probe_operation_constraints(models) -> dict:
                 x["near_orthogonal"] for x in classifications
             ),
         },
+        "pairwise_tied_weight_scan": _pairwise_tied_weight_scan(models),
         "metadata_literal_dimension_scan": _metadata_dimension_scan(models),
         "adapter_projection_direct_weight_scan": _adapter_projection_match_scan(models),
         "remaining_unknowns": [
