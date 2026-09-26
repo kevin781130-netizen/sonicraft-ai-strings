@@ -1,0 +1,9 @@
+{
+  "schema": "sonicraft-dnni-four-timbres-config-v1",
+  "slots": [
+    {"slot": 1, "timbre_id": "timbre_1", "label": "Timbre 1", "instrument": 0, "midi_low": 55, "midi_high": 96},
+    {"slot": 2, "timbre_id": "timbre_2", "label": "Timbre 2", "instrument": 1, "midi_low": 55, "midi_high": 93},
+    {"slot": 3, "timbre_id": "timbre_3", "label": "Timbre 3", "instrument": 2, "midi_low": 48, "midi_high": 84},
+    {"slot": 4, "timbre_id": "timbre_4", "label": "Timbre 4", "instrument": 3, "midi_low": 36, "midi_high": 72}
+  ]
+}
