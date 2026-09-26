@@ -18,6 +18,7 @@
 #include "string_transition_v46.h"
 #include "orchestra_instruments.h"
 #include "dnni_model_manifest.h"
+#include "orchestra_conditioner_v71.h"
 #include <array>
 #include <cstdint>
 #include <limits>
@@ -59,6 +60,9 @@ private:
     std::array<float,16> stageFeedGain{{.25f,.35f,.25f,.45f,.62f,.45f,.28f,.28f,.20f,.20f,0.f,.12f,.12f,.06f,.06f,0.f}};
     DnniModelManifestCatalog orchestraCatalog;
     bool orchestraCatalogLoaded=false;
+    OrchestraConditionerV71 orchestraConditioner;
+    std::array<OrchestraConditioningFeatures,16> orchestraConditioningLane{};
+    std::array<bool,16> orchestraConditioningLaneReady{};
     float hostScopeMode=0.f,hostScopeStyle=0.f,hostScopeLooseness=.30f;
     float takeCarouselMode=0.f,takeCarouselSelect=0.f,takeCarouselFreeze=0.f;
     float takeCompMode=0.f,takeCompCommit=0.f,takeCompClear=0.f,takeCompPhraseLength=.25f;
