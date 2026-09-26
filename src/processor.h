@@ -19,6 +19,7 @@
 #include "orchestra_instruments.h"
 #include "dnni_model_manifest.h"
 #include "orchestra_conditioner_v71.h"
+#include "orchestra_renderer_v71.h"
 #include <array>
 #include <cstdint>
 #include <limits>
@@ -61,6 +62,8 @@ private:
     DnniModelManifestCatalog orchestraCatalog;
     bool orchestraCatalogLoaded=false;
     OrchestraConditionerV71 orchestraConditioner;
+    OrchestraRendererV71 orchestraRenderer;
+    float orchestraRendererMix=0.f;
     std::array<OrchestraConditioningFeatures,16> orchestraConditioningLane{};
     std::array<bool,16> orchestraConditioningLaneReady{};
     float hostScopeMode=0.f,hostScopeStyle=0.f,hostScopeLooseness=.30f;
