@@ -32,10 +32,11 @@ echo Resume:    double-click TRAIN_DNNI_5090.bat again
 echo Status:    double-click STATUS_DNNI_5090.bat
 echo.
 
-echo [CHECKPOINT PREFLIGHT]
-python training\scripts\dnni_training_status.py
-if errorlevel 1 goto :BAD_CHECKPOINT
-echo.
+if not exist "%ROOT%\source\bundle_manifest.json" (
+  echo [ERROR] Four DNNI source packages have not been imported yet.
+  echo Run IMPORT_DNNI_5090.bat or choose Import / Verify in DNNI_5090_MANAGER.bat.
+  goto :FAIL
+)
 
 if not exist "%ROOT%\capture_plan.jsonl" (
   echo [SETUP] Creating four-timbre capture plan...
@@ -52,6 +53,19 @@ if not exist "%RAW%" (
     goto :FAIL
   )
 )
+
+set "SONICRAFT_DATA_FINGERPRINT="
+for /f "usebackq delims=" %%F in (`python training\scripts\dnni_pipeline_fingerprint.py --value-only`) do set "SONICRAFT_DATA_FINGERPRINT=%%F"
+if not defined SONICRAFT_DATA_FINGERPRINT (
+  echo [ERROR] Could not compute DNNI data fingerprint.
+  goto :FAIL
+)
+echo [DATA FINGERPRINT] !SONICRAFT_DATA_FINGERPRINT!
+
+echo [CHECKPOINT / LATENT PREFLIGHT]
+python training\scripts\dnni_training_status.py
+if errorlevel 1 goto :BAD_CHECKPOINT
+echo.
 
 echo [GPU / ENVIRONMENT CHECK]
 python training\scripts\run_logged.py --log "%LOGROOT%\preflight.log" -- python training\scripts\dnni_5090_preflight.py || goto :FAIL
@@ -72,7 +86,7 @@ echo [2/5] Encode four-timbre VAE64 latents
 if exist "%LATENTS%" (
   echo [SKIP] Latent index already exists: %LATENTS%
 ) else (
-  python training\scripts\run_logged.py --log "%LOGROOT%\02_latents.log" -- python training\scripts\encode_vae64_latents.py --index "%RAW%" --codec checkpoints\dnni4_vae64_research.pt --out %ROOT%\latents || goto :FAIL
+  python training\scripts\run_logged.py --log "%LOGROOT%\02_latents.log" -- python training\scripts\encode_vae64_latents.py --index "%RAW%" --codec checkpoints\dnni4_vae64_research.pt --out %ROOT%\latents --source-fingerprint "!SONICRAFT_DATA_FINGERPRINT!" || goto :FAIL
 )
 if exist "%STOPFILE%" goto :PAUSED
 
@@ -135,7 +149,8 @@ echo ============================================================
 echo [INVALID/CORRUPT CHECKPOINT DETECTED]
 echo Automatic resume has been blocked to protect your training state.
 echo Run STATUS_DNNI_5090.bat for details.
-echo Rename or move the bad checkpoint, then start TRAIN_DNNI_5090.bat again.
+echo Use DNNI_5090_MANAGER.bat - Archive / Reset training state if the data intentionally changed.
+echo Otherwise inspect/rename the bad artifact, then start TRAIN_DNNI_5090.bat again.
 echo ============================================================
 exit /b 2
 
