@@ -1,6 +1,7 @@
 #pragma once
 
 #include "orchestra_instruments.h"
+#include "dnni_runtime_layout.h"
 #include <array>
 #include <cstdint>
 #include <cstdlib>
@@ -15,6 +16,10 @@ namespace Sonicraft::AIStrings {
 struct DnniNativeModelRef {
     bool present {false};
     bool headerVerified {false};
+    bool observedLayoutCompatible {false};
+    bool currentFamilyObserved {false};
+    int candidateGroupCount {0};
+    int tailSubblockCount {0};
     int instrumentIndex {-1};
     std::string role;
     std::string family;
@@ -76,6 +81,11 @@ public:
             m.weightsOffset = weightsOffset;
             m.weightsBytes = weightsBytes;
             m.weightsSha256 = fields[11];
+            const auto layout = analyzeDnniObservedRuntimeLayout(m.weightsBytes);
+            m.observedLayoutCompatible = layout.compatible;
+            m.currentFamilyObserved = layout.currentFamilyObserved;
+            m.candidateGroupCount = layout.candidateGroupCount;
+            m.tailSubblockCount = layout.tailSubblockCount;
             m.headerVerified = verifyHeader(m);
         }
 
@@ -91,7 +101,7 @@ public:
 
     bool ready(int instrumentIndex) const noexcept {
         const auto* m = model(instrumentIndex);
-        return m && m->headerVerified;
+        return m && m->headerVerified && m->observedLayoutCompatible;
     }
 
     int presentCount() const noexcept {
