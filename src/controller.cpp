@@ -46,6 +46,8 @@ tresult PLUGIN_API Controller::initialize(FUnknown* context){auto r=EditControll
     parameters.addParameter(orchestraInstrumentParam);
     parameters.addParameter(STR16("Orchestra Model Ready"),nullptr,1,0.,ParameterInfo::kIsReadOnly,kParamOrchestraModelReady);
     parameters.addParameter(STR16("Orchestra Catalog Coverage"),nullptr,0,0.,ParameterInfo::kIsReadOnly,kParamOrchestraCatalogCoverage);
+    parameters.addParameter(STR16("Orchestra Conditioner Ready"),nullptr,1,0.,ParameterInfo::kIsReadOnly,kParamOrchestraConditionerReady);
+    parameters.addParameter(STR16("Orchestra Conditioning Energy"),nullptr,0,0.,ParameterInfo::kIsReadOnly,kParamOrchestraConditioningEnergy);
     parameters.addParameter(STR16("MIDI Authority Lock"),nullptr,1,1.,ParameterInfo::kCanAutomate,kParamMidiAuthorityLock);
     parameters.addParameter(STR16("Phrase Director"),nullptr,1,1.,ParameterInfo::kCanAutomate,kParamPhraseDirector);
     parameters.addParameter(STR16("Ensemble Looseness"),nullptr,0,.18,ParameterInfo::kCanAutomate,kParamEnsembleLooseness);
