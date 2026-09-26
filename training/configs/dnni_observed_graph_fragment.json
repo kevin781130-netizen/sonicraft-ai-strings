@@ -1,0 +1,145 @@
+{
+  "schema": "sonicraft-dnni-observed-graph-fragment-v1",
+  "source": "Verified 512x512 FP16 module map plus 15-model FP32 dtype consensus",
+  "truth_boundary": "Dimension/basis constraints only. No op type, direction, activation, decoder role, tensor name, conditioning semantic, or permutation mapping is asserted.",
+  "latent_width": 512,
+  "verified_core": {
+    "module_count": 4,
+    "matrices_per_module": 7,
+    "matrix_shape": [
+      512,
+      512
+    ],
+    "matrix_dtype": "float16_le",
+    "module_stride_bytes": 3670016
+  },
+  "basis_constraints": [
+    {
+      "relation": "matrix_1 row ordering == matrix_2 row ordering",
+      "matches": 56,
+      "total": 56
+    },
+    {
+      "relation": "matrix_1 row ordering == matrix_3 row ordering",
+      "matches": 0,
+      "total": 56
+    },
+    {
+      "relation": "matrix_0 column ordering == matrix_1 row ordering",
+      "matches": 0,
+      "total": 56
+    }
+  ],
+  "projection_families": [
+    {
+      "latent_width": 512,
+      "other_width": 64,
+      "count": 2,
+      "dtype_candidate": "float32_le"
+    },
+    {
+      "latent_width": 512,
+      "other_width": 128,
+      "count": 3,
+      "dtype_candidate": "float32_le"
+    },
+    {
+      "latent_width": 512,
+      "other_width": 288,
+      "count": 1,
+      "dtype_candidate": "float32_le"
+    }
+  ],
+  "projection_offsets": [
+    {
+      "offset": 39256064,
+      "bytes": 262144,
+      "elements": 65536,
+      "orientation_candidates": [
+        [
+          512,
+          128
+        ],
+        [
+          128,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 54984704,
+      "bytes": 262144,
+      "elements": 65536,
+      "orientation_candidates": [
+        [
+          512,
+          128
+        ],
+        [
+          128,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 75300864,
+      "bytes": 262144,
+      "elements": 65536,
+      "orientation_candidates": [
+        [
+          512,
+          128
+        ],
+        [
+          128,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 75628544,
+      "bytes": 131072,
+      "elements": 32768,
+      "orientation_candidates": [
+        [
+          512,
+          64
+        ],
+        [
+          64,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 95617024,
+      "bytes": 131072,
+      "elements": 32768,
+      "orientation_candidates": [
+        [
+          512,
+          64
+        ],
+        [
+          64,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 115998720,
+      "bytes": 589824,
+      "elements": 147456,
+      "orientation_candidates": [
+        [
+          512,
+          288
+        ],
+        [
+          288,
+          512
+        ]
+      ]
+    }
+  ]
+}
