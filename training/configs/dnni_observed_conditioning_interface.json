@@ -55,8 +55,15 @@
     ],
     "old_506_boundary_bytes": 518144,
     "additional_common_bytes_after_old_506_boundary": 1008,
-    "old_506_conditioning_width_supported": false,
-    "conclusion": "The 506-wide conditioning interpretation is falsified as a verified tensor boundary. The recurrent finite-state probe remains only a numerical stress test."
+    "conclusion": "The 519152-byte cross-model common prefix extends 1008 bytes into the bias packet. It is not a tensor boundary. The internal 506-wide projection remains strongly supported by exact module byte accounting.",
+    "projection_boundary_506_bytes": 518144,
+    "common_prefix_extends_beyond_projection_boundary_by_bytes": [
+      1008,
+      1008,
+      1008,
+      1008
+    ],
+    "projection_width_506_status": "supported_by exact module byte accounting; not proven as raw musical conditioning width"
   },
   "adjacent_projection_interface": {
     "left_bank_offset": 39256064,
@@ -93,6 +100,12 @@
       128,
       256
     ],
-    "direction": "unknown"
-  }
+    "direction": "unknown",
+    "direction_candidate": {
+      "left": "stronger producer/input-side candidate",
+      "right": "stronger consumer/packed-output-side candidate",
+      "evidence_file": "training/configs/dnni_observed_bank_direction.json"
+    }
+  },
+  "next_blocker": "Identify the producer of the internal 506-wide vector and connect the 128/256 branch interface without assigning musical semantics prematurely."
 }
