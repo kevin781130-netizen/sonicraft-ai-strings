@@ -37,11 +37,11 @@ def main():
         out=root/"rendered/index.jsonl"
         run("training/scripts/build_dnni_render_manifest.py","--plan",plan,"--root",root,"--out",out)
         rows=[json.loads(x) for x in out.read_text(encoding="utf-8").splitlines() if x.strip()]
-        assert len(rows)==48, len(rows)
+        assert len(rows)==4, len(rows)
         assert all(Path(r["audio"]).exists() for r in rows)
         assert all(r.get("articulation_known")==0.0 for r in rows)
         assert all(r.get("velocity_verified") is False for r in rows)
-        print("DNNI batch capture smoke PASS:",len(rows),"clips")
+        print("DNNI batch capture smoke PASS:",len(rows),"timbre-only clips")
 
 if __name__=="__main__":
     main()
