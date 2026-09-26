@@ -79,22 +79,16 @@
       256,
       288,
       448,
+      506,
       512
     ],
     "total_occurrences_across_all_15_models": 0
   },
-  "adapter_projection_direct_weight_scan": {
-    "comparisons": 120,
-    "exact_matches_after_fp16_quantization": 0,
-    "transpose_matches_after_fp16_quantization": 0,
-    "value_multiset_matches_after_fp16_quantization": 0
-  },
   "structural_interpretation": [
     "The four-module 512-state family uses general dense transforms rather than obvious identity/orthogonal/low-rank matrices.",
     "Known dimensions are not stored as plain uint32 descriptors in section1/section3/section4.",
-    "The 64-row instrument-specific tail and 64-wide FP32 projection candidates are dimensionally aligned but independently parameterized.",
-    "A 64-dimensional instrument-adapter/state-subspace interpretation remains structurally plausible but semantically unproven.",
-    "No high-correlation direct or transpose matrix pair was found in the sampled 512-state family, so a simple tied encoder/decoder or transpose-tied topology is not supported."
+    "No high-correlation direct or transpose matrix pair was found in the sampled 512-state family, so a simple tied encoder/decoder or transpose-tied topology is not supported.",
+    "The terminal block is heterogeneous: modules 0-2 complete a 512x512 FP16 transform with six instrument-specific rows, while module 3 replaces the final 6 KiB with three 512-wide FP32 vectors."
   ],
   "pairwise_tied_weight_scan": {
     "sample_roles": [
@@ -109,5 +103,26 @@
     "max_direct_abs_normalized_correlation": 0.0357012674,
     "max_transpose_abs_normalized_correlation": 0.0068245111,
     "tied_or_transpose_pair_detected": false
+  },
+  "final_block_split_scan": {
+    "shared_prefix_bytes": 518144,
+    "shared_prefix_dtype": "float16_le",
+    "shared_prefix_exact_identity_models": "15/15 in all four modules",
+    "shared_prefix_row_major_512_candidate_rows": 506,
+    "instrument_specific_suffix_bytes": 6144,
+    "suffix_exact_identity_models": "1/15 reference-only in all four modules",
+    "suffix_dtype_pattern_by_module": [
+      "float16_le",
+      "float16_le",
+      "float16_le",
+      "float32_le"
+    ],
+    "suffix_512_wide_vector_counts_by_module": [
+      6,
+      6,
+      6,
+      3
+    ],
+    "interpretation": "Modules 0-2 remain valid full 512x512 FP16 transforms with six instrument-specific terminal rows. Module 3 has a split terminal block: 506x512 FP16 shared prefix plus three instrument-specific 512-wide FP32 vectors."
   }
 }
