@@ -177,7 +177,7 @@ if(SONICRAFT_BUILD_VST3)
   endif()
   if(SMTG_WIN)
     target_link_libraries(SonicraftAIStringsQ4 PRIVATE ws2_32)
-    target_compile_definitions(SonicraftAIStringsQ4 PRIVATE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(SonicraftAIStringsQ4 PRIVATE _CRT_SECURE_NO_WARNINGS NOMINMAX WIN32_LEAN_AND_MEAN)
   endif()
 endif()
 
