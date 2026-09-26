@@ -15,6 +15,7 @@ on:
       - "src/orchestra_renderer_v71.h"
       - "standalone/orchestra_conditioner_smoke_v71.cpp"
       - "CMakeLists.txt"
+      - "installer/build_release_windows.ps1"
       - ".github/workflows/windows-vst3-validate.yml"
   workflow_dispatch:
 
