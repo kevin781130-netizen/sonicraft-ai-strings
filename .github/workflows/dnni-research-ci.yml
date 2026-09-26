@@ -7,6 +7,10 @@ on:
       - "runtime/dnni_model_shell.py"
       - "runtime/build_dnni_vst_catalog.py"
       - "runtime/dnni_architecture_probe.py"
+      - "PREPARE_DNNI_GOLDEN_PATH.bat"
+      - "training/tests/dnni_dtype_map_smoke.py"
+      - "runtime/dnni_golden_path_probe.py"
+      - "runtime/dnni_dtype_map_probe.py"
       - "training/tests/dnni_architecture_probe_smoke.py"
       - "src/dnni_runtime_layout.h"
       - "standalone/dnni_runtime_layout_smoke_v71.cpp"
@@ -89,6 +93,9 @@ jobs:
             "runtime/dnni_model_shell.py",
             "runtime/build_dnni_vst_catalog.py",
             "runtime/dnni_architecture_probe.py",
+            "runtime/dnni_dtype_map_probe.py",
+            "runtime/dnni_golden_path_probe.py",
+            "training/tests/dnni_dtype_map_smoke.py",
             "training/tests/dnni_architecture_probe_smoke.py",
             "frontend/editor_server.py",
             "training/tests/dnni_model_shell_smoke.py",
@@ -118,6 +125,10 @@ jobs:
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+      - name: Smoke DNNI dtype map
+        shell: pwsh
+        run: |
+          python training/tests/dnni_dtype_map_smoke.py
       - name: Smoke DNNI architecture probe
         shell: pwsh
         run: |
