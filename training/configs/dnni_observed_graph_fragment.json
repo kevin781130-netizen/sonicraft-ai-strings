@@ -209,7 +209,7 @@
     "op_semantics": "unknown"
   },
   "recurrent_geometry_candidate": {
-    "evidence_file": "training/configs/dnni_observed_recurrent_signature.json",
+    "evidence_file": "training/configs/dnni_observed_module_accounting.json",
     "hidden_width_candidate": 512,
     "module_count": 4,
     "per_module": {
@@ -243,11 +243,11 @@
       "float32_le"
     ],
     "compatibility": "matches common GRU-family six-matrix plus three/six-bias parameter geometry, with an additional 506x512 shared slab",
-    "confidence": "geometry-only; 506-wide input interpretation falsified",
+    "confidence": "strong layout/geometry candidate; operation semantics unconfirmed",
     "direction": "unknown",
     "gate_order": "unknown",
     "activation": "unknown",
-    "shared_slab_status": "not a verified 512x506 tensor boundary"
+    "shared_slab_status": "512x506 FP16 projection candidate supported by exact module byte accounting"
   },
   "finite_recurrent_execution_candidate": {
     "evidence_file": "training/configs/dnni_observed_recurrent_hypothesis.json",
@@ -296,8 +296,8 @@
         ]
       ]
     },
-    "confidence": "numeric stress test only; 506-wide input schema falsified",
-    "next_blocker": "resolve adjacent 128/256 projection interface"
+    "confidence": "numerically plausible candidate on a byte-accounting-supported internal 506-wide projection",
+    "next_blocker": "identify the producer of the 506-wide internal vector; do not equate it directly with raw musical controls"
   },
   "conditioning_interface_candidate": {
     "evidence_file": "training/configs/dnni_observed_conditioning_interface.json",
@@ -327,5 +327,18 @@
     "direction": "unknown",
     "semantic_roles": "unknown",
     "confidence": "stronger than the falsified 506-wide input interpretation"
+  },
+  "bank_direction_candidate": {
+    "evidence_file": "training/configs/dnni_observed_bank_direction.json",
+    "left": "stronger producer/input-side candidate",
+    "middle": "512-state family",
+    "right": "stronger consumer/packed-output-side candidate",
+    "confidence": "moderate structural"
+  },
+  "module_accounting": {
+    "evidence_file": "training/configs/dnni_observed_module_accounting.json",
+    "solved_projection_width": 506,
+    "module_count": 4,
+    "exact_byte_equation_match": true
   }
 }
