@@ -27,7 +27,7 @@
     "module_stride_bytes": 3670016,
     "matrices_per_module": 7,
     "matrix_bytes": 524288,
-    "dtype_candidate": "float16_le",
+    "dtype_candidate": "mixed: matrices 0-5 are FP16; matrix 6 has a verified shared FP16 prefix plus instrument-specific suffix",
     "shape_candidate": [
       512,
       512
@@ -43,20 +43,29 @@
       3,
       6
     ],
-    "shape_confidence": "structurally-linked, not axis-invariance-verified",
+    "shape_confidence": "matrices 0-5 structurally linked to 512x512; matrix 6 is split and must not be treated as a full 512x512 FP16 matrix",
     "last_matrix_split": {
       "per_module": true,
-      "shared_prefix_bytes": 458752,
-      "variable_tail_bytes": 65536,
-      "exact_identity_across_15_models": {
-        "shared_prefix": "15/15",
-        "variable_tail": "1/15 reference-only"
-      },
-      "row_major_512_candidate": {
-        "shared_rows": 448,
-        "instrument_specific_rows": 64
-      },
-      "relation_to_projection_family": "64-row instrument-specific tail dimension matches the independently observed 512x64 / 64x512 FP32 projection family."
+      "shared_prefix_bytes": 518144,
+      "shared_prefix_dtype": "float16_le",
+      "shared_prefix_fp16_values": 259072,
+      "shared_prefix_row_major_512_candidate_rows": 506,
+      "shared_prefix_exact_identity_across_15_models": "15/15",
+      "instrument_specific_suffix_bytes": 6144,
+      "suffix_exact_identity_across_15_models": "1/15 reference-only",
+      "suffix_dtype_pattern_by_module": [
+        "float16_le",
+        "float16_le",
+        "float16_le",
+        "float32_le"
+      ],
+      "suffix_512_wide_vector_counts_by_module": [
+        6,
+        6,
+        6,
+        3
+      ],
+      "interpretation": "All four modules share an exact 506 KiB FP16 prefix in their final block. Modules 0-2 end with six 512-wide FP16 vectors; module 3 ends with three 512-wide FP32 vectors. Semantic roles remain unknown."
     }
   },
   "right_bank": {
