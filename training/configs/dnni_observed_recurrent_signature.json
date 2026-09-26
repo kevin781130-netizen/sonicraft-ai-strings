@@ -27,7 +27,8 @@
         506
       ]
     ],
-    "exact_identity_across_instruments": "15/15 within each module; slab differs between module indices"
+    "exact_identity_across_instruments": "15/15 within each module; slab differs between module indices",
+    "note": "The former 506x512 interpretation is not an exact tensor boundary; exact cross-model common prefix is 519152 bytes. Do not treat 506 as a verified input width."
   },
   "instrument_specific_suffix_by_module": [
     {
@@ -63,6 +64,7 @@
     "six_512x512_matrices_matches_three_input_plus_three_recurrent_matrices": true,
     "suffix_vector_counts_match_common_three_or_six_bias_vector_parameterizations": true,
     "extra_506x512_shared_slab_requires_separate_explanation": true,
-    "conclusion": "strong structural compatibility, not identification"
-  }
+    "conclusion": "matrix-count geometry remains suggestive, but the prior 506-wide input interpretation is falsified; GRU identity is unconfirmed."
+  },
+  "structural_status": "geometry_candidate_only"
 }
