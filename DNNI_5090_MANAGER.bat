@@ -17,7 +17,9 @@ echo   [5] Slice 4 long bounced WAV files
 echo   [6] Start / Resume training
 echo   [7] Training status
 echo   [8] Safe stop after current batch/step
-echo   [9] Archive / Reset old training state
+echo   [9] Archive / Reset ALL training state
+echo   [A] Reset one stage and downstream only
+echo   [V] Verify final checkpoint integrity
 echo   [C] Open checkpoints folder
 echo   [L] Open training logs folder
 echo   [D] Open DNNI dataset folder
@@ -26,20 +28,23 @@ echo   [T] Edit four-timbre config
 echo   [P] Edit RTX 5090 training recipe
 echo   [Q] Quit
 echo.
-choice /c 123456789LDITPQ /n /m "Select: "
-if errorlevel 15 goto :EOF
-if errorlevel 14 goto :RECIPE
-if errorlevel 13 goto :TIMBRES
-if errorlevel 12 goto :INPUT
-if errorlevel 11 goto :DATA
-if errorlevel 10 goto :LOGS
-if errorlevel 9 goto :CKPT
-if errorlevel 8 goto :RESET
-if errorlevel 7 goto :STOP
-if errorlevel 6 goto :STATUS
-if errorlevel 5 goto :TRAIN
-if errorlevel 4 goto :SLICE
-if errorlevel 3 goto :PREP
+choice /c 123456789AVCLDITPQ /n /m "Select: "
+if errorlevel 18 goto :EOF
+if errorlevel 17 goto :RECIPE
+if errorlevel 16 goto :TIMBRES
+if errorlevel 15 goto :INPUT
+if errorlevel 14 goto :DATA
+if errorlevel 13 goto :LOGS
+if errorlevel 12 goto :CKPT
+if errorlevel 11 goto :VERIFY
+if errorlevel 10 goto :STAGERESET
+if errorlevel 9 goto :RESET
+if errorlevel 8 goto :STOP
+if errorlevel 7 goto :STATUS
+if errorlevel 6 goto :TRAIN
+if errorlevel 5 goto :SLICE
+if errorlevel 4 goto :PREP
+if errorlevel 3 goto :IDENTIFY
 if errorlevel 2 goto :IMPORT
 if errorlevel 1 goto :SETUP
 
@@ -79,6 +84,14 @@ goto :MENU
 call RESET_DNNI_5090.bat
 goto :MENU
 
+:STAGERESET
+call RESET_DNNI_STAGE.bat
+goto :MENU
+
+:VERIFY
+call VERIFY_DNNI_RESULT.bat
+goto :MENU
+
 :CKPT
 if not exist checkpoints mkdir checkpoints
 start "" explorer.exe "%CD%\checkpoints"
@@ -101,14 +114,6 @@ goto :MENU
 
 :TIMBRES
 start "" notepad.exe "%CD%\training\configs\dnni_four_timbres.json"
-goto :MENU
-
-:STAGERESET
-call RESET_DNNI_STAGE.bat
-goto :MENU
-
-:VERIFY
-call VERIFY_DNNI_RESULT.bat
 goto :MENU
 
 :RECIPE
