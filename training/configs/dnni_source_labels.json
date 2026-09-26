@@ -40,6 +40,19 @@
       "identity_status": "confirmed",
       "identity_authority": "user_supplied",
       "confirmed_date": "2026-09-26"
+    },
+    {
+      "intake_sequence": 4,
+      "source_uuid": "8d70f130-20f6-5a3d-b942-102ad8e59312",
+      "source_filename": "8d70f130-20f6-5a3d-b942-102ad8e59312.dnni",
+      "source_dnni_sha256": "3967477a49d00326de9cf3c2ef85754d7a4a261cbb92db706468de9c39c267fb",
+      "weights_sha256": "36b925e6116890d767bef2c82bdfaf3c84bf145e9ddec9cfbc96cd83e9527a15",
+      "label_zh": "小提琴",
+      "label_en": "Violin",
+      "instrument_role": "violin",
+      "identity_status": "confirmed",
+      "identity_authority": "user_supplied",
+      "confirmed_date": "2026-09-26"
     }
   ],
   "pending_intake": []
