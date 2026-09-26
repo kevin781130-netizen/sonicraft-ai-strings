@@ -1,0 +1,56 @@
+{
+  "schema": "sonicraft-dnni-observed-upstream-boundary-v1",
+  "source": "15 confirmed DNNI v4 models; exact byte accounting only",
+  "truth_boundary": "Structural layout evidence only. No proprietary operation semantics, graph equation, packing transform, or musical feature mapping is asserted.",
+  "hidden_width_candidate": 512,
+  "upstream_family": {
+    "start": 18251776,
+    "regular_module_count": 7,
+    "regular_module_stride_bytes": 2633728,
+    "regular_module_accounting": "5*(512*512*2) + 12*512*2 = 2633728",
+    "regular_module_layout": {
+      "dense_matrix_candidates": 5,
+      "dense_matrix_candidate_shape": [
+        512,
+        512
+      ],
+      "dense_matrix_candidate_dtype": "float16_le",
+      "vector_packet_candidate_count": 12,
+      "vector_packet_candidate_width": 512,
+      "vector_packet_candidate_dtype": "float16_le"
+    },
+    "final_module": {
+      "index": 7,
+      "start": 36687872,
+      "bytes": 2568192,
+      "accounting": "4*(512*512*2) + (512*452*2) + 4*512*4 = 2568192",
+      "dense_matrix_candidates": 4,
+      "projection_candidate": {
+        "dtype": "float16_le",
+        "orientation_candidates": [
+          [
+            512,
+            452
+          ],
+          [
+            452,
+            512
+          ]
+        ]
+      },
+      "vector_packet_candidate": {
+        "count": 4,
+        "width": 512,
+        "dtype": "float32_le"
+      },
+      "end": 39256064
+    }
+  },
+  "adjacency": {
+    "upstream_final_end": 39256064,
+    "left_projection_bank_start": 39256064,
+    "exact": true
+  },
+  "cross_instrument_scope": "All observed upstream-family regions are instrument-specific across the 15 confirmed models.",
+  "safe_interpretation": "This is a strong producer-boundary candidate for interoperability research. The actual producer equation and proprietary runtime semantics remain out of scope."
+}
