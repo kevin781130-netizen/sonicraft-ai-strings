@@ -1,27 +1,52 @@
 #include "preview_engine.h"
 #include <algorithm>
 namespace Sonicraft::AIStrings {
-Voice* PreviewEngine::allocateVoice(){for(auto& v:voices)if(!v.active)return &v;return &voices.front();}
+namespace {
+float bowNoise(Voice& v) noexcept {
+    // Stable across render block sizes, including offline renders.
+    v.noiseSeed^=v.noiseSeed<<13;v.noiseSeed^=v.noiseSeed>>17;v.noiseSeed^=v.noiseSeed<<5;
+    return float(double(v.noiseSeed)/4294967295.0*2.0-1.0);
+}
+}
+Voice* PreviewEngine::allocateVoice(){
+    for(auto& v:voices)if(!v.active)return &v;
+    Voice* choice=&voices.front();
+    for(auto& v:voices){
+        if(v.releasing!=choice->releasing){if(v.releasing)choice=&v;continue;}
+        if(v.releasing ? v.env<choice->env : v.ageSeconds>choice->ageSeconds)choice=&v;
+    }
+    return choice;
+}
 float PreviewEngine::panForPart(int p)const{static constexpr float stage[4]={-.48f,-.16f,.14f,.40f};const float o=(ctl[p].pan-.5f)*.55f;return std::max(-.95f,std::min(.95f,stage[p]+o));}
 float PreviewEngine::toneForPart(int p)const{static constexpr float tone[4]={1.f,.96f,.88f,.76f};return tone[p];}
-void PreviewEngine::setPartSustain(int p,bool v){if(!validPart(p))return;const bool was=ctl[p].sustain;ctl[p].sustain=v;if(was&&!v)for(auto& voice:voices)if(voice.active&&voice.channel==p&&voice.keyReleased){voice.releasing=true;voice.target=0.;}}
-void PreviewEngine::noteOn(int channel,int note,float velocity){if(!validPart(channel))return;auto* v=allocateVoice();*v=Voice{};v->active=true;v->note=note;v->channel=channel;v->lane=-1;v->velocity=std::max(.02f,velocity);v->articulation=ctl[channel].articulation;const double cents=((channel*17+note*7)%11-5)*humanize*.55;v->baseFreq=midiToHz(note)*std::pow(2.,cents/1200.);v->target=1.;}
+void PreviewEngine::setPartSustain(int p,bool v){if(!validPart(p))return;ctl[p].sustain=v;for(auto& voice:voices)if(voice.active&&voice.channel==p){voice.localControl.sustain=v;if(!v&&voice.keyReleased){voice.releasing=true;voice.target=0.;}}}
+void PreviewEngine::noteOn(int channel,int note,float velocity){if(!validPart(channel))return;auto* v=allocateVoice();*v=Voice{};v->active=true;v->note=note;v->channel=channel;v->instrument=instruments[channel];v->lane=-1;v->velocity=std::max(.02f,velocity);v->articulation=ctl[channel].articulation;const double cents=((channel*17+note*7)%11-5)*humanize*.55;v->baseFreq=midiToHz(note)*std::pow(2.,cents/1200.);v->currentFreq=v->baseFreq;v->noiseSeed=0x9e3779b9u^uint32_t((channel+1)*65537u)^uint32_t((note+1)*131u);v->target=1.;}
 void PreviewEngine::noteOff(int channel,int note){if(!validPart(channel))return;for(auto& v:voices)if(v.active&&v.channel==channel&&v.lane<0&&v.note==note){v.keyReleased=true;if(!ctl[channel].sustain){v.releasing=true;v.target=0.;}}}
-void PreviewEngine::noteOnVoice(int part,int lane,int note,float velocity,const PartControl& control){if(!validPart(part)||lane<0||lane>=16)return;
-    double carryVib=0.0,carryJitter=0.0,carryEnv=0.0;bool haveCarry=false;
-    if(control.continuousGesture){
-        for(const auto& old:voices)if(old.active&&old.channel==part&&old.lane==lane){
-            carryVib=old.vibPhase;carryJitter=old.vibJitterPhase;carryEnv=old.env;haveCarry=true;break;
+void PreviewEngine::noteOnVoice(int part,int lane,int note,float velocity,const PartControl& control,int players){if(!validPart(part)||lane<0||lane>=16)return;
+    players=std::clamp(players,1,16);
+    for(int performer=0;performer<players;++performer){
+        double carryVib=0.0,carryJitter=0.0,carryEnv=0.0,carryPhase=0.0,carryFreq=0.0;bool haveCarry=false;
+        if(control.continuousGesture){
+            for(auto& old:voices)if(old.active&&old.channel==part&&old.lane==lane&&old.player==performer&&!old.releasing&&!old.keyReleased){
+                carryVib=old.vibPhase;carryJitter=old.vibJitterPhase;carryEnv=old.env;
+                carryPhase=old.phase;carryFreq=old.currentFreq;haveCarry=true;
+                old.releasing=true;old.legatoHandoff=true;old.target=0.;break;
+            }
         }
+        auto* v=allocateVoice();*v=Voice{};v->active=true;v->note=note;v->channel=part;v->instrument=instruments[part];v->lane=lane;v->localControl=control;
+        v->player=performer;v->players=players;
+        v->startDelay=haveCarry?0:int(sampleRate*(.00032*(performer%7)+.001*std::clamp(double(control.onsetDelayMs),0.,4.)));
+        v->velocity=std::max(.02f,velocity);v->articulation=control.articulation;
+        const double spread=(double(performer)-double(players-1)*.5);
+        const double cents=((part*17+note*7+lane*3)%11-5)*humanize*.55+spread*.62*humanize;
+        v->baseFreq=midiToHz(note)*std::pow(2.,cents/1200.);
+        v->currentFreq=v->baseFreq;v->noiseSeed=0x9e3779b9u^uint32_t((part+1)*65537u)^uint32_t((note+1)*131u)^uint32_t((lane+1)*7919u)^uint32_t(performer*104729u);
+        if(haveCarry){v->vibPhase=carryVib;v->vibJitterPhase=carryJitter;v->phase=carryPhase;v->currentFreq=carryFreq;v->env=std::min(.92,carryEnv*.78);v->ageSeconds=.18;}
+        v->target=1.;
     }
-    auto* v=allocateVoice();*v=Voice{};v->active=true;v->note=note;v->channel=part;v->lane=lane;v->localControl=control;
-    v->velocity=std::max(.02f,velocity);v->articulation=control.articulation;
-    const double cents=((part*17+note*7+lane*3)%11-5)*humanize*.55;v->baseFreq=midiToHz(note)*std::pow(2.,cents/1200.);
-    if(haveCarry){v->vibPhase=carryVib;v->vibJitterPhase=carryJitter;v->env=std::min(.92,carryEnv*.78);v->ageSeconds=.18;}
-    v->target=1.;
 }
 void PreviewEngine::noteOffVoice(int part,int lane,int note){if(!validPart(part)||lane<0||lane>=16)return;for(auto& v:voices)if(v.active&&v.channel==part&&v.lane==lane&&v.note==note){v.keyReleased=true;if(!v.localControl.sustain){v.releasing=true;v.target=0.;}}}
-void PreviewEngine::updateVoiceLaneControl(int lane,const PartControl& control){if(lane<0||lane>=16)return;for(auto& v:voices)if(v.active&&v.lane==lane){v.localControl=control;v.articulation=control.articulation;}}
+void PreviewEngine::updateVoiceLaneControl(int lane,const PartControl& control){if(lane<0||lane>=16)return;for(auto& v:voices)if(v.active&&v.lane==lane){const float tone=v.localControl.toneColor;v.localControl=control;v.localControl.toneColor=tone;v.articulation=control.articulation;}}
 void PreviewEngine::allNotesOff(){for(auto& v:voices){v.releasing=true;v.target=0.;}}
 
 double PreviewEngine::vibratoDepthCents(float cc3)const{
@@ -57,24 +82,62 @@ double PreviewEngine::transitionSeconds(int articulation,const PartControl& c)co
 }
 
 void PreviewEngine::render(float* left,float* right,int32_t n){if(!left||!right)return;const double twoPi=6.2831853071795864769;
-    for(int i=0;i<n;++i){float L=0,R=0;for(auto& v:voices){if(!v.active)continue;const int p=v.channel;const auto& c=(v.lane>=0?v.localControl:ctl[p]);const int a=v.articulation;v.ageSeconds+=1.0/sampleRate;
+    for(int i=0;i<n;++i){float L=0,R=0;for(auto& v:voices){if(!v.active)continue;if(v.startDelay>0){--v.startDelay;continue;}const int p=v.channel;const auto& c=(v.lane>=0?v.localControl:ctl[p]);const int a=v.articulation;v.ageSeconds+=1.0/sampleRate;
+        const auto& profile=kAcousticProfiles[static_cast<std::size_t>(v.instrument)];
         const bool shortArt=(a==(int)Articulation::Staccato||a==(int)Articulation::Spiccato||a==(int)Articulation::Pizzicato||a==(int)Articulation::Marcato);
-        const double attackScale=1.45-.90*c.attackCharacter;double atk=.020*attackScale,rel=.22;
+        const double attackScale=1.45-.90*c.attackCharacter;double atk=profile.attack*attackScale,rel=profile.release;
         const double trans=transitionSeconds(a,c);if(a==(int)Articulation::Legato)atk=c.legato?std::max(.0025,trans*.055):.015;else if(a==(int)Articulation::Portamento)atk=std::max(.004,trans*.055);else if(a==(int)Articulation::ExpressiveLong)atk=.045;else if(a==(int)Articulation::Marcato)atk=.003;else if(a==(int)Articulation::Staccato)atk=.0035;else if(a==(int)Articulation::Spiccato)atk=.0018;else if(a==(int)Articulation::Pizzicato)atk=.0015;else if(a==(int)Articulation::Flautando)atk=.060;
         if(shortArt){const double tight=1.55-1.10*c.shortTightness;rel=((a==(int)Articulation::Pizzicato)?.10:.055)*tight;}
+        if(v.legatoHandoff)rel=std::min(.025,trans*.45);
         const double coef=1.-std::exp(-1./(sampleRate*(v.releasing?rel:atk)));v.env+=(v.target-v.env)*coef;if(v.releasing&&v.env<1e-4){v.active=false;continue;}
         const double targetDepth=vibratoDepthCents(c.vibrato);const double onset=std::max(.09,std::min(.46,(.18+.12*.33)*(60./tempoBpm)*(1.10-.30*c.vibrato)));
         const double vibEnv=(targetDepth<1.)?0.:std::max(0.,std::min(1.,(v.ageSeconds-onset)/std::max(.08,onset*.75)));
         double vibHz=vibratoRateHz(p,v.note,c.vibrato,c);v.vibJitterPhase+=twoPi*.37/sampleRate;if(v.vibJitterPhase>twoPi)v.vibJitterPhase-=twoPi;vibHz*=1.+(.015+.035*c.vibrato)*std::sin(v.vibJitterPhase);
         v.vibPhase+=twoPi*vibHz/sampleRate;if(v.vibPhase>twoPi)v.vibPhase-=twoPi;double vib=targetDepth*vibEnv*std::sin(v.vibPhase);if(a==(int)Articulation::Harmonic)vib*=.45;if(a==(int)Articulation::Spiccato||a==(int)Articulation::Staccato||a==(int)Articulation::Pizzicato)vib*=.15;
-        const double bend=(c.pitchBend-.5)*4.;const double f=v.baseFreq*std::pow(2.,(bend+vib/100.)/12.);v.phase+=twoPi*f/sampleRate;if(v.phase>twoPi)v.phase-=twoPi;v.tremPhase+=twoPi*10.5/sampleRate;if(v.tremPhase>twoPi)v.tremPhase-=twoPi;
-        const double ph=v.phase;float bright=toneForPart(p)*(.70f+.55f*c.dynamics);if(a==(int)Articulation::Flautando)bright*=.46f;if(a==(int)Articulation::Harmonic)bright*=1.25f;float s;
-        if(a==(int)Articulation::Harmonic)s=float(.35*std::sin(ph)+.75*std::sin(2*ph)+.28*std::sin(4*ph));else s=float(std::sin(ph)+.48*bright*std::sin(2*ph+.12)+.23*bright*std::sin(3*ph+.31)+.10*bright*std::sin(5*ph+.47));
+        const double bend=(c.pitchBend-.5)*4.;const double targetFreq=v.baseFreq*std::pow(2.,(bend+vib/100.)/12.);
+        const double glide=(c.continuousGesture&&c.legato&&v.lane>=0)?std::max(.004,trans):.001;
+        v.currentFreq+=(targetFreq-v.currentFreq)*(1.-std::exp(-1./(sampleRate*glide)));
+        const double f=v.currentFreq;v.phase+=twoPi*f/sampleRate;if(v.phase>twoPi)v.phase-=twoPi;v.tremPhase+=twoPi*10.5/sampleRate;if(v.tremPhase>twoPi)v.tremPhase-=twoPi;
+        const double ph=v.phase;float bright=profile.brightness*(.70f+.55f*c.dynamics)*c.toneColor;if(a==(int)Articulation::Flautando)bright*=.46f;if(a==(int)Articulation::Harmonic)bright*=1.25f;float s;
+        if(a==(int)Articulation::Harmonic)s=float(.35*std::sin(ph)+.75*std::sin(2*ph)+.28*std::sin(4*ph));
+        else switch(profile.family){
+            case AcousticFamily::Bowed:
+                s=float(std::sin(ph)+.48*bright*std::sin(2*ph+.12)+.23*bright*std::sin(3*ph+.31)+.10*bright*std::sin(5*ph+.47));break;
+            case AcousticFamily::Flute:
+                s=float(std::sin(ph)+.12*bright*std::sin(2*ph)+.035*bright*std::sin(3*ph));break;
+            case AcousticFamily::Reed:
+                s=float(std::sin(ph)+.12*bright*std::sin(2*ph)+.44*bright*std::sin(3*ph)+.16*bright*std::sin(5*ph));break;
+            case AcousticFamily::Brass: {
+                const double lip=.12+.50*double(c.dynamics);
+                s=float(std::sin(ph)+lip*bright*std::sin(2*ph+.08)+.32*lip*bright*std::sin(3*ph)+.16*lip*bright*std::sin(4*ph));break;
+            }
+            case AcousticFamily::Sax:
+                s=float(std::sin(ph)+.35*bright*std::sin(2*ph+.16)+.32*bright*std::sin(3*ph+.3)+.13*bright*std::sin(4*ph));break;
+        }
         if(a==(int)Articulation::Tremolo) s*=float(.66+.34*(.5+.5*std::sin(v.tremPhase)));
         if(a==(int)Articulation::Trill) s+=.28f*float(std::sin(ph*std::pow(2.,2./12.)));
         if(a==(int)Articulation::Pizzicato) s*=float(std::exp(-5.5*(1.-v.env)));
         if(a==(int)Articulation::Marcato) s*=1.18f;
-        const float gain=.075f*v.velocity*(.20f+.80f*c.dynamics)*c.expression*c.volume*float(v.env);s*=gain;const float pan=panForPart(p),gl=std::sqrt(.5f*(1.f-pan)),gr=std::sqrt(.5f*(1.f+pan));L+=s*gl;R+=s*gr;
+        if(a!=(int)Articulation::Pizzicato){
+            // Independent source spectra and two bounded body modes; no samples or
+            // allocation on the audio thread. These remain synthesis previews.
+            const double pressure=std::clamp(double(c.dynamics)*(.65+.35*c.attackCharacter),0.,1.);
+            const double white=bowNoise(v);v.bowLow+=.075*(white-v.bowLow);
+            const double friction=(white-v.bowLow)*profile.air*(profile.bowed?(.40+.80*pressure):(.35+.45*pressure));
+            const double drive=double(s)*.30+friction;
+            const double g=std::min(.25,2.*std::sin(3.141592653589793*profile.bodyHz/sampleRate));
+            v.bodyBand+=g*(drive-v.bodyLow-.30*v.bodyBand);
+            v.bodyLow+=g*v.bodyBand;
+            v.bodyBandLow+=.09*(v.bodyBand-v.bodyBandLow);
+            const double g2=std::min(.25,2.*std::sin(3.141592653589793*profile.secondBodyHz/sampleRate));
+            v.body2Band+=g2*(drive-v.body2Low-.38*v.body2Band);
+            v.body2Low+=g2*v.body2Band;
+            s+=float(profile.bodyMix*v.bodyBandLow+profile.secondBodyMix*v.body2Band+friction*(profile.bowed?.55:.75));
+        }
+        const float groupGain=1.f/std::sqrt(float(v.players));
+        const float gain=.075f*v.velocity*(.20f+.80f*c.dynamics)*c.expression*c.volume*float(v.env)*groupGain;s*=gain;
+        const float spread=v.players>1?(float(v.player)/float(v.players-1)-.5f)*.7f:0.f;
+        const float pan=std::clamp(panForPart(p)+spread,-.95f,.95f),gl=std::sqrt(.5f*(1.f-pan)),gr=std::sqrt(.5f*(1.f+pan));L+=s*gl;R+=s*gr;
     }left[i]+=L;right[i]+=R;}
 }
 }

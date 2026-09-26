@@ -1,15 +1,14 @@
 #pragma once
 #include "pluginterfaces/base/funknown.h"
 #include "pluginterfaces/vst/vsttypes.h"
+#include "host_command_lane_v30.h"
 
 namespace Sonicraft::AIStrings {
 static const Steinberg::FUID kProcessorUID(0xA842F139, 0x734C4D84, 0xB4C41984, 0x0C5E2181);
 static const Steinberg::FUID kControllerUID(0xD8938D4A, 0xB47A4EA3, 0xA8D4505E, 0x0D89F711);
 static constexpr int kPartCount = 4;
 
-#include "host_command_lane_v30.h"
-
-enum ParamID : Steinberg::Vst::ParamID {
+enum ParamKey : Steinberg::Vst::ParamID {
     kParamMode = 100, kParamActivePart = 101, kParamHumanize = 102, kParamAIMix = 103,
     kParamLayoutMode = 104, kParamSingleInstrument = 105, kParamAIAssist = 106,
     kParamLookAhead = 107, kParamAutoDivisi = 108,
@@ -99,6 +98,8 @@ enum ParamID : Steinberg::Vst::ParamID {
     kParamStageMasterGain = 811,
     kParamStageFeedGainBase = 812,        // 812..827 Spot/Tree/Wide/Room/Rear/Mid/Far/Gallery
     kParamStageOutputGain = 828,
+    kParamAcousticPreviewInstrument = 829, // 0 Q4 legacy, 1..15 independent acoustic previews
+    kParamAcousticPlayerCount = 830, // 1..16 independent players per acoustic note
 };
 inline Steinberg::Vst::ParamID voiceParam(Steinberg::Vst::ParamID base, int channel) {
     return base + static_cast<Steinberg::Vst::ParamID>(channel);

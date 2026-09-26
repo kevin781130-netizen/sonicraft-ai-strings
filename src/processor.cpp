@@ -1,8 +1,11 @@
 #include "processor.h"
+#include "acoustic_performance.h"
+#include "acoustic_stage.h"
 #include "controller.h"
 #include "ids.h"
 #include "articulations.h"
 #include "pluginterfaces/vst/ivstevents.h"
+#include "pluginterfaces/vst/ivstparameterchanges.h"
 #include "base/source/fstreamer.h"
 
 #include <algorithm>
@@ -16,7 +19,7 @@ using namespace Steinberg::Vst;
 namespace Sonicraft::AIStrings {
 namespace {
 
-constexpr int kStateVersion = 14;
+constexpr int kStateVersion = 16;
 constexpr int kAuxFeedCount = 16;
 constexpr std::size_t kMaxAutomationPointsPerBlock = 4096;
 
@@ -196,6 +199,10 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     if (lastProjectEnd != 0 &&
         (projectStart < lastProjectEnd - data.numSamples || projectStart > lastProjectEnd + data.numSamples * 4LL)) {
         shadow.resetTimeline(projectStart);
+        // Host seek/loop restart must not leave preview notes sustaining at
+        // their previous timeline location.
+        engine.allNotesOff();
+        acousticPreviousNote.fill(-1);
     }
     lastProjectEnd = projectStart + data.numSamples;
 
@@ -224,8 +231,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         engine.setPartSpeedProfile(p, c.speedProfile);
     };
 
-    auto mergedVoiceControl = [&](int lane) noexcept -> Controls {
-        const int p=stringPartForMidiChannel(lane);
+    auto mergedVoiceControl = [&](int lane,int partOverride=-1) noexcept -> Controls {
+        const int p=partOverride>=0?partOverride:stringPartForMidiChannel(lane);
         Controls c=(p>=0&&p<kPartCount)?part[p]:Controls{};
         const auto& o=voiceLane[std::clamp(lane,0,15)];
         if(o.mask&0x01)c.stack=o.stack;
@@ -422,7 +429,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             const int vp=stringPartForMidiChannel(ensembleLane);
             if(vp>=0){
                 const auto c=mergedVoiceControl(ensembleLane);
-                engine.updateVoiceLaneControl(ensembleLane,previewVoiceControl(ensembleLane,c));
+                engine.updateVoiceLaneControl(ensembleLane,previewVoiceControl(ensembleLane,
+                    layoutMode<.5f&&acousticOverrideIndex(acousticPreviewInstrument)>=0?mergedVoiceControl(ensembleLane,0):c));
                 const int packed=packArticulationExpression(artFromNormalized(c.art),expressionStackFromNormalized(c.stack));
                 shadow.pushMidi(ShadowRenderClient::Control,projectStart+offset,encodeShadowStringPart(vp,ensembleLane),
                                 opcode,packed,v,static_cast<float>(hostTempoBpm),toShadow(c));
@@ -447,7 +455,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             const int vp=stringPartForMidiChannel(physicalLane);
             if(vp>=0){
                 const auto c=mergedVoiceControl(physicalLane);
-                engine.updateVoiceLaneControl(physicalLane,previewVoiceControl(physicalLane,c));
+                engine.updateVoiceLaneControl(physicalLane,previewVoiceControl(physicalLane,
+                    layoutMode<.5f&&acousticOverrideIndex(acousticPreviewInstrument)>=0?mergedVoiceControl(physicalLane,0):c));
                 const int packed=packArticulationExpression(artFromNormalized(c.art),expressionStackFromNormalized(c.stack));
                 shadow.pushMidi(ShadowRenderClient::Control,projectStart+offset,encodeShadowStringPart(vp,physicalLane),opcode,packed,v,
                                 static_cast<float>(hostTempoBpm),toShadow(c));
@@ -470,7 +479,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             const int vp=stringPartForMidiChannel(lane);
             if(vp>=0){
                 const auto c=mergedVoiceControl(lane);
-                engine.updateVoiceLaneControl(lane,previewVoiceControl(lane,c));
+                engine.updateVoiceLaneControl(lane,previewVoiceControl(lane,
+                    layoutMode<.5f&&acousticOverrideIndex(acousticPreviewInstrument)>=0?mergedVoiceControl(lane,0):c));
                 const int packed=packArticulationExpression(artFromNormalized(c.art),expressionStackFromNormalized(c.stack));
                 shadow.pushMidi(ShadowRenderClient::Control,projectStart+offset,encodeShadowStringPart(vp,lane),0,packed,0.f,
                                 static_cast<float>(hostTempoBpm),toShadow(c));
@@ -497,6 +507,11 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                 case kParamPartSpeedProfileBase: c.speedProfile = v; engine.setPartSpeedProfile(p, v); break;
                 default: break;
             }
+            // Acoustic Single listens to the DAW's channel-1 CC lane. Refresh
+            // already sounding voices as well as the next note's snapshot.
+            if(p==0 && layoutMode<.5f && acousticOverrideIndex(acousticPreviewInstrument)>=0)
+                for(int lane=0;lane<16;++lane)
+                    engine.updateVoiceLaneControl(lane,previewVoiceControl(lane,mergedVoiceControl(lane,0)));
             shadow.pushControl(projectStart + offset, p, static_cast<float>(hostTempoBpm), toShadow(c));
             return;
         }
@@ -511,6 +526,8 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             case kParamAIMix: aiMix = v; runtimeState(offset); break;
             case kParamLayoutMode: layoutMode = v; break;
             case kParamSingleInstrument: singleInstrument = v; break;
+            case kParamAcousticPreviewInstrument: acousticPreviewInstrument = v; break;
+            case kParamAcousticPlayerCount: acousticPlayerCount = v; break;
             case kParamAIAssist: aiAssist = v; runtimeState(offset); break;
             case kParamLookAhead: lookAhead = v; runtimeState(offset); break;
             case kParamAutoDivisi: autoDivisi = v; break;
@@ -827,7 +844,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         if (b.numChannels < 2 || !b.channelBuffers32) continue;
         std::memset(b.channelBuffers32[0], 0, sizeof(float) * data.numSamples);
         std::memset(b.channelBuffers32[1], 0, sizeof(float) * data.numSamples);
-        if (bus > 0 && auxPairs < kAuxFeedCount) { auxL[auxPairs] = b.channelBuffers32[0]; auxR[auxPairs] = b.channelBuffers32[1]; ++auxPairs; }
+        if (bus > 0 && bus <= kAuxFeedCount) { auxL[bus-1] = b.channelBuffers32[0]; auxR[bus-1] = b.channelBuffers32[1]; auxPairs = bus; }
     }
 
     Event nextEvent {};
@@ -839,6 +856,35 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     int32 cursor = 0;
 
     auto handleEvent = [&](const Event& e, int32 pos) noexcept {
+        const int acoustic=layoutMode<.5f?acousticOverrideIndex(acousticPreviewInstrument):-1;
+        if(acoustic>=0 && (e.type==Event::kNoteOnEvent || e.type==Event::kNoteOffEvent)){
+            const bool on=e.type==Event::kNoteOnEvent;
+            const int rawCh=on?e.noteOn.channel:e.noteOff.channel;
+            const int note=on?e.noteOn.pitch:e.noteOff.pitch;
+            if(rawCh<0||rawCh>=16)return;
+            const int selected=0; // Stable channel-1 CC mapping for every acoustic instrument.
+            engine.setPartInstrument(selected,acoustic);
+            if(isKeyswitch(note)){
+                if(on){
+                    const int art=articulationFromKeyswitch(note);
+                    if(rawCh>=4 || voiceLane[rawCh].mask!=0){
+                        auto& lane=voiceLane[rawCh];lane.art=float(art)/float(kArticulationCount-1);lane.mask|=0x40;
+                    }else{part[selected].art=float(art)/float(kArticulationCount-1);engine.setPartArticulation(selected,art);}
+                }
+                return;
+            }
+            if(on){
+                auto c=previewVoiceControl(rawCh,mergedVoiceControl(rawCh,selected));
+                c=shapeAcousticPerformance(c,acoustic,rawCh,note,acousticPreviousNote[rawCh],
+                    e.noteOn.velocity,smartDynamics>=.5f,
+                    std::clamp(int(retakeTarget*7.f+.5f),0,7),retakeAmount,retakeNonce,midiAuthorityLock>=.5f);
+                acousticPreviousNote[rawCh]=note;
+                c.continuousGesture=c.continuousGesture||(c.legato && c.articulation==(int)Articulation::Legato);
+                const int players=1+std::clamp(int(acousticPlayerCount*15.f+.5f),0,15);
+                engine.noteOnVoice(selected,rawCh,note,e.noteOn.velocity,c,players);
+            }else engine.noteOffVoice(selected,rawCh,note);
+            return;
+        }
         if (e.type == Event::kNoteOnEvent) {
             const int rawCh = e.noteOn.channel;
             if(rawCh<0||rawCh>=16)return;
@@ -978,14 +1024,17 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         }
     }
 
-    shadow.mix(out[0], out[1], auxL.data(), auxR.data(), auxPairs, data.numSamples, projectStart);
+    if(layoutMode<.5f && acousticOverrideIndex(acousticPreviewInstrument)>=0)
+        renderAcousticStageFeeds(out[0],out[1],auxL,auxR,data.numSamples);
+    else
+        shadow.mix(out[0], out[1], auxL.data(), auxR.data(), auxPairs, data.numSamples, projectStart);
 
     // v6.4 microphone mixer. The legacy/model master remains the default path. When enabled,
     // the master bus is reconstructed from the available geometry feeds using equal-power
     // normalization; each exposed aux feed also receives its own fader gain. No allocation/locks.
     if(stageMixerEnable>=.5f && auxPairs>0){
         double energy=0.0;
-        for(int a=0;a<auxPairs;++a){const float g=std::clamp(stageFeedGain[static_cast<std::size_t>(a)],0.f,1.f);energy+=double(g)*double(g);}
+        for(int a=0;a<auxPairs;++a)if(auxL[a]&&auxR[a]){const float g=std::clamp(stageFeedGain[static_cast<std::size_t>(a)],0.f,1.f);energy+=double(g)*double(g);}
         const float norm=energy>1.0 ? float(1.0/std::sqrt(energy)) : 1.f;
         const float master=std::clamp(stageMasterGain,0.f,1.f)*std::clamp(stageOutputGain,0.f,1.f);
         for(int32_t i=0;i<data.numSamples;++i){
@@ -1105,6 +1154,10 @@ tresult PLUGIN_API Processor::setState(IBStream* state) {
         stageMixerEnable=0.f;stageMasterGain=1.f;stageOutputGain=1.f;
         stageFeedGain={{.25f,.35f,.25f,.45f,.62f,.45f,.28f,.28f,.20f,.20f,0.f,.12f,.12f,.06f,.06f,0.f}};
     }
+    if(version>=15){if(!s.readFloat(acousticPreviewInstrument))return kResultFalse;}
+    else acousticPreviewInstrument=0.f;
+    if(version>=16){if(!s.readFloat(acousticPlayerCount))return kResultFalse;}
+    else acousticPlayerCount=0.f;
     phraseTakeComp.resetAll();
     if(version>=10){
         int32 compCount=0;
@@ -1150,6 +1203,7 @@ tresult PLUGIN_API Processor::getState(IBStream* state) {
     if(!s.writeInt32(static_cast<int32>(memoryCursorKey)) || !s.writeFloat(smartRankMode) || !s.writeFloat(personalTasteEnable) || !s.writeFloat(personalTasteStrength) || !s.writeFloat(personalTasteLearn) || !s.writeFloat(preferenceMinConfidence) || !s.writeFloat(preferenceMinMargin) || !s.writeFloat(preferenceSafetyFloor)) return kResultFalse;
     if(!s.writeFloat(stageMixerEnable)||!s.writeFloat(stageMasterGain)||!s.writeFloat(stageOutputGain))return kResultFalse;
     for(float g:stageFeedGain)if(!s.writeFloat(g))return kResultFalse;
+    if(!s.writeFloat(acousticPreviewInstrument)||!s.writeFloat(acousticPlayerCount))return kResultFalse;
     std::array<PersistentTakeCompEntry,PersistentPhraseTakeComp::kCapacity> compEntries{};
     const int compCount=phraseTakeComp.exportEntries(compEntries);
     if(!s.writeInt32(static_cast<int32>(compCount))) return kResultFalse;

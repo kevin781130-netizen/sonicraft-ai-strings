@@ -10,9 +10,9 @@ $Log = Join-Path $EvidenceDir 'windows_vst3_build.log'
 if (Test-Path $Log) { Remove-Item -Force $Log }
 function Log([string]$m) { $line = "[$(Get-Date -Format s)] $m"; $line | Tee-Object -FilePath $Log -Append }
 function Need-Cmd([string]$name) { if (-not (Get-Command $name -ErrorAction SilentlyContinue)) { throw "$name is required." } }
-function Run-Git([string[]]$Args) {
-  & git @Args
-  if ($LASTEXITCODE -ne 0) { throw "git failed: git $($Args -join ' ')" }
+function Run-Git([string[]]$GitArguments) {
+  & git @GitArguments
+  if ($LASTEXITCODE -ne 0) { throw "git failed: git $($GitArguments -join ' ')" }
 }
 
 Log 'SONICRAFT AI Strings Q4 v7.0 RC2 reproducible Windows VST3 build'
@@ -32,13 +32,13 @@ New-Item -ItemType Directory -Force -Path $deps | Out-Null
 if (-not (Test-Path (Join-Path $sdk '.git'))) {
   if (Test-Path $sdk) { Remove-Item -Recurse -Force $sdk }
   Log 'Cloning official Steinberg VST3 SDK repository (dependency cache only)...'
-  Run-Git @('clone','--filter=blob:none','--no-checkout','https://github.com/steinbergmedia/vst3sdk.git',$sdk)
+  Run-Git -GitArguments @('clone','--filter=blob:none','--no-checkout','https://github.com/steinbergmedia/vst3sdk.git',$sdk)
 }
 Log "Pinning Steinberg VST3 SDK to $Vst3SdkCommit"
-Run-Git @('-C',$sdk,'fetch','--depth','1','origin',$Vst3SdkCommit)
-Run-Git @('-C',$sdk,'checkout','--detach','--force',$Vst3SdkCommit)
-Run-Git @('-C',$sdk,'submodule','sync','--recursive')
-Run-Git @('-C',$sdk,'submodule','update','--init','--recursive','--depth','1')
+Run-Git -GitArguments @('-C',$sdk,'fetch','--depth','1','origin',$Vst3SdkCommit)
+Run-Git -GitArguments @('-C',$sdk,'checkout','--detach','--force',$Vst3SdkCommit)
+Run-Git -GitArguments @('-C',$sdk,'submodule','sync','--recursive')
+Run-Git -GitArguments @('-C',$sdk,'submodule','update','--init','--recursive','--depth','1')
 $actualSdkCommit = (& git -C $sdk rev-parse HEAD).Trim()
 if ($actualSdkCommit.ToLowerInvariant() -ne $Vst3SdkCommit.ToLowerInvariant()) { throw "VST3 SDK pin mismatch: $actualSdkCommit" }
 $sdkCmake = Get-Content (Join-Path $sdk 'CMakeLists.txt') -Raw
@@ -57,12 +57,15 @@ Log 'Building SONICRAFT VST3 Release x64...'
 cmd.exe /d /s /c $buildCmd 2>&1 | Tee-Object -FilePath $Log -Append | Out-Host
 if ($LASTEXITCODE -ne 0) { throw 'VST3 Release build failed.' }
 
-$bundle = Get-ChildItem -Path $build -Recurse -Directory -Filter '*.vst3' | Where-Object { $_.Name -match 'SonicraftAIStringsQ4' } | Select-Object -First 1
+$bundle = Get-ChildItem -Path $build -Recurse -Directory -Filter '*.vst3' | Where-Object { $_.Name -eq 'SonicraftAIStringsQ4.vst3' } | Select-Object -First 1
 if (-not $bundle) { throw 'Build succeeded but VST3 bundle was not found.' }
 $release = Join-Path $ProjectRoot 'release'
 $dest = Join-Path $release 'SONICRAFT AI Strings Q4.vst3'
 if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
 Copy-Item -Recurse -Force $bundle.FullName $dest
+$bundledBinary = Join-Path $dest 'Contents\x86_64-win\SonicraftAIStringsQ4.vst3'
+if (-not (Test-Path $bundledBinary -PathType Leaf)) { throw 'Built bundle has no expected x86_64-win binary.' }
+Rename-Item -LiteralPath $bundledBinary -NewName 'SONICRAFT AI Strings Q4.vst3'
 $pluginBinary = Get-ChildItem (Join-Path $dest 'Contents\x86_64-win') -File -Filter '*.vst3' | Select-Object -First 1
 if (-not $pluginBinary) { throw 'Built bundle has no x86_64-win VST3 binary.' }
 $pluginHash = (Get-FileHash $pluginBinary.FullName -Algorithm SHA256).Hash.ToLowerInvariant()

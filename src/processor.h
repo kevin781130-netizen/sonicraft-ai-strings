@@ -33,7 +33,7 @@ public:
     Steinberg::tresult PLUGIN_API setState(Steinberg::IBStream* state) override;
     Steinberg::tresult PLUGIN_API getState(Steinberg::IBStream* state) override;
 public:
-    struct Controls { float dyn=.62f,vib=.50f,exp=.90f,vol=.86f,pan=.50f,sus=1.f,leg=1.f,room=.18f,bend=.50f,art=0.f,transition=.50f,tightness=.50f,attack=.38f,speedProfile=0.f,stack=0.f; };
+    struct Controls { float dyn=.62f,vib=.50f,exp=.90f,vol=.86f,pan=.50f,sus=0.f,leg=1.f,room=.18f,bend=.50f,art=0.f,transition=.50f,tightness=.50f,attack=.38f,speedProfile=0.f,stack=0.f; };
     struct VoiceLaneOverride {
         float stack=0.f,dyn=.62f,vib=.50f,transition=.50f,attack=.38f,tightness=.50f,art=0.f,bend=.50f;
         std::uint8_t mask=0;
@@ -48,7 +48,7 @@ private:
     ShadowRenderClient shadow;
     PreferenceClientV38 preference;
     std::array<Controls,4> part{};
-    float mode=0.f,activePart=0.f,humanize=.16f,aiMix=.85f,layoutMode=0.f,singleInstrument=0.f,aiAssist=.5f,lookAhead=.35f,autoDivisi=0.f;
+    float mode=0.f,activePart=0.f,humanize=.16f,aiMix=.85f,layoutMode=0.f,singleInstrument=0.f,acousticPreviewInstrument=0.f,acousticPlayerCount=0.f,aiAssist=.5f,lookAhead=.35f,autoDivisi=0.f;
     float performanceStyle=0.f,smartDynamics=0.f,smartArticulation=0.f,retakeTarget=0.f,retakeAmount=0.f,retakeNonce=0.f,stagePerspective=.333333f,polyphony=1.f;
     float midiAuthorityLock=1.f,phraseDirector=1.f,ensembleLooseness=.18f;
     // v6.4: optional microphone-mixer layer. Disabled by default so existing renders remain unchanged.
@@ -80,6 +80,7 @@ private:
     std::array<std::int64_t,PersistentPhraseTakeComp::kCapacity> preferenceJobKeys{},preferenceCandidateKeys{};
     std::array<std::uint8_t,PersistentPhraseTakeComp::kCapacity> preferenceCandidateTakes{};
     std::array<VoiceLaneOverride,16> voiceLane{};
+    std::array<int,16> acousticPreviousNote{{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
     std::array<std::array<int8_t,128>,16> divisiOwner{};
     std::array<int,4> divisiActive{{0,0,0,0}};
     int chooseDivisiPart(int note) const noexcept;

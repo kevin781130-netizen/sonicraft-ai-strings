@@ -15,7 +15,7 @@ option(SONICRAFT_BUILD_INPROCESS_ENGINE "Build the v2.8 performance-commander na
 set(SONICRAFT_ORT_SDK_ROOT "" CACHE PATH "Optional ONNX Runtime native SDK root containing include/ and lib/")
 
 if(MSVC)
-  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif()
 
 
@@ -41,6 +41,8 @@ add_executable(SonicraftPreferenceAutoCompSmokeV39 standalone/preference_auto_co
 target_include_directories(SonicraftPreferenceAutoCompSmokeV39 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_executable(SonicraftStringExpressionSmokeV41 standalone/string_expression_smoke_v41.cpp src/preview_engine.cpp)
 target_include_directories(SonicraftStringExpressionSmokeV41 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(SonicraftViolinAcousticSmoke standalone/violin_acoustic_smoke.cpp src/preview_engine.cpp)
+target_include_directories(SonicraftViolinAcousticSmoke PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_executable(SonicraftStringPhysicalSmokeV42 standalone/string_physical_smoke_v42.cpp)
 target_include_directories(SonicraftStringPhysicalSmokeV42 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_executable(SonicraftStringConstraintSmokeV43 standalone/string_constraint_smoke_v43.cpp)
@@ -160,7 +162,7 @@ if(SONICRAFT_BUILD_VST3)
   endif()
   add_subdirectory(${VST3_SDK_ROOT} ${CMAKE_BINARY_DIR}/vst3sdk EXCLUDE_FROM_ALL)
   smtg_add_vst3plugin(SonicraftAIStringsQ4
-      src/factory.cpp src/ids.h src/processor.h src/articulations.h src/processor.cpp
+      src/factory.cpp src/ids.h src/processor.h src/articulations.h src/acoustic_performance.h src/acoustic_stage.h src/processor.cpp
       src/controller.h src/controller.cpp src/preview_engine.h src/preview_engine.cpp
       src/shadow_render_client.h src/shadow_render_client.cpp src/preference_client_v38.h src/preference_client_v38.cpp src/preference_auto_comp_v39.h)
   target_include_directories(SonicraftAIStringsQ4 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -174,8 +176,9 @@ if(SONICRAFT_BUILD_VST3)
     target_compile_options(SonicraftAIStringsQ4 PRIVATE -Wall -Wextra -Wpedantic)
   endif()
   if(SMTG_WIN)
+    target_sources(SonicraftAIStringsQ4 PRIVATE ${VST3_SDK_ROOT}/public.sdk/source/main/dllmain.cpp)
     target_link_libraries(SonicraftAIStringsQ4 PRIVATE ws2_32)
-    target_compile_definitions(SonicraftAIStringsQ4 PRIVATE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(SonicraftAIStringsQ4 PRIVATE _CRT_SECURE_NO_WARNINGS NOMINMAX WIN32_LEAN_AND_MEAN)
   endif()
 endif()
 

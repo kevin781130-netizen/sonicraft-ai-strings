@@ -1,0 +1,46 @@
+name: Acoustic preview VST3 Windows check
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'resource/**'
+      - 'runtime/frontend_layout_gate_v70.py'
+      - 'standalone/violin_acoustic_smoke.cpp'
+      - 'CMakeLists.txt'
+      - 'installer/build_release_windows.ps1'
+      - '.github/workflows/acoustic-preview-vst3.yml'
+  workflow_dispatch:
+
+jobs:
+  windows-vst3:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate native editor layout and host parameter bindings
+        shell: pwsh
+        run: python runtime/frontend_layout_gate_v70.py
+      - name: Build and run official Steinberg validator
+        shell: pwsh
+        run: ./installer/build_release_windows.ps1 -ProjectRoot $PWD
+      - name: Compile and run acoustic preview smoke
+        shell: pwsh
+        run: |
+          cmake --build build-win64-v70 --config Release --target SonicraftViolinAcousticSmoke
+          if ($LASTEXITCODE -ne 0) { throw 'Acoustic preview smoke build failed' }
+          $test = Get-ChildItem build-win64-v70 -Recurse -File -Filter SonicraftViolinAcousticSmoke.exe | Select-Object -First 1
+          if (-not $test) { throw 'Acoustic preview smoke executable missing' }
+          & $test.FullName
+          if ($LASTEXITCODE -ne 0) { throw 'Acoustic preview smoke failed' }
+      - name: Upload VST3 for DAW testing
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonicraft-acoustic-preview-vst3
+          path: release/SONICRAFT AI Strings Q4.vst3
+      - name: Upload Validator evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonicraft-acoustic-preview-evidence
+          path: |
+            release/rc_evidence/validator-pass.json
+            release/rc_evidence/steinberg_validator.log
+            release/rc_evidence/windows_vst3_build.log
