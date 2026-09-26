@@ -127,7 +127,8 @@ def run_batch(model,batch,dev,train=True,cond_dropout=.08,modeled_sources=None,m
     on=interp(o).clamp(0,1); lg=interp(leg).clamp(0,1); bw=interp(bow).clamp(0,1)
     vb=interp(vib).clamp(0,1); vk_i=interp(vk).clamp(0,1)
     art_i=torch.nn.functional.interpolate(art_curve[:,None].float(),size=T,mode='nearest')[:,0].long()
-    port=(art_i==2).float()
+    ak_i=interp(ak).clamp(0,1)
+    port=(art_i==2).float()*ak_i
     weight=(1.0 + 1.75*on + 0.50*lg + 0.70*port + 0.30*bw + 0.35*vb*vk_i)[:,None,:]
     per_flow=((pred-target).pow(2)*weight).mean(dim=(1,2))
     modeled_sources=set(modeled_sources or ())
