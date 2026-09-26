@@ -340,5 +340,30 @@
     "solved_projection_width": 506,
     "module_count": 4,
     "exact_byte_equation_match": true
+  },
+  "upstream_producer_boundary": {
+    "evidence_file": "training/configs/dnni_observed_upstream_boundary.json",
+    "family_start": 18251776,
+    "regular_modules": {
+      "count": 7,
+      "stride_bytes": 2633728,
+      "layout": "5 x 512x512 FP16 + 12 x 512 FP16 vector packet"
+    },
+    "final_module": {
+      "start": 36687872,
+      "bytes": 2568192,
+      "layout": "4 x 512x512 FP16 + 512x452 FP16 projection candidate + 4 x 512 FP32 vector packet",
+      "end": 39256064
+    },
+    "next_region_start": 39256064,
+    "next_region": "128/256 projection bank",
+    "exact_adjacency": true,
+    "scope": "instrument-specific across the 15 confirmed models",
+    "confidence": "strong structural boundary",
+    "semantics": "unknown"
+  },
+  "clean_room_conditioning_contract": {
+    "file": "src/orchestra_conditioning_contract.h",
+    "policy": "SONICRAFT-owned feature semantics/transforms; observed dimensions are used only as interoperability/layout constraints."
   }
 }
