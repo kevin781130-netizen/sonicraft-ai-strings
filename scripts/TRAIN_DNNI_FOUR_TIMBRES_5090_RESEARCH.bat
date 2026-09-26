@@ -94,6 +94,7 @@ python training\scripts\run_logged.py --log "%LOGROOT%\preflight.log" -- python 
 echo.
 
 echo [1/5] VAE64 acoustic codec
+set "SONICRAFT_RECIPE_FINGERPRINT=!DNNI_CODEC_RECIPE_FINGERPRINT!"
 set "CODEC_RESUME="
 if exist "checkpoints\dnni4_vae64_research.pt" (
   set "CODEC_RESUME=--resume checkpoints\dnni4_vae64_research.pt"
@@ -114,6 +115,7 @@ if exist "%STOPFILE%" goto :PAUSED
 
 echo.
 echo [3/5] HQ four-timbre renderer
+set "SONICRAFT_RECIPE_FINGERPRINT=!DNNI_RENDER_RECIPE_FINGERPRINT!"
 set "RENDER_RESUME="
 if exist "checkpoints\dnni4_renderer_hq_research_last.pt" (
   set "RENDER_RESUME=--resume checkpoints\dnni4_renderer_hq_research_last.pt"
@@ -125,6 +127,7 @@ if exist "%STOPFILE%" goto :PAUSED
 
 echo.
 echo [4/5] Frontier Core distillation
+set "SONICRAFT_RECIPE_FINGERPRINT=!DNNI_DISTILL_RECIPE_FINGERPRINT!"
 set "DISTILL_RESUME="
 if exist "checkpoints\dnni4_frontier_research.pt" (
   set "DISTILL_RESUME=--resume checkpoints\dnni4_frontier_research.pt"
@@ -136,6 +139,7 @@ if exist "%STOPFILE%" goto :PAUSED
 
 echo.
 echo [5/5] Shortcut distillation
+set "SONICRAFT_RECIPE_FINGERPRINT=!DNNI_SHORTCUT_RECIPE_FINGERPRINT!"
 set "SHORTCUT_RESUME="
 if exist "checkpoints\dnni4_frontier_shortcut_research.pt" (
   set "SHORTCUT_RESUME=--resume checkpoints\dnni4_frontier_shortcut_research.pt"
