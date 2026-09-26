@@ -4,6 +4,7 @@ import argparse, json, sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from dnni_pipeline_fingerprint import compute as compute_fingerprint
+from dnni_training_config import load as load_training_config, fingerprint as recipe_fingerprint
 
 STAGES = [
     ("codec", Path("checkpoints/dnni4_vae64_research.pt"), 100),
@@ -16,7 +17,7 @@ def load_checkpoint(path: Path):
     import torch
     return torch.load(path, map_location="cpu")
 
-def validate_checkpoint(kind: str, path: Path, target: int, expected_fingerprint: str|None=None):
+def validate_checkpoint(kind: str, path: Path, target: int, expected_fingerprint: str|None=None, expected_recipe: str|None=None):
     if not path.exists():
         return {"kind":kind,"path":str(path),"state":"missing","epoch":0,"target":target,"valid":False}
     try:
@@ -44,6 +45,8 @@ def validate_checkpoint(kind: str, path: Path, target: int, expected_fingerprint
         if str(ck.get("sampling_family",""))!="shortcut": errors.append("sampling_family != shortcut")
     if expected_fingerprint and ck.get('data_fingerprint')!=expected_fingerprint:
         errors.append(f"data_fingerprint mismatch: saved={ck.get('data_fingerprint')} current={expected_fingerprint}")
+    if expected_recipe and ck.get('recipe_fingerprint')!=expected_recipe:
+        errors.append(f"recipe_fingerprint mismatch: saved={ck.get('recipe_fingerprint')} current={expected_recipe}")
     if errors:
         return {"kind":kind,"path":str(path),"state":"invalid","epoch":epoch,"target":target,"valid":False,"error":"; ".join(errors)}
     state="complete" if epoch>=target else "resumable"
@@ -85,6 +88,9 @@ def status():
     raw=root/"rendered/index.jsonl"
     lat=root/"latents/index.jsonl"
     fingerprint=None; fp_error=None
+    recipe=None; recipe_error=None
+    try: recipe=recipe_fingerprint(load_training_config('training/configs/dnni_5090_training.json'))
+    except Exception as e: recipe_error=f"{type(e).__name__}: {e}"
     if bundle.exists() and raw.exists():
         try: fingerprint=compute_fingerprint()["fingerprint"]
         except Exception as e: fp_error=f"{type(e).__name__}: {e}"
@@ -102,6 +108,8 @@ def status():
         "source":source,
         "data_fingerprint":fingerprint,
         "fingerprint_error":fp_error,
+        "recipe_fingerprint":recipe,
+        "recipe_error":recipe_error,
         "capture_plan_rows":count_jsonl(plan),
         "batch_capture_map":batch_map.exists(),
         "batch_bounces_present":sum(1 for p in batch_bounces if p.exists()),
@@ -109,7 +117,7 @@ def status():
         "render_manifest_rows":count_jsonl(raw),
         "latent_rows":count_jsonl(lat),
         "latent_provenance":latent_status,
-        "stages":[validate_checkpoint(k,p,t,fingerprint) for k,p,t in STAGES],
+        "stages":[validate_checkpoint(k,p,t,fingerprint,recipe) for k,p,t in STAGES],
     }
     return out
 
@@ -131,6 +139,7 @@ def print_human(s):
     print(f"Render WAVs  : {s['render_manifest_rows']} manifest rows")
     print(f"Latents      : {s['latent_rows']} rows")
     if s.get("data_fingerprint"): print("Data hash    :",str(s["data_fingerprint"])[:20]+"...")
+    if s.get("recipe_fingerprint"): print("Recipe hash  :",str(s["recipe_fingerprint"])[:20]+"...")
     lp=s.get("latent_provenance") or {}
     if lp.get("exists"):
         print("Latent bind  :", "MATCH" if lp.get("valid") else "STALE/MISMATCH")
@@ -180,7 +189,7 @@ def main():
     bad_stage=any(x["state"] in ("corrupt","invalid") for x in s["stages"])
     lp=s.get("latent_provenance") or {}
     bad_latent=bool(s.get("latent_rows") and (not lp.get("exists") or not lp.get("valid")))
-    raise SystemExit(2 if bad_stage or bad_latent or s.get("fingerprint_error") else 0)
+    raise SystemExit(2 if bad_stage or bad_latent or s.get("fingerprint_error") or s.get("recipe_error") else 0)
 
 if __name__=="__main__":
     main()
