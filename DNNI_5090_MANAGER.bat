@@ -22,10 +22,12 @@ echo   [L] Open training logs folder
 echo   [D] Open DNNI dataset folder
 echo   [I] Open private dnni_input folder
 echo   [T] Edit four-timbre config
+echo   [P] Edit RTX 5090 training recipe
 echo   [Q] Quit
 echo.
-choice /c 123456789LDITQ /n /m "Select: "
-if errorlevel 14 goto :EOF
+choice /c 123456789LDITPQ /n /m "Select: "
+if errorlevel 15 goto :EOF
+if errorlevel 14 goto :RECIPE
 if errorlevel 13 goto :TIMBRES
 if errorlevel 12 goto :INPUT
 if errorlevel 11 goto :DATA
@@ -94,4 +96,8 @@ goto :MENU
 
 :TIMBRES
 start "" notepad.exe "%CD%\training\configs\dnni_four_timbres.json"
+goto :MENU
+
+:RECIPE
+start "" notepad.exe "%CD%\training\configs\dnni_5090_training.json"
 goto :MENU
