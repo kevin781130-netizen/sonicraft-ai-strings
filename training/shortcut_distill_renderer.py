@@ -182,6 +182,7 @@ def main():
     if a.resume:
         resume_ck=torch.load(a.resume,map_location='cpu')
         if dict(resume_ck.get('config') or {})!=cfg: raise RuntimeError('resume shortcut architecture mismatch')
+        if data_fingerprint and resume_ck.get('data_fingerprint')!=data_fingerprint: raise RuntimeError(f'resume shortcut data fingerprint mismatch: saved={resume_ck.get("data_fingerprint")} current={data_fingerprint}')
         if int(resume_ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('resume shortcut latent geometry mismatch')
         m.load_state_dict(resume_ck.get('model',resume_ck.get('ema')),strict=True)
         ema.load_state_dict(resume_ck.get('ema',resume_ck.get('model')),strict=True)
@@ -195,6 +196,7 @@ def main():
         print('initialized shortcut model from',a.init)
 
     opt=torch.optim.AdamW(m.parameters(),lr=a.lr,weight_decay=.01,betas=(.9,.95))
+    data_fingerprint=os.environ.get('SONICRAFT_DATA_FINGERPRINT') or None
     start=0
     if resume_ck is not None:
         if 'optimizer' in resume_ck: opt.load_state_dict(resume_ck['optimizer'])
@@ -232,7 +234,7 @@ def main():
                     'sampling_family':'shortcut','supported_steps':[2**i for i in range(int(math.log2(a.max_steps))+1)],
                     'recommended_steps':int(a.recommend_steps),'max_shortcut_steps':int(a.max_steps),
                     'schema_version':12,'distillation':'string_perceptual_shortcut','source_index':a.index,
-                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id},a.out)
+                    'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint},a.out)
         stop_file=os.environ.get('SONICRAFT_STOP_FILE')
         if interrupted:
             print('[SAFE STOP] partial shortcut epoch saved; epoch',ep+1,'will replay on resume ->',a.out)
