@@ -10,26 +10,34 @@ echo SONICRAFT AI Strings - DNNI Four Timbres - RTX 5090 Manager
 echo ============================================================
 echo.
 echo   [1] Setup / Repair RTX 5090 environment
-echo   [2] Start / Resume training
-echo   [3] Training status
-echo   [4] Safe stop after current batch/step
-echo   [5] Open checkpoints folder
-echo   [6] Open DNNI dataset folder
-echo   [7] Open training logs folder
+echo   [2] Import / Verify four DNNI TAR files
+echo   [3] Start / Resume training
+echo   [4] Training status
+echo   [5] Safe stop after current batch/step
+echo   [6] Open checkpoints folder
+echo   [7] Open DNNI dataset folder
+echo   [8] Open training logs folder
+echo   [9] Open private dnni_input folder
 echo   [Q] Quit
 echo.
-choice /c 1234567Q /n /m "Select: "
-if errorlevel 8 goto :EOF
-if errorlevel 7 goto :LOGS
-if errorlevel 6 goto :DATA
-if errorlevel 5 goto :CKPT
-if errorlevel 4 goto :STOP
-if errorlevel 3 goto :STATUS
-if errorlevel 2 goto :TRAIN
+choice /c 123456789Q /n /m "Select: "
+if errorlevel 10 goto :EOF
+if errorlevel 9 goto :INPUT
+if errorlevel 8 goto :LOGS
+if errorlevel 7 goto :DATA
+if errorlevel 6 goto :CKPT
+if errorlevel 5 goto :STOP
+if errorlevel 4 goto :STATUS
+if errorlevel 3 goto :TRAIN
+if errorlevel 2 goto :IMPORT
 if errorlevel 1 goto :SETUP
 
 :SETUP
 call SETUP_DNNI_5090.bat
+goto :MENU
+
+:IMPORT
+call IMPORT_DNNI_5090.bat
 goto :MENU
 
 :TRAIN
@@ -57,4 +65,9 @@ goto :MENU
 :LOGS
 if not exist logs\dnni5090 mkdir logs\dnni5090
 start "" explorer.exe "%CD%\logs\dnni5090"
+goto :MENU
+
+:INPUT
+if not exist dnni_input mkdir dnni_input
+start "" explorer.exe "%CD%\dnni_input"
 goto :MENU
