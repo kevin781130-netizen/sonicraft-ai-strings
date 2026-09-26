@@ -98,10 +98,10 @@
       "tuba"
     ],
     "evaluated_modules_per_role": 4,
-    "matrix_pairs_per_module": 21,
-    "comparisons": 336,
+    "comparisons": 312,
+    "excluded_block": "module 3 final split block (mixed FP16/FP32)",
     "max_direct_abs_normalized_correlation": 0.0357012674,
-    "max_transpose_abs_normalized_correlation": 0.0068245111,
+    "max_transpose_abs_normalized_correlation": 0.0067507583,
     "tied_or_transpose_pair_detected": false
   },
   "final_block_split_scan": {
