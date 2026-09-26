@@ -125,6 +125,18 @@ if ui_root is not None:
         if tag=='V1Speed' and cls=='CSlider':
             fail('VSTGUI discrete V1Speed profile must not be presented as a continuous slider')
 
+    # The custom editor must expose the actual host parameters for the
+    # independent acoustic preview. A decorative picker would leave DAW state
+    # and sound disconnected, and a short segment misrepresents 16 choices.
+    expected_menus={'Layout':'104', 'Instrument':'105', 'AcousticPreviewInstrument':'829'}
+    tags={t.attrib.get('name'):t.attrib.get('tag') for t in ui_root.findall('./control-tags/control-tag')}
+    for name,number in expected_menus.items():
+        if tags.get(name)!=number:
+            fail(f'VSTGUI {name} control tag must map to host parameter {number}')
+        menus=[v for v in templates['PageScore'].iter('view') if v.attrib.get('control-tag')==name]
+        if len(menus)!=1 or menus[0].attrib.get('class')!='COptionMenu':
+            fail(f'VSTGUI Score must contain one bound {name} option menu')
+
 # -----------------------------------------------------------------------------
 # WinForms Manager and Win32 Product Shell DPI safety.
 # -----------------------------------------------------------------------------

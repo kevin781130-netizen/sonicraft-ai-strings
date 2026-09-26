@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'src/**'
+      - 'resource/**'
+      - 'runtime/frontend_layout_gate_v70.py'
       - 'standalone/violin_acoustic_smoke.cpp'
       - 'CMakeLists.txt'
       - 'installer/build_release_windows.ps1'
@@ -14,6 +16,9 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
+      - name: Validate native editor layout and host parameter bindings
+        shell: pwsh
+        run: python runtime/frontend_layout_gate_v70.py
       - name: Build and run official Steinberg validator
         shell: pwsh
         run: ./installer/build_release_windows.ps1 -ProjectRoot $PWD

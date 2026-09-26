@@ -22,3 +22,18 @@ Run `DEBUG_EDITOR_V64.bat`. Console output is retained in `logs/frontend_v64/edi
 
 ## Architectural boundary
 The editor does not implement a second compiler or acoustic renderer. It produces editable source intent and delegates actual compile/render work to the frozen v6.2 runtime. This prevents the UI from becoming another source of performance logic drift.
+
+## VST3 acoustic preview in the DAW
+
+The VST3 custom editor's **Score** page now has a **Playback Layout** menu and
+an **Acoustic Voice · Single Layout** menu. Choose **Single**, then one of the
+15 instrument names to route incoming DAW MIDI to the selected acoustic preview
+renderer. **Q4 Legacy** keeps the previous voice. **Q4 Multi** continues to use
+the four string parts and ignores the acoustic preview selection; its separate
+**Legacy Solo Part** menu chooses among those four parts for Single legacy mode.
+
+The browser/standalone score editor is a separate local editor. Its project JSON
+and MIDI export do not carry a VST3 plug-in preset or set the DAW's plug-in
+parameters; select the acoustic voice in the VST3 editor after loading the MIDI
+into the DAW. The 15 voices are procedural acoustic previews, not trained
+instrument models or recordings from the benchmark product.
