@@ -56,10 +56,30 @@ def count_jsonl(path: Path):
 
 def status():
     root=Path("datasets/dnni_four_timbres")
+    bundle=root/"source/bundle_manifest.json"
+    source=None
+    if bundle.exists():
+        try:
+            b=json.loads(bundle.read_text(encoding="utf-8"))
+            source={
+                "imported":True,
+                "path":str(bundle),
+                "timbres":[{
+                    "timbre_id":x.get("timbre_id"),
+                    "source_tar":Path(str(x.get("source_tar",""))).name,
+                    "weight_sha256":str(x.get("weight_sha256","")),
+                    "weight_bytes":x.get("weight_bytes"),
+                } for x in b.get("timbres",[])]
+            }
+        except Exception as e:
+            source={"imported":False,"path":str(bundle),"error":f"{type(e).__name__}: {e}"}
+    else:
+        source={"imported":False,"path":str(bundle)}
     plan=root/"capture_plan.jsonl"
     raw=root/"rendered/index.jsonl"
     lat=root/"latents/index.jsonl"
     out={
+        "source":source,
         "capture_plan_rows":count_jsonl(plan),
         "render_manifest_rows":count_jsonl(raw),
         "latent_rows":count_jsonl(lat),
@@ -71,6 +91,14 @@ def print_human(s):
     print("="*66)
     print("SONICRAFT DNNI 4-Timbre RTX 5090 Training Status")
     print("="*66)
+    src=s.get("source") or {}
+    if src.get("imported"):
+        print("DNNI source  : imported")
+        for x in src.get("timbres",[]):
+            print(f"  {str(x.get('timbre_id','?')).ljust(9)} {str(x.get('source_tar','?')).ljust(28)} {str(x.get('weight_sha256',''))[:16]}...")
+    else:
+        print("DNNI source  : not imported")
+        if src.get("error"): print("  ERROR:",src["error"])
     print(f"Capture plan : {s['capture_plan_rows']} rows")
     print(f"Render WAVs  : {s['render_manifest_rows']} manifest rows")
     print(f"Latents      : {s['latent_rows']} rows")
