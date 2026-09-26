@@ -247,5 +247,55 @@
     "direction": "unknown",
     "gate_order": "unknown",
     "activation": "unknown"
+  },
+  "finite_recurrent_execution_candidate": {
+    "evidence_file": "training/configs/dnni_observed_recurrent_hypothesis.json",
+    "candidate": "grouped GRU-style public equation",
+    "assumptions": {
+      "input_width": 506,
+      "hidden_width": 512,
+      "shared_slab_interpretation": "512x506 input projection",
+      "input_matrices": [
+        0,
+        1,
+        2
+      ],
+      "recurrent_matrices": [
+        3,
+        4,
+        5
+      ],
+      "gate_order": [
+        "reset",
+        "update",
+        "candidate"
+      ],
+      "input": "deterministic synthetic vector, not musical conditioning",
+      "initial_hidden_state": "zeros"
+    },
+    "results": {
+      "all_15_models_all_4_modules_finite": true,
+      "max_gate_saturation_fraction": 0,
+      "final_state_l2_norm_ranges": [
+        [
+          0.83325118,
+          0.93777364
+        ],
+        [
+          0.9646737,
+          1.0443238
+        ],
+        [
+          1.00559461,
+          1.07499135
+        ],
+        [
+          1.71557307,
+          1.84031355
+        ]
+      ]
+    },
+    "confidence": "numerically plausible candidate only; proprietary operation not identified",
+    "next_blocker": "recover the semantic 506-wide musical conditioning vector"
   }
 }
