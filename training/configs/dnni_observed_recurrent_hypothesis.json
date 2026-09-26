@@ -25,7 +25,9 @@
     ],
     "steps": 8,
     "input": "deterministic synthetic normalized vector",
-    "initial_hidden_state": "zeros"
+    "initial_hidden_state": "zeros",
+    "input_width_status": "falsified_as_verified_tensor_boundary",
+    "input_width_evidence_file": "training/configs/dnni_observed_conditioning_interface.json"
   },
   "aggregate": [
     {
@@ -67,7 +69,9 @@
   ],
   "success_gate": {
     "all_15_models_all_4_modules_finite": true,
-    "gate_saturation_below_1_percent": true
+    "gate_saturation_below_1_percent": true,
+    "interpretation": "Only demonstrates numerical finiteness under one synthetic equation; does not validate the 506-wide input schema."
   },
-  "next_blocker": "Recover the semantic construction of the 506-wide input feature vector from musical controls."
+  "next_blocker": "Resolve the 128/256 adjacent projection-bank interface and find an independently verifiable producer/consumer tensor.",
+  "structural_status": "diagnostic_only_after_conditioning_width_falsification"
 }
