@@ -33,7 +33,9 @@ on:
       - "training/scripts/slice_dnni_batch_bounces.py"
       - "PREPARE_DNNI_CAPTURE.bat"
       - "SLICE_DNNI_BOUNCES.bat"
-      - "training/tests/dnni_batch_capture_smoke.py"\n      - ".github/workflows/dnni-research-ci.yml"
+      - "training/tests/dnni_batch_capture_smoke.py"\n      - "training/configs/dnni_5090_training.json"
+      - "training/scripts/dnni_training_config.py"
+      - ".github/workflows/dnni-research-ci.yml"
   workflow_dispatch:
 
 permissions:
@@ -73,6 +75,7 @@ jobs:
             "training/scripts/archive_dnni_training_state.py",
             "training/scripts/generate_dnni_batch_capture_midi.py",
             "training/scripts/slice_dnni_batch_bounces.py",
+            "training/scripts/dnni_training_config.py",
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
@@ -92,6 +95,11 @@ jobs:
         shell: pwsh
         run: |
           python training/tests/dnni_batch_capture_smoke.py
+      - name: Validate RTX 5090 recipe and resume hash semantics
+        shell: pwsh
+        run: |
+          python training/scripts/dnni_training_config.py --write-cmd "$env:RUNNER_TEMP/dnni_recipe.cmd"
+          python -c "import copy,json,sys; sys.path.insert(0,'training/scripts'); import dnni_training_config as d; c=d.load('training/configs/dnni_5090_training.json'); f=d.fingerprint(c); c2=copy.deepcopy(c); c2['renderer']['epochs']+=10; assert d.fingerprint(c2)==f; c3=copy.deepcopy(c); c3['renderer']['batch']+=1; assert d.fingerprint(c3)!=f"
       - name: Status helper clean-checkout smoke
         shell: pwsh
         run: |
