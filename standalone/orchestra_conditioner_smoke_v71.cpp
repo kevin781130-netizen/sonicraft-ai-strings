@@ -74,6 +74,16 @@ int main() {
     assert(conditioner.condition(a,perf2,fi));
     assert(distance(fa.latent512,fi.latent512)>0.1);
 
+    auto extreme=a;
+    extreme.midiPitch=0.f;
+    extreme.pitchCents=-200.f;
+    extreme.durationBeats=64.f;
+    OrchestraConditioningFeatures fx{};
+    assert(conditioner.condition(extreme,performance,fx));
+    assert(finiteBounded(fx.branch128));
+    assert(finiteBounded(fx.feature506));
+    assert(finiteBounded(fx.latent512));
+
     std::cout<<"orchestra_conditioner_v71_smoke: ok\n";
     return 0;
 }
