@@ -11,13 +11,14 @@ echo ============================================================
 echo.
 echo   [1] Setup / Repair RTX 5090 environment
 echo   [2] Import / Verify four DNNI TAR files
-echo   [3] Prepare 4 long capture MIDI files
-echo   [4] Slice 4 long bounced WAV files
-echo   [5] Start / Resume training
-echo   [6] Training status
-echo   [7] Safe stop after current batch/step
-echo   [8] Archive / Reset old training state
-echo   [9] Open checkpoints folder
+echo   [3] Identify / Label Violin, Viola, Cello, Double Bass
+echo   [4] Prepare 4 long capture MIDI files
+echo   [5] Slice 4 long bounced WAV files
+echo   [6] Start / Resume training
+echo   [7] Training status
+echo   [8] Safe stop after current batch/step
+echo   [9] Archive / Reset old training state
+echo   [C] Open checkpoints folder
 echo   [L] Open training logs folder
 echo   [D] Open DNNI dataset folder
 echo   [I] Open private dnni_input folder
@@ -48,6 +49,10 @@ goto :MENU
 
 :IMPORT
 call IMPORT_DNNI_5090.bat
+goto :MENU
+
+:IDENTIFY
+call IDENTIFY_DNNI_TIMBRES.bat
 goto :MENU
 
 :PREP
