@@ -64,6 +64,12 @@ on:
       - "docs/ORCHESTRA_ENGINE_V71.md"
       - "standalone/orchestra_conditioning_contract_smoke_v71.cpp"
       - "src/orchestra_conditioning_contract.h"
+      - "CMakeLists.txt"
+      - "src/processor.cpp"
+      - "src/processor.h"
+      - "standalone/orchestra_conditioner_smoke_v71.cpp"
+      - "src/orchestra_conditioner_v71.cpp"
+      - "src/orchestra_conditioner_v71.h"
       - "training/configs/dnni_observed_upstream_boundary.json"
       - "frontend/editor_server.py"
       - "training/tests/dnni_model_shell_smoke.py"
@@ -187,6 +193,16 @@ jobs:
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+      - name: Smoke clean-room orchestra conditioner
+        shell: pwsh
+        run: |
+          $build = Join-Path $env:RUNNER_TEMP "sonicraft-conditioner"
+          cmake -S . -B $build -DSONICRAFT_BUILD_VST3=OFF -DSONICRAFT_BUILD_STANDALONE=OFF -DSONICRAFT_BUILD_REALTIME_SIM=OFF -DSONICRAFT_BUILD_LOW_LATENCY_SIM=OFF -DSONICRAFT_BUILD_PRODUCT_SHELL=OFF -DSONICRAFT_BUILD_ORT_INPROCESS_PROBE=OFF -DSONICRAFT_BUILD_INPROCESS_ENGINE=OFF
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cmake --build $build --config Release --target SonicraftOrchestraConditionerSmokeV71
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & "$build/Release/SonicraftOrchestraConditionerSmokeV71.exe"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Smoke DNNI module accounting
         shell: pwsh
         run: |
