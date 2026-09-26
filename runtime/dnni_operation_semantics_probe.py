@@ -28,11 +28,9 @@ FAMILY_START = 40_304_640
 MODULE_STRIDE = 3_670_016
 MODULE_COUNT = 4
 MATRIX_COUNT = 7
-TAIL_SHARED_BYTES = 448 * 1024
-TAIL_VARIABLE_BYTES = 64 * 1024
-PROJECTION64_OFFSETS = (75_628_544, 95_617_024)
-PROJECTION64_BYTES = 131_072
-TARGET_DIMS = (64, 128, 256, 288, 448, 512)
+FINAL_SHARED_BYTES = 506 * 1024
+FINAL_SUFFIX_BYTES = 6 * 1024
+TARGET_DIMS = (64, 128, 256, 288, 448, 506, 512)
 
 PREFERRED_SAMPLE_ROLES = ("violin", "flute", "french_horn", "tuba")
 
@@ -148,6 +146,12 @@ def _pairwise_tied_weight_scan(models) -> dict:
         for module_index in range(MODULE_COUNT):
             mats = []
             for matrix_index in range(MATRIX_COUNT):
+                if module_index == MODULE_COUNT - 1 and matrix_index == MATRIX_COUNT - 1:
+                    # Final module's last block is mixed: 506 KiB FP16 shared prefix
+                    # plus 6 KiB FP32 instrument-specific suffix. Do not coerce it
+                    # into a 512x512 FP16 matrix for tied-weight tests.
+                    mats.append(None)
+                    continue
                 rel = (
                     FAMILY_START
                     + module_index * MODULE_STRIDE
@@ -159,9 +163,13 @@ def _pairwise_tied_weight_scan(models) -> dict:
                 mats.append(np.nan_to_num(a))
 
             for i in range(MATRIX_COUNT):
+                if mats[i] is None:
+                    continue
                 ai = mats[i].ravel()
                 ni = max(float(np.linalg.norm(ai)), 1e-30)
                 for j in range(i + 1, MATRIX_COUNT):
+                    if mats[j] is None:
+                        continue
                     bj = mats[j]
                     nj = max(float(np.linalg.norm(bj)), 1e-30)
                     direct = float(np.dot(ai, bj.ravel()) / (ni * nj))
@@ -228,63 +236,92 @@ def _metadata_dimension_scan(models) -> dict:
     return out
 
 
-def _quantized_u16(values: np.ndarray) -> np.ndarray:
-    return np.nan_to_num(values.astype(np.float32)).astype("<f2").view("<u2")
+def _final_block_split_scan(models) -> dict:
+    modules = []
+    for module_index in range(MODULE_COUNT):
+        last_rel = (
+            FAMILY_START
+            + module_index * MODULE_STRIDE
+            + (MATRIX_COUNT - 1) * MATRIX_BYTES
+        )
+        shared = _read(models[0], last_rel, FINAL_SHARED_BYTES)
+        shared_hash = __import__("hashlib").sha256(shared).digest()
+        shared_matches = 0
+        suffix_matches = 0
+        suffix_ref = None
+        suffix_stats = []
 
+        for model_index, model in enumerate(models):
+            shared_i = _read(model, last_rel, FINAL_SHARED_BYTES)
+            if __import__("hashlib").sha256(shared_i).digest() == shared_hash:
+                shared_matches += 1
 
-def _same_u16_multiset(a: np.ndarray, b: np.ndarray) -> bool:
-    return np.array_equal(
-        np.bincount(a, minlength=65536),
-        np.bincount(b, minlength=65536),
-    )
-
-
-def _adapter_projection_match_scan(models) -> dict:
-    comparisons = 0
-    exact = 0
-    transpose_exact = 0
-    value_multiset = 0
-
-    for model in models:
-        projections = []
-        for rel in PROJECTION64_OFFSETS:
-            x = np.frombuffer(
-                _read(model, rel, PROJECTION64_BYTES), dtype="<f4"
-            ).astype(np.float32)
-            projections.append(_quantized_u16(x))
-
-        for module_index in range(MODULE_COUNT):
-            last_matrix = (
-                FAMILY_START
-                + module_index * MODULE_STRIDE
-                + (MATRIX_COUNT - 1) * MATRIX_BYTES
+            suffix = _read(
+                model,
+                last_rel + FINAL_SHARED_BYTES,
+                FINAL_SUFFIX_BYTES,
             )
-            tail_rel = last_matrix + TAIL_SHARED_BYTES
-            tail = np.frombuffer(
-                _read(model, tail_rel, TAIL_VARIABLE_BYTES), dtype="<f2"
-            ).astype(np.float32)
-            tail_u16 = _quantized_u16(tail)
+            if model_index == 0:
+                suffix_ref = __import__("hashlib").sha256(suffix).digest()
+            if __import__("hashlib").sha256(suffix).digest() == suffix_ref:
+                suffix_matches += 1
 
-            for proj_u16 in projections:
-                comparisons += 1
-                if np.array_equal(tail_u16, proj_u16):
-                    exact += 1
-                if np.array_equal(
-                    tail_u16.reshape(64, 512),
-                    proj_u16.reshape(512, 64).T,
-                ):
-                    transpose_exact += 1
-                if _same_u16_multiset(tail_u16, proj_u16):
-                    value_multiset += 1
+            u16 = np.frombuffer(suffix, dtype="<u2")
+            exp16 = (u16 >> 10) & 31
+            f16 = u16.view("<f2").astype(np.float32)
+            f32 = np.frombuffer(suffix, dtype="<f4")
+            finite32 = np.isfinite(f32)
+            abs32 = np.abs(f32[finite32])
+            suffix_stats.append({
+                "fp16_exp31_fraction": float(np.mean(exp16 == 31)),
+                "fp16_finite_fraction": float(np.mean(np.isfinite(f16))),
+                "fp32_finite_fraction": float(np.mean(finite32)),
+                "fp32_median_abs": (
+                    float(np.median(abs32)) if len(abs32) else float("inf")
+                ),
+                "fp32_p95_abs": (
+                    float(np.quantile(abs32, 0.95)) if len(abs32) else float("inf")
+                ),
+            })
+
+        med = {
+            key: float(np.median([x[key] for x in suffix_stats]))
+            for key in suffix_stats[0]
+        }
+        fp32 = (
+            med["fp16_exp31_fraction"] >= 0.004
+            and med["fp32_finite_fraction"] >= 0.9999
+            and med["fp32_p95_abs"] <= 50.0
+        )
+        suffix_dtype = "float32_le" if fp32 else "float16_le"
+        value_count = FINAL_SUFFIX_BYTES // (4 if fp32 else 2)
+
+        modules.append({
+            "module_index": module_index,
+            "shared_prefix_bytes": FINAL_SHARED_BYTES,
+            "shared_prefix_exact_identity_models": shared_matches,
+            "shared_prefix_dtype": "float16_le",
+            "shared_prefix_row_major_512_candidate_rows": 506,
+            "instrument_specific_suffix_bytes": FINAL_SUFFIX_BYTES,
+            "instrument_specific_suffix_exact_identity_models": suffix_matches,
+            "instrument_specific_suffix_dtype": suffix_dtype,
+            "instrument_specific_suffix_value_count": value_count,
+            "instrument_specific_suffix_512_wide_vector_count": value_count // LATENT,
+            "suffix_consensus_stats": med,
+        })
 
     return {
-        "comparisons": comparisons,
-        "exact_matches_after_fp16_quantization": exact,
-        "transpose_matches_after_fp16_quantization": transpose_exact,
-        "value_multiset_matches_after_fp16_quantization": value_multiset,
+        "modules": modules,
+        "suffix_dtype_pattern": [
+            x["instrument_specific_suffix_dtype"] for x in modules
+        ],
+        "suffix_512_wide_vector_counts": [
+            x["instrument_specific_suffix_512_wide_vector_count"] for x in modules
+        ],
         "interpretation": (
-            "The 64-wide projection candidates and 64-row model-specific module tails "
-            "are dimensionally compatible but are not direct copies/transposes/value-tied weights."
+            "All four final blocks have a 506 KiB cross-instrument shared FP16 prefix. "
+            "Modules 0-2 end with six 512-wide FP16 rows; module 3 ends with three "
+            "512-wide FP32 vectors. Semantic roles remain unknown."
         ),
     }
 
@@ -323,13 +360,13 @@ def probe_operation_constraints(models) -> dict:
         },
         "pairwise_tied_weight_scan": _pairwise_tied_weight_scan(models),
         "metadata_literal_dimension_scan": _metadata_dimension_scan(models),
-        "adapter_projection_direct_weight_scan": _adapter_projection_match_scan(models),
+        "final_block_split_scan": _final_block_split_scan(models),
         "remaining_unknowns": [
             "matrix multiplication direction/order",
             "nonlinear activation type",
             "bias/vector locations",
             "state recurrence/update equation",
-            "meaning of the 128/256/64/288 feature widths",
+            "meaning of the 128/256/288 feature widths and terminal 512-wide vector bundles",
             "output representation/decoder",
         ],
     }
