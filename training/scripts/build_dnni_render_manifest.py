@@ -23,7 +23,7 @@ def main():
         wav=root/r['expected_wav']
         if not wav.exists():
             missing.append(str(wav)); continue
-        vel=float(r['velocity']); art=int(r['articulation'])
+        vel=float(r['velocity']); art=int(r['articulation']); art_verified=bool(r.get('articulation_verified',False))
         rows.append({
             'audio':str(wav.resolve()), 'dataset':f"dnni_research_{r['timbre_id']}",
             'training_origin':'real', 'source_kind':'proprietary_teacher_render_research_only',
@@ -31,13 +31,15 @@ def main():
             'dnni_timbre_id':r['timbre_id'], 'capture_id':r['capture_id'], 'audio_sha256':sha256(wav),
             'instrument':int(r['instrument']), 'articulation':art, 'pitch':float(r['pitch']), 'player':int(r['instrument']),
             'velocity':vel, 'dynamics':vel, 'expression':vel,
-            'vibrato':0.65 if art in (0,1,2,3,9) else 0.15,
-            'legato':1.0 if art in (1,2,3) else 0.0,
-            'pitchbend':0.0, 'transition_speed':0.5, 'short_tightness':0.82 if art in (5,6) else 0.45,
-            'attack_character':0.55, 'phrase_position':0.5, 'prev_interval':0.5, 'next_interval':0.5,
-            'bow_change_prob':0.8 if art==7 else 0.25, 'tempo_bpm':68.0, 'note_duration_beats':2.0,
+            'vibrato':0.0, 'legato':0.0, 'pitchbend':0.0,
+            'transition_speed':0.5, 'short_tightness':0.5, 'attack_character':0.5,
+            'phrase_position':0.5, 'prev_interval':0.5, 'next_interval':0.5,
+            'bow_change_prob':0.0, 'tempo_bpm':68.0, 'note_duration_beats':2.0,
             'dynamics_known':0.0, 'vibrato_known':0.0, 'vibrato_physics_known':0.0, 'expression_known':0.0,
-            'legato_known':1.0, 'pitchbend_known':0.0, 'timing_known':1.0, 'articulation_known':1.0,
+            'legato_known':1.0 if art_verified and art in (1,2,3) else 0.0,
+            'pitchbend_known':1.0 if art_verified and art==2 else 0.0,
+            'timing_known':1.0, 'articulation_known':1.0 if art_verified else 0.0,
+            'articulation_verified':art_verified,
         })
     if missing and not a.allow_missing:
         sample='\n  '.join(missing[:20]); raise SystemExit(f'missing {len(missing)} capture WAVs; first paths:\n  {sample}')
