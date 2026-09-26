@@ -53,11 +53,32 @@ def build(path: Path, seed: int) -> None:
         for i in range(p.FAMILY_MATRIX_COUNT):
             rel = start + i * p.FAMILY_MATRIX_BYTES
             a = weights_offset + rel
-            # Matrices 4 and 5 are shared across synthetic models.
-            local_seed = 1000 + module * 10 + i if i in (4,5) else seed * 100 + module * 10 + i
-            local_rng = np.random.default_rng(local_seed)
-            raw = local_rng.normal(0, .04, p.FAMILY_MATRIX_BYTES // 2).astype("<f2").tobytes()
-            data[a:a + p.FAMILY_MATRIX_BYTES] = raw
+            if i == p.FAMILY_MATRIX_COUNT - 1:
+                # Final block: 506 KiB cross-model shared prefix plus 6 KiB
+                # instrument-specific suffix. Modules 0-2 use FP16 suffix;
+                # module 3 uses FP32 suffix.
+                prefix_rng = np.random.default_rng(5000 + module)
+                prefix = prefix_rng.normal(
+                    0, .04, p.FAMILY_LAST_SHARED_BYTES // 2
+                ).astype("<f2").tobytes()
+                suffix_rng = np.random.default_rng(seed * 100 + module)
+                if module < 3:
+                    suffix = suffix_rng.normal(
+                        0, .04, p.FAMILY_LAST_VARIABLE_BYTES // 2
+                    ).astype("<f2").tobytes()
+                else:
+                    suffix = suffix_rng.normal(
+                        0, .04, p.FAMILY_LAST_VARIABLE_BYTES // 4
+                    ).astype("<f4").tobytes()
+                data[a:a + p.FAMILY_MATRIX_BYTES] = prefix + suffix
+            else:
+                # Matrices 4 and 5 are shared across synthetic models.
+                local_seed = 1000 + module * 10 + i if i in (4,5) else seed * 100 + module * 10 + i
+                local_rng = np.random.default_rng(local_seed)
+                raw = local_rng.normal(
+                    0, .04, p.FAMILY_MATRIX_BYTES // 2
+                ).astype("<f2").tobytes()
+                data[a:a + p.FAMILY_MATRIX_BYTES] = raw
 
     data[-256:] = b"\0" * 256
     path.write_bytes(data)
@@ -76,18 +97,27 @@ def main() -> None:
         assert result["sandwich_verified"]
         assert result["candidate_fragment"]["left_bank_dimensions"] == [128,256,256,256]
         assert result["candidate_fragment"]["right_bank_dimensions"] == [128,256,256,256]
+        pattern = result["middle_family"]["last_matrix_suffix_dtype_pattern"]
+        assert pattern == ["float16_le", "float16_le", "float16_le", "float32_le"]
+        assert result["middle_family"]["last_matrix_split_verified"]
         for module in result["middle_family"]["modules"]:
-            assert all(x["dtype"] == "float16_le" for x in module["matrices"])
+            assert all(
+                x["dtype"] == "float16_le"
+                for x in module["matrices"][:-1]
+            )
             assert module["matrices"][4]["exact_identity_models"] == 3
             assert module["matrices"][5]["exact_identity_models"] == 3
             assert module["matrices"][6]["exact_identity_models"] == 1
             split = module["last_matrix_split"]
             assert split["shared_prefix_exact_identity_models"] == 3
             assert split["variable_tail_exact_identity_models"] == 1
-            assert split["row_major_512_candidate"] == {
-                "shared_rows": 448,
-                "instrument_specific_rows": 64,
-            }
+            assert split["shared_prefix"]["row_major_512_candidate_rows"] == 506
+            if module["index"] < 3:
+                assert split["instrument_specific_suffix"]["dtype"] == "float16_le"
+                assert split["instrument_specific_suffix"]["512_wide_vector_count"] == 6
+            else:
+                assert split["instrument_specific_suffix"]["dtype"] == "float32_le"
+                assert split["instrument_specific_suffix"]["512_wide_vector_count"] == 3
         print("dnni_projection_bank_smoke: ok")
 
 
