@@ -14,18 +14,22 @@ echo   [2] Import / Verify four DNNI TAR files
 echo   [3] Start / Resume training
 echo   [4] Training status
 echo   [5] Safe stop after current batch/step
-echo   [6] Open checkpoints folder
-echo   [7] Open DNNI dataset folder
-echo   [8] Open training logs folder
-echo   [9] Open private dnni_input folder
+echo   [6] Archive / Reset old training state
+echo   [7] Open checkpoints folder
+echo   [8] Open DNNI dataset folder
+echo   [9] Open training logs folder
+echo   [I] Open private dnni_input folder
+echo   [T] Edit four-timbre config
 echo   [Q] Quit
 echo.
-choice /c 123456789Q /n /m "Select: "
-if errorlevel 10 goto :EOF
-if errorlevel 9 goto :INPUT
-if errorlevel 8 goto :LOGS
-if errorlevel 7 goto :DATA
-if errorlevel 6 goto :CKPT
+choice /c 123456789ITQ /n /m "Select: "
+if errorlevel 12 goto :EOF
+if errorlevel 11 goto :TIMBRES
+if errorlevel 10 goto :INPUT
+if errorlevel 9 goto :LOGS
+if errorlevel 8 goto :DATA
+if errorlevel 7 goto :CKPT
+if errorlevel 6 goto :RESET
 if errorlevel 5 goto :STOP
 if errorlevel 4 goto :STATUS
 if errorlevel 3 goto :TRAIN
@@ -52,6 +56,10 @@ goto :MENU
 call STOP_DNNI_5090.bat
 goto :MENU
 
+:RESET
+call RESET_DNNI_5090.bat
+goto :MENU
+
 :CKPT
 if not exist checkpoints mkdir checkpoints
 start "" explorer.exe "%CD%\checkpoints"
@@ -70,4 +78,8 @@ goto :MENU
 :INPUT
 if not exist dnni_input mkdir dnni_input
 start "" explorer.exe "%CD%\dnni_input"
+goto :MENU
+
+:TIMBRES
+start "" notepad.exe "%CD%\training\configs\dnni_four_timbres.json"
 goto :MENU
