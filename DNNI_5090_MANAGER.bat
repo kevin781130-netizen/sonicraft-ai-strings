@@ -98,6 +98,10 @@ goto :MENU
 start "" notepad.exe "%CD%\training\configs\dnni_four_timbres.json"
 goto :MENU
 
+:STAGERESET
+call RESET_DNNI_STAGE.bat
+goto :MENU
+
 :RECIPE
 start "" notepad.exe "%CD%\training\configs\dnni_5090_training.json"
 goto :MENU
