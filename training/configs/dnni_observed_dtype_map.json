@@ -1,0 +1,148 @@
+{
+  "schema": "sonicraft-dnni-observed-dtype-map-v1",
+  "source": "15 confirmed Instrument X DNNI v4 models, cross-model numeric consensus",
+  "truth_boundary": "Observed numeric encoding candidates only. No tensor name, graph-op, input schema, decoder semantic, or proprietary runtime behavior is asserted.",
+  "shared_core_bytes": 126227640,
+  "consensus_window_bytes": 65536,
+  "bulk_non_candidate_windows_fp16_plausible_fraction": 0.9936908517350158,
+  "spans": [
+    {
+      "offset": 39256064,
+      "end": 39518208,
+      "bytes": 262144,
+      "dtype_candidate": "float32_le",
+      "element_count": 65536,
+      "shape_candidates": [
+        [
+          32,
+          2048
+        ],
+        [
+          64,
+          1024
+        ],
+        [
+          128,
+          512
+        ],
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "offset": 54984704,
+      "end": 55246848,
+      "bytes": 262144,
+      "dtype_candidate": "float32_le",
+      "element_count": 65536,
+      "shape_candidates": [
+        [
+          32,
+          2048
+        ],
+        [
+          64,
+          1024
+        ],
+        [
+          128,
+          512
+        ],
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "offset": 75300864,
+      "end": 75563008,
+      "bytes": 262144,
+      "dtype_candidate": "float32_le",
+      "element_count": 65536,
+      "shape_candidates": [
+        [
+          32,
+          2048
+        ],
+        [
+          64,
+          1024
+        ],
+        [
+          128,
+          512
+        ],
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "offset": 75628544,
+      "end": 75759616,
+      "bytes": 131072,
+      "dtype_candidate": "float32_le",
+      "element_count": 32768,
+      "shape_candidates": [
+        [
+          32,
+          1024
+        ],
+        [
+          64,
+          512
+        ],
+        [
+          128,
+          256
+        ]
+      ]
+    },
+    {
+      "offset": 95617024,
+      "end": 95748096,
+      "bytes": 131072,
+      "dtype_candidate": "float32_le",
+      "element_count": 32768,
+      "shape_candidates": [
+        [
+          32,
+          1024
+        ],
+        [
+          64,
+          512
+        ],
+        [
+          128,
+          256
+        ]
+      ]
+    },
+    {
+      "offset": 115998720,
+      "end": 116588544,
+      "bytes": 589824,
+      "dtype_candidate": "float32_le",
+      "element_count": 147456,
+      "shape_candidates": [
+        [
+          96,
+          1536
+        ],
+        [
+          192,
+          768
+        ],
+        [
+          384,
+          384
+        ]
+      ]
+    }
+  ]
+}

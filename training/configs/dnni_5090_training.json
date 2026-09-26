@@ -1,0 +1,32 @@
+{
+  "schema": "sonicraft-dnni-5090-training-v1",
+  "codec": {
+    "width": 32,
+    "epochs": 100,
+    "batch": 4
+  },
+  "renderer": {
+    "preset": "hq_dnni4",
+    "epochs": 260,
+    "batch": 2,
+    "accum": 2
+  },
+  "distill": {
+    "preset": "frontier_core_dnni4",
+    "epochs": 130,
+    "batch": 2,
+    "accum": 2
+  },
+  "shortcut": {
+    "preset": "frontier_core_dnni4",
+    "epochs": 55,
+    "batch": 1,
+    "accum": 1,
+    "max_steps": 8,
+    "recommend_steps": 2
+  },
+  "cuda": {
+    "allocator": "expandable_segments:True,max_split_size_mb:512",
+    "module_loading": "LAZY"
+  }
+}

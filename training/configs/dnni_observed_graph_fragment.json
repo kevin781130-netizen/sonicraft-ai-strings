@@ -1,0 +1,331 @@
+{
+  "schema": "sonicraft-dnni-observed-graph-fragment-v1",
+  "source": "Verified 512x512 FP16 module map plus 15-model FP32 dtype consensus",
+  "truth_boundary": "Dimension/basis constraints only. No op type, direction, activation, decoder role, tensor name, conditioning semantic, or permutation mapping is asserted.",
+  "latent_width": 512,
+  "verified_core": {
+    "module_count": 4,
+    "matrices_per_module": 7,
+    "matrix_shape": [
+      512,
+      512
+    ],
+    "matrix_dtype": "float16_le",
+    "module_stride_bytes": 3670016
+  },
+  "basis_constraints": [
+    {
+      "relation": "matrix_1 row ordering == matrix_2 row ordering",
+      "matches": 56,
+      "total": 56
+    },
+    {
+      "relation": "matrix_1 row ordering == matrix_3 row ordering",
+      "matches": 0,
+      "total": 56
+    },
+    {
+      "relation": "matrix_0 column ordering == matrix_1 row ordering",
+      "matches": 0,
+      "total": 56
+    }
+  ],
+  "projection_families": [
+    {
+      "latent_width": 512,
+      "other_width": 64,
+      "count": 2,
+      "dtype_candidate": "float32_le"
+    },
+    {
+      "latent_width": 512,
+      "other_width": 128,
+      "count": 3,
+      "dtype_candidate": "float32_le"
+    },
+    {
+      "latent_width": 512,
+      "other_width": 288,
+      "count": 1,
+      "dtype_candidate": "float32_le"
+    }
+  ],
+  "projection_offsets": [
+    {
+      "offset": 39256064,
+      "bytes": 262144,
+      "elements": 65536,
+      "orientation_candidates": [
+        [
+          512,
+          128
+        ],
+        [
+          128,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 54984704,
+      "bytes": 262144,
+      "elements": 65536,
+      "orientation_candidates": [
+        [
+          512,
+          128
+        ],
+        [
+          128,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 75300864,
+      "bytes": 262144,
+      "elements": 65536,
+      "orientation_candidates": [
+        [
+          512,
+          128
+        ],
+        [
+          128,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 75628544,
+      "bytes": 131072,
+      "elements": 32768,
+      "orientation_candidates": [
+        [
+          512,
+          64
+        ],
+        [
+          64,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 95617024,
+      "bytes": 131072,
+      "elements": 32768,
+      "orientation_candidates": [
+        [
+          512,
+          64
+        ],
+        [
+          64,
+          512
+        ]
+      ]
+    },
+    {
+      "offset": 115998720,
+      "bytes": 589824,
+      "elements": 147456,
+      "orientation_candidates": [
+        [
+          512,
+          288
+        ],
+        [
+          288,
+          512
+        ]
+      ]
+    }
+  ],
+  "sandwich_fragment": {
+    "evidence_file": "training/configs/dnni_observed_projection_bank.json",
+    "left_bank": {
+      "offset": 39256064,
+      "dimensions": [
+        128,
+        256,
+        256,
+        256
+      ],
+      "dtype_pattern": [
+        "float32_le",
+        "float16_le",
+        "float16_le",
+        "float16_le"
+      ]
+    },
+    "middle_family": {
+      "offset": 40304640,
+      "module_count": 4,
+      "latent_width": 512,
+      "matrices_per_module": 7,
+      "shape_candidate": [
+        512,
+        512
+      ],
+      "shape_confidence": "matrices 0-5 structurally-linked; final block is split and not a full 512x512 FP16 matrix",
+      "last_matrix_split": {
+        "shared_prefix_bytes": 518144,
+        "shared_prefix_dtype": "float16_le",
+        "shared_prefix_row_major_512_candidate_rows": 506,
+        "suffix_bytes": 6144,
+        "suffix_dtype_pattern_by_module": [
+          "float16_le",
+          "float16_le",
+          "float16_le",
+          "float32_le"
+        ],
+        "suffix_512_wide_vector_counts_by_module": [
+          6,
+          6,
+          6,
+          3
+        ],
+        "evidence": "shared prefix is byte-identical across all 15 models; suffix is instrument-specific in all four modules",
+        "confidence": "verified byte/dtype split; semantic role unknown"
+      }
+    },
+    "right_bank": {
+      "offset": 54984704,
+      "dimensions": [
+        128,
+        256,
+        256,
+        256
+      ],
+      "dtype_pattern": [
+        "float32_le",
+        "float16_le",
+        "float16_le",
+        "float16_le"
+      ]
+    },
+    "direction": "unknown",
+    "op_semantics": "unknown"
+  },
+  "recurrent_geometry_candidate": {
+    "evidence_file": "training/configs/dnni_observed_recurrent_signature.json",
+    "hidden_width_candidate": 512,
+    "module_count": 4,
+    "per_module": {
+      "core_matrix_count": 6,
+      "core_matrix_shape": [
+        512,
+        512
+      ],
+      "core_matrix_dtype": "float16_le",
+      "shared_slab_orientation_candidates": [
+        [
+          506,
+          512
+        ],
+        [
+          512,
+          506
+        ]
+      ]
+    },
+    "suffix_vector_counts_by_module": [
+      6,
+      6,
+      6,
+      3
+    ],
+    "suffix_dtype_pattern_by_module": [
+      "float16_le",
+      "float16_le",
+      "float16_le",
+      "float32_le"
+    ],
+    "compatibility": "matches common GRU-family six-matrix plus three/six-bias parameter geometry, with an additional 506x512 shared slab",
+    "confidence": "geometry-only; 506-wide input interpretation falsified",
+    "direction": "unknown",
+    "gate_order": "unknown",
+    "activation": "unknown",
+    "shared_slab_status": "not a verified 512x506 tensor boundary"
+  },
+  "finite_recurrent_execution_candidate": {
+    "evidence_file": "training/configs/dnni_observed_recurrent_hypothesis.json",
+    "candidate": "grouped GRU-style public equation",
+    "assumptions": {
+      "input_width": 506,
+      "hidden_width": 512,
+      "shared_slab_interpretation": "512x506 input projection",
+      "input_matrices": [
+        0,
+        1,
+        2
+      ],
+      "recurrent_matrices": [
+        3,
+        4,
+        5
+      ],
+      "gate_order": [
+        "reset",
+        "update",
+        "candidate"
+      ],
+      "input": "deterministic synthetic vector, not musical conditioning",
+      "initial_hidden_state": "zeros"
+    },
+    "results": {
+      "all_15_models_all_4_modules_finite": true,
+      "max_gate_saturation_fraction": 0,
+      "final_state_l2_norm_ranges": [
+        [
+          0.83325118,
+          0.93777364
+        ],
+        [
+          0.9646737,
+          1.0443238
+        ],
+        [
+          1.00559461,
+          1.07499135
+        ],
+        [
+          1.71557307,
+          1.84031355
+        ]
+      ]
+    },
+    "confidence": "numeric stress test only; 506-wide input schema falsified",
+    "next_blocker": "resolve adjacent 128/256 projection interface"
+  },
+  "conditioning_interface_candidate": {
+    "evidence_file": "training/configs/dnni_observed_conditioning_interface.json",
+    "left_and_right_bank_pattern": [
+      {
+        "dtype": "float32_le",
+        "latent_width": 512,
+        "other_width": 128
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      }
+    ],
+    "immediate_family_boundaries": true,
+    "direction": "unknown",
+    "semantic_roles": "unknown",
+    "confidence": "stronger than the falsified 506-wide input interpretation"
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "schema": "sonicraft-dnni-observed-operation-constraints-v1",
+  "source": "15-model structural scans plus spectral diagnostics on Violin/Flute/French Horn/Tuba",
+  "truth_boundary": "Numerical and negative structural evidence only; no proprietary op names, activations, recurrence equations, graph direction or permutation maps are asserted.",
+  "latent_width": 512,
+  "family_start": 40304640,
+  "spectral_sample_roles": [
+    "violin",
+    "flute",
+    "french_horn",
+    "tuba"
+  ],
+  "spectral_matrix_medians": [
+    {
+      "matrix_index": 0,
+      "effective_rank": 388.289,
+      "rank_1e4_min": 511,
+      "identity_distance": 0.9999997,
+      "orthogonality_error": 0.8802
+    },
+    {
+      "matrix_index": 1,
+      "effective_rank": 397.5039,
+      "rank_1e4_min": 512,
+      "identity_distance": 0.9999995,
+      "orthogonality_error": 0.8556
+    },
+    {
+      "matrix_index": 2,
+      "effective_rank": 400.2899,
+      "rank_1e4_min": 511,
+      "identity_distance": 0.9999984,
+      "orthogonality_error": 0.8539
+    },
+    {
+      "matrix_index": 3,
+      "effective_rank": 407.602,
+      "rank_1e4_min": 512,
+      "identity_distance": 0.9999993,
+      "orthogonality_error": 0.7451
+    },
+    {
+      "matrix_index": 4,
+      "effective_rank": 397.948,
+      "rank_1e4_min": 511,
+      "identity_distance": 0.9999969,
+      "orthogonality_error": 0.7808
+    },
+    {
+      "matrix_index": 5,
+      "effective_rank": 375.5009,
+      "rank_1e4_min": 510,
+      "identity_distance": 1.0000001,
+      "orthogonality_error": 0.9144
+    },
+    {
+      "matrix_index": 6,
+      "effective_rank": 381.3286,
+      "rank_1e4_min": 511,
+      "identity_distance": 0.9999966,
+      "orthogonality_error": 0.9063
+    }
+  ],
+  "family_constraints": {
+    "dense_full_rank_like": true,
+    "low_rank_like": false,
+    "identity_like": false,
+    "near_orthogonal": false
+  },
+  "metadata_literal_dimension_scan": {
+    "sections": [
+      "section1",
+      "section3",
+      "section4"
+    ],
+    "uint32_le_targets": [
+      64,
+      128,
+      256,
+      288,
+      448,
+      506,
+      512
+    ],
+    "total_occurrences_across_all_15_models": 0
+  },
+  "structural_interpretation": [
+    "The four-module 512-state family uses general dense transforms rather than obvious identity/orthogonal/low-rank matrices.",
+    "Known dimensions are not stored as plain uint32 descriptors in section1/section3/section4.",
+    "No high-correlation direct or transpose matrix pair was found in the sampled 512-state family, so a simple tied encoder/decoder or transpose-tied topology is not supported.",
+    "The terminal block is heterogeneous: modules 0-2 complete a 512x512 FP16 transform with six instrument-specific rows, while module 3 replaces the final 6 KiB with three 512-wide FP32 vectors."
+  ],
+  "pairwise_tied_weight_scan": {
+    "sample_roles": [
+      "violin",
+      "flute",
+      "french_horn",
+      "tuba"
+    ],
+    "evaluated_modules_per_role": 4,
+    "comparisons": 312,
+    "excluded_block": "module 3 final split block (mixed FP16/FP32)",
+    "max_direct_abs_normalized_correlation": 0.0357012674,
+    "max_transpose_abs_normalized_correlation": 0.0067507583,
+    "tied_or_transpose_pair_detected": false
+  },
+  "final_block_split_scan": {
+    "shared_prefix_bytes": 518144,
+    "shared_prefix_dtype": "float16_le",
+    "shared_prefix_exact_identity_models": "15/15 in all four modules",
+    "shared_prefix_row_major_512_candidate_rows": 506,
+    "instrument_specific_suffix_bytes": 6144,
+    "suffix_exact_identity_models": "1/15 reference-only in all four modules",
+    "suffix_dtype_pattern_by_module": [
+      "float16_le",
+      "float16_le",
+      "float16_le",
+      "float32_le"
+    ],
+    "suffix_512_wide_vector_counts_by_module": [
+      6,
+      6,
+      6,
+      3
+    ],
+    "interpretation": "Modules 0-2 remain valid full 512x512 FP16 transforms with six instrument-specific terminal rows. Module 3 has a split terminal block: 506x512 FP16 shared prefix plus three instrument-specific 512-wide FP32 vectors."
+  }
+}

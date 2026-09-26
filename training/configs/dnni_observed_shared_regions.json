@@ -1,0 +1,153 @@
+{
+  "schema": "sonicraft-dnni-observed-shared-regions-v1",
+  "source": "15 confirmed DNNI v4 models, exact 64 KiB block equality across all models",
+  "truth_boundary": "Exact byte identity only. Common regions are not assigned tensor names, layer roles, or graph semantics.",
+  "shared_core_bytes": 126227640,
+  "block_bytes": 65536,
+  "exact_common_bytes": 29491200,
+  "exact_common_fraction": 0.2336350422142092,
+  "repeated_cluster_start_deltas": [
+    {
+      "bytes": 3670016,
+      "count": 6
+    },
+    {
+      "bytes": 2031616,
+      "count": 5
+    },
+    {
+      "bytes": 2097152,
+      "count": 2
+    }
+  ],
+  "common_clusters": [
+    {
+      "offset": 2097152,
+      "end": 3670016,
+      "bytes": 1572864,
+      "blocks": 24
+    },
+    {
+      "offset": 5767168,
+      "end": 7340032,
+      "bytes": 1572864,
+      "blocks": 24
+    },
+    {
+      "offset": 9437184,
+      "end": 11010048,
+      "bytes": 1572864,
+      "blocks": 24
+    },
+    {
+      "offset": 13107200,
+      "end": 14680064,
+      "bytes": 1572864,
+      "blocks": 24
+    },
+    {
+      "offset": 42401792,
+      "end": 43909120,
+      "bytes": 1507328,
+      "blocks": 23
+    },
+    {
+      "offset": 46071808,
+      "end": 47579136,
+      "bytes": 1507328,
+      "blocks": 23
+    },
+    {
+      "offset": 49741824,
+      "end": 51249152,
+      "bytes": 1507328,
+      "blocks": 23
+    },
+    {
+      "offset": 53411840,
+      "end": 54919168,
+      "bytes": 1507328,
+      "blocks": 23
+    },
+    {
+      "offset": 76480512,
+      "end": 77529088,
+      "bytes": 1048576,
+      "blocks": 16
+    },
+    {
+      "offset": 77791232,
+      "end": 79429632,
+      "bytes": 1638400,
+      "blocks": 25
+    },
+    {
+      "offset": 79691776,
+      "end": 81526784,
+      "bytes": 1835008,
+      "blocks": 28
+    },
+    {
+      "offset": 81788928,
+      "end": 83558400,
+      "bytes": 1769472,
+      "blocks": 27
+    },
+    {
+      "offset": 83820544,
+      "end": 85590016,
+      "bytes": 1769472,
+      "blocks": 27
+    },
+    {
+      "offset": 85852160,
+      "end": 87621632,
+      "bytes": 1769472,
+      "blocks": 27
+    },
+    {
+      "offset": 87883776,
+      "end": 89653248,
+      "bytes": 1769472,
+      "blocks": 27
+    },
+    {
+      "offset": 89915392,
+      "end": 91750400,
+      "bytes": 1835008,
+      "blocks": 28
+    },
+    {
+      "offset": 92012544,
+      "end": 93782016,
+      "bytes": 1769472,
+      "blocks": 27
+    },
+    {
+      "offset": 94044160,
+      "end": 95420416,
+      "bytes": 1376256,
+      "blocks": 21
+    },
+    {
+      "offset": 97452032,
+      "end": 97517568,
+      "bytes": 65536,
+      "blocks": 1
+    },
+    {
+      "offset": 116064256,
+      "end": 116588544,
+      "bytes": 524288,
+      "blocks": 8
+    }
+  ],
+  "high_confidence_module_hint": {
+    "stride_bytes": 3670016,
+    "stride_mib": 3.5,
+    "first_family_repetitions": 4,
+    "first_family_common_suffix_bytes": 1572864,
+    "first_family_preceding_noncommon_bytes": 2097152,
+    "note": "The 2 MiB + 1.5 MiB decomposition is an observed cross-model equality pattern, not a decoded layer definition."
+  }
+}

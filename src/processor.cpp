@@ -16,7 +16,7 @@ using namespace Steinberg::Vst;
 namespace Sonicraft::AIStrings {
 namespace {
 
-constexpr int kStateVersion = 14;
+constexpr int kStateVersion = 15;
 constexpr int kAuxFeedCount = 16;
 constexpr std::size_t kMaxAutomationPointsPerBlock = 4096;
 
@@ -129,6 +129,7 @@ tresult PLUGIN_API Processor::initialize(FUnknown* context) {
     addAudioOutput(STR16("Far L"), SpeakerArr::kStereo, kAux, 0);
     addAudioOutput(STR16("Far R"), SpeakerArr::kStereo, kAux, 0);
     addAudioOutput(STR16("Gallery"), SpeakerArr::kStereo, kAux, 0);
+    orchestraCatalogLoaded = orchestraCatalog.load(defaultDnniCatalogPath());
     return kResultOk;
 }
 
@@ -315,7 +316,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         add(q(s.retakeNonce,16777215));add(q(s.retakeAmount,4095));add(q(s.retakeTarget,7));add(q(aiAssist,2));add(q(s.performanceStyle,5));
         add(smartDynamics>=.5f);add(smartArticulation>=.5f);add(midiAuthorityLock>=.5f);add(s.phraseDirector>=.5f);add(q(s.ensembleLooseness,4095));
         add(q(stagePerspective,3));add(polyphony>=.5f);add(q(mode,2));add(q(lookAhead,4095));add(multiOutActive);
-        add(q(layoutMode,1));add(q(singleInstrument,3));add(autoDivisi>=.5f);
+        add(q(layoutMode,1));add(q(singleInstrument,3));add(autoDivisi>=.5f);add(q(orchestraInstrument,14));
         add(uint64_t(std::llround(std::clamp(phraseTempo,20.f,400.f)*100.f)));
         add(uint64_t(favoriteMask&0x0F));add(uint64_t(rejectMask&0x0F));
         for(const auto& c:part){for(float v:{c.dyn,c.vib,c.exp,c.vol,c.pan,c.sus,c.leg,c.room,c.bend,c.art,c.transition,c.tightness,c.attack,c.speedProfile})add(q(v,4095));}
@@ -528,6 +529,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             case kParamStageMixerEnable: stageMixerEnable=v; break;
             case kParamStageMasterGain: stageMasterGain=v; break;
             case kParamStageOutputGain: stageOutputGain=v; break;
+            case kParamOrchestraInstrument: orchestraInstrument=v; runtimeState(offset); break;
             case kParamHostScopeMode: hostScopeMode=v; runtimeState(offset); break;
             case kParamHostScopeStyle: hostScopeStyle=v; runtimeState(offset); break;
             case kParamHostScopeLooseness: hostScopeLooseness=v; runtimeState(offset); break;
@@ -1066,6 +1068,9 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     emitOutputParam(kParamJudgeWinnerSafety,judgeMatches && judge.winner>=0 && judge.winner<4 ? judge.safety[judge.winner] : 0.f);
     const auto profile=personalProfile();emitOutputParam(kParamPersonalConfidence,profile.confidence);emitOutputParam(kParamPersonalEvidence,std::clamp(profile.evidence/20.f,0.f,1.f));for(int i=0;i<5;++i)emitOutputParam(personalParam(kParamPersonalWeightBase,i),std::clamp((profile.weights[i]+1.f)*.5f,0.f,1.f));for(int i=0;i<4;++i)emitOutputParam(personalParam(kParamPersonalScoreBase,i),judgeMatches?judge.personal[i]:0.f);
     emitOutputParam(kParamPreferenceAutoCompStatus,preferenceAutoCompRunning?(preferenceAutoCompWaiting?2.f/3.f:1.f/3.f):(preferenceJobCount>0?1.f:0.f));emitOutputParam(kParamPreferenceAutoCompProgress,preferenceJobCount>0?std::clamp(float(preferenceJobIndex)/float(preferenceJobCount),0.f,1.f):0.f);emitOutputParam(kParamPreferenceAutoCompCommitted,std::clamp(float(preferenceCandidateCount)/128.f,0.f,1.f));emitOutputParam(kParamPreferenceAutoCompReview,std::clamp(float(preferenceReviewCount)/128.f,0.f,1.f));
+    const int selectedOrchestraInstrument=orchestraInstrumentIndexFromNormalized(orchestraInstrument);
+    emitOutputParam(kParamOrchestraModelReady,(orchestraCatalogLoaded&&orchestraCatalog.ready(selectedOrchestraInstrument))?1.f:0.f);
+    emitOutputParam(kParamOrchestraCatalogCoverage,orchestraCatalogLoaded?std::clamp(float(orchestraCatalog.presentCount())/float(kOrchestraInstrumentCount),0.f,1.f):0.f);
     return kResultOk;
 }
 
@@ -1105,6 +1110,8 @@ tresult PLUGIN_API Processor::setState(IBStream* state) {
         stageMixerEnable=0.f;stageMasterGain=1.f;stageOutputGain=1.f;
         stageFeedGain={{.25f,.35f,.25f,.45f,.62f,.45f,.28f,.28f,.20f,.20f,0.f,.12f,.12f,.06f,.06f,0.f}};
     }
+    if(version>=15){if(!s.readFloat(orchestraInstrument))return kResultFalse;}
+    else orchestraInstrument=orchestraInstrumentNormalizedFromIndex(3);
     phraseTakeComp.resetAll();
     if(version>=10){
         int32 compCount=0;
@@ -1150,6 +1157,7 @@ tresult PLUGIN_API Processor::getState(IBStream* state) {
     if(!s.writeInt32(static_cast<int32>(memoryCursorKey)) || !s.writeFloat(smartRankMode) || !s.writeFloat(personalTasteEnable) || !s.writeFloat(personalTasteStrength) || !s.writeFloat(personalTasteLearn) || !s.writeFloat(preferenceMinConfidence) || !s.writeFloat(preferenceMinMargin) || !s.writeFloat(preferenceSafetyFloor)) return kResultFalse;
     if(!s.writeFloat(stageMixerEnable)||!s.writeFloat(stageMasterGain)||!s.writeFloat(stageOutputGain))return kResultFalse;
     for(float g:stageFeedGain)if(!s.writeFloat(g))return kResultFalse;
+    if(!s.writeFloat(orchestraInstrument))return kResultFalse;
     std::array<PersistentTakeCompEntry,PersistentPhraseTakeComp::kCapacity> compEntries{};
     const int compCount=phraseTakeComp.exportEntries(compEntries);
     if(!s.writeInt32(static_cast<int32>(compCount))) return kResultFalse;

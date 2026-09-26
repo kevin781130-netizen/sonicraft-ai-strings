@@ -1,0 +1,70 @@
+{
+  "schema": "sonicraft-dnni-observed-recurrent-signature-v1",
+  "source": "15 confirmed DNNI v4 models, verified module byte layout and dtype split",
+  "truth_boundary": "GRU-compatible parameter geometry only. No gate order, bias semantic, reset mode, activation, recurrence equation, graph direction or proprietary packing transform is asserted.",
+  "hidden_width_candidate": 512,
+  "module_count": 4,
+  "per_module_core": {
+    "matrix_count": 6,
+    "matrix_dtype": "float16_le",
+    "matrix_shape": [
+      512,
+      512
+    ],
+    "parameter_count": 1572864
+  },
+  "shared_slab": {
+    "bytes": 518144,
+    "dtype": "float16_le",
+    "fp16_values": 259072,
+    "orientation_candidates": [
+      [
+        506,
+        512
+      ],
+      [
+        512,
+        506
+      ]
+    ],
+    "exact_identity_across_instruments": "15/15 within each module; slab differs between module indices",
+    "note": "The former 506x512 interpretation is not an exact tensor boundary; exact cross-model common prefix is 519152 bytes. Do not treat 506 as a verified input width."
+  },
+  "instrument_specific_suffix_by_module": [
+    {
+      "module": 0,
+      "dtype": "float16_le",
+      "bytes": 6144,
+      "value_count": 3072,
+      "vector_count_512": 6
+    },
+    {
+      "module": 1,
+      "dtype": "float16_le",
+      "bytes": 6144,
+      "value_count": 3072,
+      "vector_count_512": 6
+    },
+    {
+      "module": 2,
+      "dtype": "float16_le",
+      "bytes": 6144,
+      "value_count": 3072,
+      "vector_count_512": 6
+    },
+    {
+      "module": 3,
+      "dtype": "float32_le",
+      "bytes": 6144,
+      "value_count": 1536,
+      "vector_count_512": 3
+    }
+  ],
+  "gru_geometry_comparison": {
+    "six_512x512_matrices_matches_three_input_plus_three_recurrent_matrices": true,
+    "suffix_vector_counts_match_common_three_or_six_bias_vector_parameterizations": true,
+    "extra_506x512_shared_slab_requires_separate_explanation": true,
+    "conclusion": "matrix-count geometry remains suggestive, but the prior 506-wide input interpretation is falsified; GRU identity is unconfirmed."
+  },
+  "structural_status": "geometry_candidate_only"
+}

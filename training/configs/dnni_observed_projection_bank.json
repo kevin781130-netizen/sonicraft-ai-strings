@@ -1,0 +1,93 @@
+{
+  "schema": "sonicraft-dnni-observed-projection-bank-fragment-v1",
+  "source": "15 confirmed DNNI v4 models, cross-model numeric consensus",
+  "truth_boundary": "Verified byte/dtype/stride relationships plus 512-compatible shape candidates. Graph direction, op type, activation, bias, state semantics and decoder/conditioning roles remain unknown.",
+  "latent_width": 512,
+  "left_bank": {
+    "offset": 39256064,
+    "bytes": 1048576,
+    "block_bytes": 262144,
+    "dtype_pattern": [
+      "float32_le",
+      "float16_le",
+      "float16_le",
+      "float16_le"
+    ],
+    "dimension_candidates": [
+      128,
+      256,
+      256,
+      256
+    ]
+  },
+  "middle_family": {
+    "offset": 40304640,
+    "bytes": 14680064,
+    "module_count": 4,
+    "module_stride_bytes": 3670016,
+    "matrices_per_module": 7,
+    "matrix_bytes": 524288,
+    "dtype_candidate": "mixed: matrices 0-5 are FP16; matrix 6 has a verified shared FP16 prefix plus instrument-specific suffix",
+    "shape_candidate": [
+      512,
+      512
+    ],
+    "shared_matrix_indices_across_all_15_models": [
+      4,
+      5
+    ],
+    "nonshared_matrix_indices": [
+      0,
+      1,
+      2,
+      3,
+      6
+    ],
+    "shape_confidence": "matrices 0-5 structurally linked to 512x512; matrix 6 is split and must not be treated as a full 512x512 FP16 matrix",
+    "last_matrix_split": {
+      "per_module": true,
+      "shared_prefix_bytes": 518144,
+      "shared_prefix_dtype": "float16_le",
+      "shared_prefix_fp16_values": 259072,
+      "shared_prefix_row_major_512_candidate_rows": 506,
+      "shared_prefix_exact_identity_across_15_models": "15/15",
+      "instrument_specific_suffix_bytes": 6144,
+      "suffix_exact_identity_across_15_models": "1/15 reference-only",
+      "suffix_dtype_pattern_by_module": [
+        "float16_le",
+        "float16_le",
+        "float16_le",
+        "float32_le"
+      ],
+      "suffix_512_wide_vector_counts_by_module": [
+        6,
+        6,
+        6,
+        3
+      ],
+      "interpretation": "All four modules share an exact 506 KiB FP16 prefix in their final block. Modules 0-2 end with six 512-wide FP16 vectors; module 3 ends with three 512-wide FP32 vectors. Semantic roles remain unknown."
+    }
+  },
+  "right_bank": {
+    "offset": 54984704,
+    "bytes": 1048576,
+    "block_bytes": 262144,
+    "dtype_pattern": [
+      "float32_le",
+      "float16_le",
+      "float16_le",
+      "float16_le"
+    ],
+    "dimension_candidates": [
+      128,
+      256,
+      256,
+      256
+    ]
+  },
+  "boundary_equalities": [
+    "left_bank.offset + left_bank.bytes == middle_family.offset",
+    "middle_family.offset + middle_family.bytes == right_bank.offset"
+  ],
+  "candidate_fragment": "[128/256/256/256] <-> four 512-state modules <-> [128/256/256/256], direction unknown"
+}

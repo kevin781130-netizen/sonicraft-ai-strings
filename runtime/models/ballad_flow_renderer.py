@@ -228,8 +228,9 @@ class BalladFlowRenderer(nn.Module):
         # validity bit only decides whether the authored lane is known. Legacy checkpoints keep
         # their exact historical gate to preserve strict state/behavior compatibility.
         vib_gate=((.15 + .85*vals[5]) if self.split_vibrato_validity else (.15 + .85*torch.maximum(vals[5], masks[1])))[..., None]
-        legato_gate=(.10 + .90*torch.maximum(vals[7], (art_ids==1).float()))[...,None]
-        portamento_gate=(.04 + .96*(art_ids==2).float())[...,None]
+        known_art=art_known.clamp(0,1)
+        legato_gate=(.10 + .90*torch.maximum(vals[7], (art_ids==1).float()*known_art))[...,None]
+        portamento_gate=(.04 + .96*(art_ids==2).float()*known_art)[...,None]
         bow_gate=(.12 + .88*vals[16])[...,None]
         if self.expert_fusion_kind == 'joint':
             expert_state=torch.cat([
