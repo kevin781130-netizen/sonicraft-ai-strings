@@ -74,5 +74,27 @@
       512
     ]
   },
-  "caution": "The model-specific ordering may represent ordinary parameter/channel ordering or a packing/protection transform. This record intentionally does not reconstruct or publish any permutation mapping."
+  "caution": "The model-specific ordering may represent ordinary parameter/channel ordering or a packing/protection transform. This record intentionally does not reconstruct or publish any permutation mapping.",
+  "basis_order_equivalence": {
+    "reference_model": "Violin",
+    "evaluated_cases": 56,
+    "observations": [
+      {
+        "relation": "matrix_1 row ordering == matrix_2 row ordering",
+        "matches": 56,
+        "total": 56
+      },
+      {
+        "relation": "matrix_1 row ordering == matrix_3 row ordering",
+        "matches": 0,
+        "total": 56
+      },
+      {
+        "relation": "matrix_0 column ordering == matrix_1 row ordering",
+        "matches": 0,
+        "total": 56
+      }
+    ],
+    "interpretation": "Structural channel-basis equivalence only. No ordering vector or transform is stored or reconstructed."
+  }
 }
