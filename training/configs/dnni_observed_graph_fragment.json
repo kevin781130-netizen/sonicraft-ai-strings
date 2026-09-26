@@ -243,10 +243,11 @@
       "float32_le"
     ],
     "compatibility": "matches common GRU-family six-matrix plus three/six-bias parameter geometry, with an additional 506x512 shared slab",
-    "confidence": "strong structural compatibility; operation semantics unconfirmed",
+    "confidence": "geometry-only; 506-wide input interpretation falsified",
     "direction": "unknown",
     "gate_order": "unknown",
-    "activation": "unknown"
+    "activation": "unknown",
+    "shared_slab_status": "not a verified 512x506 tensor boundary"
   },
   "finite_recurrent_execution_candidate": {
     "evidence_file": "training/configs/dnni_observed_recurrent_hypothesis.json",
@@ -295,7 +296,36 @@
         ]
       ]
     },
-    "confidence": "numerically plausible candidate only; proprietary operation not identified",
-    "next_blocker": "recover the semantic 506-wide musical conditioning vector"
+    "confidence": "numeric stress test only; 506-wide input schema falsified",
+    "next_blocker": "resolve adjacent 128/256 projection interface"
+  },
+  "conditioning_interface_candidate": {
+    "evidence_file": "training/configs/dnni_observed_conditioning_interface.json",
+    "left_and_right_bank_pattern": [
+      {
+        "dtype": "float32_le",
+        "latent_width": 512,
+        "other_width": 128
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      },
+      {
+        "dtype": "float16_le",
+        "latent_width": 512,
+        "other_width": 256
+      }
+    ],
+    "immediate_family_boundaries": true,
+    "direction": "unknown",
+    "semantic_roles": "unknown",
+    "confidence": "stronger than the falsified 506-wide input interpretation"
   }
 }
