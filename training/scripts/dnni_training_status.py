@@ -4,7 +4,7 @@ import argparse, json, sys, hashlib
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from dnni_pipeline_fingerprint import compute as compute_fingerprint
-from dnni_training_config import load as load_training_config, fingerprint as recipe_fingerprint
+from dnni_training_config import load as load_training_config, fingerprint as recipe_fingerprint, stage_fingerprint
 
 STAGE_PATHS = [
     ("codec", Path("checkpoints/dnni4_vae64_research.pt")),
@@ -103,10 +103,11 @@ def status():
     raw=root/"rendered/index.jsonl"
     lat=root/"latents/index.jsonl"
     fingerprint=None; fp_error=None
-    recipe=None; recipe_cfg=None; recipe_error=None
+    recipe=None; recipe_cfg=None; recipe_stages={}; recipe_error=None
     try:
         recipe_cfg=load_training_config('training/configs/dnni_5090_training.json')
         recipe=recipe_fingerprint(recipe_cfg)
+        recipe_stages={k:stage_fingerprint(recipe_cfg,k) for k in ("codec","renderer","distill","shortcut")}
     except Exception as e: recipe_error=f"{type(e).__name__}: {e}"
     if bundle.exists() and raw.exists():
         try: fingerprint=compute_fingerprint()["fingerprint"]
@@ -131,6 +132,7 @@ def status():
         "data_fingerprint":fingerprint,
         "fingerprint_error":fp_error,
         "recipe_fingerprint":recipe,
+        "recipe_stage_fingerprints":recipe_stages,
         "recipe_error":recipe_error,
         "capture_plan_rows":count_jsonl(plan),
         "batch_capture_map":batch_map.exists(),
@@ -139,7 +141,7 @@ def status():
         "render_manifest_rows":count_jsonl(raw),
         "latent_rows":count_jsonl(lat),
         "latent_provenance":latent_status,
-        "stages":[validate_checkpoint(k,p,t,fingerprint,recipe) for k,p,t in (stage_specs(recipe_cfg) if recipe_cfg else [(k,p,0) for k,p in STAGE_PATHS])],
+        "stages":[validate_checkpoint(k,p,t,fingerprint,recipe_stages.get(k)) for k,p,t in (stage_specs(recipe_cfg) if recipe_cfg else [(k,p,0) for k,p in STAGE_PATHS])],
     }
     return out
 
