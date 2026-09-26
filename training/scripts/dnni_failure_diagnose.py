@@ -29,8 +29,7 @@ def newest_log(root: Path):
 def tail(path: Path, lines=160):
     try:
         xs=path.read_text(encoding="utf-8",errors="replace").splitlines()
-        return "
-".join(xs[-lines:])
+        return "\n".join(xs[-lines:])
     except Exception:
         return ""
 
