@@ -18,11 +18,11 @@ def put_u64(buf: bytearray, off: int, value: int) -> None:
 
 
 def build(path: Path, groups: int) -> None:
-    core = 1000
-    group = 400
-    sub = 100
+    core = 32768
+    group = 8192
+    sub = 2048
     weights_size = core + groups * group
-    weights_offset = 4096
+    weights_offset = 65536
     sec3_offset = weights_offset + weights_size
     sec3_size = 64
     sec4_offset = sec3_offset + sec3_size
@@ -46,11 +46,11 @@ def build(path: Path, groups: int) -> None:
 
     w = memoryview(data)[weights_offset:weights_offset + weights_size]
     # Hard common boundary in the shared core.
-    w[500:516] = b"\x00" * 16
+    w[4096:4112] = b"\x00" * 16
     # Repeat a zero-run at the start of every subblock in the variable tail.
     for i in range(groups * 4):
         start = core + i * sub
-        w[start:start + 40] = b"\x00" * 40
+        w[start:start + 1024] = b"\x00" * 1024
 
     data[-256:] = b"\x00" * 256
     path.write_bytes(data)
@@ -66,12 +66,12 @@ def main() -> None:
             models.append(DnniModelHandle(p))
 
         result = derive_architecture(models)
-        assert result["shared_core_bytes"] == 1000
-        assert result["variable_tail_group_bytes"] == 400
-        assert result["tail_subblock_bytes"] == 100
+        assert result["shared_core_bytes"] == 32768
+        assert result["variable_tail_group_bytes"] == 8192
+        assert result["tail_subblock_bytes"] == 2048
         assert result["subblocks_per_candidate_group"] == 4
         assert result["observed_candidate_group_counts"] == [8, 9, 11]
-        assert {"offset": 500, "bytes": 16} in result["common_zero_gaps"]
+        assert {"offset": 4096, "bytes": 16} in result["common_zero_gaps"]
         assert [x["candidate_mic_groups"] for x in result["models"]] == [8, 9, 11]
         print("dnni_architecture_probe_smoke: ok")
 
