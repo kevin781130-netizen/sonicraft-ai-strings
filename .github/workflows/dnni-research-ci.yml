@@ -11,6 +11,8 @@ on:
       - "training/distill_renderer.py"
       - "training/shortcut_distill_renderer.py"
       - "training/scripts/import_dnni_four_timbres.py"
+      - "training/scripts/import_dnni_input_dir.py"
+      - "IMPORT_DNNI_5090.bat"
       - "training/scripts/generate_dnni_capture_plan.py"
       - "training/scripts/build_dnni_render_manifest.py"
       - "training/scripts/run_dnni_research_entry.py"
@@ -49,6 +51,7 @@ jobs:
             "training/distill_renderer.py",
             "training/shortcut_distill_renderer.py",
             "training/scripts/import_dnni_four_timbres.py",
+            "training/scripts/import_dnni_input_dir.py",
             "training/scripts/generate_dnni_capture_plan.py",
             "training/scripts/build_dnni_render_manifest.py",
             "training/scripts/run_dnni_research_entry.py",
