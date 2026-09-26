@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, json
+import argparse, json, sys
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from dnni_pipeline_fingerprint import compute as compute_fingerprint
 
 STAGES = [
     ("codec", Path("checkpoints/dnni4_vae64_research.pt"), 100),
@@ -14,7 +16,7 @@ def load_checkpoint(path: Path):
     import torch
     return torch.load(path, map_location="cpu")
 
-def validate_checkpoint(kind: str, path: Path, target: int):
+def validate_checkpoint(kind: str, path: Path, target: int, expected_fingerprint: str|None=None):
     if not path.exists():
         return {"kind":kind,"path":str(path),"state":"missing","epoch":0,"target":target,"valid":False}
     try:
@@ -40,6 +42,8 @@ def validate_checkpoint(kind: str, path: Path, target: int):
         if "model" not in ck: errors.append("missing model")
         if "config" not in ck: errors.append("missing config")
         if str(ck.get("sampling_family",""))!="shortcut": errors.append("sampling_family != shortcut")
+    if expected_fingerprint and ck.get('data_fingerprint')!=expected_fingerprint:
+        errors.append(f"data_fingerprint mismatch: saved={ck.get('data_fingerprint')} current={expected_fingerprint}")
     if errors:
         return {"kind":kind,"path":str(path),"state":"invalid","epoch":epoch,"target":target,"valid":False,"error":"; ".join(errors)}
     state="complete" if epoch>=target else "resumable"
@@ -78,12 +82,29 @@ def status():
     plan=root/"capture_plan.jsonl"
     raw=root/"rendered/index.jsonl"
     lat=root/"latents/index.jsonl"
+    fingerprint=None; fp_error=None
+    if bundle.exists() and raw.exists():
+        try: fingerprint=compute_fingerprint()["fingerprint"]
+        except Exception as e: fp_error=f"{type(e).__name__}: {e}"
+    latent_prov=root/"latents/provenance.json"
+    latent_status={"exists":latent_prov.exists(),"valid":False}
+    if latent_prov.exists():
+        try:
+            lp=json.loads(latent_prov.read_text(encoding="utf-8"))
+            latent_status={"exists":True,"valid":bool(fingerprint and lp.get("source_fingerprint")==fingerprint),
+                           "saved_fingerprint":lp.get("source_fingerprint"),"rows":lp.get("rows"),
+                           "codec_sha256":lp.get("codec_sha256")}
+        except Exception as e:
+            latent_status={"exists":True,"valid":False,"error":f"{type(e).__name__}: {e}"}
     out={
         "source":source,
+        "data_fingerprint":fingerprint,
+        "fingerprint_error":fp_error,
         "capture_plan_rows":count_jsonl(plan),
         "render_manifest_rows":count_jsonl(raw),
         "latent_rows":count_jsonl(lat),
-        "stages":[validate_checkpoint(k,p,t) for k,p,t in STAGES],
+        "latent_provenance":latent_status,
+        "stages":[validate_checkpoint(k,p,t,fingerprint) for k,p,t in STAGES],
     }
     return out
 
@@ -102,6 +123,12 @@ def print_human(s):
     print(f"Capture plan : {s['capture_plan_rows']} rows")
     print(f"Render WAVs  : {s['render_manifest_rows']} manifest rows")
     print(f"Latents      : {s['latent_rows']} rows")
+    if s.get("data_fingerprint"): print("Data hash    :",str(s["data_fingerprint"])[:20]+"...")
+    lp=s.get("latent_provenance") or {}
+    if lp.get("exists"):
+        print("Latent bind  :", "MATCH" if lp.get("valid") else "STALE/MISMATCH")
+    elif s.get("latent_rows"):
+        print("Latent bind  : missing provenance")
     print("-"*66)
     for st in s["stages"]:
         label=st["kind"].upper().ljust(9)
@@ -116,8 +143,12 @@ def print_human(s):
             print(f"{label} {state}{extra}")
     print("-"*66)
     bad=[x for x in s["stages"] if x["state"] in ("corrupt","invalid")]
+    lp=s.get("latent_provenance") or {}
+    latent_bad=bool(s.get("latent_rows") and (not lp.get("exists") or not lp.get("valid")))
     if bad:
-        print("ACTION: A checkpoint is invalid. Do not delete it automatically; inspect/rename it first.")
+        print("ACTION: A checkpoint is invalid/stale. Do not overwrite it automatically; inspect/rename it first.")
+    elif latent_bad:
+        print("ACTION: Latents do not match the current four-timbre data fingerprint; rebuild latents before training.")
     elif s["stages"][-1]["state"]=="complete":
         print("RESULT: Training pipeline is complete.")
     else:
@@ -139,7 +170,10 @@ def main():
     s=status()
     if a.json: print(json.dumps(s,indent=2,ensure_ascii=False))
     else: print_human(s)
-    raise SystemExit(2 if any(x["state"] in ("corrupt","invalid") for x in s["stages"]) else 0)
+    bad_stage=any(x["state"] in ("corrupt","invalid") for x in s["stages"])
+    lp=s.get("latent_provenance") or {}
+    bad_latent=bool(s.get("latent_rows") and (not lp.get("exists") or not lp.get("valid")))
+    raise SystemExit(2 if bad_stage or bad_latent or s.get("fingerprint_error") else 0)
 
 if __name__=="__main__":
     main()
