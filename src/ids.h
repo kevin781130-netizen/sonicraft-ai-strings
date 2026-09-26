@@ -103,6 +103,8 @@ enum ParamID : Steinberg::Vst::ParamID {
     kParamOrchestraInstrument = 829,
     kParamOrchestraModelReady = 830,   // read-only: selected model manifest/header ready
     kParamOrchestraCatalogCoverage = 831, // read-only: ready model count / 15
+    kParamOrchestraConditionerReady = 832, // read-only: at least one MIDI lane has valid clean-room features
+    kParamOrchestraConditioningEnergy = 833, // read-only: RMS energy of latest valid 512 feature state
 };
 inline Steinberg::Vst::ParamID voiceParam(Steinberg::Vst::ParamID base, int channel) {
     return base + static_cast<Steinberg::Vst::ParamID>(channel);
