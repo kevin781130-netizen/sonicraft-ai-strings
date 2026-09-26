@@ -37,11 +37,18 @@ PRESETS = {
     # v1.8 high-capacity sound teacher: same authority/physics semantics as frontier, but enough capacity to absorb real timbre before distillation.
     'hq_strings_v18': {'d_model': 512, 'layers': 10, 'heads': 8, 'backbone': 'adaln_dit', 'mlp_ratio': 3.0, 'dropout': 0.0,
                        'attention_impl': 'sdpa', 'shared_adaln': True, 'interval_conditioning': True, 'expert_fusion': 'joint', 'split_vibrato_validity': True},
+    # Research-only four-timbre variant. instruments=4 prevents slot 4 (ID 3) from indexing a 3-row embedding.
+    'hq_dnni4': {'d_model': 512, 'layers': 10, 'heads': 8, 'backbone': 'adaln_dit', 'mlp_ratio': 3.0, 'dropout': 0.0,
+                 'attention_impl': 'sdpa', 'shared_adaln': True, 'interval_conditioning': True, 'expert_fusion': 'joint',
+                 'split_vibrato_validity': True, 'instruments': 4},
     # v1.8 frontier core: only ~5K new parameters for hidden quartet/phrase intelligence.
     # The adapter is zero-start and therefore behavior-neutral until quartet fine-tuning.
     'frontier_core_dit': {'d_model': 192, 'layers': 6, 'heads': 8, 'backbone': 'adaln_dit', 'mlp_ratio': 2.0, 'dropout': 0.0,
                           'attention_impl': 'sdpa', 'shared_adaln': True, 'interval_conditioning': True, 'expert_fusion': 'joint', 'split_vibrato_validity': True,
                           'frontier_context_dim': 14, 'context_rank': 24},
+    'frontier_core_dnni4': {'d_model': 192, 'layers': 6, 'heads': 8, 'backbone': 'adaln_dit', 'mlp_ratio': 2.0, 'dropout': 0.0,
+                            'attention_impl': 'sdpa', 'shared_adaln': True, 'interval_conditioning': True, 'expert_fusion': 'joint',
+                            'split_vibrato_validity': True, 'frontier_context_dim': 14, 'context_rank': 24, 'instruments': 4},
 }
 
 class Segments(Dataset):
