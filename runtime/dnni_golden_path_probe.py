@@ -32,6 +32,8 @@ def main() -> int:
     ap.add_argument("--recurrent-signature", default=None)
     ap.add_argument("--recurrent-hypothesis", default=None)
     ap.add_argument("--conditioning-interface", default=None)
+    ap.add_argument("--module-accounting", default=None)
+    ap.add_argument("--bank-direction", default=None)
     ap.add_argument("--out", default="violin_a4_golden_path.json")
     args = ap.parse_args()
 
@@ -63,6 +65,8 @@ def main() -> int:
     recurrent_signature = maybe_json(args.recurrent_signature)
     recurrent_hypothesis = maybe_json(args.recurrent_hypothesis)
     conditioning_interface = maybe_json(args.conditioning_interface)
+    module_accounting = maybe_json(args.module_accounting)
+    bank_direction = maybe_json(args.bank_direction)
 
     result = {
         "schema": "sonicraft-dnni-golden-path-v1",
@@ -121,12 +125,14 @@ def main() -> int:
             "recurrent_signature": recurrent_signature,
             "recurrent_hypothesis": recurrent_hypothesis,
             "conditioning_interface": conditioning_interface,
+            "module_accounting": module_accounting,
+            "bank_direction": bank_direction,
         },
         "ready_for_audio_inference": False,
         "blocking_unknowns": [
             "graph operation direction/order beyond the verified dimension fragment",
             "nonlinear activation/state-update semantics",
-            "direction/semantics of the adjacent 128/256 projection-bank interface",
+            "producer semantics of the internal 506-wide vector and its upstream musical feature mapping",
             "output representation and acoustic decoder",
             "candidate mic-tail semantic mapping",
         ],
