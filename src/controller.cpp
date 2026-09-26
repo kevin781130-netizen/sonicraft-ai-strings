@@ -5,6 +5,7 @@
 #include "string_ensemble_v44.h"
 #include "string_gesture_v45.h"
 #include "articulations.h"
+#include "orchestra_instruments.h"
 #include "base/source/fstreamer.h"
 #include "public.sdk/source/vst/vstparameters.h"
 #include "pluginterfaces/base/ustring.h"
@@ -40,6 +41,9 @@ tresult PLUGIN_API Controller::initialize(FUnknown* context){auto r=EditControll
     static const double kFeedDefaults[16]={.25,.35,.25,.45,.62,.45,.28,.28,.20,.20,0.,.12,.12,.06,.06,0.};
     for(int i=0;i<16;++i)parameters.addParameter(kFeedNames[i],nullptr,0,kFeedDefaults[i],ParameterInfo::kCanAutomate,kParamStageFeedGainBase+i);
     parameters.addParameter(STR16("Stage Output"),nullptr,0,1.,ParameterInfo::kCanAutomate,kParamStageOutputGain);
+    auto* orchestraInstrumentParam=new StringListParameter(STR16("Orchestra Instrument"),kParamOrchestraInstrument);
+    for(const TChar* x:{STR16("Double Bass"),STR16("Cello"),STR16("Viola"),STR16("Violin"),STR16("Piccolo"),STR16("Flute"),STR16("Oboe"),STR16("Clarinet in A"),STR16("Bassoon"),STR16("Tenor Saxophone"),STR16("Alto Saxophone"),STR16("French Horn"),STR16("B-flat Trumpet"),STR16("Tuba"),STR16("Trombone")})orchestraInstrumentParam->appendString(x);
+    parameters.addParameter(orchestraInstrumentParam);
     parameters.addParameter(STR16("MIDI Authority Lock"),nullptr,1,1.,ParameterInfo::kCanAutomate,kParamMidiAuthorityLock);
     parameters.addParameter(STR16("Phrase Director"),nullptr,1,1.,ParameterInfo::kCanAutomate,kParamPhraseDirector);
     parameters.addParameter(STR16("Ensemble Looseness"),nullptr,0,.18,ParameterInfo::kCanAutomate,kParamEnsembleLooseness);
@@ -525,7 +529,7 @@ tresult PLUGIN_API Controller::getKeyswitchInfo(int32 busIndex, int16 channel,
 tresult PLUGIN_API Controller::setComponentState(IBStream* state){
     if(!state)return kResultFalse;
     IBStreamer s(state,kLittleEndian);int32 version=0;
-    if(!s.readInt32(version)||(version<3||version>14))return kResultFalse;
+    if(!s.readInt32(version)||(version<3||version>15))return kResultFalse;
     float mode=0,active=0,human=.16f,mix=0,layout=0,instrumentSel=0,assist=.5f,look=.35f,divisi=0;
     if(!s.readFloat(mode)||!s.readFloat(active)||!s.readFloat(human)||!s.readFloat(mix)||!s.readFloat(layout)||!s.readFloat(instrumentSel)||!s.readFloat(assist)||!s.readFloat(look)||!s.readFloat(divisi))return kResultFalse;
     setParamNormalized(kParamMode,mode);setParamNormalized(kParamActivePart,active);setParamNormalized(kParamHumanize,human);setParamNormalized(kParamAIMix,mix);setParamNormalized(kParamLayoutMode,layout);setParamNormalized(kParamSingleInstrument,instrumentSel);setParamNormalized(kParamAIAssist,assist);setParamNormalized(kParamLookAhead,look);setParamNormalized(kParamAutoDivisi,divisi);
@@ -553,6 +557,9 @@ tresult PLUGIN_API Controller::setComponentState(IBStream* state){
         else {setParamNormalized(kParamPersonalTasteEnable,1);setParamNormalized(kParamPersonalTasteStrength,.75);setParamNormalized(kParamPersonalTasteLearn,1);setParamNormalized(kParamPreferenceMinConfidence,.30);setParamNormalized(kParamPreferenceMinMargin,.10);setParamNormalized(kParamPreferenceSafetyFloor,.35);}
         if(version>=14){float m14[19]{};for(float&v:m14)if(!s.readFloat(v))return kResultFalse;setParamNormalized(kParamStageMixerEnable,m14[0]);setParamNormalized(kParamStageMasterGain,m14[1]);setParamNormalized(kParamStageOutputGain,m14[2]);for(int i=0;i<16;++i)setParamNormalized(kParamStageFeedGainBase+i,m14[3+i]);}
         else {const double d[16]={.25,.35,.25,.45,.62,.45,.28,.28,.20,.20,0.,.12,.12,.06,.06,0.};setParamNormalized(kParamStageMixerEnable,0);setParamNormalized(kParamStageMasterGain,1);setParamNormalized(kParamStageOutputGain,1.);for(int i=0;i<16;++i)setParamNormalized(kParamStageFeedGainBase+i,d[i]);}
+        float orchestraInstrumentState=orchestraInstrumentNormalizedFromIndex(3);
+        if(version>=15 && !s.readFloat(orchestraInstrumentState))return kResultFalse;
+        setParamNormalized(kParamOrchestraInstrument,orchestraInstrumentState);
         if(version>=10){
             int32 compCount=0;if(!s.readInt32(compCount)||compCount<0||compCount>128)return kResultFalse;
             for(int32 i=0;i<compCount;++i){int32 phrase=0,take=0,fav=0,rej=0,committed=1;
