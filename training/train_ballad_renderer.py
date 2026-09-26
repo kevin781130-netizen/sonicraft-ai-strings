@@ -199,11 +199,13 @@ def main():
     ema=copy.deepcopy(m).eval().requires_grad_(False)
     opt=torch.optim.AdamW(m.parameters(),a.lr,weight_decay=.01,betas=(.9,.95)); sched=torch.optim.lr_scheduler.CosineAnnealingLR(opt,T_max=max(1,a.epochs),eta_min=a.lr*.08)
     data_fingerprint=os.environ.get('SONICRAFT_DATA_FINGERPRINT') or None
+    recipe_fingerprint=os.environ.get('SONICRAFT_RECIPE_FINGERPRINT') or None
     start=0; best=float('inf')
     if a.resume:
         ck=torch.load(a.resume,map_location='cpu'); saved=ck.get('config',{})
         if any(saved.get(k)!=cfg[k] for k in cfg): raise RuntimeError('Resume checkpoint architecture mismatch.')
         if data_fingerprint and ck.get('data_fingerprint')!=data_fingerprint: raise RuntimeError(f'Resume checkpoint data fingerprint mismatch: saved={ck.get("data_fingerprint")} current={data_fingerprint}')
+        if recipe_fingerprint and ck.get('recipe_fingerprint')!=recipe_fingerprint: raise RuntimeError(f'Resume checkpoint recipe fingerprint mismatch: saved={ck.get("recipe_fingerprint")} current={recipe_fingerprint}')
         if int(ck.get('latent_ch',latent_ch))!=latent_ch: raise RuntimeError('Resume checkpoint latent geometry mismatch.')
         m.load_state_dict(ck['model']); ema.load_state_dict(ck.get('ema',ck['model']))
         if 'optimizer' in ck: opt.load_state_dict(ck['optimizer'])
@@ -253,7 +255,7 @@ def main():
                 'control_dims':m.CONTROL_DIMS,'source_index':a.index,'val_index':a.val_index,'best_val':best,'schema_version':9,
                 'vibrato_expert_seed':a.vibrato_expert,'performance_experts_seed':a.performance_experts,
                 'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
-                'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint}
+                'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint,'recipe_fingerprint':recipe_fingerprint}
             atomic_torch_save(ck,a.out)
             print('[SAFE STOP] partial renderer epoch saved; epoch',ep+1,'will replay on resume ->',a.out)
             return
@@ -273,7 +275,7 @@ def main():
             'control_dims':m.CONTROL_DIMS,'source_index':a.index,'val_index':a.val_index,'best_val':best,'schema_version':9,
             'vibrato_expert_seed':a.vibrato_expert,'performance_experts_seed':a.performance_experts,
             'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_flow_weight':a.modeled_flow_weight,'curriculum':curriculum},
-            'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint}
+            'acoustic_promotion_id':promotion_id,'data_fingerprint':data_fingerprint,'recipe_fingerprint':recipe_fingerprint}
         atomic_torch_save(ck,a.out)
         score=val if vdl else sums['flow']/denom
         if score<best:
