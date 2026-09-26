@@ -31,8 +31,11 @@ if errorlevel 1 exit /b %ERRORLEVEL%
 "%PY%" "runtime\dnni_recurrent_hypothesis_probe.py" "%MODEL_DIR%" --out "%MODEL_DIR%\dnni_recurrent_hypothesis.json"
 if errorlevel 1 exit /b %ERRORLEVEL%
 
+"%PY%" "runtime\dnni_conditioning_interface_probe.py" "%MODEL_DIR%" --out "%MODEL_DIR%\dnni_conditioning_interface.json"
+if errorlevel 1 exit /b %ERRORLEVEL%
+
 "%PY%" "runtime\dnni_graph_fragment_probe.py" --out "%MODEL_DIR%\dnni_graph_fragment.json"
 if errorlevel 1 exit /b %ERRORLEVEL%
 
-"%PY%" "runtime\dnni_golden_path_probe.py" "%MODEL_DIR%" --dtype-map "%MODEL_DIR%\dnni_dtype_map.json" --shared-regions "%MODEL_DIR%\dnni_shared_regions.json" --tensor-map "%MODEL_DIR%\dnni_tensor_shapes.json" --projection-bank "%MODEL_DIR%\dnni_projection_bank.json" --graph-fragment "%MODEL_DIR%\dnni_graph_fragment.json" --operation-constraints "%MODEL_DIR%\dnni_operation_constraints.json" --recurrent-signature "%MODEL_DIR%\dnni_recurrent_signature.json" --recurrent-hypothesis "%MODEL_DIR%\dnni_recurrent_hypothesis.json" --out "%MODEL_DIR%\violin_a4_golden_path.json"
+"%PY%" "runtime\dnni_golden_path_probe.py" "%MODEL_DIR%" --dtype-map "%MODEL_DIR%\dnni_dtype_map.json" --shared-regions "%MODEL_DIR%\dnni_shared_regions.json" --tensor-map "%MODEL_DIR%\dnni_tensor_shapes.json" --projection-bank "%MODEL_DIR%\dnni_projection_bank.json" --graph-fragment "%MODEL_DIR%\dnni_graph_fragment.json" --operation-constraints "%MODEL_DIR%\dnni_operation_constraints.json" --recurrent-signature "%MODEL_DIR%\dnni_recurrent_signature.json" --recurrent-hypothesis "%MODEL_DIR%\dnni_recurrent_hypothesis.json" --conditioning-interface "%MODEL_DIR%\dnni_conditioning_interface.json" --out "%MODEL_DIR%\violin_a4_golden_path.json"
 exit /b %ERRORLEVEL%
