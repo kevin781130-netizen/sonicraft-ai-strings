@@ -34,6 +34,7 @@ def main() -> int:
     ap.add_argument("--conditioning-interface", default=None)
     ap.add_argument("--module-accounting", default=None)
     ap.add_argument("--bank-direction", default=None)
+    ap.add_argument("--upstream-boundary", default=None)
     ap.add_argument("--out", default="violin_a4_golden_path.json")
     args = ap.parse_args()
 
@@ -67,6 +68,7 @@ def main() -> int:
     conditioning_interface = maybe_json(args.conditioning_interface)
     module_accounting = maybe_json(args.module_accounting)
     bank_direction = maybe_json(args.bank_direction)
+    upstream_boundary = maybe_json(args.upstream_boundary)
 
     result = {
         "schema": "sonicraft-dnni-golden-path-v1",
@@ -127,6 +129,7 @@ def main() -> int:
             "conditioning_interface": conditioning_interface,
             "module_accounting": module_accounting,
             "bank_direction": bank_direction,
+            "upstream_boundary": upstream_boundary,
         },
         "ready_for_audio_inference": False,
         "blocking_unknowns": [
