@@ -83,7 +83,7 @@ if exist "checkpoints\dnni4_renderer_hq_research_last.pt" (
   set "RENDER_RESUME=--resume checkpoints\dnni4_renderer_hq_research_last.pt"
   echo [AUTO RESUME] Found HQ renderer checkpoint.
 )
-python training\scripts\run_logged.py --log "%LOGROOT%\03_renderer.log" -- python training\scripts\run_dnni_research_entry.py renderer -- --index "%LATENTS%" --preset hq_strings_v18 --epochs 260 --batch 2 --accum 2 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_renderer_hq_research_last.pt --best-out checkpoints\dnni4_renderer_hq_research_best.pt !RENDER_RESUME!
+python training\scripts\run_logged.py --log "%LOGROOT%\03_renderer.log" -- python training\scripts\run_dnni_research_entry.py renderer -- --index "%LATENTS%" --preset hq_dnni4 --epochs 260 --batch 2 --accum 2 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_renderer_hq_research_last.pt --best-out checkpoints\dnni4_renderer_hq_research_best.pt !RENDER_RESUME!
 if errorlevel 1 goto :FAIL
 if exist "%STOPFILE%" goto :PAUSED
 
@@ -94,7 +94,7 @@ if exist "checkpoints\dnni4_frontier_research.pt" (
   set "DISTILL_RESUME=--resume checkpoints\dnni4_frontier_research.pt"
   echo [AUTO RESUME] Found distillation checkpoint.
 )
-python training\scripts\run_logged.py --log "%LOGROOT%\04_distill.log" -- python training\scripts\run_dnni_research_entry.py distill -- --index "%LATENTS%" --teacher checkpoints\dnni4_renderer_hq_research_best.pt --student-preset frontier_core_dit --epochs 130 --batch 2 --accum 2 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_frontier_research.pt !DISTILL_RESUME!
+python training\scripts\run_logged.py --log "%LOGROOT%\04_distill.log" -- python training\scripts\run_dnni_research_entry.py distill -- --index "%LATENTS%" --teacher checkpoints\dnni4_renderer_hq_research_best.pt --student-preset frontier_core_dnni4 --epochs 130 --batch 2 --accum 2 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_frontier_research.pt !DISTILL_RESUME!
 if errorlevel 1 goto :FAIL
 if exist "%STOPFILE%" goto :PAUSED
 
@@ -105,7 +105,7 @@ if exist "checkpoints\dnni4_frontier_shortcut_research.pt" (
   set "SHORTCUT_RESUME=--resume checkpoints\dnni4_frontier_shortcut_research.pt"
   echo [AUTO RESUME] Found shortcut checkpoint.
 )
-python training\scripts\run_logged.py --log "%LOGROOT%\05_shortcut.log" -- python training\scripts\run_dnni_research_entry.py shortcut -- --index "%LATENTS%" --init checkpoints\dnni4_frontier_research.pt --preset frontier_core_dit --max-steps 8 --recommend-steps 2 --epochs 55 --batch 1 --accum 1 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_frontier_shortcut_research.pt !SHORTCUT_RESUME!
+python training\scripts\run_logged.py --log "%LOGROOT%\05_shortcut.log" -- python training\scripts\run_dnni_research_entry.py shortcut -- --index "%LATENTS%" --init checkpoints\dnni4_frontier_research.pt --preset frontier_core_dnni4 --max-steps 8 --recommend-steps 2 --epochs 55 --batch 1 --accum 1 --real-ratio 1.0 --modeled-ratio 0.0 --out checkpoints\dnni4_frontier_shortcut_research.pt !SHORTCUT_RESUME!
 if errorlevel 1 goto :FAIL
 if exist "%STOPFILE%" goto :PAUSED
 
