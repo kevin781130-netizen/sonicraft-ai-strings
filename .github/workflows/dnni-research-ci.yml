@@ -5,6 +5,14 @@ on:
     paths:
       - "training/dnni_reference.py"
       - "runtime/dnni_model_shell.py"
+      - "runtime/build_dnni_vst_catalog.py"
+      - "src/orchestra_instruments.h"
+      - "src/orchestra_engine_contract.h"
+      - "src/dnni_model_manifest.h"
+      - "standalone/orchestra_engine_contract_smoke_v71.cpp"
+      - "standalone/dnni_manifest_smoke_v71.cpp"
+      - "BUILD_DNNI_VST_CATALOG.bat"
+      - "docs/ORCHESTRA_ENGINE_V71.md"
       - "frontend/editor_server.py"
       - "training/tests/dnni_model_shell_smoke.py"
       - "DNNI_MODEL_SHELL.bat"
@@ -73,6 +81,7 @@ jobs:
           $files = @(
             "training/dnni_reference.py",
             "runtime/dnni_model_shell.py",
+            "runtime/build_dnni_vst_catalog.py",
             "frontend/editor_server.py",
             "training/tests/dnni_model_shell_smoke.py",
             "training/train_codec.py",
