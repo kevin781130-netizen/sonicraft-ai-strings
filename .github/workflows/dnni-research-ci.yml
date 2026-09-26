@@ -6,6 +6,12 @@ on:
       - "training/dnni_reference.py"
       - "runtime/dnni_model_shell.py"
       - "runtime/build_dnni_vst_catalog.py"
+      - "runtime/dnni_architecture_probe.py"
+      - "training/tests/dnni_architecture_probe_smoke.py"
+      - "src/dnni_runtime_layout.h"
+      - "standalone/dnni_runtime_layout_smoke_v71.cpp"
+      - "docs/DNNI_ARCHITECTURE_RECON_V71.md"
+      - "PROBE_DNNI_ARCHITECTURE.bat"
       - "src/orchestra_instruments.h"
       - "src/orchestra_engine_contract.h"
       - "src/dnni_model_manifest.h"
@@ -82,6 +88,8 @@ jobs:
             "training/dnni_reference.py",
             "runtime/dnni_model_shell.py",
             "runtime/build_dnni_vst_catalog.py",
+            "runtime/dnni_architecture_probe.py",
+            "training/tests/dnni_architecture_probe_smoke.py",
             "frontend/editor_server.py",
             "training/tests/dnni_model_shell_smoke.py",
             "training/train_codec.py",
@@ -110,6 +118,10 @@ jobs:
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+      - name: Smoke DNNI architecture probe
+        shell: pwsh
+        run: |
+          python training/tests/dnni_architecture_probe_smoke.py
       - name: Smoke DNNI model shell
         shell: pwsh
         run: |
