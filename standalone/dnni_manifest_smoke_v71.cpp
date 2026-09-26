@@ -40,7 +40,7 @@ int main() {
     {
         std::ofstream f(manifest,std::ios::binary);
         f<<DnniModelManifestCatalog::kMagic<<"\n";
-        f<<"3|violin|strings|Violin|小提琴|synthetic|"<<model.u8string()
+        f<<"3|violin|strings|Violin|小提琴|synthetic|"<<model.string()
          <<"|"<<fileSize<<"|sourcehash|"<<weightsOffset<<"|"<<weightsBytes<<"|weightshash\n";
     }
 
