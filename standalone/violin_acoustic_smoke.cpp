@@ -98,6 +98,15 @@ int main() {
         assert(std::abs(signatures[1]-signatures[2])>1e-5);
     }
     {
+        PreviewEngine section;section.setSampleRate(48000);section.setPartInstrument(0,2);
+        PartControl c;c.sustain=false;
+        for(int note=60;note<68;++note)section.noteOnVoice(0,note-60,note,.6f,c,16);
+        float left[512]{},right[512]{};section.render(left,right,512);
+        double power=0;for(float x:left){assert(std::isfinite(x));power+=double(x)*x;}
+        assert(power>1e-7);
+        for(int note=60;note<68;++note)section.noteOffVoice(0,note-60,note);
+    }
+    {
         PartControl c;
         const auto manual=shapeAcousticPerformance(c,0,0,72,60,.9f,false,0,0.f,.27f,true);
         assert(manual.dynamics==c.dynamics && manual.vibrato==c.vibrato && manual.pitchBend==c.pitchBend);

@@ -22,7 +22,8 @@ struct Voice {
 };
 class PreviewEngine {
 public:
-    static constexpr int kMaxVoices=48,kParts=4;
+    // Eight simultaneous notes at the maximum 16 performers, before release tails.
+    static constexpr int kMaxVoices=128,kParts=4;
     void setSampleRate(double sr){sampleRate=sr>1000.0?sr:48000.0;}
     void setTempo(double bpm){tempoBpm=bpm>=24.0&&bpm<=300.0?bpm:tempoBpm;}
     void setHumanize(float v){humanize=clamp01(v);}

@@ -32,6 +32,9 @@ renderer. Set **Players** to 1–16 to render independent performers per MIDI no
 with small timing, tuning and stereo placement differences. The performer count
 is saved in the DAW project and can be automated. One plug-in instance remains
 one instrument; add instances on separate DAW tracks for different instruments.
+The voice pool holds up to 128 active performers (eight simultaneous notes at
+16 players); if exceeded, releasing voices are reclaimed first. Large sections
+use more CPU, so verify your intended track count in the target DAW.
 **Q4 Legacy** keeps the previous voice. **Q4 Multi** continues to use
 the four string parts and ignores the acoustic preview selection; its separate
 **Legacy Solo Part** menu chooses among those four parts for Single legacy mode.

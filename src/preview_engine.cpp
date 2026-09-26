@@ -8,7 +8,15 @@ float bowNoise(Voice& v) noexcept {
     return float(double(v.noiseSeed)/4294967295.0*2.0-1.0);
 }
 }
-Voice* PreviewEngine::allocateVoice(){for(auto& v:voices)if(!v.active)return &v;return &voices.front();}
+Voice* PreviewEngine::allocateVoice(){
+    for(auto& v:voices)if(!v.active)return &v;
+    Voice* choice=&voices.front();
+    for(auto& v:voices){
+        if(v.releasing!=choice->releasing){if(v.releasing)choice=&v;continue;}
+        if(v.releasing ? v.env<choice->env : v.ageSeconds>choice->ageSeconds)choice=&v;
+    }
+    return choice;
+}
 float PreviewEngine::panForPart(int p)const{static constexpr float stage[4]={-.48f,-.16f,.14f,.40f};const float o=(ctl[p].pan-.5f)*.55f;return std::max(-.95f,std::min(.95f,stage[p]+o));}
 float PreviewEngine::toneForPart(int p)const{static constexpr float tone[4]={1.f,.96f,.88f,.76f};return tone[p];}
 void PreviewEngine::setPartSustain(int p,bool v){if(!validPart(p))return;ctl[p].sustain=v;for(auto& voice:voices)if(voice.active&&voice.channel==p){voice.localControl.sustain=v;if(!v&&voice.keyReleased){voice.releasing=true;voice.target=0.;}}}
