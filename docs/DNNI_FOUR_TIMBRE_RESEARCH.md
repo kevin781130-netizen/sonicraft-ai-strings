@@ -132,3 +132,20 @@ Changing only the human-readable `label` in `training/configs/dnni_four_timbres.
 The normal SONICRAFT string presets historically default to three instrument embeddings. The DNNI research lane uses dedicated `hq_dnni4` and `frontier_core_dnni4` presets with `instruments=4`, so timbre IDs 0, 1, 2 and 3 all have valid embeddings. The standard commercial presets are not changed.
 
 Velocity from the generated MIDI is also marked unverified by default. Unless independently verified, the research manifest uses a neutral velocity/dynamics condition instead of teaching a possibly false MIDI-velocity-to-timbre relationship.
+
+
+## Centralized RTX 5090 training recipe
+
+`training/configs/dnni_5090_training.json` is now the single place to edit the research training targets:
+
+- VAE64 width / epochs / batch
+- HQ renderer preset / epochs / batch / accumulation
+- Frontier distillation preset / epochs / batch / accumulation
+- Shortcut preset / epochs / batch / accumulation / supported step grid
+- CUDA allocator and lazy-module-loading settings
+
+The main BAT converts this JSON into a temporary CMD environment and uses those values for every stage. `STATUS_DNNI_5090.bat` reads the same JSON, so progress targets always match the actual run.
+
+A separate **recipe fingerprint** is stored in trainable checkpoints. Epoch targets are intentionally excluded from that hash, allowing an existing run to be extended from (for example) 260 to 320 epochs without throwing away optimizer state. Architecture-sensitive or optimizer-schedule-sensitive controls such as preset, batch size, accumulation and shortcut step geometry are included; changing them blocks an automatic resume until the old training state is archived/reset.
+
+The default CUDA allocator is `expandable_segments:True,max_split_size_mb:512` with lazy CUDA module loading, intended to reduce long-run memory fragmentation on the single-GPU RTX 5090 path.
