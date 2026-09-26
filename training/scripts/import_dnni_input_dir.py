@@ -14,6 +14,7 @@ def main():
     ap=argparse.ArgumentParser(description="Import exactly four ordered DNNI tar packages from a private input directory.")
     ap.add_argument("--input",default="dnni_input")
     ap.add_argument("--out",default="datasets/dnni_four_timbres/source")
+    ap.add_argument("--config",default="training/configs/dnni_four_timbres.json")
     a=ap.parse_args()
     root=Path(a.input)
     root.mkdir(parents=True,exist_ok=True)
@@ -32,7 +33,11 @@ def main():
     if set(slots)!={1,2,3,4}:
         raise SystemExit("Need exactly one file for each prefix 01_, 02_, 03_, 04_.")
     ordered=[slots[i] for i in range(1,5)]
-    names=[f"timbre_{i}" for i in range(1,5)]
+    cfg=json.loads(Path(a.config).read_text(encoding="utf-8"))
+    rows=sorted(cfg.get("slots",[]),key=lambda x:int(x.get("slot",0)))
+    if len(rows)!=4 or [int(x.get("slot",0)) for x in rows]!=[1,2,3,4]:
+        raise SystemExit(f"{a.config}: expected slots 1..4")
+    names=[str(x.get("timbre_id") or f"timbre_{i}") for i,x in enumerate(rows,1)]
     out=Path(a.out)
     if out.exists() and any(out.iterdir()):
         manifest=out/"bundle_manifest.json"
