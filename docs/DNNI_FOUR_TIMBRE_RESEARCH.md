@@ -71,3 +71,27 @@ For normal use, double-click `DNNI_5090_MANAGER.bat`. It provides Start/Resume, 
 `STATUS_DNNI_5090.bat` reports capture rows, latent rows, and epoch progress for all four trainable stages. The main trainer runs the same checkpoint-health scan before auto-resume. If a checkpoint cannot be loaded or its expected identity is wrong, automatic resume is blocked instead of overwriting it.
 
 Checkpoint writes for VAE64, HQ renderer, distillation and shortcut training are atomic: the new checkpoint is first written to a sibling `.tmp` file and replaces the previous `.pt` only after the write succeeds. This preserves the last complete checkpoint if Windows, Python, or the training process is interrupted during serialization. Safe-stop requests are checked inside the training loop after a batch/optimizer step; partial checkpoints record `partial_epoch` and `partial_batches`, while `epoch` remains the last fully completed epoch so resume never skips unfinished work.
+
+
+## Windows 5090 control flow
+
+For normal use, open `DNNI_5090_MANAGER.bat`:
+
+1. **Setup / Repair RTX 5090 environment** runs `SETUP_DNNI_5090.bat`. The pinned Windows path is Python 3.11 + PyTorch 2.11.0 + TorchAudio 2.11.0 from the CUDA 13.0 wheel index, followed by an NVIDIA/PyTorch/BF16/disk preflight.
+2. **Import / Verify four DNNI TAR files** expects the private, gitignored `dnni_input\` folder to contain exactly `01_*.tar`, `02_*.tar`, `03_*.tar`, `04_*.tar`. The order is deterministic and becomes `timbre_1` through `timbre_4`.
+3. **Start / Resume training** runs the full stage chain with automatic checkpoint detection.
+4. **Training status** displays source hashes, capture/latent row counts, completed epochs, and partial-epoch safe-stop state.
+5. **Safe stop** requests a checkpoint after the current batch/optimizer step.
+6-9 open checkpoint, dataset, log, and private input folders.
+
+Per-stage console output is appended under `logs\dnni5090\`.
+
+## DNNI timbre supervision vs articulation supervision
+
+The four imported packages are treated as four distinct timbre/acoustic references. Generated capture-plan rows now default to `articulation_verified=false`. Corresponding manifests set `articulation_known=0` unless a capture has independently verified articulation semantics.
+
+The renderer and runtime model also gate legato/portamento expert activation with `articulation_known`, and the renderer loss no longer applies portamento-specific weighting to unknown articulation labels. This prevents DNNI timbre captures from accidentally teaching fabricated string articulation behavior while leaving ordinary known-articulation runtime behavior unchanged.
+
+## Synthesizer V Studio 2 export boundary
+
+The documented SV2 scripting API can create/edit project data and tracks, and `Track.setBounced()` can mark whether a track is included in file export. The documented audio export itself remains a Render Panel / **Bounce to Files** operation. This integration therefore does not depend on an undocumented render CLI or private scripting call. Once WAV captures exist in the expected paths, manifest creation, latent encoding, training, resume, status, and recovery are automated.
