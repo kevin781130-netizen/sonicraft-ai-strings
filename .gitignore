@@ -11,3 +11,4 @@ release/*.vst3/
 *.log
 dnni_input/
 archive/dnni5090/
+models/dnni/
