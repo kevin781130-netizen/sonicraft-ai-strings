@@ -25,6 +25,10 @@ on:
       - "STATUS_DNNI_5090.bat"
       - "SETUP_DNNI_5090.bat"
       - "DNNI_5090_MANAGER.bat"
+      - "training/configs/dnni_four_timbres.json"
+      - "training/scripts/dnni_pipeline_fingerprint.py"
+      - "training/scripts/archive_dnni_training_state.py"
+      - "RESET_DNNI_5090.bat"
       - ".github/workflows/dnni-research-ci.yml"
   workflow_dispatch:
 
@@ -57,6 +61,8 @@ jobs:
             "training/scripts/run_dnni_research_entry.py",
             "training/scripts/dnni_training_status.py",
             "training/scripts/dnni_5090_preflight.py",
+            "training/scripts/dnni_pipeline_fingerprint.py",
+            "training/scripts/archive_dnni_training_state.py",
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
@@ -67,6 +73,11 @@ jobs:
           $count = (Get-Content "$env:RUNNER_TEMP/capture_plan.jsonl").Count
           if ($count -ne 720) { throw "Expected 720 capture rows, got $count" }
           python -c "import json,sys; rows=[json.loads(x) for x in open(sys.argv[1],encoding='utf-8') if x.strip()]; assert all(r.get('articulation_verified') is False for r in rows), 'DNNI capture articulation must default to unverified'" "$env:RUNNER_TEMP/capture_plan.jsonl"
+      - name: Validate four-timbre config and presets
+        shell: pwsh
+        run: |
+          python -c "import json; c=json.load(open('training/configs/dnni_four_timbres.json',encoding='utf-8')); s=sorted(c['slots'],key=lambda x:x['slot']); assert [x['slot'] for x in s]==[1,2,3,4]; assert sorted(x['instrument'] for x in s)==[0,1,2,3]; assert len({x['timbre_id'] for x in s})==4"
+          python -c "import ast; t=ast.parse(open('training/train_ballad_renderer.py',encoding='utf-8').read()); p=next(ast.literal_eval(n.value) for n in t.body if isinstance(n,ast.Assign) and any(isinstance(x,ast.Name) and x.id=='PRESETS' for x in n.targets)); assert p['hq_dnni4']['instruments']==4; assert p['frontier_core_dnni4']['instruments']==4"
       - name: Status helper clean-checkout smoke
         shell: pwsh
         run: |
