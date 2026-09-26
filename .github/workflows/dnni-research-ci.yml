@@ -23,6 +23,14 @@ on:
       - "runtime/dnni_recurrent_signature_probe.py"
       - "runtime/dnni_recurrent_hypothesis_probe.py"
       - "runtime/dnni_conditioning_interface_probe.py"
+      - "PROBE_DNNI_BANK_DIRECTION.bat"
+      - "training/configs/dnni_observed_bank_direction.json"
+      - "training/tests/dnni_bank_direction_smoke.py"
+      - "runtime/dnni_bank_direction_probe.py"
+      - "PROBE_DNNI_MODULE_ACCOUNTING.bat"
+      - "training/configs/dnni_observed_module_accounting.json"
+      - "training/tests/dnni_module_accounting_smoke.py"
+      - "runtime/dnni_module_accounting_probe.py"
       - "training/tests/dnni_conditioning_interface_smoke.py"
       - "training/configs/dnni_observed_conditioning_interface.json"
       - "PROBE_DNNI_CONDITIONING_INTERFACE.bat"
@@ -133,6 +141,10 @@ jobs:
             "runtime/dnni_recurrent_signature_probe.py",
             "runtime/dnni_recurrent_hypothesis_probe.py",
             "runtime/dnni_conditioning_interface_probe.py",
+            "runtime/dnni_module_accounting_probe.py",
+            "training/tests/dnni_module_accounting_smoke.py",
+            "runtime/dnni_bank_direction_probe.py",
+            "training/tests/dnni_bank_direction_smoke.py",
             "training/tests/dnni_conditioning_interface_smoke.py",
             "training/tests/dnni_recurrent_hypothesis_smoke.py",
             "training/tests/dnni_recurrent_signature_smoke.py",
@@ -172,6 +184,14 @@ jobs:
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+      - name: Smoke DNNI module accounting
+        shell: pwsh
+        run: |
+          python training/tests/dnni_module_accounting_smoke.py
+      - name: Smoke DNNI bank direction
+        shell: pwsh
+        run: |
+          python training/tests/dnni_bank_direction_smoke.py
       - name: Smoke DNNI conditioning interface
         shell: pwsh
         run: |
