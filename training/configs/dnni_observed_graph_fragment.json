@@ -168,13 +168,26 @@
         512,
         512
       ],
-      "shape_confidence": "structurally-linked",
+      "shape_confidence": "matrices 0-5 structurally-linked; final block is split and not a full 512x512 FP16 matrix",
       "last_matrix_split": {
-        "shared_rows_candidate": 448,
-        "instrument_specific_rows_candidate": 64,
-        "evidence": "four modules: first 448 KiB exact across all 15 models; final 64 KiB model-specific",
-        "relation": "matches independently observed 64-wide FP32 projection family",
-        "confidence": "structural-candidate"
+        "shared_prefix_bytes": 518144,
+        "shared_prefix_dtype": "float16_le",
+        "shared_prefix_row_major_512_candidate_rows": 506,
+        "suffix_bytes": 6144,
+        "suffix_dtype_pattern_by_module": [
+          "float16_le",
+          "float16_le",
+          "float16_le",
+          "float32_le"
+        ],
+        "suffix_512_wide_vector_counts_by_module": [
+          6,
+          6,
+          6,
+          3
+        ],
+        "evidence": "shared prefix is byte-identical across all 15 models; suffix is instrument-specific in all four modules",
+        "confidence": "verified byte/dtype split; semantic role unknown"
       }
     },
     "right_bank": {
