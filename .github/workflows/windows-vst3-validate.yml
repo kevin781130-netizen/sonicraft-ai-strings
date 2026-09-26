@@ -1,5 +1,17 @@
 name: SONICRAFT v7.0 RC - Windows VST3 + Validator
 on:
+  pull_request:
+    paths:
+      - "src/processor.cpp"
+      - "src/processor.h"
+      - "src/controller.cpp"
+      - "src/ids.h"
+      - "src/orchestra_conditioning_contract.h"
+      - "src/orchestra_conditioner_v71.h"
+      - "src/orchestra_conditioner_v71.cpp"
+      - "standalone/orchestra_conditioner_smoke_v71.cpp"
+      - "CMakeLists.txt"
+      - ".github/workflows/windows-vst3-validate.yml"
   workflow_dispatch:
 
 jobs:
