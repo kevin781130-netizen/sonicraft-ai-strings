@@ -12,7 +12,19 @@
       "instrument_role": "double_bass",
       "identity_status": "confirmed",
       "identity_authority": "user_supplied",
-      "confirmed_date": "2026-09-26"
+      "confirmed_date": "2026-09-26",
+      "intake_sequence": 1
+    }
+  ],
+  "pending_intake": [
+    {
+      "intake_sequence": 2,
+      "label_zh": "大提琴",
+      "label_en": "Cello",
+      "instrument_role": "cello",
+      "identity_status": "awaiting_source_file",
+      "identity_authority": "user_supplied",
+      "stated_date": "2026-09-26"
     }
   ]
 }
