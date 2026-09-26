@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, json, sys
+import argparse, json, sys, hashlib
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from dnni_pipeline_fingerprint import compute as compute_fingerprint
@@ -63,6 +63,12 @@ def validate_checkpoint(kind: str, path: Path, target: int, expected_fingerprint
             "percent":round(min(100.0,100.0*epoch/max(1,target)),1),
             "partial_epoch":ck.get("partial_epoch"),"partial_batches":ck.get("partial_batches")}
 
+def sha256_file(path: Path):
+    h=hashlib.sha256()
+    with path.open("rb") as f:
+        for b in iter(lambda:f.read(8<<20),b""): h.update(b)
+    return h.hexdigest()
+
 def count_jsonl(path: Path):
     if not path.exists(): return 0
     try:
@@ -110,9 +116,14 @@ def status():
     if latent_prov.exists():
         try:
             lp=json.loads(latent_prov.read_text(encoding="utf-8"))
-            latent_status={"exists":True,"valid":bool(fingerprint and lp.get("source_fingerprint")==fingerprint),
+            codec_path=Path("checkpoints/dnni4_vae64_research.pt")
+            current_codec_sha=sha256_file(codec_path) if codec_path.exists() else None
+            source_match=bool(fingerprint and lp.get("source_fingerprint")==fingerprint)
+            codec_match=bool(current_codec_sha and lp.get("codec_sha256")==current_codec_sha)
+            latent_status={"exists":True,"valid":bool(source_match and codec_match),
+                           "source_match":source_match,"codec_match":codec_match,
                            "saved_fingerprint":lp.get("source_fingerprint"),"rows":lp.get("rows"),
-                           "codec_sha256":lp.get("codec_sha256")}
+                           "codec_sha256":lp.get("codec_sha256"),"current_codec_sha256":current_codec_sha}
         except Exception as e:
             latent_status={"exists":True,"valid":False,"error":f"{type(e).__name__}: {e}"}
     out={
@@ -153,7 +164,8 @@ def print_human(s):
     if s.get("recipe_fingerprint"): print("Recipe hash  :",str(s["recipe_fingerprint"])[:20]+"...")
     lp=s.get("latent_provenance") or {}
     if lp.get("exists"):
-        print("Latent bind  :", "MATCH" if lp.get("valid") else "STALE/MISMATCH")
+        print("Latent bind  :", "MATCH" if lp.get("valid") else "STALE/MISMATCH",
+              f"(data={'ok' if lp.get('source_match') else 'bad'}, codec={'ok' if lp.get('codec_match') else 'bad'})")
     elif s.get("latent_rows"):
         print("Latent bind  : missing provenance")
     print("-"*66)
