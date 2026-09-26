@@ -16,6 +16,7 @@
 #include "string_ensemble_v44.h"
 #include "string_gesture_v45.h"
 #include "string_transition_v46.h"
+#include "orchestra_instruments.h"
 #include <array>
 #include <cstdint>
 #include <limits>
@@ -53,6 +54,7 @@ private:
     float midiAuthorityLock=1.f,phraseDirector=1.f,ensembleLooseness=.18f;
     // v6.4: optional microphone-mixer layer. Disabled by default so existing renders remain unchanged.
     float stageMixerEnable=0.f,stageMasterGain=1.f,stageOutputGain=1.f;
+    float orchestraInstrument=orchestraInstrumentNormalizedFromIndex(3); // Violin default; v7.1 persistent 15-instrument binding
     std::array<float,16> stageFeedGain{{.25f,.35f,.25f,.45f,.62f,.45f,.28f,.28f,.20f,.20f,0.f,.12f,.12f,.06f,.06f,0.f}};
     float hostScopeMode=0.f,hostScopeStyle=0.f,hostScopeLooseness=.30f;
     float takeCarouselMode=0.f,takeCarouselSelect=0.f,takeCarouselFreeze=0.f;
