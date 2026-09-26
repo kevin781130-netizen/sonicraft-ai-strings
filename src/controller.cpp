@@ -44,6 +44,8 @@ tresult PLUGIN_API Controller::initialize(FUnknown* context){auto r=EditControll
     auto* orchestraInstrumentParam=new StringListParameter(STR16("Orchestra Instrument"),kParamOrchestraInstrument);
     for(const TChar* x:{STR16("Double Bass"),STR16("Cello"),STR16("Viola"),STR16("Violin"),STR16("Piccolo"),STR16("Flute"),STR16("Oboe"),STR16("Clarinet in A"),STR16("Bassoon"),STR16("Tenor Saxophone"),STR16("Alto Saxophone"),STR16("French Horn"),STR16("B-flat Trumpet"),STR16("Tuba"),STR16("Trombone")})orchestraInstrumentParam->appendString(x);
     parameters.addParameter(orchestraInstrumentParam);
+    parameters.addParameter(STR16("Orchestra Model Ready"),nullptr,1,0.,ParameterInfo::kIsReadOnly,kParamOrchestraModelReady);
+    parameters.addParameter(STR16("Orchestra Catalog Coverage"),nullptr,0,0.,ParameterInfo::kIsReadOnly,kParamOrchestraCatalogCoverage);
     parameters.addParameter(STR16("MIDI Authority Lock"),nullptr,1,1.,ParameterInfo::kCanAutomate,kParamMidiAuthorityLock);
     parameters.addParameter(STR16("Phrase Director"),nullptr,1,1.,ParameterInfo::kCanAutomate,kParamPhraseDirector);
     parameters.addParameter(STR16("Ensemble Looseness"),nullptr,0,.18,ParameterInfo::kCanAutomate,kParamEnsembleLooseness);
