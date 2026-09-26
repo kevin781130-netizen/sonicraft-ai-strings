@@ -33,7 +33,8 @@ def main():
                     tag=f"s{int(slot['slot'])}_i{inst}_a{art:02d}_p{pitch:03d}_v{int(round(vel*100)):03d}"
                     rows.append({
                         'capture_id':tag,'timbre_id':tid,'timbre_label':label,'instrument':inst,
-                        'articulation':art,'articulation_name':art_name,'articulation_verified':False,'pitch':pitch,'velocity':vel,
+                        'articulation':art,'articulation_name':art_name,'articulation_verified':False,'pitch':pitch,
+                        'velocity':vel,'velocity_verified':False,
                         'seconds':a.seconds,'expected_wav':f"rendered/{tid}/{tag}.wav"
                     })
     p=Path(a.out);p.parent.mkdir(parents=True,exist_ok=True)
