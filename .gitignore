@@ -9,3 +9,4 @@ _deps/
 build-win64/
 release/*.vst3/
 *.log
+dnni_input/
