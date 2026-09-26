@@ -93,6 +93,21 @@
     "The four-module 512-state family uses general dense transforms rather than obvious identity/orthogonal/low-rank matrices.",
     "Known dimensions are not stored as plain uint32 descriptors in section1/section3/section4.",
     "The 64-row instrument-specific tail and 64-wide FP32 projection candidates are dimensionally aligned but independently parameterized.",
-    "A 64-dimensional instrument-adapter/state-subspace interpretation remains structurally plausible but semantically unproven."
-  ]
+    "A 64-dimensional instrument-adapter/state-subspace interpretation remains structurally plausible but semantically unproven.",
+    "No high-correlation direct or transpose matrix pair was found in the sampled 512-state family, so a simple tied encoder/decoder or transpose-tied topology is not supported."
+  ],
+  "pairwise_tied_weight_scan": {
+    "sample_roles": [
+      "violin",
+      "flute",
+      "french_horn",
+      "tuba"
+    ],
+    "evaluated_modules_per_role": 4,
+    "matrix_pairs_per_module": 21,
+    "comparisons": 336,
+    "max_direct_abs_normalized_correlation": 0.0357012674,
+    "max_transpose_abs_normalized_correlation": 0.0068245111,
+    "tied_or_transpose_pair_detected": false
+  }
 }
