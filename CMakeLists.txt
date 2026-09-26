@@ -15,7 +15,7 @@ option(SONICRAFT_BUILD_INPROCESS_ENGINE "Build the v2.8 performance-commander na
 set(SONICRAFT_ORT_SDK_ROOT "" CACHE PATH "Optional ONNX Runtime native SDK root containing include/ and lib/")
 
 if(MSVC)
-  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif()
 
 
