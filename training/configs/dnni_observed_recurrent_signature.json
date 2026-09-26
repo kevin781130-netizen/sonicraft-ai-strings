@@ -28,7 +28,7 @@
       ]
     ],
     "exact_identity_across_instruments": "15/15 within each module; slab differs between module indices",
-    "note": "The former 506x512 interpretation is not an exact tensor boundary; exact cross-model common prefix is 519152 bytes. Do not treat 506 as a verified input width."
+    "note": "Byte accounting across all four modules uniquely solves a 512x506 FP16 projection candidate followed by a bias packet. The fact that cross-model equality extends 1008 bytes into the bias packet does not invalidate the tensor boundary."
   },
   "instrument_specific_suffix_by_module": [
     {
@@ -64,7 +64,8 @@
     "six_512x512_matrices_matches_three_input_plus_three_recurrent_matrices": true,
     "suffix_vector_counts_match_common_three_or_six_bias_vector_parameterizations": true,
     "extra_506x512_shared_slab_requires_separate_explanation": true,
-    "conclusion": "matrix-count geometry remains suggestive, but the prior 506-wide input interpretation is falsified; GRU identity is unconfirmed."
+    "conclusion": "Six 512x512 FP16 matrices plus a shared 512x506 FP16 projection and 3/6 hidden-width bias vectors form a strong GRU-family-compatible geometry, but gate order and true operation remain unconfirmed."
   },
-  "structural_status": "geometry_candidate_only"
+  "structural_status": "strong layout candidate; operation identity still unconfirmed",
+  "evidence_file": "training/configs/dnni_observed_module_accounting.json"
 }
