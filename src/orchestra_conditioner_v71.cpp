@@ -21,7 +21,7 @@ float clampSigned(float v) noexcept {
 float normalizedPitch(float midiPitch, float cents) noexcept {
     const float semitone = (std::isfinite(midiPitch) ? midiPitch : 60.f)
                          + (std::isfinite(cents) ? cents : 0.f) / 100.f;
-    return std::clamp((semitone - 60.f) / 36.f, -2.f, 2.f);
+    return std::clamp((semitone - 60.f) / 60.f, -1.f, 1.f);
 }
 
 float articulationDensity(std::uint32_t bits) noexcept {
@@ -92,7 +92,7 @@ bool OrchestraConditionerV71::condition(
     const float notePhase = clamp01(control.notePhase);
     const float duration = std::clamp(
         std::isfinite(control.durationBeats) ? control.durationBeats : 1.f,
-        0.f, 64.f) / 8.f;
+        0.f, 64.f) / 64.f;
     const float velocity = clamp01(control.velocity);
     const float dynamics = clamp01(control.dynamics);
     const float expression = clamp01(control.expression);
