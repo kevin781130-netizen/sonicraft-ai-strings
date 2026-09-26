@@ -102,6 +102,10 @@ goto :MENU
 call RESET_DNNI_STAGE.bat
 goto :MENU
 
+:VERIFY
+call VERIFY_DNNI_RESULT.bat
+goto :MENU
+
 :RECIPE
 start "" notepad.exe "%CD%\training\configs\dnni_5090_training.json"
 goto :MENU
