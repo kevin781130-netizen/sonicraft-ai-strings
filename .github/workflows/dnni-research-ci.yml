@@ -91,7 +91,7 @@ jobs:
         run: |
           python training/scripts/generate_dnni_capture_plan.py --out "$env:RUNNER_TEMP/capture_plan.jsonl"
           $count = (Get-Content "$env:RUNNER_TEMP/capture_plan.jsonl").Count
-          if ($count -ne 720) { throw "Expected 720 capture rows, got $count" }
+          if ($count -ne 64) { throw "Expected 64 default timbre-only capture rows, got $count" }
           python -c "import json,sys; rows=[json.loads(x) for x in open(sys.argv[1],encoding='utf-8') if x.strip()]; assert all(r.get('articulation_verified') is False for r in rows), 'DNNI capture articulation must default to unverified'" "$env:RUNNER_TEMP/capture_plan.jsonl"
       - name: Validate four-timbre config and presets
         shell: pwsh
