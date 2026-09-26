@@ -31,6 +31,27 @@ int artFromNormalized(float v) noexcept {
                       0, kArticulationCount - 1);
 }
 
+std::uint32_t orchestraArticulationBits(const Processor::Controls& c) noexcept {
+    std::uint32_t bits = 0;
+    switch (static_cast<Articulation>(artFromNormalized(c.art))) {
+        case Articulation::Sustain:        bits |= kArtSustain; break;
+        case Articulation::Legato:         bits |= kArtSustain | kArtLegato; break;
+        case Articulation::Portamento:     bits |= kArtPortamento; break;
+        case Articulation::ExpressiveLong: bits |= kArtSustain | kArtTenuto; break;
+        case Articulation::Marcato:        bits |= kArtMarcato | kArtAccent; break;
+        case Articulation::Staccato:       bits |= kArtStaccato; break;
+        case Articulation::Spiccato:       bits |= kArtStaccato | kArtAccent; break;
+        case Articulation::Tremolo:        bits |= kArtTremolo; break;
+        case Articulation::Pizzicato:      bits |= kArtPizzicato; break;
+        case Articulation::Trill:          bits |= kArtTrill; break;
+        case Articulation::Harmonic:       bits |= kArtHarmonic; break;
+        case Articulation::Flautando:      bits |= kArtSustain; break;
+    }
+    if (c.leg >= .5f) bits |= kArtLegato;
+    if (c.sus >= .5f && bits == 0) bits |= kArtSustain;
+    return bits ? bits : kArtSustain;
+}
+
 bool decodeGestureVoiceParam(ParamID id, int& channel, ParamID& base) noexcept {
     if(id>=kParamVoiceGestureAmountBase && id<kParamVoiceGestureAmountBase+16){
         channel=static_cast<int>(id-kParamVoiceGestureAmountBase);base=kParamVoiceGestureAmountBase;return true;
@@ -159,6 +180,8 @@ tresult PLUGIN_API Processor::setBusArrangements(SpeakerArrangement*, int32 numI
 tresult PLUGIN_API Processor::setupProcessing(ProcessSetup& setup) {
     engine.setSampleRate(setup.sampleRate);
     shadow.configure(setup.sampleRate);
+    orchestraConditioner.reset(setup.sampleRate);
+    orchestraConditioningLaneReady.fill(false);
     return AudioEffect::setupProcessing(setup);
 }
 
@@ -840,6 +863,51 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     std::size_t scopeBoundaryIndex = 0;
     int32 cursor = 0;
 
+    auto conditionOrchestraNote = [&](int rawCh, int note, float velocity,
+                                      const Controls& c, int32 pos) noexcept {
+        if (rawCh < 0 || rawCh >= 16) return;
+
+        MusicalControlFrame frame{};
+        frame.midiPitch = static_cast<float>(note);
+        frame.notePhase = 0.f;
+        frame.durationBeats = 1.f;
+        frame.velocity = std::clamp(velocity, 0.f, 1.f);
+        frame.dynamics = c.dyn;
+        frame.expression = c.exp;
+        frame.vibrato = c.vib;
+        frame.pitchCents = (c.bend - .5f) * 200.f;
+        frame.transition = c.transition;
+        frame.attackCharacter = c.attack;
+        if (blockQuarterValid) {
+            const double q = quarterAtOffset(pos);
+            const double p = q - std::floor(q / 4.0) * 4.0;
+            frame.phrasePosition = static_cast<float>(std::clamp(p / 4.0, 0.0, 1.0));
+        }
+        frame.articulationBits = orchestraArticulationBits(c);
+
+        OrchestraPerformanceState performance{};
+        performance.instrument = static_cast<OrchestraInstrument>(
+            orchestraInstrumentIndexFromNormalized(orchestraInstrument));
+        performance.tempoBpm = static_cast<float>(hostTempoBpm);
+        performance.humanize = humanize;
+        performance.smartDynamics = smartDynamics;
+        performance.smartArticulation = smartArticulation;
+        performance.polyphony = polyphony;
+        performance.phraseDirector = phraseDirector;
+        performance.retakeAmount = retakeAmount;
+        performance.retakeSeed = static_cast<std::uint32_t>(
+            std::clamp(retakeNonce, 0.f, 1.f) * 4294967295.0);
+        performance.retakeTargetMask = static_cast<std::uint32_t>(
+            std::clamp(retakeTarget, 0.f, 1.f) * 65535.f);
+        performance.mic.enabled = stageMixerEnable >= .5f;
+        performance.mic.masterGain = stageMasterGain;
+        performance.mic.outputGain = stageOutputGain;
+        performance.mic.feedGain = stageFeedGain;
+
+        orchestraConditioningLaneReady[rawCh] = orchestraConditioner.condition(
+            frame, performance, orchestraConditioningLane[rawCh]);
+    };
+
     auto handleEvent = [&](const Event& e, int32 pos) noexcept {
         if (e.type == Event::kNoteOnEvent) {
             const int rawCh = e.noteOn.channel;
@@ -883,6 +951,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                 }
             } else if(laneExplicit) {
                 const auto c=mergedVoiceControl(rawCh);
+                conditionOrchestraNote(rawCh,note,e.noteOn.velocity,c,pos);
                 const int baseArt=artFromNormalized(c.art);
                 const auto stack=expressionStackFromNormalized(c.stack);
                 engine.noteOnVoice(ch,rawCh,note,e.noteOn.velocity,previewVoiceControl(rawCh,c));
@@ -890,6 +959,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                                 packArticulationExpression(baseArt,stack),e.noteOn.velocity,
                                 static_cast<float>(hostTempoBpm),toShadow(c));
             } else {
+                conditionOrchestraNote(rawCh,note,e.noteOn.velocity,part[ch],pos);
                 engine.noteOn(ch, note, e.noteOn.velocity);
                 shadow.pushMidi(ShadowRenderClient::NoteOn, projectStart + pos, ch, note,
                                 artFromNormalized(part[ch].art), e.noteOn.velocity,
