@@ -21,7 +21,7 @@ from dnni_model_shell import DnniModelCatalog, load_registry
 
 DEFAULT_SHARED_CORE_BYTES = 126_227_640
 DEFAULT_WINDOW_BYTES = 65_536
-COMMON_DIMS = (32, 64, 96, 128, 192, 256, 384, 512, 768, 1024, 1536, 2048)
+COMMON_DIMS = (32, 64, 96, 128, 192, 256, 288, 384, 512, 768, 1024, 1536, 2048)
 
 
 @dataclass
@@ -88,7 +88,7 @@ def shape_candidates(element_count: int) -> list[list[int]]:
         if element_count % a:
             continue
         b = element_count // a
-        if b in COMMON_DIMS and a <= b:
+        if b in COMMON_DIMS:
             out.append([a, b])
     return out
 
