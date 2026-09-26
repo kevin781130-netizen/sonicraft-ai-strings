@@ -17,12 +17,12 @@ def vtuple(s):
 def driver_info():
     try:
         p=subprocess.run(
-            ["nvidia-smi","--query-gpu=name,driver_version,memory.total","--format=csv,noheader,nounits"],
+            ["nvidia-smi","--query-gpu=name,driver_version,memory.total,memory.free","--format=csv,noheader,nounits"],
             capture_output=True,text=True,check=True
         )
         line=p.stdout.strip().splitlines()[0]
-        name,drv,mem=[x.strip() for x in line.split(",",2)]
-        return {"name":name,"driver":drv,"memory_mib":int(float(mem))}
+        name,drv,mem,free=[x.strip() for x in line.split(",",3)]
+        return {"name":name,"driver":drv,"memory_mib":int(float(mem)),"memory_free_mib":int(float(free))}
     except Exception as e:
         return {"error":f"{type(e).__name__}: {e}"}
 
@@ -60,9 +60,14 @@ def main():
 
     smi=driver_info(); report["nvidia_smi"]=smi
     drv=smi.get("driver")
-    # PyTorch 2.12 CUDA 13.0 Windows wheels require NVIDIA driver 580.88+.
-    if drv and str(report.get("torch_cuda","")).startswith("13.0") and vtuple(drv) < (580,88):
-        problems.append(f"NVIDIA driver {drv} is too old for the CUDA 13.0 PyTorch path; need Windows driver 580.88+.")
+    # NVIDIA CUDA 13.x minor-version compatibility requires an R580 (580+) driver.
+    if drv and str(report.get("torch_cuda","")).startswith("13.") and vtuple(drv) < (580,):
+        problems.append(f"NVIDIA driver {drv} is too old for CUDA 13.x; need NVIDIA driver 580+.")
+    if smi.get("memory_mib") and smi.get("memory_free_mib") is not None:
+        free_ratio=float(smi["memory_free_mib"])/max(1,float(smi["memory_mib"]))
+        report["gpu_free_ratio"]=round(free_ratio,3)
+        if free_ratio < 0.70:
+            warnings.append(f"Only {smi['memory_free_mib']/1024:.1f} GiB of {smi['memory_mib']/1024:.1f} GiB GPU memory is free. Close GPU-heavy apps before long training.")
 
     free=shutil.disk_usage(Path.cwd()).free/(1024**3)
     report["disk_free_gib"]=round(free,1)
