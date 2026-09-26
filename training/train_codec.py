@@ -87,6 +87,7 @@ def main():
     opt=torch.optim.AdamW(list(m.parameters())+list(probe.parameters()),a.lr,betas=(.8,.99),weight_decay=1e-3)
     dopt=torch.optim.AdamW(disc.parameters(),a.disc_lr,betas=(.8,.99),weight_decay=1e-3)
     data_fingerprint=os.environ.get('SONICRAFT_DATA_FINGERPRINT') or None
+    recipe_fingerprint=os.environ.get('SONICRAFT_RECIPE_FINGERPRINT') or None
     start=0
     if a.resume:
         ck=torch.load(a.resume,map_location='cpu')
@@ -94,6 +95,8 @@ def main():
             raise RuntimeError('resume checkpoint is not strings_vae64')
         if data_fingerprint and ck.get('data_fingerprint')!=data_fingerprint:
             raise RuntimeError(f'resume codec data fingerprint mismatch: saved={ck.get("data_fingerprint")} current={data_fingerprint}')
+        if recipe_fingerprint and ck.get('recipe_fingerprint')!=recipe_fingerprint:
+            raise RuntimeError(f'resume codec recipe fingerprint mismatch: saved={ck.get("recipe_fingerprint")} current={recipe_fingerprint}')
         saved_cfg=dict(ck.get('config') or {})
         current_cfg=m.config()
         if saved_cfg and saved_cfg!=current_cfg:
@@ -170,7 +173,7 @@ def main():
              'training_mix':{'real':a.real_ratio,'modeled':a.modeled_ratio,'modeled_recon_weight':a.modeled_recon_weight,'curriculum':curriculum},
              'acoustic_promotion_id':promotion_id,
              'physics_probe_training_only':True,'physics_metric_weight':a.physics_metric_weight,'sound_forge':'sound_forge_v19',
-             'data_fingerprint':data_fingerprint}
+             'data_fingerprint':data_fingerprint,'recipe_fingerprint':recipe_fingerprint}
         atomic_torch_save({**common,'model':m.state_dict(),'physics_probe':probe.state_dict(),'optimizer':opt.state_dict(),'d_optimizer':dopt.state_dict(),'discriminator':disc.state_dict()},a.out)
         decoder_out.parent.mkdir(parents=True,exist_ok=True)
         # Deliberately no probe/discriminator/encoder optimizer in consumer artifact.
