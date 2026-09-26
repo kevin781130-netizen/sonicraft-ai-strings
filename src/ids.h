@@ -101,6 +101,8 @@ enum ParamID : Steinberg::Vst::ParamID {
     kParamStageOutputGain = 828,
     // v7.1 orchestra-model binding. Separate from legacy kParamSingleInstrument so old DAW projects remain stable.
     kParamOrchestraInstrument = 829,
+    kParamOrchestraModelReady = 830,   // read-only: selected model manifest/header ready
+    kParamOrchestraCatalogCoverage = 831, // read-only: ready model count / 15
 };
 inline Steinberg::Vst::ParamID voiceParam(Steinberg::Vst::ParamID base, int channel) {
     return base + static_cast<Steinberg::Vst::ParamID>(channel);
