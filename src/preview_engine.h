@@ -13,8 +13,11 @@ struct PartControl {
 };
 struct Voice {
     bool active=false; int note=-1,channel=0,lane=-1,articulation=0; double phase=0.0,vibPhase=0.0,tremPhase=0.0,vibJitterPhase=0.0;
-    double env=0.0,target=0.0,baseFreq=440.0,ageSeconds=0.0; float velocity=0.8f; bool releasing=false,keyReleased=false;
+    double env=0.0,target=0.0,baseFreq=440.0,ageSeconds=0.0; float velocity=0.8f; bool releasing=false,keyReleased=false,legatoHandoff=false;
     PartControl localControl{};
+    // Fixed-size, per-voice acoustic state: no allocation or random_device on the audio thread.
+    double currentFreq=440.0,bodyLow=0.0,bodyBand=0.0,bodyBandLow=0.0,bowLow=0.0;
+    uint32_t noiseSeed=1;
 };
 class PreviewEngine {
 public:
