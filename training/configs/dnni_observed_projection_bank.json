@@ -43,7 +43,21 @@
       3,
       6
     ],
-    "shape_confidence": "structurally-linked, not axis-invariance-verified"
+    "shape_confidence": "structurally-linked, not axis-invariance-verified",
+    "last_matrix_split": {
+      "per_module": true,
+      "shared_prefix_bytes": 458752,
+      "variable_tail_bytes": 65536,
+      "exact_identity_across_15_models": {
+        "shared_prefix": "15/15",
+        "variable_tail": "1/15 reference-only"
+      },
+      "row_major_512_candidate": {
+        "shared_rows": 448,
+        "instrument_specific_rows": 64
+      },
+      "relation_to_projection_family": "64-row instrument-specific tail dimension matches the independently observed 512x64 / 64x512 FP32 projection family."
+    }
   },
   "right_bank": {
     "offset": 54984704,
