@@ -6,12 +6,21 @@ sys.path.insert(0,str(Path(__file__).resolve().parent))
 from dnni_pipeline_fingerprint import compute as compute_fingerprint
 from dnni_training_config import load as load_training_config, fingerprint as recipe_fingerprint
 
-STAGES = [
-    ("codec", Path("checkpoints/dnni4_vae64_research.pt"), 100),
-    ("renderer", Path("checkpoints/dnni4_renderer_hq_research_last.pt"), 260),
-    ("distill", Path("checkpoints/dnni4_frontier_research.pt"), 130),
-    ("shortcut", Path("checkpoints/dnni4_frontier_shortcut_research.pt"), 55),
+STAGE_PATHS = [
+    ("codec", Path("checkpoints/dnni4_vae64_research.pt")),
+    ("renderer", Path("checkpoints/dnni4_renderer_hq_research_last.pt")),
+    ("distill", Path("checkpoints/dnni4_frontier_research.pt")),
+    ("shortcut", Path("checkpoints/dnni4_frontier_shortcut_research.pt")),
 ]
+
+def stage_specs(recipe_cfg):
+    targets={
+        "codec":int(recipe_cfg["codec"]["epochs"]),
+        "renderer":int(recipe_cfg["renderer"]["epochs"]),
+        "distill":int(recipe_cfg["distill"]["epochs"]),
+        "shortcut":int(recipe_cfg["shortcut"]["epochs"]),
+    }
+    return [(k,p,targets[k]) for k,p in STAGE_PATHS]
 
 def load_checkpoint(path: Path):
     import torch
@@ -88,8 +97,10 @@ def status():
     raw=root/"rendered/index.jsonl"
     lat=root/"latents/index.jsonl"
     fingerprint=None; fp_error=None
-    recipe=None; recipe_error=None
-    try: recipe=recipe_fingerprint(load_training_config('training/configs/dnni_5090_training.json'))
+    recipe=None; recipe_cfg=None; recipe_error=None
+    try:
+        recipe_cfg=load_training_config('training/configs/dnni_5090_training.json')
+        recipe=recipe_fingerprint(recipe_cfg)
     except Exception as e: recipe_error=f"{type(e).__name__}: {e}"
     if bundle.exists() and raw.exists():
         try: fingerprint=compute_fingerprint()["fingerprint"]
@@ -117,7 +128,7 @@ def status():
         "render_manifest_rows":count_jsonl(raw),
         "latent_rows":count_jsonl(lat),
         "latent_provenance":latent_status,
-        "stages":[validate_checkpoint(k,p,t,fingerprint,recipe) for k,p,t in STAGES],
+        "stages":[validate_checkpoint(k,p,t,fingerprint,recipe) for k,p,t in (stage_specs(recipe_cfg) if recipe_cfg else [(k,p,0) for k,p in STAGE_PATHS])],
     }
     return out
 
