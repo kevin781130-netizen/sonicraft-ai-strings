@@ -217,12 +217,17 @@ def probe_conditioning_interface(models) -> dict:
             "exact_common_prefix_bytes_by_module": prefix_lengths,
             "suffix_dtype_pattern": suffix_dtypes,
             "modules": modules,
-            "old_506_conditioning_width_supported": all(
-                x == OLD_506_BOUNDARY_BYTES for x in prefix_lengths
+            "projection_boundary_506_bytes": OLD_506_BOUNDARY_BYTES,
+            "common_prefix_extends_beyond_projection_boundary_by_bytes": [
+                max(0, x - OLD_506_BOUNDARY_BYTES) for x in prefix_lengths
+            ],
+            "projection_width_506_status": (
+                "supported_by_exact_module_byte_accounting; not proven as raw musical conditioning width"
             ),
             "conclusion": (
-                "The previous 506-wide conditioning interpretation is not supported by "
-                "the exact cross-model boundary and must not be treated as a verified input width."
+                "The exact cross-model common prefix extends into the bias packet, so it is "
+                "not a tensor boundary. The 506-wide internal projection remains supported by "
+                "module byte accounting, while the producer of that 506-vector is still unknown."
             ),
         },
         "adjacent_projection_interface": {
@@ -243,8 +248,8 @@ def probe_conditioning_interface(models) -> dict:
             ],
         },
         "next_evidence_gate": (
-            "Determine whether the adjacent 128/256-compatible bank is input-side, output-side "
-            "or bidirectional by finding an independently verifiable producer/consumer tensor."
+            "Identify the producer of the internal 506-wide vector and map the adjacent "
+            "128/256 bank branches into that producer without assuming musical semantics."
         ),
     }
 
