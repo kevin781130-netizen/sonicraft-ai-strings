@@ -17,7 +17,7 @@ struct Voice {
     double env=0.0,target=0.0,baseFreq=440.0,ageSeconds=0.0; float velocity=0.8f; bool releasing=false,keyReleased=false,legatoHandoff=false;
     PartControl localControl{};
     // Fixed-size, per-voice acoustic state: no allocation or random_device on the audio thread.
-    double currentFreq=440.0,bodyLow=0.0,bodyBand=0.0,bodyBandLow=0.0,bowLow=0.0;
+    double currentFreq=440.0,bodyLow=0.0,bodyBand=0.0,bodyBandLow=0.0,bowLow=0.0,body2Low=0.0,body2Band=0.0;
     uint32_t noiseSeed=1;
 };
 class PreviewEngine {

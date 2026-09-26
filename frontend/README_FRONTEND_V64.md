@@ -52,3 +52,11 @@ Sustain pedal now starts **off** on newly created instances: note-off releases
 the note. An existing saved project restores its saved pedal value. The four
 legacy solo parts retain their own Q4 mode and can be selected independently of
 the 15 acoustic preview instruments.
+
+All 15 preview choices have independent source spectra and two profile-specific
+body modes, and share the same 12 articulation keyswitches, polyphonic MIDI,
+CC/pitch automation, pedal release and sample-rate behavior. This makes the
+DAW performance interface consistent across instruments. Articulations on wind
+instruments are synthetic interpretations; these are not recorded or trained
+instrument models. Multi-mic DAW outputs and AI retake rendering are features
+of the older Q4 path and are not active for the acoustic preview path.

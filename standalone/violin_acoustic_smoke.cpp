@@ -54,6 +54,25 @@ int main() {
         assert(power>1e-8);
         assert(acousticOverrideIndex(float(instrument+1)/15.f)==instrument);
     }
+    // Every voice shares the same DAW ABI, including all keyswitch articulations,
+    // active CC modulation, overlapping notes and common offline sample rates.
+    for(double rate:{44100.0,48000.0,96000.0})for(int instrument=0;instrument<15;++instrument){
+        for(int art=0;art<kArticulationCount;++art){
+            PreviewEngine voice;voice.setSampleRate(rate);voice.setPartInstrument(0,instrument);
+            PartControl c;c.articulation=art;c.sustain=false;
+            voice.noteOnVoice(0,0,60,.8f,c);
+            voice.noteOnVoice(0,1,67,.7f,c);
+            double power=0;
+            for(int b=0;b<5;++b){
+                float left[256]{},right[256]{};
+                if(b==2){c.dynamics=.3f;c.expression=.55f;c.pitchBend=.7f;voice.updateVoiceLaneControl(0,c);}
+                voice.render(left,right,256);
+                for(int i=0;i<256;++i){assert(std::isfinite(left[i])&&std::isfinite(right[i]));power+=double(left[i])*left[i]+double(right[i])*right[i];}
+            }
+            assert(power>1e-9);
+            voice.noteOffVoice(0,0,60);voice.noteOffVoice(0,1,67);
+        }
+    }
     assert(acousticOverrideIndex(0.f)==-1);
     // A DAW note-off must release by default; CC64 sustains only while held.
     {

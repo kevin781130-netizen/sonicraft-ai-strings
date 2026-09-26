@@ -197,6 +197,9 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     if (lastProjectEnd != 0 &&
         (projectStart < lastProjectEnd - data.numSamples || projectStart > lastProjectEnd + data.numSamples * 4LL)) {
         shadow.resetTimeline(projectStart);
+        // Host seek/loop restart must not leave preview notes sustaining at
+        // their previous timeline location.
+        engine.allNotesOff();
     }
     lastProjectEnd = projectStart + data.numSamples;
 

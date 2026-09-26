@@ -84,14 +84,28 @@ void PreviewEngine::render(float* left,float* right,int32_t n){if(!left||!right)
         v.currentFreq+=(targetFreq-v.currentFreq)*(1.-std::exp(-1./(sampleRate*glide)));
         const double f=v.currentFreq;v.phase+=twoPi*f/sampleRate;if(v.phase>twoPi)v.phase-=twoPi;v.tremPhase+=twoPi*10.5/sampleRate;if(v.tremPhase>twoPi)v.tremPhase-=twoPi;
         const double ph=v.phase;float bright=profile.brightness*(.70f+.55f*c.dynamics);if(a==(int)Articulation::Flautando)bright*=.46f;if(a==(int)Articulation::Harmonic)bright*=1.25f;float s;
-        if(a==(int)Articulation::Harmonic)s=float(.35*std::sin(ph)+.75*std::sin(2*ph)+.28*std::sin(4*ph));else s=float(std::sin(ph)+.48*bright*std::sin(2*ph+.12)+.23*bright*std::sin(3*ph+.31)+.10*bright*std::sin(5*ph+.47));
+        if(a==(int)Articulation::Harmonic)s=float(.35*std::sin(ph)+.75*std::sin(2*ph)+.28*std::sin(4*ph));
+        else switch(profile.family){
+            case AcousticFamily::Bowed:
+                s=float(std::sin(ph)+.48*bright*std::sin(2*ph+.12)+.23*bright*std::sin(3*ph+.31)+.10*bright*std::sin(5*ph+.47));break;
+            case AcousticFamily::Flute:
+                s=float(std::sin(ph)+.12*bright*std::sin(2*ph)+.035*bright*std::sin(3*ph));break;
+            case AcousticFamily::Reed:
+                s=float(std::sin(ph)+.12*bright*std::sin(2*ph)+.44*bright*std::sin(3*ph)+.16*bright*std::sin(5*ph));break;
+            case AcousticFamily::Brass: {
+                const double lip=.12+.50*double(c.dynamics);
+                s=float(std::sin(ph)+lip*bright*std::sin(2*ph+.08)+.32*lip*bright*std::sin(3*ph)+.16*lip*bright*std::sin(4*ph));break;
+            }
+            case AcousticFamily::Sax:
+                s=float(std::sin(ph)+.35*bright*std::sin(2*ph+.16)+.32*bright*std::sin(3*ph+.3)+.13*bright*std::sin(4*ph));break;
+        }
         if(a==(int)Articulation::Tremolo) s*=float(.66+.34*(.5+.5*std::sin(v.tremPhase)));
         if(a==(int)Articulation::Trill) s+=.28f*float(std::sin(ph*std::pow(2.,2./12.)));
         if(a==(int)Articulation::Pizzicato) s*=float(std::exp(-5.5*(1.-v.env)));
         if(a==(int)Articulation::Marcato) s*=1.18f;
         if(a!=(int)Articulation::Pizzicato){
-            // A shared, allocation-free voice ABI with profile-specific bow/breath air and
-            // damped body modes. These remain synthesis previews, not trained instruments.
+            // Independent source spectra and two bounded body modes; no samples or
+            // allocation on the audio thread. These remain synthesis previews.
             const double pressure=std::clamp(double(c.dynamics)*(.65+.35*c.attackCharacter),0.,1.);
             const double white=bowNoise(v);v.bowLow+=.075*(white-v.bowLow);
             const double friction=(white-v.bowLow)*profile.air*(profile.bowed?(.40+.80*pressure):(.35+.45*pressure));
@@ -100,7 +114,10 @@ void PreviewEngine::render(float* left,float* right,int32_t n){if(!left||!right)
             v.bodyBand+=g*(drive-v.bodyLow-.30*v.bodyBand);
             v.bodyLow+=g*v.bodyBand;
             v.bodyBandLow+=.09*(v.bodyBand-v.bodyBandLow);
-            s+=float(profile.bodyMix*v.bodyBandLow+friction*(profile.bowed?.55:.75));
+            const double g2=std::min(.25,2.*std::sin(3.141592653589793*profile.secondBodyHz/sampleRate));
+            v.body2Band+=g2*(drive-v.body2Low-.38*v.body2Band);
+            v.body2Low+=g2*v.body2Band;
+            s+=float(profile.bodyMix*v.bodyBandLow+profile.secondBodyMix*v.body2Band+friction*(profile.bowed?.55:.75));
         }
         const float gain=.075f*v.velocity*(.20f+.80f*c.dynamics)*c.expression*c.volume*float(v.env);s*=gain;const float pan=panForPart(p),gl=std::sqrt(.5f*(1.f-pan)),gr=std::sqrt(.5f*(1.f+pan));L+=s*gl;R+=s*gr;
     }left[i]+=L;right[i]+=R;}
