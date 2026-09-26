@@ -42,14 +42,30 @@ if not exist "%ROOT%\capture_plan.jsonl" (
   echo [SETUP] Creating four-timbre capture plan...
   python training\scripts\run_logged.py --log "%LOGROOT%\capture_plan.log" -- python training\scripts\generate_dnni_capture_plan.py || goto :FAIL
 )
+if not exist "%ROOT%\batch_capture\batch_capture_map.json" (
+  echo [SETUP] Creating four long capture MIDI files...
+  python training\scripts\run_logged.py --log "%LOGROOT%\batch_capture.log" -- python training\scripts\generate_dnni_batch_capture_midi.py || goto :FAIL
+)
 
 if not exist "%RAW%" (
+  set "HAVE_BATCH_BOUNCES=1"
+  for %%T in (timbre_1 timbre_2 timbre_3 timbre_4) do (
+    if not exist "%ROOT%\batch_bounces\%%T.wav" set "HAVE_BATCH_BOUNCES=0"
+  )
+  if "!HAVE_BATCH_BOUNCES!"=="1" (
+    echo [SETUP] Found four long batch bounces. Slicing automatically...
+    python training\scripts\run_logged.py --log "%LOGROOT%\batch_slice.log" -- python training\scripts\slice_dnni_batch_bounces.py || goto :FAIL
+  )
   echo [SETUP] Building render manifest from captured WAV files...
   python training\scripts\run_logged.py --log "%LOGROOT%\render_manifest.log" -- python training\scripts\build_dnni_render_manifest.py
   if errorlevel 1 (
     echo.
     echo [ERROR] Rendered WAV capture set is not complete yet.
-    echo Follow datasets\dnni_four_timbres\capture_plan.jsonl and render the expected WAV files first.
+    echo Easiest path:
+    echo   1. Run PREPARE_DNNI_CAPTURE.bat
+    echo   2. Import the 4 generated MIDI files into Synthesizer V Studio 2
+    echo   3. Bounce 4 long WAVs into datasets\dnni_four_timbres\batch_bounces
+    echo   4. Run TRAIN_DNNI_5090.bat again
     goto :FAIL
   )
 )
