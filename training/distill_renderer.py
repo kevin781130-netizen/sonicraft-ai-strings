@@ -35,6 +35,9 @@ def main():
     teacher=BalladFlowRenderer(latent_ch=latent_ch,**tcfg).to(dev).eval(); teacher.load_state_dict(tck.get('ema',tck['model']))
     student=BalladFlowRenderer(latent_ch=latent_ch,**PRESETS[a.student_preset]).to(dev); ema=copy.deepcopy(student).eval().requires_grad_(False)
     opt=torch.optim.AdamW(student.parameters(),1.0e-4,weight_decay=.01,betas=(.9,.95))
+    use_amp=(dev=='cuda' and torch.cuda.is_bf16_supported())
+    ampctx=lambda: torch.autocast(device_type='cuda',dtype=torch.bfloat16,enabled=use_amp)
+    print('distill device',dev,'bf16',use_amp,'teacher',a.teacher,'student',a.student_preset)
     data_fingerprint=os.environ.get('SONICRAFT_DATA_FINGERPRINT') or None
     recipe_fingerprint=os.environ.get('SONICRAFT_RECIPE_FINGERPRINT') or None
     start=0
@@ -67,14 +70,15 @@ def main():
             args=(xt,time,p,g,o,vel,d,vib,exp,leg,pb,ts,st,ac,np_,phr,pi,ni,bow,vib_on,
                   bpm,spb,dur_b,trans_ms,speed_prof,vib_depth,vib_rate,vib_jit,
                   dk,vk,ek,lk,pk,tk,ak,ins,art,player,art_curve)
-            with torch.no_grad(): tp=teacher(*args,vibrato_physics_known=vpk)
-            sp=student(*args,vibrato_physics_known=vpk)
-            hard_per=(sp-target).pow(2).mean(dim=(1,2)); soft_per=(sp-tp).pow(2).mean(dim=(1,2))
-            sw=torch.tensor([a.modeled_flow_weight if str(x).lower() in modeled_sources else 1.0 for x in dsnames],device=dev,dtype=hard_per.dtype)
-            hard=(hard_per*sw).sum()/sw.sum().clamp_min(1e-6); soft=(soft_per*sw).sum()/sw.sum().clamp_min(1e-6)
-            # Modeled clips keep full authority over local transition shape while their endpoint/timbre pressure is reduced.
-            continuity=((sp[...,1:]-sp[...,:-1])-(tp[...,1:]-tp[...,:-1])).abs().mean() if sp.shape[-1]>1 else hard.new_tensor(0.)
-            loss=(1-a.alpha)*hard+a.alpha*soft+.05*continuity
+            with ampctx():
+                with torch.no_grad(): tp=teacher(*args,vibrato_physics_known=vpk)
+                sp=student(*args,vibrato_physics_known=vpk)
+                hard_per=(sp-target).pow(2).mean(dim=(1,2)); soft_per=(sp-tp).pow(2).mean(dim=(1,2))
+                sw=torch.tensor([a.modeled_flow_weight if str(x).lower() in modeled_sources else 1.0 for x in dsnames],device=dev,dtype=hard_per.dtype)
+                hard=(hard_per*sw).sum()/sw.sum().clamp_min(1e-6); soft=(soft_per*sw).sum()/sw.sum().clamp_min(1e-6)
+                # Modeled clips keep full authority over local transition shape while their endpoint/timbre pressure is reduced.
+                continuity=((sp[...,1:]-sp[...,:-1])-(tp[...,1:]-tp[...,:-1])).abs().mean() if sp.shape[-1]>1 else hard.new_tensor(0.)
+                loss=(1-a.alpha)*hard+a.alpha*soft+.05*continuity
             (loss/a.accum).backward()
             if (bi+1)%a.accum==0:
                 torch.nn.utils.clip_grad_norm_(student.parameters(),1.0); opt.step(); opt.zero_grad(set_to_none=True); ema_update(ema,student,.999)
