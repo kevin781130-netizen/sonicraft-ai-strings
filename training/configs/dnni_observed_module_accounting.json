@@ -1,0 +1,35 @@
+{
+  "schema": "sonicraft-dnni-observed-module-byte-accounting-v1",
+  "source": "15 confirmed DNNI v4 models, exact module serialization arithmetic",
+  "truth_boundary": "Exact byte accounting plus dtype/sharing evidence. The 506-wide projection is a strong layout candidate; graph direction and musical semantics are unconfirmed.",
+  "hidden_width": 512,
+  "module_stride_bytes": 3670016,
+  "module_count": 4,
+  "decomposition": {
+    "core": "6 x (512x512 FP16)",
+    "projection_candidate": "512x506 FP16 or transpose",
+    "bias_packet_modules_0_2": "6 x 512 FP16",
+    "bias_packet_module_3": "3 x 512 FP32"
+  },
+  "byte_equations": [
+    "6*(512*512*2) + (512*506*2) + (6*512*2) = 3670016",
+    "6*(512*512*2) + (512*506*2) + (3*512*4) = 3670016"
+  ],
+  "solved_projection_widths": [
+    506,
+    506,
+    506,
+    506
+  ],
+  "sharing_pattern_per_module": {
+    "matrices_0_3": "instrument-specific, 1/15 exact",
+    "matrices_4_5": "cross-instrument shared, 15/15 exact",
+    "projection_candidate": "cross-instrument shared, 15/15 exact",
+    "bias_packet": "instrument-specific as a whole"
+  },
+  "bias_common_prefix_detail": {
+    "modules_0_2": "first bias vector has first 504/512 values shared; remaining vectors are instrument-specific",
+    "module_3": "first bias vector has first 252/512 FP32 values shared; remaining vectors are instrument-specific"
+  },
+  "correction": "The 519152-byte cross-model common prefix extends into the bias packet. It does not falsify the 518144-byte projection boundary."
+}
