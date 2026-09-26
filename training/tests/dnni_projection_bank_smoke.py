@@ -81,6 +81,13 @@ def main() -> None:
             assert module["matrices"][4]["exact_identity_models"] == 3
             assert module["matrices"][5]["exact_identity_models"] == 3
             assert module["matrices"][6]["exact_identity_models"] == 1
+            split = module["last_matrix_split"]
+            assert split["shared_prefix_exact_identity_models"] == 3
+            assert split["variable_tail_exact_identity_models"] == 1
+            assert split["row_major_512_candidate"] == {
+                "shared_rows": 448,
+                "instrument_specific_rows": 64,
+            }
         print("dnni_projection_bank_smoke: ok")
 
 
