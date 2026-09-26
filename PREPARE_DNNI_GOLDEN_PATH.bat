@@ -19,6 +19,9 @@ if errorlevel 1 exit /b %ERRORLEVEL%
 "%PY%" "runtime\dnni_tensor_shape_probe.py" "%MODEL_DIR%" --out "%MODEL_DIR%\dnni_tensor_shapes.json"
 if errorlevel 1 exit /b %ERRORLEVEL%
 
+"%PY%" "runtime\dnni_projection_bank_probe.py" "%MODEL_DIR%" --out "%MODEL_DIR%\dnni_projection_bank.json"
+if errorlevel 1 exit /b %ERRORLEVEL%
+
 "%PY%" "runtime\dnni_graph_fragment_probe.py" --out "%MODEL_DIR%\dnni_graph_fragment.json"
 if errorlevel 1 exit /b %ERRORLEVEL%
 
