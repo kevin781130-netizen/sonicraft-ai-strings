@@ -31,6 +31,7 @@ def main() -> int:
     ap.add_argument("--operation-constraints", default=None)
     ap.add_argument("--recurrent-signature", default=None)
     ap.add_argument("--recurrent-hypothesis", default=None)
+    ap.add_argument("--conditioning-interface", default=None)
     ap.add_argument("--out", default="violin_a4_golden_path.json")
     args = ap.parse_args()
 
@@ -61,6 +62,7 @@ def main() -> int:
     operation_constraints = maybe_json(args.operation_constraints)
     recurrent_signature = maybe_json(args.recurrent_signature)
     recurrent_hypothesis = maybe_json(args.recurrent_hypothesis)
+    conditioning_interface = maybe_json(args.conditioning_interface)
 
     result = {
         "schema": "sonicraft-dnni-golden-path-v1",
@@ -118,12 +120,13 @@ def main() -> int:
             "operation_constraints": operation_constraints,
             "recurrent_signature": recurrent_signature,
             "recurrent_hypothesis": recurrent_hypothesis,
+            "conditioning_interface": conditioning_interface,
         },
         "ready_for_audio_inference": False,
         "blocking_unknowns": [
             "graph operation direction/order beyond the verified dimension fragment",
             "nonlinear activation/state-update semantics",
-            "exact note/phrase conditioning tensor schema",
+            "direction/semantics of the adjacent 128/256 projection-bank interface",
             "output representation and acoustic decoder",
             "candidate mic-tail semantic mapping",
         ],
