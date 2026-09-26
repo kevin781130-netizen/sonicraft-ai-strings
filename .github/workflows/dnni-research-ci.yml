@@ -4,6 +4,10 @@ on:
   pull_request:
     paths:
       - "training/dnni_reference.py"
+      - "runtime/dnni_model_shell.py"
+      - "training/tests/dnni_model_shell_smoke.py"
+      - "DNNI_MODEL_SHELL.bat"
+      - "training/configs/dnni_source_labels.json"
       - "training/train_codec.py"
       - "training/train_ballad_renderer.py"
       - "training/models/ballad_flow_renderer.py"
@@ -67,6 +71,8 @@ jobs:
         run: |
           $files = @(
             "training/dnni_reference.py",
+            "runtime/dnni_model_shell.py",
+            "training/tests/dnni_model_shell_smoke.py",
             "training/train_codec.py",
             "training/train_ballad_renderer.py",
             "training/models/ballad_flow_renderer.py",
@@ -93,6 +99,10 @@ jobs:
             "training/scripts/run_logged.py"
           )
           foreach ($f in $files) { python -m py_compile $f; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+      - name: Smoke DNNI model shell
+        shell: pwsh
+        run: |
+          python training/tests/dnni_model_shell_smoke.py
       - name: Generate deterministic capture plan
         shell: pwsh
         run: |
