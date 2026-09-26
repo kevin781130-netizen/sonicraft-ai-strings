@@ -1,0 +1,18 @@
+{
+  "schema": "sonicraft-dnni-source-labels-v1",
+  "policy": "User-provided instrument identities are authoritative labels tied to immutable source/weight hashes. Raw proprietary DNNI bytes are not committed.",
+  "sources": [
+    {
+      "source_uuid": "43573cb5-3ad0-55ab-bb32-a91e1d18edec",
+      "source_filename": "43573cb5-3ad0-55ab-bb32-a91e1d18edec.dnni",
+      "source_dnni_sha256": "ddc6c82f74a52fadb1d19605ba257aed3f19aa808bfb25d271677617e7f46d3a",
+      "weights_sha256": "960cb8b6b32a8202b866512b5717b68002e0617e3d3547bc4c4a1fa42ac9576e",
+      "label_zh": "低音提琴",
+      "label_en": "Double Bass",
+      "instrument_role": "double_bass",
+      "identity_status": "confirmed",
+      "identity_authority": "user_supplied",
+      "confirmed_date": "2026-09-26"
+    }
+  ]
+}
