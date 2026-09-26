@@ -3,6 +3,7 @@
 #include <cmath>
 #include <cstdint>
 #include "articulations.h"
+#include "acoustic_instruments.h"
 namespace Sonicraft::AIStrings {
 enum class Part : uint8_t { Violin1=0, Violin2=1, Viola=2, Cello=3 };
 struct PartControl {
@@ -12,7 +13,7 @@ struct PartControl {
     bool continuousGesture=false;
 };
 struct Voice {
-    bool active=false; int note=-1,channel=0,lane=-1,articulation=0; double phase=0.0,vibPhase=0.0,tremPhase=0.0,vibJitterPhase=0.0;
+    bool active=false; int note=-1,channel=0,lane=-1,articulation=0,instrument=0; double phase=0.0,vibPhase=0.0,tremPhase=0.0,vibJitterPhase=0.0;
     double env=0.0,target=0.0,baseFreq=440.0,ageSeconds=0.0; float velocity=0.8f; bool releasing=false,keyReleased=false,legatoHandoff=false;
     PartControl localControl{};
     // Fixed-size, per-voice acoustic state: no allocation or random_device on the audio thread.
@@ -25,6 +26,7 @@ public:
     void setSampleRate(double sr){sampleRate=sr>1000.0?sr:48000.0;}
     void setTempo(double bpm){tempoBpm=bpm>=24.0&&bpm<=300.0?bpm:tempoBpm;}
     void setHumanize(float v){humanize=clamp01(v);}
+    void setPartInstrument(int part,int instrument){if(validPart(part))instruments[part]=acousticProfileIndex(instrument);}
     void setPartDynamics(int p,float v){if(validPart(p))ctl[p].dynamics=clamp01(v);} void setPartVibrato(int p,float v){if(validPart(p))ctl[p].vibrato=clamp01(v);}
     void setPartExpression(int p,float v){if(validPart(p))ctl[p].expression=clamp01(v);} void setPartVolume(int p,float v){if(validPart(p))ctl[p].volume=clamp01(v);}
     void setPartPan(int p,float v){if(validPart(p))ctl[p].pan=clamp01(v);} void setPartRoom(int p,float v){if(validPart(p))ctl[p].room=clamp01(v);}
@@ -43,6 +45,6 @@ private:
     static float clamp01(float v){return v<0.f?0.f:(v>1.f?1.f:v);} static bool validPart(int p){return p>=0&&p<kParts;}
     static double midiToHz(int n){return 440.0*std::pow(2.0,(n-69)/12.0);} float panForPart(int p)const;float toneForPart(int p)const;Voice* allocateVoice();
     double transitionSeconds(int articulation,const PartControl& c) const; double vibratoDepthCents(float cc3) const; double vibratoRateHz(int part,int note,float cc3,const PartControl& c) const;
-    std::array<Voice,kMaxVoices> voices{};std::array<PartControl,kParts> ctl{};double sampleRate=48000.0,tempoBpm=68.0;float humanize=.16f;
+    std::array<Voice,kMaxVoices> voices{};std::array<PartControl,kParts> ctl{};std::array<int,kParts> instruments{{0,0,1,2}};double sampleRate=48000.0,tempoBpm=68.0;float humanize=.16f;
 };
 }

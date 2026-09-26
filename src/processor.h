@@ -48,7 +48,7 @@ private:
     ShadowRenderClient shadow;
     PreferenceClientV38 preference;
     std::array<Controls,4> part{};
-    float mode=0.f,activePart=0.f,humanize=.16f,aiMix=.85f,layoutMode=0.f,singleInstrument=0.f,aiAssist=.5f,lookAhead=.35f,autoDivisi=0.f;
+    float mode=0.f,activePart=0.f,humanize=.16f,aiMix=.85f,layoutMode=0.f,singleInstrument=0.f,acousticPreviewInstrument=0.f,aiAssist=.5f,lookAhead=.35f,autoDivisi=0.f;
     float performanceStyle=0.f,smartDynamics=0.f,smartArticulation=0.f,retakeTarget=0.f,retakeAmount=0.f,retakeNonce=0.f,stagePerspective=.333333f,polyphony=1.f;
     float midiAuthorityLock=1.f,phraseDirector=1.f,ensembleLooseness=.18f;
     // v6.4: optional microphone-mixer layer. Disabled by default so existing renders remain unchanged.

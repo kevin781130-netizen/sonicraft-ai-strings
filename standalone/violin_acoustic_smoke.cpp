@@ -44,5 +44,16 @@ int main() {
     assert(energy>0.01);
     // The carried phase/short crossfade must not click sharply at the note boundary.
     assert(std::abs(a[4800]-a[4799])<.15f);
+    // Every advertised SONICRAFT preview profile must be reachable, finite and audible.
+    for(int instrument=0;instrument<15;++instrument){
+        PreviewEngine voice;voice.setSampleRate(48000);voice.setPartInstrument(0,instrument);
+        voice.noteOn(0,60,.8f);
+        float left[512]{},right[512]{};voice.render(left,right,512);
+        double power=0;
+        for(int i=0;i<512;++i){assert(std::isfinite(left[i])&&std::isfinite(right[i]));power+=left[i]*left[i]+right[i]*right[i];}
+        assert(power>1e-8);
+        assert(acousticOverrideIndex(float(instrument+1)/15.f)==instrument);
+    }
+    assert(acousticOverrideIndex(0.f)==-1);
     std::cout<<"Violin acoustic voice block parity / legato smoke OK\n";
 }

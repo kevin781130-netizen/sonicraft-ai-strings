@@ -16,7 +16,7 @@ using namespace Steinberg::Vst;
 namespace Sonicraft::AIStrings {
 namespace {
 
-constexpr int kStateVersion = 14;
+constexpr int kStateVersion = 15;
 constexpr int kAuxFeedCount = 16;
 constexpr std::size_t kMaxAutomationPointsPerBlock = 4096;
 
@@ -511,6 +511,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             case kParamAIMix: aiMix = v; runtimeState(offset); break;
             case kParamLayoutMode: layoutMode = v; break;
             case kParamSingleInstrument: singleInstrument = v; break;
+            case kParamAcousticPreviewInstrument: acousticPreviewInstrument = v; break;
             case kParamAIAssist: aiAssist = v; runtimeState(offset); break;
             case kParamLookAhead: lookAhead = v; runtimeState(offset); break;
             case kParamAutoDivisi: autoDivisi = v; break;
@@ -839,6 +840,25 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     int32 cursor = 0;
 
     auto handleEvent = [&](const Event& e, int32 pos) noexcept {
+        const int acoustic=layoutMode<.5f?acousticOverrideIndex(acousticPreviewInstrument):-1;
+        if(acoustic>=0 && (e.type==Event::kNoteOnEvent || e.type==Event::kNoteOffEvent)){
+            const bool on=e.type==Event::kNoteOnEvent;
+            const int rawCh=on?e.noteOn.channel:e.noteOff.channel;
+            const int note=on?e.noteOn.pitch:e.noteOff.pitch;
+            if(rawCh<0||rawCh>=16)return;
+            const int selected=std::clamp(int(singleInstrument*3.f+.5f),0,3);
+            engine.setPartInstrument(selected,acoustic);
+            if(isKeyswitch(note)){
+                if(on)engine.setPartArticulation(selected,articulationFromKeyswitch(note));
+                return;
+            }
+            if(on){
+                auto c=toPreviewControl(part[selected]);
+                c.continuousGesture=c.legato && c.articulation==(int)Articulation::Legato;
+                engine.noteOnVoice(selected,rawCh,note,e.noteOn.velocity,c);
+            }else engine.noteOffVoice(selected,rawCh,note);
+            return;
+        }
         if (e.type == Event::kNoteOnEvent) {
             const int rawCh = e.noteOn.channel;
             if(rawCh<0||rawCh>=16)return;
@@ -978,12 +998,13 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         }
     }
 
-    shadow.mix(out[0], out[1], auxL.data(), auxR.data(), auxPairs, data.numSamples, projectStart);
+    if(!(layoutMode<.5f && acousticOverrideIndex(acousticPreviewInstrument)>=0))
+        shadow.mix(out[0], out[1], auxL.data(), auxR.data(), auxPairs, data.numSamples, projectStart);
 
     // v6.4 microphone mixer. The legacy/model master remains the default path. When enabled,
     // the master bus is reconstructed from the available geometry feeds using equal-power
     // normalization; each exposed aux feed also receives its own fader gain. No allocation/locks.
-    if(stageMixerEnable>=.5f && auxPairs>0){
+    if(stageMixerEnable>=.5f && auxPairs>0 && !(layoutMode<.5f && acousticOverrideIndex(acousticPreviewInstrument)>=0)){
         double energy=0.0;
         for(int a=0;a<auxPairs;++a){const float g=std::clamp(stageFeedGain[static_cast<std::size_t>(a)],0.f,1.f);energy+=double(g)*double(g);}
         const float norm=energy>1.0 ? float(1.0/std::sqrt(energy)) : 1.f;
@@ -1105,6 +1126,8 @@ tresult PLUGIN_API Processor::setState(IBStream* state) {
         stageMixerEnable=0.f;stageMasterGain=1.f;stageOutputGain=1.f;
         stageFeedGain={{.25f,.35f,.25f,.45f,.62f,.45f,.28f,.28f,.20f,.20f,0.f,.12f,.12f,.06f,.06f,0.f}};
     }
+    if(version>=15){if(!s.readFloat(acousticPreviewInstrument))return kResultFalse;}
+    else acousticPreviewInstrument=0.f;
     phraseTakeComp.resetAll();
     if(version>=10){
         int32 compCount=0;
@@ -1150,6 +1173,7 @@ tresult PLUGIN_API Processor::getState(IBStream* state) {
     if(!s.writeInt32(static_cast<int32>(memoryCursorKey)) || !s.writeFloat(smartRankMode) || !s.writeFloat(personalTasteEnable) || !s.writeFloat(personalTasteStrength) || !s.writeFloat(personalTasteLearn) || !s.writeFloat(preferenceMinConfidence) || !s.writeFloat(preferenceMinMargin) || !s.writeFloat(preferenceSafetyFloor)) return kResultFalse;
     if(!s.writeFloat(stageMixerEnable)||!s.writeFloat(stageMasterGain)||!s.writeFloat(stageOutputGain))return kResultFalse;
     for(float g:stageFeedGain)if(!s.writeFloat(g))return kResultFalse;
+    if(!s.writeFloat(acousticPreviewInstrument))return kResultFalse;
     std::array<PersistentTakeCompEntry,PersistentPhraseTakeComp::kCapacity> compEntries{};
     const int compCount=phraseTakeComp.exportEntries(compEntries);
     if(!s.writeInt32(static_cast<int32>(compCount))) return kResultFalse;
