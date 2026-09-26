@@ -121,7 +121,9 @@ def derive_architecture(models) -> dict:
         for start, _ in runs:
             if start < min_size and (min_size - start) % group_stride == 0:
                 tail_start_candidates.append(start)
-        shared_core = max(tail_start_candidates) if tail_start_candidates else min_size - group_stride * 8
+        # The first compatible boundary starts the complete repeated train. Later
+        # zero-runs can also land on a whole-group boundary inside that train.
+        shared_core = min(tail_start_candidates) if tail_start_candidates else min_size - group_stride * 8
     else:
         shared_core = min_size - group_stride * 8
 
