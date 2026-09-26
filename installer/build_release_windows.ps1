@@ -57,12 +57,15 @@ Log 'Building SONICRAFT VST3 Release x64...'
 cmd.exe /d /s /c $buildCmd 2>&1 | Tee-Object -FilePath $Log -Append | Out-Host
 if ($LASTEXITCODE -ne 0) { throw 'VST3 Release build failed.' }
 
-$bundle = Get-ChildItem -Path $build -Recurse -Directory -Filter '*.vst3' | Where-Object { $_.Name -eq 'SONICRAFT AI Strings Q4.vst3' } | Select-Object -First 1
+$bundle = Get-ChildItem -Path $build -Recurse -Directory -Filter '*.vst3' | Where-Object { $_.Name -eq 'SonicraftAIStringsQ4.vst3' } | Select-Object -First 1
 if (-not $bundle) { throw 'Build succeeded but VST3 bundle was not found.' }
 $release = Join-Path $ProjectRoot 'release'
 $dest = Join-Path $release 'SONICRAFT AI Strings Q4.vst3'
 if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
 Copy-Item -Recurse -Force $bundle.FullName $dest
+$bundledBinary = Join-Path $dest 'Contents\x86_64-win\SonicraftAIStringsQ4.vst3'
+if (-not (Test-Path $bundledBinary -PathType Leaf)) { throw 'Built bundle has no expected x86_64-win binary.' }
+Rename-Item -LiteralPath $bundledBinary -NewName 'SONICRAFT AI Strings Q4.vst3'
 $pluginBinary = Get-ChildItem (Join-Path $dest 'Contents\x86_64-win') -File -Filter '*.vst3' | Select-Object -First 1
 if (-not $pluginBinary) { throw 'Built bundle has no x86_64-win VST3 binary.' }
 $pluginHash = (Get-FileHash $pluginBinary.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
