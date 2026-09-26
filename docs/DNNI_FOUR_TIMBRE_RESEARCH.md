@@ -23,7 +23,7 @@ The importer creates one directory per timbre and a `bundle_manifest.json` with 
 
 ## Capture the four timbres
 
-Create the deterministic capture sheet:
+Create the deterministic timbre-only capture sheet (default: 64 rows = 4 timbres × 16 pitches, neutral velocity, neutral articulation):
 
 ```bat
 python training\scripts\generate_dnni_capture_plan.py
@@ -66,7 +66,7 @@ The main pipeline uses `SONICRAFT_STOP_FILE` only when launched by the DNNI BAT.
 
 ### Control panel and recovery
 
-For normal use, double-click `DNNI_5090_MANAGER.bat`. It provides Start/Resume, Status, Safe Stop, and shortcuts to the checkpoint/data folders.
+For normal use, double-click `DNNI_5090_MANAGER.bat`. It provides environment setup, DNNI import, four-MIDI capture preparation, four-WAV slicing, Start/Resume, Status, Safe Stop, full/stage-only archive reset, final-result verification, and shortcuts to the checkpoint/data/log folders.
 
 `STATUS_DNNI_5090.bat` reports capture rows, latent rows, and epoch progress for all four trainable stages. The main trainer runs the same checkpoint-health scan before auto-resume. If a checkpoint cannot be loaded or its expected identity is wrong, automatic resume is blocked instead of overwriting it.
 
@@ -88,7 +88,7 @@ Per-stage console output is appended under `logs\dnni5090\`.
 
 ## DNNI timbre supervision vs articulation supervision
 
-The four imported packages are treated as four distinct timbre/acoustic references. Generated capture-plan rows now default to `articulation_verified=false`. Corresponding manifests set `articulation_known=0` unless a capture has independently verified articulation semantics.
+The four imported packages are treated as four distinct timbre/acoustic references. Generated capture-plan rows now default to one neutral articulation lane with `articulation_verified=false`; the old 12-articulation duplicate capture pattern is no longer the default. The default plan samples 16 pitches per timbre at neutral MIDI velocity, producing 64 captures total. Corresponding manifests set `articulation_known=0` unless a capture has independently verified articulation semantics.
 
 The renderer and runtime model also gate legato/portamento expert activation with `articulation_known`, and the renderer loss no longer applies portamento-specific weighting to unknown articulation labels. This prevents DNNI timbre captures from accidentally teaching fabricated string articulation behavior while leaving ordinary known-articulation runtime behavior unchanged.
 
@@ -123,7 +123,7 @@ Before training, SONICRAFT computes a portable SHA-256 fingerprint over the sema
 
 The fingerprint is stored in the VAE64, HQ renderer, Frontier distill, shortcut checkpoints, and latent provenance. A stale/missing fingerprint blocks automatic resume. This catches cases such as replacing one DNNI package, re-rendering a WAV, changing a model-relevant timbre ID/instrument ID/MIDI range, or mixing latents from an older dataset.
 
-If a data change is intentional, use `RESET_DNNI_5090.bat` (or Manager option **Archive / Reset**). It moves old checkpoints/latents/logs into `archive/dnni5090/<timestamp>/` and never deletes the DNNI source packages or rendered WAVs.
+If a data change is intentional, use `RESET_DNNI_5090.bat` for a full training-state archive/reset, or `RESET_DNNI_STAGE.bat` to reset only the affected stage and everything downstream. Stage-only reset preserves valid upstream work—for example, changing renderer batch size does not require retraining the VAE64 codec or rebuilding latents. Archives are moved under `archive/dnni5090/<timestamp>_<stage>/`; DNNI source packages and rendered WAVs are never deleted.
 
 Changing only the human-readable `label` in `training/configs/dnni_four_timbres.json` does not invalidate model artifacts.
 
@@ -146,6 +146,13 @@ Velocity from the generated MIDI is also marked unverified by default. Unless in
 
 The main BAT converts this JSON into a temporary CMD environment and uses those values for every stage. `STATUS_DNNI_5090.bat` reads the same JSON, so progress targets always match the actual run.
 
-A separate **recipe fingerprint** is stored in trainable checkpoints. Epoch targets are intentionally excluded from that hash, allowing an existing run to be extended from (for example) 260 to 320 epochs without throwing away optimizer state. Architecture-sensitive or optimizer-schedule-sensitive controls such as preset, batch size, accumulation and shortcut step geometry are included; changing them blocks an automatic resume until the old training state is archived/reset.
+Each trainable stage stores its own **stage recipe fingerprint**. Epoch targets are intentionally excluded, allowing a run to be extended from (for example) 260 to 320 epochs without throwing away optimizer state. Architecture-sensitive or optimizer-schedule-sensitive controls such as preset, batch size, accumulation and shortcut step geometry are included. Because fingerprints are stage-specific, changing renderer settings invalidates renderer-and-downstream work without invalidating an already completed codec. `RESET_DNNI_STAGE.bat` is the corresponding recovery path.
 
 The default CUDA allocator is `expandable_segments:True,max_split_size_mb:512` with lazy CUDA module loading, intended to reduce long-run memory fragmentation on the single-GPU RTX 5090 path.
+
+
+## Failure diagnosis and final integrity
+
+If the main training BAT exits with an error, it automatically runs `training/scripts/dnni_failure_diagnose.py`. The diagnostic recognizes common CUDA OOM, recipe/data fingerprint mismatch, missing capture WAV, disk-full, CUDA/driver, and corrupt-checkpoint patterns and points to the matching recovery action.
+
+After shortcut distillation reaches its configured target, the pipeline runs `training/scripts/dnni_training_finalize.py` and writes `checkpoints/dnni4_training_complete.json`. The manifest records the data fingerprint, overall and per-stage recipe fingerprints, source provenance, row counts, stage epochs, checkpoint sizes, and SHA-256 hashes. `VERIFY_DNNI_RESULT.bat` recomputes those hashes and refuses a mismatched/missing final result.
