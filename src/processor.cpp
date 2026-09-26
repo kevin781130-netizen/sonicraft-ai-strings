@@ -16,7 +16,7 @@ using namespace Steinberg::Vst;
 namespace Sonicraft::AIStrings {
 namespace {
 
-constexpr int kStateVersion = 15;
+constexpr int kStateVersion = 16;
 constexpr int kAuxFeedCount = 16;
 constexpr std::size_t kMaxAutomationPointsPerBlock = 4096;
 
@@ -181,6 +181,7 @@ tresult PLUGIN_API Processor::setupProcessing(ProcessSetup& setup) {
     engine.setSampleRate(setup.sampleRate);
     shadow.configure(setup.sampleRate);
     orchestraConditioner.reset(setup.sampleRate);
+    orchestraRenderer.reset(setup.sampleRate);
     orchestraConditioningLaneReady.fill(false);
     return AudioEffect::setupProcessing(setup);
 }
@@ -553,6 +554,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             case kParamStageMasterGain: stageMasterGain=v; break;
             case kParamStageOutputGain: stageOutputGain=v; break;
             case kParamOrchestraInstrument: orchestraInstrument=v; runtimeState(offset); break;
+            case kParamOrchestraRendererMix: orchestraRendererMix=std::clamp(v,0.f,1.f); break;
             case kParamHostScopeMode: hostScopeMode=v; runtimeState(offset); break;
             case kParamHostScopeStyle: hostScopeStyle=v; runtimeState(offset); break;
             case kParamHostScopeLooseness: hostScopeLooseness=v; runtimeState(offset); break;
@@ -906,6 +908,21 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
 
         orchestraConditioningLaneReady[rawCh] = orchestraConditioner.condition(
             frame, performance, orchestraConditioningLane[rawCh]);
+        if (orchestraConditioningLaneReady[rawCh]) {
+            orchestraRenderer.noteOn(
+                rawCh, note, frame, performance, orchestraConditioningLane[rawCh]);
+        }
+    };
+
+    auto renderSegment = [&](int32 start, int32 count) noexcept {
+        if (count <= 0) return;
+        engine.render(out[0] + start, out[1] + start, count);
+        // Stage mixer reconstructs the master from aux feeds later in the block, so
+        // the first clean-room renderer path is intentionally disabled while that
+        // legacy stage-reconstruction mode is active.
+        if (stageMixerEnable < .5f)
+            orchestraRenderer.render(
+                out[0] + start, out[1] + start, count, orchestraRendererMix);
     };
 
     auto handleEvent = [&](const Event& e, int32 pos) noexcept {
@@ -977,6 +994,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                 if (owner > 0) { ch = owner - 1; divisiOwner[rawCh][note] = 0; divisiActive[ch] = std::max(0, divisiActive[ch]-1); }
             }
             if (ch < 0 || ch >= kPartCount || isKeyswitch(note)) return;
+            orchestraRenderer.noteOff(rawCh, note);
             if(laneExplicit){
                 const auto c=mergedVoiceControl(rawCh);
                 engine.noteOffVoice(ch,rawCh,note);
@@ -1001,7 +1019,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
         const int32 nextPos = std::min({nextAuto, nextMidi, nextScope});
 
         if (nextPos > cursor) {
-            engine.render(out[0] + cursor, out[1] + cursor, nextPos - cursor);
+            renderSegment(cursor, nextPos - cursor);
             cursor = nextPos;
         }
 
@@ -1030,7 +1048,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     }
 
     if (cursor < data.numSamples)
-        engine.render(out[0] + cursor, out[1] + cursor, data.numSamples - cursor);
+        renderSegment(cursor, data.numSamples - cursor);
 
     // v3.9: one async Audio Judge at a time; candidates commit once at batch end (one Undo snapshot).
     if(preferenceAutoCompRunning){
@@ -1153,6 +1171,12 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     }
     emitOutputParam(kParamOrchestraConditionerReady,conditionerReady?1.f:0.f);
     emitOutputParam(kParamOrchestraConditioningEnergy,conditionerEnergy);
+    emitOutputParam(
+        kParamOrchestraRendererActive,
+        std::clamp(
+            float(orchestraRenderer.activeVoiceCount()) /
+                float(OrchestraRendererV71::kMaxVoices),
+            0.f, 1.f));
     return kResultOk;
 }
 
@@ -1194,6 +1218,8 @@ tresult PLUGIN_API Processor::setState(IBStream* state) {
     }
     if(version>=15){if(!s.readFloat(orchestraInstrument))return kResultFalse;}
     else orchestraInstrument=orchestraInstrumentNormalizedFromIndex(3);
+    if(version>=16){if(!s.readFloat(orchestraRendererMix))return kResultFalse;}
+    else orchestraRendererMix=0.f;
     phraseTakeComp.resetAll();
     if(version>=10){
         int32 compCount=0;
@@ -1239,7 +1265,7 @@ tresult PLUGIN_API Processor::getState(IBStream* state) {
     if(!s.writeInt32(static_cast<int32>(memoryCursorKey)) || !s.writeFloat(smartRankMode) || !s.writeFloat(personalTasteEnable) || !s.writeFloat(personalTasteStrength) || !s.writeFloat(personalTasteLearn) || !s.writeFloat(preferenceMinConfidence) || !s.writeFloat(preferenceMinMargin) || !s.writeFloat(preferenceSafetyFloor)) return kResultFalse;
     if(!s.writeFloat(stageMixerEnable)||!s.writeFloat(stageMasterGain)||!s.writeFloat(stageOutputGain))return kResultFalse;
     for(float g:stageFeedGain)if(!s.writeFloat(g))return kResultFalse;
-    if(!s.writeFloat(orchestraInstrument))return kResultFalse;
+    if(!s.writeFloat(orchestraInstrument)||!s.writeFloat(orchestraRendererMix))return kResultFalse;
     std::array<PersistentTakeCompEntry,PersistentPhraseTakeComp::kCapacity> compEntries{};
     const int compCount=phraseTakeComp.exportEntries(compEntries);
     if(!s.writeInt32(static_cast<int32>(compCount))) return kResultFalse;
