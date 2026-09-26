@@ -129,6 +129,7 @@ tresult PLUGIN_API Processor::initialize(FUnknown* context) {
     addAudioOutput(STR16("Far L"), SpeakerArr::kStereo, kAux, 0);
     addAudioOutput(STR16("Far R"), SpeakerArr::kStereo, kAux, 0);
     addAudioOutput(STR16("Gallery"), SpeakerArr::kStereo, kAux, 0);
+    orchestraCatalogLoaded = orchestraCatalog.load(defaultDnniCatalogPath());
     return kResultOk;
 }
 
@@ -1067,6 +1068,9 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
     emitOutputParam(kParamJudgeWinnerSafety,judgeMatches && judge.winner>=0 && judge.winner<4 ? judge.safety[judge.winner] : 0.f);
     const auto profile=personalProfile();emitOutputParam(kParamPersonalConfidence,profile.confidence);emitOutputParam(kParamPersonalEvidence,std::clamp(profile.evidence/20.f,0.f,1.f));for(int i=0;i<5;++i)emitOutputParam(personalParam(kParamPersonalWeightBase,i),std::clamp((profile.weights[i]+1.f)*.5f,0.f,1.f));for(int i=0;i<4;++i)emitOutputParam(personalParam(kParamPersonalScoreBase,i),judgeMatches?judge.personal[i]:0.f);
     emitOutputParam(kParamPreferenceAutoCompStatus,preferenceAutoCompRunning?(preferenceAutoCompWaiting?2.f/3.f:1.f/3.f):(preferenceJobCount>0?1.f:0.f));emitOutputParam(kParamPreferenceAutoCompProgress,preferenceJobCount>0?std::clamp(float(preferenceJobIndex)/float(preferenceJobCount),0.f,1.f):0.f);emitOutputParam(kParamPreferenceAutoCompCommitted,std::clamp(float(preferenceCandidateCount)/128.f,0.f,1.f));emitOutputParam(kParamPreferenceAutoCompReview,std::clamp(float(preferenceReviewCount)/128.f,0.f,1.f));
+    const int selectedOrchestraInstrument=orchestraInstrumentIndexFromNormalized(orchestraInstrument);
+    emitOutputParam(kParamOrchestraModelReady,(orchestraCatalogLoaded&&orchestraCatalog.ready(selectedOrchestraInstrument))?1.f:0.f);
+    emitOutputParam(kParamOrchestraCatalogCoverage,orchestraCatalogLoaded?std::clamp(float(orchestraCatalog.presentCount())/float(kOrchestraInstrumentCount),0.f,1.f):0.f);
     return kResultOk;
 }
 
