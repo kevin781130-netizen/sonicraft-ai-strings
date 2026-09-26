@@ -207,5 +207,45 @@
     },
     "direction": "unknown",
     "op_semantics": "unknown"
+  },
+  "recurrent_geometry_candidate": {
+    "evidence_file": "training/configs/dnni_observed_recurrent_signature.json",
+    "hidden_width_candidate": 512,
+    "module_count": 4,
+    "per_module": {
+      "core_matrix_count": 6,
+      "core_matrix_shape": [
+        512,
+        512
+      ],
+      "core_matrix_dtype": "float16_le",
+      "shared_slab_orientation_candidates": [
+        [
+          506,
+          512
+        ],
+        [
+          512,
+          506
+        ]
+      ]
+    },
+    "suffix_vector_counts_by_module": [
+      6,
+      6,
+      6,
+      3
+    ],
+    "suffix_dtype_pattern_by_module": [
+      "float16_le",
+      "float16_le",
+      "float16_le",
+      "float32_le"
+    ],
+    "compatibility": "matches common GRU-family six-matrix plus three/six-bias parameter geometry, with an additional 506x512 shared slab",
+    "confidence": "strong structural compatibility; operation semantics unconfirmed",
+    "direction": "unknown",
+    "gate_order": "unknown",
+    "activation": "unknown"
   }
 }
