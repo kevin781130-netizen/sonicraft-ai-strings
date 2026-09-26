@@ -53,6 +53,25 @@
       "identity_status": "confirmed",
       "identity_authority": "user_supplied",
       "confirmed_date": "2026-09-26"
+    },
+    {
+      "intake_sequence": 5,
+      "source_uuid": "6dcb0ca8-d627-5e8e-8401-3b886084d972",
+      "source_filename": "6dcb0ca8-d627-5e8e-8401-3b886084d972.dnni",
+      "source_dnni_sha256": "4fc46b69d1c064207fc11f0bbe84ab903b423a9a6275ffbcebbb950240440394",
+      "source_size": 134477598,
+      "dnni_magic": "ff00ca7f",
+      "dnni_version": 4,
+      "dnni_header_size": 140,
+      "companion_wm_sha256": "2aa732c201316a106824cbcfdf194ba66dd47a7474cf56b4392a11819efb037d",
+      "companion_wm_size": 208,
+      "label_zh": "長笛",
+      "label_en": "Flute",
+      "instrument_role": "flute",
+      "instrument_family": "woodwind",
+      "identity_status": "confirmed",
+      "identity_authority": "user_supplied",
+      "confirmed_date": "2026-09-26"
     }
   ],
   "pending_intake": []
