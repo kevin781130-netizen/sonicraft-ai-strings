@@ -14,17 +14,33 @@
       "identity_authority": "user_supplied",
       "confirmed_date": "2026-09-26",
       "intake_sequence": 1
-    }
-  ],
-  "pending_intake": [
+    },
     {
       "intake_sequence": 2,
+      "source_uuid": "524a7afe-57b4-58f8-8799-5f8f04c447e9",
+      "source_filename": "524a7afe-57b4-58f8-8799-5f8f04c447e9.dnni",
+      "source_dnni_sha256": "e59bf9fb3207673f520064128ca541df0ea9026aa242f3ac2986523e56fe0311",
+      "weights_sha256": "1983232c566a6c44b2d82327c5ccd45bdd11470dc73474b0857fbcbd6640bc57",
       "label_zh": "大提琴",
       "label_en": "Cello",
       "instrument_role": "cello",
-      "identity_status": "awaiting_source_file",
+      "identity_status": "confirmed",
       "identity_authority": "user_supplied",
-      "stated_date": "2026-09-26"
+      "confirmed_date": "2026-09-26"
+    },
+    {
+      "intake_sequence": 3,
+      "source_uuid": "7abf09cb-41a5-5531-b2ed-f69615a81be8",
+      "source_filename": "7abf09cb-41a5-5531-b2ed-f69615a81be8.dnni",
+      "source_dnni_sha256": "251a2789047ed85fd296f89aaf1703b37a15c60ace4c4e1c74059de410be0a4a",
+      "weights_sha256": "c65bcd3be3bd85be0230efae42788d61f1a0f49c702bf23e96641d28fa66882f",
+      "label_zh": "中提琴",
+      "label_en": "Viola",
+      "instrument_role": "viola",
+      "identity_status": "confirmed",
+      "identity_authority": "user_supplied",
+      "confirmed_date": "2026-09-26"
     }
-  ]
+  ],
+  "pending_intake": []
 }
