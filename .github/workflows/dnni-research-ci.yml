@@ -100,7 +100,7 @@ jobs:
         shell: pwsh
         run: |
           python training/scripts/dnni_training_config.py --write-cmd "$env:RUNNER_TEMP/dnni_recipe.cmd"
-          python -c "import copy,json,sys; sys.path.insert(0,'training/scripts'); import dnni_training_config as d; c=d.load('training/configs/dnni_5090_training.json'); f=d.fingerprint(c); c2=copy.deepcopy(c); c2['renderer']['epochs']+=10; assert d.fingerprint(c2)==f; c3=copy.deepcopy(c); c3['renderer']['batch']+=1; assert d.fingerprint(c3)!=f"
+          python -c "import copy,sys; sys.path.insert(0,'training/scripts'); import dnni_training_config as d; c=d.load('training/configs/dnni_5090_training.json'); r=d.stage_fingerprint(c,'renderer'); q=d.stage_fingerprint(c,'codec'); c2=copy.deepcopy(c); c2['renderer']['epochs']+=10; assert d.stage_fingerprint(c2,'renderer')==r; c3=copy.deepcopy(c); c3['renderer']['batch']+=1; assert d.stage_fingerprint(c3,'renderer')!=r; assert d.stage_fingerprint(c3,'codec')==q"
       - name: Status helper clean-checkout smoke
         shell: pwsh
         run: |
