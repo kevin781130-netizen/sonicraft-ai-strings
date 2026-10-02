@@ -69,10 +69,7 @@ $pluginHash = (Get-FileHash $pluginBinary.FullName -Algorithm SHA256).Hash.ToLow
 Log "VST3 bundle ready: $dest"
 Log "VST3 binary SHA-256: $pluginHash"
 
-Log 'Building official Steinberg validator from the SAME pinned SDK...'
-$valCmd = "`"$devcmd`" -arch=x64 -host_arch=x64 >nul && cmake --build `"$build`" --config Release --target validator --parallel"
-cmd.exe /d /s /c $valCmd 2>&1 | Tee-Object -FilePath $Log -Append | Out-Host
-if ($LASTEXITCODE -ne 0) { throw 'Official VST3 validator build failed.' }
+Log 'Locating official Steinberg validator built from the SAME pinned SDK...'
 $validator = Get-ChildItem -Path $build -Recurse -File -Filter 'validator.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
 if (-not $validator) { throw 'Official VST3 validator executable was not found.' }
 $validatorHash = (Get-FileHash $validator.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
