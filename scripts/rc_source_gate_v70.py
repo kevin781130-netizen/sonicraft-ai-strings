@@ -20,6 +20,7 @@ for token in ['checkout','--detach','submodule','validator-pass.json','build-pro
 if re.search(r'git\s+clone[^\n]+vst3sdk[^\n]+(?:master|main)',build,re.I): errors.append('Windows builder still clones moving VST3 branch explicitly')
 controller=need('src/controller.h','REFCOUNT_METHODS(Steinberg::Vst::EditControllerEx1)')
 if 'REFCOUNT_METHODS(Controller)' in controller: errors.append('controller refcount still recursively delegates to Controller')
+need('src/factory.cpp','#define FULL_VERSION_STR "7.0.0-rc2"')
 rc_bat=need('RC_BUILD_V70.bat','rc-build-stage.json')
 if 'Missing/aborted build evidence also fails closed.' not in rc_bat: errors.append('RC_BUILD_V70.bat does not fail closed on interrupted/missing summary evidence')
 build_stage=need('installer/rc_v70/BUILD_RC_V70.ps1',"rc-build-stage.json")
