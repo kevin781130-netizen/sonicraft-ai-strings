@@ -171,6 +171,11 @@ if(SONICRAFT_BUILD_VST3)
       src/factory.cpp src/ids.h src/processor.h src/articulations.h src/processor.cpp
       src/controller.h src/controller.cpp src/preview_engine.h src/preview_engine.cpp
       src/shadow_render_client.h src/shadow_render_client.cpp src/preference_client_v38.h src/preference_client_v38.cpp src/preference_auto_comp_v39.h)
+  if(TARGET validator)
+    # Build the official validator together with the plug-in, but do not run it
+    # automatically. The RC script runs it once explicitly and records evidence.
+    add_dependencies(SonicraftAIStringsQ4 validator)
+  endif()
   target_include_directories(SonicraftAIStringsQ4 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
   target_link_libraries(SonicraftAIStringsQ4 PRIVATE sdk vstgui_support)
   smtg_target_add_plugin_resources(SonicraftAIStringsQ4 RESOURCES resource/SONICRAFT_AI_Strings_Q4.uidesc)
