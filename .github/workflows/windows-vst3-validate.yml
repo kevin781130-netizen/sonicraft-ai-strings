@@ -22,6 +22,18 @@ jobs:
         shell: powershell
         run: python scripts/rc_source_gate_v70.py
 
+      - name: Parse all PowerShell scripts
+        shell: powershell
+        run: |
+          $errors = @()
+          Get-ChildItem -Recurse -File -Filter '*.ps1' | ForEach-Object {
+            $tokens = $null
+            $parseErrors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$parseErrors)
+            foreach($e in $parseErrors){ $errors += ("{0}: {1}" -f $_.FullName,$e.Message) }
+          }
+          if($errors.Count -gt 0){ $errors | ForEach-Object { Write-Error $_ }; throw 'PowerShell parse gate failed' }
+
       - name: Product Shell smoke from Windows path with spaces
         shell: powershell
         run: |
