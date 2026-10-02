@@ -22,6 +22,25 @@ jobs:
         shell: powershell
         run: python scripts/rc_source_gate_v70.py
 
+      - name: Parse release and QA PowerShell scripts
+        shell: powershell
+        run: |
+          $errors = @()
+          Get-ChildItem (Join-Path $PWD 'installer') -Recurse -File -Filter '*.ps1' | ForEach-Object {
+            $tokens = $null
+            $parseErrors = $null
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$parseErrors)
+            foreach($e in $parseErrors){ $errors += ("{0}: {1}" -f $_.FullName,$e.Message) }
+            if($ast.ParamBlock){
+              foreach($p in $ast.ParamBlock.Parameters){
+                if($p.Name.VariablePath.UserPath -ieq 'Host'){
+                  $errors += ("{0}: parameter Host conflicts with PowerShell read-only automatic variable; use an alias on a different variable name" -f $_.FullName)
+                }
+              }
+            }
+          }
+          if($errors.Count -gt 0){ $errors | ForEach-Object { Write-Error $_ }; throw 'PowerShell parse/parameter gate failed' }
+
       - name: Product Shell smoke from Windows path with spaces
         shell: powershell
         run: |

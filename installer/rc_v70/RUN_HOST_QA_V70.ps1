@@ -1,5 +1,5 @@
 param(
-  [Parameter(Mandatory=$true)][ValidateSet('Cubase','StudioOne')][string]$Host,
+  [Parameter(Mandatory=$true)][Alias('Host')][ValidateSet('Cubase','StudioOne')][string]$HostName,
   [string]$HostExePath='',
   [string]$ProjectRoot=(Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)))
 )
@@ -13,7 +13,7 @@ if(-not$bin){throw 'VST3 binary missing.'}
 $pluginHash=(Get-FileHash $bin.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
 
 $candidates=@()
-if($Host -eq 'Cubase'){
+if($HostName -eq 'Cubase'){
   $candidates += Get-ChildItem 'C:\Program Files\Steinberg' -Directory -Filter 'Cubase*' -ErrorAction SilentlyContinue | ForEach-Object { Get-ChildItem $_.FullName -File -Filter 'Cubase*.exe' -ErrorAction SilentlyContinue }
 }else{
   $candidates += Get-ChildItem 'C:\Program Files\PreSonus' -Directory -Filter 'Studio One*' -ErrorAction SilentlyContinue | ForEach-Object { Join-Path $_.FullName 'Studio One.exe' } | Where-Object { Test-Path $_ } | ForEach-Object { Get-Item $_ }
@@ -26,17 +26,17 @@ if($HostExePath){
   $hostExe=$candidates|Sort-Object LastWriteTime -Descending|Select-Object -First 1
 }
 if(-not $hostExe){
-  Write-Warning "$Host executable was not auto-detected. A concrete host executable is required for PASS evidence."
-  $manual=(Read-Host "Enter full path to the $Host executable, or press Enter to block QA").Trim().Trim('\"')
+  Write-Warning "$HostName executable was not auto-detected. A concrete host executable is required for PASS evidence."
+  $manual=(Read-Host "Enter full path to the $HostName executable, or press Enter to block QA").Trim().Trim('\"')
   if($manual -and (Test-Path $manual -PathType Leaf)){$hostExe=Get-Item (Resolve-Path $manual).Path}
 }
-if(-not $hostExe){throw "$Host QA BLOCKED: no concrete host executable was provided."}
+if(-not $hostExe){throw "$HostName QA BLOCKED: no concrete host executable was provided."}
 $hostVersion=$hostExe.VersionInfo.ProductVersion
 if(-not $hostVersion){$hostVersion=$hostExe.VersionInfo.FileVersion}
-if(-not $hostVersion){throw "$Host QA BLOCKED: host version could not be read from $($hostExe.FullName)."}
+if(-not $hostVersion){throw "$HostName QA BLOCKED: host version could not be read from $($hostExe.FullName)."}
 $hostExeHash=(Get-FileHash $hostExe.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
-Write-Host "Using $Host: $($hostExe.FullName) ($hostVersion)" -ForegroundColor Green
-$launch=Read-Host "Launch $Host now? [Y/n]"
+Write-Host ("Using {0}: {1} ({2})" -f $HostName,$hostExe.FullName,$hostVersion) -ForegroundColor Green
+$launch=Read-Host "Launch $HostName now? [Y/n]"
 if($launch -notmatch '^[Nn]'){Start-Process $hostExe.FullName|Out-Null}
 
 $tests=@(
@@ -63,13 +63,13 @@ foreach($t in $tests){
   $results += [ordered]@{id=$t.id;description=$t.text;status=$status;note=$note}
 }
 $overall=if(($results|Where-Object{$_.status -ne 'PASS'}).Count -eq 0){'PASS'}else{'BLOCKED'}
-$name=if($Host -eq 'Cubase'){'host-qa-cubase.json'}else{'host-qa-studio-one.json'}
+$name=if($HostName -eq 'Cubase'){'host-qa-cubase.json'}else{'host-qa-studio-one.json'}
 $report=[ordered]@{
- schema=1;product='SONICRAFT AI Strings Q4';release='7.0.0-rc2';host=$Host;host_version=$hostVersion;
+ schema=1;product='SONICRAFT AI Strings Q4';release='7.0.0-rc2';host=$HostName;host_version=$hostVersion;
  host_exe=$hostExe.FullName;host_exe_sha256=$hostExeHash;plugin_sha256=$pluginHash;tested_at=(Get-Date).ToUniversalTime().ToString('o');
  overall=$overall;tests=$results
 }
 $report|ConvertTo-Json -Depth 8|Set-Content -Encoding UTF8 (Join-Path $ev $name)
 Write-Host "Saved: $(Join-Path $ev $name)" -ForegroundColor Cyan
-if($overall -ne 'PASS'){Write-Host "$Host QA BLOCKED. Fix/retest failed or skipped items." -ForegroundColor Yellow;exit 2}
-Write-Host "$Host QA PASS." -ForegroundColor Green
+if($overall -ne 'PASS'){Write-Host "$HostName QA BLOCKED. Fix/retest failed or skipped items." -ForegroundColor Yellow;exit 2}
+Write-Host "$HostName QA PASS." -ForegroundColor Green
