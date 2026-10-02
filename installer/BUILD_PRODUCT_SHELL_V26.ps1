@@ -8,8 +8,28 @@ New-Item -ItemType Directory -Force -Path $BuildDir|Out-Null
 $args=@('-S',$root,'-B',$BuildDir,'-G','Visual Studio 17 2022','-A','x64','-DSONICRAFT_BUILD_VST3=OFF','-DSONICRAFT_BUILD_PRODUCT_SHELL=ON','-DSONICRAFT_BUILD_INPROCESS_ENGINE=ON')
 if($OrtSdkRoot){$args+=('-DSONICRAFT_ORT_SDK_ROOT='+$OrtSdkRoot)}
 & cmake @args;if($LASTEXITCODE){throw 'CMake configure failed'}
-& cmake --build $BuildDir --config Release --target SonicraftAIStringsProductShell SonicraftAIStringsStandalone SonicraftInProcessEngineSmoke SonicraftInProcessPromotionGuardSmoke --parallel
-if($LASTEXITCODE){throw 'Product Shell v2.6 build failed'}
+
+# Build each Windows target deterministically. On some local VS 2022 Build Tools
+# installations a parallel multi-target build can reach LINK while a freshly
+# produced .obj is temporarily unavailable (LNK1104). Keep MSBuild node reuse
+# off, serialize targets, and retry the individual target once so a transient
+# filesystem/AV lock does not force the operator to restart the entire RC build.
+$env:MSBUILDDISABLENODEREUSE='1'
+function Build-Target([string]$Target){
+  for($attempt=1;$attempt -le 2;$attempt++){
+    Write-Host ("Building {0} (attempt {1}/2, serial MSBuild)..." -f $Target,$attempt) -ForegroundColor Cyan
+    & cmake --build $BuildDir --config Release --target $Target --parallel 1 -- /nodeReuse:false
+    if($LASTEXITCODE -eq 0){return}
+    if($attempt -lt 2){
+      Write-Warning ("{0} build failed once; retrying after transient-file-lock cooldown." -f $Target)
+      Start-Sleep -Seconds 3
+    }
+  }
+  throw ("Product Shell v2.6 target failed after serial retry: {0}" -f $Target)
+}
+foreach($target in @('SonicraftAIStringsProductShell','SonicraftAIStringsStandalone','SonicraftInProcessEngineSmoke','SonicraftInProcessPromotionGuardSmoke')){
+  Build-Target $target
+}
 $out=Join-Path $root 'release\ProductShell';New-Item -ItemType Directory -Force -Path $out|Out-Null
 foreach($name in @('SonicraftAIStringsProductShell.exe','SonicraftAIStringsStandalone.exe')){
   $candidates=@(
