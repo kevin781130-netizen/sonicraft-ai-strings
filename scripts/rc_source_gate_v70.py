@@ -66,7 +66,7 @@ for rel in ['installer/rc_v70/RUN_ACOUSTIC_QA_V70.ps1','installer/rc_v70/RUN_HOS
     if 'x86_64-win' not in t: errors.append(f'{rel}: canonical VST3 architecture path missing')
 need('installer/rc_v70/RUN_HOST_QA_V70.ps1','host_exe_sha256')
 product_shell=need('installer/BUILD_PRODUCT_SHELL_V26.ps1',"'Visual Studio 17 2022'")
-for token in ["'-A','x64'","Remove-Item -Recurse -Force $BuildDir"]:
+for token in ["'-A','x64'","Remove-Item -Recurse -Force $BuildDir","MSBUILDDISABLENODEREUSE","--parallel 1","/nodeReuse:false","Start-Sleep -Seconds 3"]:
     if token not in product_shell: errors.append(f'Product Shell builder missing deterministic Windows build token: {token}')
 runtime_install=need('installer/INSTALL_AI_RUNTIME_RELEASE.ps1','Python.Python.3.11')
 for token in ['onnxruntime==1.29.0','torch==2.8.0','not(Compatible-Python $VenvPy)']:
