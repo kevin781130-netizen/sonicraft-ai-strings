@@ -6,5 +6,13 @@ if($LASTEXITCODE -ne 0){throw 'Product Shell configure failed.'}
 & $cm.Source --build $BuildDir --config Release --target SonicraftAIStringsProductShell SonicraftAIStringsStandalone --parallel
 if($LASTEXITCODE -ne 0){throw 'Product Shell build failed.'}
 $out=Join-Path $root 'release\ProductShell';New-Item -ItemType Directory -Force -Path $out|Out-Null
-foreach($name in @('SonicraftAIStringsProductShell.exe','SonicraftAIStringsStandalone.exe')){$cand=@(Join-Path $BuildDir ('Release\'+$name),Join-Path $BuildDir $name)|Where-Object{Test-Path $_}|Select-Object -First 1;if(-not$cand){throw "Missing built executable: $name"};Copy-Item -Force $cand $out}
+foreach($name in @('SonicraftAIStringsProductShell.exe','SonicraftAIStringsStandalone.exe')){
+  $candidates=@(
+    (Join-Path $BuildDir ('Release\'+$name))
+    (Join-Path $BuildDir $name)
+  )
+  $cand=$candidates|Where-Object{Test-Path $_ -PathType Leaf}|Select-Object -First 1
+  if(-not$cand){throw "Missing built executable: $name"}
+  Copy-Item -Force $cand $out
+}
 Write-Host "PRODUCT SHELL V2.4 BUILT: $out" -ForegroundColor Green
