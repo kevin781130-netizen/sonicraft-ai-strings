@@ -158,7 +158,15 @@ if(SONICRAFT_BUILD_VST3)
   if(NOT DEFINED VST3_SDK_ROOT)
     message(FATAL_ERROR "Set -DVST3_SDK_ROOT=<path to Steinberg vst3sdk>, or use -DSONICRAFT_BUILD_VST3=OFF for standalone-only builds")
   endif()
+  if(MSVC)
+    # Keep Steinberg SDK/VSTGUI on the same static CRT contract as SONICRAFT (/MT, /MTd).
+    set(SMTG_USE_STATIC_CRT ON CACHE BOOL "Use static CRT for Steinberg VST3 SDK/VSTGUI" FORCE)
+  endif()
   add_subdirectory(${VST3_SDK_ROOT} ${CMAKE_BINARY_DIR}/vst3sdk EXCLUDE_FROM_ALL)
+  # Required for third-party plug-ins defined outside the SDK source tree. This
+  # exports public_sdk_SOURCE_DIR into this scope so smtg_add_vst3plugin adds
+  # the platform entry point (dllmain.cpp on Windows).
+  smtg_enable_vst3_sdk()
   smtg_add_vst3plugin(SonicraftAIStringsQ4
       src/factory.cpp src/ids.h src/processor.h src/articulations.h src/processor.cpp
       src/controller.h src/controller.cpp src/preview_engine.h src/preview_engine.cpp

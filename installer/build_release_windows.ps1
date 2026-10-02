@@ -47,7 +47,7 @@ if ($sdkCmake -notmatch 'VERSION\s+3\.8\.0') { throw 'Pinned VST3 SDK no longer 
 $build = Join-Path $ProjectRoot 'build-win64-v70'
 if (Test-Path $build) { Remove-Item -Recurse -Force $build }
 New-Item -ItemType Directory -Force -Path $build | Out-Null
-$cfg = "`"$devcmd`" -arch=x64 -host_arch=x64 >nul && cmake -S `"$ProjectRoot`" -B `"$build`" -G `"Visual Studio 17 2022`" -A x64 -DVST3_SDK_ROOT=`"$sdk`" -DSMTG_CREATE_PLUGIN_LINK=0 -DSMTG_PLUGIN_TARGET_USER_PROGRAM_FILES_COMMON=1 -DSMTG_ENABLE_VST3_PLUGIN_EXAMPLES=OFF -DSMTG_ENABLE_VST3_HOSTING_EXAMPLES=ON"
+$cfg = "`"$devcmd`" -arch=x64 -host_arch=x64 >nul && cmake -S `"$ProjectRoot`" -B `"$build`" -G `"Visual Studio 17 2022`" -A x64 -DVST3_SDK_ROOT=`"$sdk`" -DSMTG_USE_STATIC_CRT=ON -DSMTG_CREATE_PLUGIN_LINK=0 -DSMTG_PLUGIN_TARGET_USER_PROGRAM_FILES_COMMON=1 -DSMTG_ENABLE_VST3_PLUGIN_EXAMPLES=OFF -DSMTG_ENABLE_VST3_HOSTING_EXAMPLES=ON"
 Log 'Configuring pinned VST3 SDK + VSTGUI release project...'
 cmd.exe /d /s /c $cfg 2>&1 | Tee-Object -FilePath $Log -Append | Out-Host
 if ($LASTEXITCODE -ne 0) { throw 'CMake configure failed.' }
