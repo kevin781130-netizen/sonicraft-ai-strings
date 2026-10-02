@@ -35,7 +35,7 @@ $hostVersion=$hostExe.VersionInfo.ProductVersion
 if(-not $hostVersion){$hostVersion=$hostExe.VersionInfo.FileVersion}
 if(-not $hostVersion){throw "$Host QA BLOCKED: host version could not be read from $($hostExe.FullName)."}
 $hostExeHash=(Get-FileHash $hostExe.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
-Write-Host "Using $Host: $($hostExe.FullName) ($hostVersion)" -ForegroundColor Green
+Write-Host ("Using {0}: {1} ({2})" -f $Host,$hostExe.FullName,$hostVersion) -ForegroundColor Green
 $launch=Read-Host "Launch $Host now? [Y/n]"
 if($launch -notmatch '^[Nn]'){Start-Process $hostExe.FullName|Out-Null}
 
