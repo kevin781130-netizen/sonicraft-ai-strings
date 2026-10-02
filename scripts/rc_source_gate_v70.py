@@ -25,6 +25,10 @@ rc_bat=need('RC_BUILD_V70.bat','rc-build-stage.json')
 if 'Missing/aborted build evidence also fails closed.' not in rc_bat: errors.append('RC_BUILD_V70.bat does not fail closed on interrupted/missing summary evidence')
 build_stage=need('installer/rc_v70/BUILD_RC_V70.ps1',"rc-build-stage.json")
 if "validator-pass.json" not in build_stage or "build-provenance.json" not in build_stage: errors.append('BUILD_RC_V70.ps1 does not clear stale validator/build evidence')
+for rel in ['installer/rc_v70/BUILD_RC_V70.ps1','installer/PREBUILT_RELEASE_BUILDER.ps1','installer/BUILD_FINAL_INNO_INSTALLER.ps1']:
+    t=need(rel)
+    if '-RequireModels:([bool]' in t or '-RequireModels:$RequireModels' in t:
+        errors.append(f'{rel}: unsafe SwitchParameter forwarding to child powershell.exe')
 for rel in [
  'installer/rc_v70/BUILD_RC_V70.ps1','installer/rc_v70/RUN_HOST_QA_V70.ps1',
  'installer/rc_v70/RUN_ACOUSTIC_QA_V70.ps1','installer/rc_v70/FINAL_GATE_V70.ps1',
