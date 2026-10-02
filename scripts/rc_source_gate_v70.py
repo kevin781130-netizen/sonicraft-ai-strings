@@ -12,11 +12,11 @@ def need(rel, token=None):
 
 if (ROOT/'VERSION').read_text().strip()!='7.0.0-rc2': errors.append('VERSION is not 7.0.0-rc2')
 cmake=need('CMakeLists.txt','project(SonicraftAIStringsQ4 VERSION 7.0.0')
-for token in ['SMTG_USE_STATIC_CRT ON','smtg_enable_vst3_sdk()','add_dependencies(SonicraftAIStringsQ4 validator)']:
-    if token not in cmake: errors.append(f'CMakeLists.txt: missing Windows VST3 link/validator contract token: {token}')
+for token in ['SMTG_USE_STATIC_CRT ON','smtg_enable_vst3_sdk()','add_dependencies(SonicraftAIStringsQ4 validator)','PACKAGE_NAME "SONICRAFT AI Strings Q4"']:
+    if token not in cmake: errors.append(f'CMakeLists.txt: missing Windows VST3 link/validator/package contract token: {token}')
 build=need('installer/build_release_windows.ps1','9fad9770f2ae8542ab1a548a68c1ad1ac690abe0')
-for token in ['checkout','--detach','submodule','validator-pass.json','build-provenance.json','-DSMTG_USE_STATIC_CRT=ON','-DSMTG_RUN_VST_VALIDATOR=OFF']:
-    if token not in build: errors.append(f'Windows builder missing reproducibility token: {token}')
+for token in ['checkout','--detach','submodule','validator-pass.json','build-provenance.json','-DSMTG_USE_STATIC_CRT=ON','-DSMTG_RUN_VST_VALIDATOR=OFF',"Contents\\x86_64-win\\SONICRAFT AI Strings Q4.vst3"]:
+    if token not in build: errors.append(f'Windows builder missing reproducibility/package token: {token}')
 if re.search(r'git\s+clone[^\n]+vst3sdk[^\n]+(?:master|main)',build,re.I): errors.append('Windows builder still clones moving VST3 branch explicitly')
 controller=need('src/controller.h','REFCOUNT_METHODS(Steinberg::Vst::EditControllerEx1)')
 if 'REFCOUNT_METHODS(Controller)' in controller: errors.append('controller refcount still recursively delegates to Controller')
@@ -57,7 +57,13 @@ gate=need('runtime/release_gate_v70.py','acoustic evidence is not bound to a mod
 for token in ['host_exe_sha256','expected_sdk','9fad9770f2ae8542ab1a548a68c1ad1ac690abe0']:
     if token not in gate: errors.append(f'final gate missing provenance token: {token}')
 need('installer/rc_v70/RUN_ACOUSTIC_QA_V70.ps1','model_manifest_sha256')
+for rel in ['installer/rc_v70/RUN_ACOUSTIC_QA_V70.ps1','installer/rc_v70/RUN_HOST_QA_V70.ps1','installer/rc_v70/VERIFY_AUTHENTICODE_V70.ps1','runtime/release_gate_v70.py','installer/tools/verify_prebuilt_layout.py','installer/VERIFY_PREBUILT_RELEASE.ps1']:
+    t=need(rel,'SONICRAFT AI Strings Q4.vst3')
+    if 'x86_64-win' not in t: errors.append(f'{rel}: canonical VST3 architecture path missing')
 need('installer/rc_v70/RUN_HOST_QA_V70.ps1','host_exe_sha256')
+product_shell=need('installer/BUILD_PRODUCT_SHELL_V26.ps1',"'Visual Studio 17 2022'")
+for token in ["'-A','x64'","Remove-Item -Recurse -Force $BuildDir"]:
+    if token not in product_shell: errors.append(f'Product Shell builder missing deterministic Windows build token: {token}')
 runtime_install=need('installer/INSTALL_AI_RUNTIME_RELEASE.ps1','Python.Python.3.11')
 for token in ['onnxruntime==1.29.0','torch==2.8.0','not(Compatible-Python $VenvPy)']:
     if token not in runtime_install: errors.append(f'release runtime installer missing compatibility token: {token}')
