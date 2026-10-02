@@ -3,7 +3,9 @@ $ErrorActionPreference='Stop'
 if(-not $ProjectRoot){$ProjectRoot=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path}
 $root=(Resolve-Path $ProjectRoot).Path
 if(-not $BuildDir){$BuildDir=Join-Path $root 'build\product-shell-v26'}
-$args=@('-S',$root,'-B',$BuildDir,'-DSONICRAFT_BUILD_VST3=OFF','-DSONICRAFT_BUILD_PRODUCT_SHELL=ON','-DSONICRAFT_BUILD_INPROCESS_ENGINE=ON')
+if(Test-Path $BuildDir){Remove-Item -Recurse -Force $BuildDir}
+New-Item -ItemType Directory -Force -Path $BuildDir|Out-Null
+$args=@('-S',$root,'-B',$BuildDir,'-G','Visual Studio 17 2022','-A','x64','-DSONICRAFT_BUILD_VST3=OFF','-DSONICRAFT_BUILD_PRODUCT_SHELL=ON','-DSONICRAFT_BUILD_INPROCESS_ENGINE=ON')
 if($OrtSdkRoot){$args+=('-DSONICRAFT_ORT_SDK_ROOT='+$OrtSdkRoot)}
 & cmake @args;if($LASTEXITCODE){throw 'CMake configure failed'}
 & cmake --build $BuildDir --config Release --target SonicraftAIStringsProductShell SonicraftAIStringsStandalone SonicraftInProcessEngineSmoke SonicraftInProcessPromotionGuardSmoke --parallel
