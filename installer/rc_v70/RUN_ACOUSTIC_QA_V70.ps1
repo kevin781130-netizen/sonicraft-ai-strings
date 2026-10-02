@@ -12,7 +12,7 @@ if(-not $ModelDir){$ModelDir=Join-Path $root 'release\prebuilt\Models'}
 $manifest=Join-Path $ModelDir 'release_model_manifest.json'
 $report=[ordered]@{schema=1;product='SONICRAFT AI Strings Q4';release='7.0.0-rc2';tested_at=(Get-Date).ToUniversalTime().ToString('o');overall='BLOCKED';checks=[ordered]@{}}
 $bundle=Join-Path $root 'release\SONICRAFT AI Strings Q4.vst3'
-if(Test-Path $bundle){$bin=Get-ChildItem (Join-Path $bundle 'Contents\x86_64-win') -File -Filter '*.vst3'|Select-Object -First 1;if($bin){$report.plugin_sha256=(Get-FileHash $bin.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}}
+if(Test-Path $bundle){$binPath=Join-Path $bundle 'Contents\x86_64-win\SONICRAFT AI Strings Q4.vst3';$bin=if(Test-Path $binPath -PathType Leaf){Get-Item $binPath}else{$null};if($bin){$report.plugin_sha256=(Get-FileHash $bin.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}}
 $report.checks.windows=($env:OS -eq 'Windows_NT')
 try{
   $gpu=& nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader 2>$null
