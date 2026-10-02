@@ -12,10 +12,10 @@ def need(rel, token=None):
 
 if (ROOT/'VERSION').read_text().strip()!='7.0.0-rc2': errors.append('VERSION is not 7.0.0-rc2')
 cmake=need('CMakeLists.txt','project(SonicraftAIStringsQ4 VERSION 7.0.0')
-for token in ['SMTG_USE_STATIC_CRT ON','smtg_enable_vst3_sdk()','add_dependencies(SonicraftAIStringsQ4 validator)','PACKAGE_NAME "SONICRAFT AI Strings Q4"']:
-    if token not in cmake: errors.append(f'CMakeLists.txt: missing Windows VST3 link/validator/package contract token: {token}')
+for token in ['SMTG_USE_STATIC_CRT ON','smtg_enable_vst3_sdk()','add_dependencies(SonicraftAIStringsQ4 validator)']:
+    if token not in cmake: errors.append(f'CMakeLists.txt: missing Windows VST3 link/validator contract token: {token}')
 build=need('installer/build_release_windows.ps1','9fad9770f2ae8542ab1a548a68c1ad1ac690abe0')
-for token in ['checkout','--detach','submodule','validator-pass.json','build-provenance.json','-DSMTG_USE_STATIC_CRT=ON','-DSMTG_RUN_VST_VALIDATOR=OFF',"Contents\\x86_64-win\\SONICRAFT AI Strings Q4.vst3"]:
+for token in ['checkout','--detach','submodule','validator-pass.json','build-provenance.json','-DSMTG_USE_STATIC_CRT=ON','-DSMTG_RUN_VST_VALIDATOR=OFF',"Contents\\x86_64-win\\SonicraftAIStringsQ4.vst3","Contents\\x86_64-win\\SONICRAFT AI Strings Q4.vst3",'Move-Item -Force $builtBinaryPath $pluginBinaryPath']:
     if token not in build: errors.append(f'Windows builder missing reproducibility/package token: {token}')
 if re.search(r'git\s+clone[^\n]+vst3sdk[^\n]+(?:master|main)',build,re.I): errors.append('Windows builder still clones moving VST3 branch explicitly')
 controller=need('src/controller.h','REFCOUNT_METHODS(Steinberg::Vst::EditControllerEx1)')
