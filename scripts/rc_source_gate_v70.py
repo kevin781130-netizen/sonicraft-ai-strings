@@ -12,8 +12,8 @@ def need(rel, token=None):
 
 if (ROOT/'VERSION').read_text().strip()!='7.0.0-rc2': errors.append('VERSION is not 7.0.0-rc2')
 cmake=need('CMakeLists.txt','project(SonicraftAIStringsQ4 VERSION 7.0.0')
-for token in ['SMTG_USE_STATIC_CRT ON','smtg_enable_vst3_sdk()']:
-    if token not in cmake: errors.append(f'CMakeLists.txt: missing Windows VST3 link contract token: {token}')
+for token in ['SMTG_USE_STATIC_CRT ON','smtg_enable_vst3_sdk()','add_dependencies(SonicraftAIStringsQ4 validator)']:
+    if token not in cmake: errors.append(f'CMakeLists.txt: missing Windows VST3 link/validator contract token: {token}')
 build=need('installer/build_release_windows.ps1','9fad9770f2ae8542ab1a548a68c1ad1ac690abe0')
 for token in ['checkout','--detach','submodule','validator-pass.json','build-provenance.json','-DSMTG_USE_STATIC_CRT=ON','-DSMTG_RUN_VST_VALIDATOR=OFF']:
     if token not in build: errors.append(f'Windows builder missing reproducibility token: {token}')
