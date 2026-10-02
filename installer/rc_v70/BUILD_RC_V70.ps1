@@ -8,6 +8,13 @@ $ErrorActionPreference='Stop'
 $root=(Resolve-Path $ProjectRoot).Path
 $ev=Join-Path $root 'release\rc_evidence'
 New-Item -ItemType Directory -Force -Path $ev|Out-Null
+# Never allow evidence from an older/interrupted run to satisfy this build stage.
+foreach($staleName in @('rc-build-stage.json','validator-pass.json','build-provenance.json')){
+  $stale=Join-Path $ev $staleName
+  if(Test-Path $stale){Remove-Item -Force $stale}
+}
+$releaseValidator=Join-Path $root 'release\validator-pass.json'
+if(Test-Path $releaseValidator){Remove-Item -Force $releaseValidator}
 Write-Host 'SONICRAFT AI Strings Q4 v7.0 RC2 BUILD PIPELINE' -ForegroundColor Cyan
 Write-Host 'Core v6.2 + Frontend v6.4 are frozen. This pipeline only builds/packages/validates the RC.' -ForegroundColor DarkGray
 
