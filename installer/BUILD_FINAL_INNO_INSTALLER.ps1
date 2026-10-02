@@ -6,7 +6,9 @@ param(
 )
 $ErrorActionPreference='Stop';$root=(Resolve-Path $ProjectRoot).Path
 if(-not$PrebuiltRoot){$PrebuiltRoot=Join-Path $root 'release\prebuilt'}
-& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'installer\VERIFY_PREBUILT_RELEASE.ps1') -ProjectRoot $root -PrebuiltRoot $PrebuiltRoot -RequireModels:$RequireModels
+$verifyArgs=@('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $root 'installer\VERIFY_PREBUILT_RELEASE.ps1'),'-ProjectRoot',$root,'-PrebuiltRoot',$PrebuiltRoot)
+if($RequireModels){$verifyArgs+='-RequireModels'}
+& powershell.exe @verifyArgs
 if($LASTEXITCODE -ne 0){throw 'Prebuilt verification failed. Final installer will NOT be generated.'}
 $isccCandidates=@(
   "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe",
