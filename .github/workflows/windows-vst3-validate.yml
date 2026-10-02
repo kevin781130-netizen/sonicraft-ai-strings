@@ -22,6 +22,17 @@ jobs:
         shell: powershell
         run: python scripts/rc_source_gate_v70.py
 
+      - name: Product Shell smoke from Windows path with spaces
+        shell: powershell
+        run: |
+          $dst = Join-Path $env:RUNNER_TEMP 'SONICRAFT RC Space Path'
+          if (Test-Path $dst) { Remove-Item -Recurse -Force $dst }
+          New-Item -ItemType Directory -Force -Path $dst | Out-Null
+          robocopy $PWD $dst /E /XD .git _deps build build-win64-v70 release logs | Out-Host
+          if ($LASTEXITCODE -ge 8) { throw "robocopy failed with exit code $LASTEXITCODE" }
+          & (Join-Path $dst 'installer\BUILD_PRODUCT_SHELL_V26.ps1') -ProjectRoot $dst
+          if ($LASTEXITCODE -ne 0) { throw 'Product Shell path-with-spaces smoke failed' }
+
       - name: Full RC build stage
         shell: powershell
         run: ./installer/rc_v70/BUILD_RC_V70.ps1 -ProjectRoot $PWD
