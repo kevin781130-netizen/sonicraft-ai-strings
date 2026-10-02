@@ -64,7 +64,10 @@ need('installer/rc_v70/RUN_ACOUSTIC_QA_V70.ps1','model_manifest_sha256')
 for rel in ['installer/rc_v70/RUN_ACOUSTIC_QA_V70.ps1','installer/rc_v70/RUN_HOST_QA_V70.ps1','installer/rc_v70/VERIFY_AUTHENTICODE_V70.ps1','runtime/release_gate_v70.py','installer/tools/verify_prebuilt_layout.py','installer/VERIFY_PREBUILT_RELEASE.ps1']:
     t=need(rel,'SONICRAFT AI Strings Q4.vst3')
     if 'x86_64-win' not in t: errors.append(f'{rel}: canonical VST3 architecture path missing')
-need('installer/rc_v70/RUN_HOST_QA_V70.ps1','host_exe_sha256')
+host_qa=need('installer/rc_v70/RUN_HOST_QA_V70.ps1','host_exe_sha256')
+for token in ["Alias('Host')","$HostName"]:
+    if token not in host_qa: errors.append(f'Host QA script missing safe PowerShell host-parameter token: {token}')
+if re.search(r'\[string\]\$Host(?:\W|$)',host_qa): errors.append('Host QA script binds reserved read-only PowerShell Host variable')
 product_shell=need('installer/BUILD_PRODUCT_SHELL_V26.ps1',"'Visual Studio 17 2022'")
 for token in ["'-A','x64'","Remove-Item -Recurse -Force $BuildDir","MSBUILDDISABLENODEREUSE","--parallel 1","/nodeReuse:false","Start-Sleep -Seconds 3"]:
     if token not in product_shell: errors.append(f'Product Shell builder missing deterministic Windows build token: {token}')
