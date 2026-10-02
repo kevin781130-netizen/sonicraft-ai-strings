@@ -7,7 +7,7 @@
 #define stringCompanyWeb "https://bffmusicstudio.com"
 #define stringCompanyEmail ""
 #define stringPluginName "SONICRAFT AI Strings Q4"
-#define FULL_VERSION_STR "1.2.0-rc2"
+#define FULL_VERSION_STR "7.0.0-rc2"
 
 using namespace Steinberg::Vst;
 using namespace Sonicraft::AIStrings;

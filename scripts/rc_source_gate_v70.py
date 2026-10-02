@@ -15,9 +15,16 @@ cmake=need('CMakeLists.txt','project(SonicraftAIStringsQ4 VERSION 7.0.0')
 for token in ['SMTG_USE_STATIC_CRT ON','smtg_enable_vst3_sdk()']:
     if token not in cmake: errors.append(f'CMakeLists.txt: missing Windows VST3 link contract token: {token}')
 build=need('installer/build_release_windows.ps1','9fad9770f2ae8542ab1a548a68c1ad1ac690abe0')
-for token in ['checkout','--detach','submodule','validator-pass.json','build-provenance.json','-DSMTG_USE_STATIC_CRT=ON']:
+for token in ['checkout','--detach','submodule','validator-pass.json','build-provenance.json','-DSMTG_USE_STATIC_CRT=ON','-DSMTG_RUN_VST_VALIDATOR=OFF']:
     if token not in build: errors.append(f'Windows builder missing reproducibility token: {token}')
 if re.search(r'git\s+clone[^\n]+vst3sdk[^\n]+(?:master|main)',build,re.I): errors.append('Windows builder still clones moving VST3 branch explicitly')
+controller=need('src/controller.h','REFCOUNT_METHODS(Steinberg::Vst::EditControllerEx1)')
+if 'REFCOUNT_METHODS(Controller)' in controller: errors.append('controller refcount still recursively delegates to Controller')
+need('src/factory.cpp','#define FULL_VERSION_STR "7.0.0-rc2"')
+rc_bat=need('RC_BUILD_V70.bat','rc-build-stage.json')
+if 'Missing/aborted build evidence also fails closed.' not in rc_bat: errors.append('RC_BUILD_V70.bat does not fail closed on interrupted/missing summary evidence')
+build_stage=need('installer/rc_v70/BUILD_RC_V70.ps1',"rc-build-stage.json")
+if "validator-pass.json" not in build_stage or "build-provenance.json" not in build_stage: errors.append('BUILD_RC_V70.ps1 does not clear stale validator/build evidence')
 for rel in [
  'installer/rc_v70/BUILD_RC_V70.ps1','installer/rc_v70/RUN_HOST_QA_V70.ps1',
  'installer/rc_v70/RUN_ACOUSTIC_QA_V70.ps1','installer/rc_v70/FINAL_GATE_V70.ps1',
