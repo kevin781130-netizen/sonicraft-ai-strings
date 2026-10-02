@@ -16,8 +16,9 @@ if($py){
 }else{
   $bundle=Join-Path $PrebuiltRoot 'VST3\SONICRAFT AI Strings Q4.vst3\Contents\x86_64-win'
   if(-not(Test-Path $bundle)){throw 'Missing prebuilt x86_64 VST3 bundle.'}
-  $bin=Get-ChildItem $bundle -File -Filter '*.vst3'|Select-Object -First 1
-  if(-not $bin){throw 'Missing prebuilt VST3 binary.'}
+  $binPath=Join-Path $bundle 'SONICRAFT AI Strings Q4.vst3'
+  $bin=if(Test-Path $binPath -PathType Leaf){Get-Item $binPath}else{$null}
+  if(-not $bin){throw 'Missing canonical prebuilt VST3 binary.'}
   $b=[IO.File]::ReadAllBytes($bin.FullName); if($b.Length -lt 64 -or $b[0]-ne 0x4d -or $b[1]-ne 0x5a){throw 'VST3 binary is not a Windows PE image.'}
   $vp=Join-Path $PrebuiltRoot 'validator-pass.json';if(-not(Test-Path $vp)){throw 'Missing validator-pass.json'}
   $v=Get-Content $vp -Raw|ConvertFrom-Json;if(-not$v.passed){throw 'Official VST3 validator did not pass.'}
