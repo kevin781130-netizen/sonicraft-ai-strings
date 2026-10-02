@@ -57,14 +57,19 @@ Log 'Building SONICRAFT VST3 Release x64...'
 cmd.exe /d /s /c $buildCmd 2>&1 | Tee-Object -FilePath $Log -Append | Out-Host
 if ($LASTEXITCODE -ne 0) { throw 'VST3 Release build failed.' }
 
-$bundle = Join-Path $build 'VST3\Release\SONICRAFT AI Strings Q4.vst3'
-if (-not (Test-Path $bundle -PathType Container)) { throw "Build succeeded but canonical VST3 bundle was not found: $bundle" }
+$bundle = Join-Path $build 'VST3\Release\SonicraftAIStringsQ4.vst3'
+if (-not (Test-Path $bundle -PathType Container)) { throw "Build succeeded but SDK VST3 bundle was not found: $bundle" }
 $release = Join-Path $ProjectRoot 'release'
 $dest = Join-Path $release 'SONICRAFT AI Strings Q4.vst3'
 if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
 Copy-Item -Recurse -Force $bundle $dest
+# Steinberg's Windows host derives the inner DLL filename from the outer bundle
+# filename. Rename both sides of the release package contract together.
+$builtBinaryPath = Join-Path $dest 'Contents\x86_64-win\SonicraftAIStringsQ4.vst3'
 $pluginBinaryPath = Join-Path $dest 'Contents\x86_64-win\SONICRAFT AI Strings Q4.vst3'
-if (-not (Test-Path $pluginBinaryPath -PathType Leaf)) { throw "Built bundle violates VST3 package naming contract: $pluginBinaryPath" }
+if (-not (Test-Path $builtBinaryPath -PathType Leaf)) { throw "Built bundle has no expected SDK binary: $builtBinaryPath" }
+Move-Item -Force $builtBinaryPath $pluginBinaryPath
+if (-not (Test-Path $pluginBinaryPath -PathType Leaf)) { throw "Release bundle violates VST3 package naming contract: $pluginBinaryPath" }
 $pluginBinary = Get-Item $pluginBinaryPath
 $pluginHash = (Get-FileHash $pluginBinary.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
 Log "VST3 bundle ready: $dest"
