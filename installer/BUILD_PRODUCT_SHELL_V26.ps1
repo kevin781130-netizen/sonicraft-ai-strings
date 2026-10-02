@@ -11,6 +11,14 @@ if($OrtSdkRoot){$args+=('-DSONICRAFT_ORT_SDK_ROOT='+$OrtSdkRoot)}
 & cmake --build $BuildDir --config Release --target SonicraftAIStringsProductShell SonicraftAIStringsStandalone SonicraftInProcessEngineSmoke SonicraftInProcessPromotionGuardSmoke --parallel
 if($LASTEXITCODE){throw 'Product Shell v2.6 build failed'}
 $out=Join-Path $root 'release\ProductShell';New-Item -ItemType Directory -Force -Path $out|Out-Null
-foreach($name in @('SonicraftAIStringsProductShell.exe','SonicraftAIStringsStandalone.exe')){$cand=@(Join-Path $BuildDir ('Release\'+$name),Join-Path $BuildDir $name)|Where-Object{Test-Path $_}|Select-Object -First 1;if(-not$cand){throw "Missing built executable: $name"};Copy-Item -Force $cand $out}
+foreach($name in @('SonicraftAIStringsProductShell.exe','SonicraftAIStringsStandalone.exe')){
+  $candidates=@(
+    (Join-Path $BuildDir ('Release\'+$name))
+    (Join-Path $BuildDir $name)
+  )
+  $cand=$candidates|Where-Object{Test-Path $_ -PathType Leaf}|Select-Object -First 1
+  if(-not$cand){throw "Missing built executable: $name"}
+  Copy-Item -Force $cand $out
+}
 Write-Host "PRODUCT SHELL V2.6 BUILT: $out" -ForegroundColor Green
 if(-not $OrtSdkRoot){Write-Warning 'Built with service fallback only. Supply -OrtSdkRoot for the native ORT adapter; promotion evidence is still required at runtime.'}
