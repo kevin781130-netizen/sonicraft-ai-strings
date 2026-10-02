@@ -10,9 +10,9 @@ $Log = Join-Path $EvidenceDir 'windows_vst3_build.log'
 if (Test-Path $Log) { Remove-Item -Force $Log }
 function Log([string]$m) { $line = "[$(Get-Date -Format s)] $m"; $line | Tee-Object -FilePath $Log -Append }
 function Need-Cmd([string]$name) { if (-not (Get-Command $name -ErrorAction SilentlyContinue)) { throw "$name is required." } }
-function Run-Git([string[]]$Args) {
-  & git @Args
-  if ($LASTEXITCODE -ne 0) { throw "git failed: git $($Args -join ' ')" }
+function Run-Git([string[]]$GitArgs) {
+  & git @GitArgs
+  if ($LASTEXITCODE -ne 0) { throw "git failed: git $($GitArgs -join ' ')" }
 }
 
 Log 'SONICRAFT AI Strings Q4 v7.0 RC2 reproducible Windows VST3 build'
