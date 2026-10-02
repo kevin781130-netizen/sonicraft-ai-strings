@@ -21,9 +21,8 @@ def load_json(path: Path, failures: list[str], label: str):
         return None
 
 def locate_vst3_binary(root: Path) -> Path|None:
-    bundle=root/'release'/'SONICRAFT AI Strings Q4.vst3'/'Contents'/'x86_64-win'
-    if not bundle.is_dir(): return None
-    return next(iter(sorted(bundle.glob('*.vst3'))),None)
+    p=root/'release'/'SONICRAFT AI Strings Q4.vst3'/'Contents'/'x86_64-win'/'SONICRAFT AI Strings Q4.vst3'
+    return p if p.is_file() else None
 
 def verify_model_pack(root: Path, failures: list[str], evidence: dict) -> str|None:
     model_root=root/'release'/'prebuilt'/'Models'

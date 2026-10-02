@@ -58,12 +58,16 @@ if($ApprovedModelDir){
 Write-Host '[5/6] Immutable payload manifest + fail-closed layout verification' -ForegroundColor Cyan
 & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'installer\GENERATE_PREBUILT_MANIFEST.ps1') -ProjectRoot $root
 if($LASTEXITCODE -ne 0){throw 'Prebuilt manifest generation failed'}
-& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'installer\VERIFY_PREBUILT_RELEASE.ps1') -ProjectRoot $root -RequireModels:([bool]$ApprovedModelDir)
+$verifyArgs=@('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $root 'installer\VERIFY_PREBUILT_RELEASE.ps1'),'-ProjectRoot',$root)
+if($ApprovedModelDir){$verifyArgs+='-RequireModels'}
+& powershell.exe @verifyArgs
 if($LASTEXITCODE -ne 0){throw 'Prebuilt payload verification failed'}
 
 if($BuildInstaller){
   Write-Host '[6/6] Build Inno Setup installer' -ForegroundColor Cyan
-  & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'installer\BUILD_FINAL_INNO_INSTALLER.ps1') -ProjectRoot $root -Version '7.0.0-rc2' -RequireModels:([bool]$ApprovedModelDir)
+  $installerArgs=@('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $root 'installer\BUILD_FINAL_INNO_INSTALLER.ps1'),'-ProjectRoot',$root,'-Version','7.0.0-rc2')
+  if($ApprovedModelDir){$installerArgs+='-RequireModels'}
+  & powershell.exe @installerArgs
   if($LASTEXITCODE -ne 0){throw 'Installer build failed'}
 }else{
   Write-Host '[6/6] Installer not requested. Re-run with -BuildInstaller when desired.' -ForegroundColor DarkGray

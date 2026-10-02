@@ -30,9 +30,10 @@ def main():
     shell=app/'Standalone'/'SonicraftAIStringsProductShell.exe'
     if not shell.is_file(): errs.append('missing App/Standalone/SonicraftAIStringsProductShell.exe')
     elif not pe64(shell): errs.append('Realtime Product Shell is not a valid PE32+ x64 image')
-    bins=list((vstroot/'Contents'/'x86_64-win').glob('*.vst3')) if (vstroot/'Contents'/'x86_64-win').is_dir() else []
-    if not bins: errs.append('missing prebuilt VST3 binary under VST3/.../Contents/x86_64-win/*.vst3')
-    elif not all(pe64(p) for p in bins): errs.append('VST3 binary is not a valid PE32+ x64 image')
+    binp=vstroot/'Contents'/'x86_64-win'/'SONICRAFT AI Strings Q4.vst3'
+    bins=[binp] if binp.is_file() else []
+    if not bins: errs.append('missing canonical prebuilt VST3 binary: VST3/SONICRAFT AI Strings Q4.vst3/Contents/x86_64-win/SONICRAFT AI Strings Q4.vst3')
+    elif not pe64(binp): errs.append('VST3 binary is not a valid PE32+ x64 image')
     vp=root/'validator-pass.json'
     if not vp.is_file(): errs.append('missing validator-pass.json')
     else:
