@@ -8,7 +8,7 @@ $root=(Resolve-Path $ProjectRoot).Path
 $ev=Join-Path $root 'release\rc_evidence';New-Item -ItemType Directory -Force -Path $ev|Out-Null
 $bundle=Join-Path $root 'release\SONICRAFT AI Strings Q4.vst3'
 if(-not(Test-Path $bundle)){throw 'Validated VST3 bundle missing. Run RC_BUILD_V70.bat first.'}
-$bin=Get-ChildItem (Join-Path $bundle 'Contents\x86_64-win') -File -Filter '*.vst3'|Select-Object -First 1
+$binPath=Join-Path $bundle 'Contents\x86_64-win\SONICRAFT AI Strings Q4.vst3';$bin=if(Test-Path $binPath -PathType Leaf){Get-Item $binPath}else{$null}
 if(-not$bin){throw 'VST3 binary missing.'}
 $pluginHash=(Get-FileHash $bin.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
 
