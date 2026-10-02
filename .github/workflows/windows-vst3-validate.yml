@@ -1,6 +1,16 @@
 name: SONICRAFT v7.0 RC - Windows VST3 + Validator
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'CMakeLists.txt'
+      - 'src/**'
+      - 'installer/**'
+      - 'runtime/**'
+      - 'resource/**'
+      - 'RC_*.bat'
+      - '.github/workflows/windows-vst3-validate.yml'
 
 jobs:
   build-validator:
@@ -12,9 +22,9 @@ jobs:
         shell: powershell
         run: python scripts/rc_source_gate_v70.py
 
-      - name: Pinned VST3 build + official Validator
+      - name: Full RC build stage
         shell: powershell
-        run: ./installer/build_release_windows.ps1 -ProjectRoot $PWD
+        run: ./installer/rc_v70/BUILD_RC_V70.ps1 -ProjectRoot $PWD
 
       - name: Upload exact validated VST3
         uses: actions/upload-artifact@v4
@@ -31,3 +41,4 @@ jobs:
             release/rc_evidence/validator-pass.json
             release/rc_evidence/steinberg_validator.log
             release/rc_evidence/windows_vst3_build.log
+            release/rc_evidence/rc-build-stage.json
