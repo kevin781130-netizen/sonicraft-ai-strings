@@ -190,7 +190,9 @@ if(SONICRAFT_BUILD_VST3)
   smtg_enable_vst3_sdk()
   smtg_add_vst3plugin(SonicraftAIStringsQ4
       src/factory.cpp src/ids.h src/processor.h src/articulations.h src/processor.cpp
-      src/controller.h src/controller.cpp src/preview_engine.h src/preview_engine.cpp
+      src/controller.h src/controller.cpp src/score_document_v70.h
+      src/score_editor_view_v70.h src/score_editor_view_v70.cpp
+      src/preview_engine.h src/preview_engine.cpp
       src/shadow_render_client.h src/shadow_render_client.cpp src/preference_client_v38.h src/preference_client_v38.cpp src/preference_auto_comp_v39.h)
   if(TARGET validator)
     # Build the official validator together with the plug-in, but do not run it
@@ -208,7 +210,7 @@ if(SONICRAFT_BUILD_VST3)
     target_compile_options(SonicraftAIStringsQ4 PRIVATE -Wall -Wextra -Wpedantic)
   endif()
   if(SMTG_WIN)
-    target_link_libraries(SonicraftAIStringsQ4 PRIVATE ws2_32)
+    target_link_libraries(SonicraftAIStringsQ4 PRIVATE ws2_32 comdlg32)
     target_compile_definitions(SonicraftAIStringsQ4 PRIVATE _CRT_SECURE_NO_WARNINGS)
   endif()
 endif()
