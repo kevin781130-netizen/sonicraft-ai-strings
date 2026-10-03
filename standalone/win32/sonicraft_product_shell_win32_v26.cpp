@@ -8,6 +8,7 @@
 #include <atomic>
 #include <chrono>
 #include <list>
+#include <filesystem>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -24,7 +25,7 @@ using namespace Sonicraft::ProductShell;
 using namespace Sonicraft::LowLatency;
 namespace {
 constexpr UINT WM_APP_MIDI=WM_APP+10;
-enum : int { IDC_MIDI=100,IDC_AUDIO,IDC_PART,IDC_ASSIST,IDC_STYLE,IDC_RETAKE,IDC_RETAKE_AMOUNT,IDC_SMART_DYN,IDC_SMART_ART,IDC_POLY,IDC_START,IDC_NEW_TAKE,IDC_STATUS,IDC_AUTH_LOCK=120,IDC_PHRASE=121,IDC_LOOSE=122,IDC_MASTER=200,IDC_FEED0=210 };
+enum : int { IDC_MIDI=100,IDC_AUDIO,IDC_PART,IDC_ASSIST,IDC_STYLE,IDC_RETAKE,IDC_RETAKE_AMOUNT,IDC_SMART_DYN,IDC_SMART_ART,IDC_POLY,IDC_START,IDC_NEW_TAKE,IDC_STATUS,IDC_AUTH_LOCK=120,IDC_PHRASE=121,IDC_LOOSE=122,IDC_SCORE_EDITOR=123,IDC_MASTER=200,IDC_FEED0=210 };
 struct AudioBlock { WAVEHDR hdr{}; std::vector<int16_t> pcm; };
 struct App {
     HWND hwnd{}; Timeline timeline; HybridRendererV26 renderer; Policy policy; MixerState mixer;
@@ -99,6 +100,20 @@ void stopEngine(){if(!g)return;g->running=false;if(g->worker.joinable())g->worke
 void populateDevices(HWND w){HWND m=GetDlgItem(w,IDC_MIDI);SendMessageW(m,CB_RESETCONTENT,0,0);UINT nm=midiInGetNumDevs();for(UINT i=0;i<nm;++i){MIDIINCAPSW c{};if(midiInGetDevCapsW(i,&c,sizeof(c))==MMSYSERR_NOERROR)comboAdd(m,c.szPname);}if(nm)SendMessageW(m,CB_SETCURSEL,0,0);HWND a=GetDlgItem(w,IDC_AUDIO);SendMessageW(a,CB_RESETCONTENT,0,0);comboAdd(a,L"WASAPI Default · event-driven low latency");comboAdd(a,L"Legacy Windows Default (waveOut)");UINT na=waveOutGetNumDevs();for(UINT i=0;i<na;++i){WAVEOUTCAPSW c{};if(waveOutGetDevCapsW(i,&c,sizeof(c))==MMSYSERR_NOERROR)comboAdd(a,c.szPname);}SendMessageW(a,CB_SETCURSEL,0,0);}
 void syncPolicy(HWND w){g->timeline.setSelectedPart(std::max(0,comboSel(GetDlgItem(w,IDC_PART))));g->policy.assist=std::max(0,comboSel(GetDlgItem(w,IDC_ASSIST)));g->policy.style=std::max(0,comboSel(GetDlgItem(w,IDC_STYLE)));g->policy.retakeTarget=std::max(0,comboSel(GetDlgItem(w,IDC_RETAKE)));g->policy.smartDynamics=SendMessageW(GetDlgItem(w,IDC_SMART_DYN),BM_GETCHECK,0,0)==BST_CHECKED;g->policy.smartArticulation=SendMessageW(GetDlgItem(w,IDC_SMART_ART),BM_GETCHECK,0,0)==BST_CHECKED;g->policy.polyphony=SendMessageW(GetDlgItem(w,IDC_POLY),BM_GETCHECK,0,0)==BST_CHECKED;g->policy.midiAuthorityLock=SendMessageW(GetDlgItem(w,IDC_AUTH_LOCK),BM_GETCHECK,0,0)==BST_CHECKED;g->policy.phraseDirector=SendMessageW(GetDlgItem(w,IDC_PHRASE),BM_GETCHECK,0,0)==BST_CHECKED;g->policy.retakeAmount=float(SendMessageW(GetDlgItem(w,IDC_RETAKE_AMOUNT),TBM_GETPOS,0,0))/100.f;g->policy.ensembleLooseness=float(SendMessageW(GetDlgItem(w,IDC_LOOSE),TBM_GETPOS,0,0))/100.f;g->mixer.master=float(SendMessageW(GetDlgItem(w,IDC_MASTER),TBM_GETPOS,0,0))/100.f;for(int i=0;i<16;++i)g->mixer.feed[i]=float(SendMessageW(GetDlgItem(w,IDC_FEED0+i),TBM_GETPOS,0,0))/100.f;}
 
+void launchScoreEditor(HWND owner){
+    wchar_t module[32768]{};
+    const DWORD n=GetModuleFileNameW(nullptr,module,static_cast<DWORD>(std::size(module)));
+    if(n==0||n>=std::size(module)){MessageBoxW(owner,L"Could not resolve ProductShell path.",L"SONICRAFT",MB_OK|MB_ICONERROR);return;}
+    const auto exe=std::filesystem::path(module).parent_path()/L"SonicraftAIStringsScoreEditor.exe";
+    if(!std::filesystem::exists(exe)){MessageBoxW(owner,L"Score Editor is not staged next to ProductShell. Rebuild the v7 RC package.",L"SONICRAFT",MB_OK|MB_ICONERROR);return;}
+    std::wstring cmd=L"\""+exe.wstring()+L"\"";
+    STARTUPINFOW si{};si.cb=sizeof(si);PROCESS_INFORMATION pi{};
+    if(!CreateProcessW(nullptr,cmd.data(),nullptr,nullptr,FALSE,0,nullptr,exe.parent_path().c_str(),&si,&pi)){
+        MessageBoxW(owner,L"Could not launch SonicraftAIStringsScoreEditor.exe.",L"SONICRAFT",MB_OK|MB_ICONERROR);return;
+    }
+    CloseHandle(pi.hThread);CloseHandle(pi.hProcess);
+}
+
 void buildUi(HWND w){
     add(w,L"STATIC",L"SONICRAFT AI STRINGS · v7.0 RC2 · FRONTEND LOCK",SS_LEFT,18,14,640,28,-1);
     add(w,L"STATIC",L"MIDI Input",0,18,54,100,20,-1);add(w,WC_COMBOBOXW,L"",CBS_DROPDOWNLIST|WS_VSCROLL,118,50,250,160,IDC_MIDI);
@@ -116,13 +131,14 @@ void buildUi(HWND w){
     add(w,L"STATIC",L"Strict MIDI Authority: notes, pitch bend and authored CC remain yours unless Authority Lock is explicitly disabled.",0,18,520,950,26,-1);
     add(w,L"STATIC",L"v3.0: DAW command lane + region Bridge + 7-D Retake + Phrase/Looseness + 17-bus stage. Acoustic promotion remains fail-closed.",0,18,550,950,26,-1);
     add(w,L"STATIC",L"Service: checking…",0,18,590,940,26,IDC_STATUS);
+    add(w,L"BUTTON",L"Open Score Editor",BS_PUSHBUTTON,776,620,180,28,IDC_SCORE_EDITOR);
     populateDevices(w);syncPolicy(w);
 }
 
 LRESULT CALLBACK proc(HWND w,UINT msg,WPARAM wp,LPARAM lp){switch(msg){
 case WM_CREATE:g->hwnd=w;gDpi=GetDpiForWindow(w);updateUiScaleForWorkArea(w,gDpi);rebuildUiFont();buildUi(w);SetTimer(w,1,600,nullptr);return 0;
 case WM_APP_MIDI:{DWORD m=DWORD(wp);uint8_t st=uint8_t(m&255),d1=uint8_t((m>>8)&255),d2=uint8_t((m>>16)&255);uint32_t ts=uint32_t(lp);int64_t s=std::max<int64_t>(g->midiClock.sampleFor(ts),g->renderCursor.load());if((st&0xF0)==0x90&&d2>0){g->freshAttack=true;if(queuedAudioFrames()==0&&s>g->renderCursor.load())g->renderCursor.store(s);}g->timeline.pushMidiShort(st,d1,d2,s,g->policy.tempo);return 0;}
-case WM_COMMAND:{int id=LOWORD(wp);if(id==IDC_MIDI&&HIWORD(wp)==CBN_SELCHANGE){if(g->running)openMidi();}else if(id==IDC_AUDIO&&HIWORD(wp)==CBN_SELCHANGE){if(g->running){stopEngine();startEngine();openMidi();}}else if(id==IDC_START){if(g->running){closeMidi();stopEngine();setText(GetDlgItem(w,IDC_START),L"Start Realtime Preview");}else{syncPolicy(w);startEngine();openMidi();setText(GetDlgItem(w,IDC_START),L"Stop Realtime Preview");}}else if(id==IDC_NEW_TAKE){g->policy.retakeNonce=(g->policy.retakeNonce+1)&255;}else syncPolicy(w);return 0;}
+case WM_COMMAND:{int id=LOWORD(wp);if(id==IDC_MIDI&&HIWORD(wp)==CBN_SELCHANGE){if(g->running)openMidi();}else if(id==IDC_AUDIO&&HIWORD(wp)==CBN_SELCHANGE){if(g->running){stopEngine();startEngine();openMidi();}}else if(id==IDC_START){if(g->running){closeMidi();stopEngine();setText(GetDlgItem(w,IDC_START),L"Start Realtime Preview");}else{syncPolicy(w);startEngine();openMidi();setText(GetDlgItem(w,IDC_START),L"Stop Realtime Preview");}}else if(id==IDC_NEW_TAKE){g->policy.retakeNonce=(g->policy.retakeNonce+1)&255;}else if(id==IDC_SCORE_EDITOR){launchScoreEditor(w);}else syncPolicy(w);return 0;}
 case WM_HSCROLL:syncPolicy(w);return 0;
 case WM_DPICHANGED:{gDpi=HIWORD(wp);updateUiScaleForWorkArea(w,gDpi);rebuildUiFont();auto* r=reinterpret_cast<RECT*>(lp);SetWindowPos(w,nullptr,r->left,r->top,dpiPx(1000),dpiPx(700),SWP_NOZORDER|SWP_NOACTIVATE);reflowUi();return 0;}
 case WM_TIMER:{syncPolicy(w);bool ready=g->renderer.ping(g->sr);std::wstring t=ready?L"Renderer: READY":L"Renderer: OFFLINE";std::string bn=g->renderer.backendName();t+=L" · "+std::wstring(bn.begin(),bn.end());t+=g->useWasapi&&g->wasapi.ready()?L" · WASAPI EVENT":L" · LEGACY AUDIO";t+=L" · q="+std::to_wstring(g->quantumMs.load())+L"ms · queued="+std::to_wstring(queuedAudioFrames())+L"fr · underruns="+std::to_wstring(g->underruns+(g->useWasapi?int(g->wasapi.underruns()):0))+L" · render="+std::to_wstring(int(g->lastRenderMs.load()))+L"ms";setText(GetDlgItem(w,IDC_STATUS),t);return 0;}
