@@ -5,20 +5,87 @@
 #include "string_ensemble_v44.h"
 #include "string_gesture_v45.h"
 #include "articulations.h"
+#include "score_editor_view_v70.h"
 #include "base/source/fstreamer.h"
 #include "public.sdk/source/vst/vstparameters.h"
 #include "pluginterfaces/base/ustring.h"
 #include <cstring>
+#include <algorithm>
+#include <limits>
+#include <utility>
 using namespace Steinberg; using namespace Steinberg::Vst;
 namespace Sonicraft::AIStrings {
 
 Steinberg::IPlugView* PLUGIN_API Controller::createView(Steinberg::FIDString name) {
     if (name && std::strcmp(name, Steinberg::Vst::ViewType::kEditor) == 0) {
         auto* editor = new VSTGUI::VST3Editor(this, "MainView", "SONICRAFT_AI_Strings_Q4.uidesc");
+        editor->setDelegate(this);
         editor->setEditorSizeConstrains(VSTGUI::CPoint(900, 1000), VSTGUI::CPoint(1500, 1400));
         return editor;
     }
     return nullptr;
+}
+
+VSTGUI::CView* Controller::createCustomView(VSTGUI::UTF8StringPtr name,
+                                              const VSTGUI::UIAttributes&,
+                                              const VSTGUI::IUIDescription*,
+                                              VSTGUI::VST3Editor*) {
+    if(name && std::strcmp(name,"SonicraftScoreEditorV70")==0)
+        return new ScoreEditorViewV70(VSTGUI::CRect(0,0,1130,430),this);
+    return nullptr;
+}
+
+void Controller::performUiParamEdit(ParamID id, ParamValue value) {
+    value=std::clamp(value,0.0,1.0);
+    beginEdit(id);
+    setParamNormalized(id,value);
+    performEdit(id,value);
+    endEdit(id);
+}
+
+void Controller::scoreDocumentChanged(bool markHostDirty) {
+    if(markHostDirty)setDirty(true);
+    if(scoreEditorView_)scoreEditorView_->invalid();
+}
+
+tresult PLUGIN_API Controller::setState(IBStream* state) {
+    if(!state)return kResultFalse;
+    IBStreamer s(state,kLittleEndian);
+    int32 magic=0,version=0,ppq=480,count=0;
+    if(!s.readInt32(magic))return kResultOk; // pre-editor projects had no controller state
+    if(magic!=0x53433730)return kResultOk;   // "SC70"
+    if(!s.readInt32(version)||version!=1||!s.readInt32(ppq)||!s.readInt32(count))return kResultFalse;
+    if(ppq<24||ppq>96000||count<0||count>200000)return kResultFalse;
+    ScoreV70::Document restored;restored.ppq=ppq;restored.notes.reserve(static_cast<std::size_t>(count));
+    for(int32 i=0;i<count;++i){
+        int32 part=0,pitch=0,start=0,duration=0,velocity=0,articulation=0;
+        if(!s.readInt32(part)||!s.readInt32(pitch)||!s.readInt32(start)||!s.readInt32(duration)||
+           !s.readInt32(velocity)||!s.readInt32(articulation))return kResultFalse;
+        if(part<0||part>3||pitch<0||pitch>127||start<0||duration<=0||
+           velocity<1||velocity>127||articulation<0||articulation>11)return kResultFalse;
+        ScoreV70::Note n{};n.part=part;n.pitch=pitch;n.startTick=static_cast<std::uint32_t>(start);
+        n.durationTick=static_cast<std::uint32_t>(duration);n.velocity=velocity;n.articulation=articulation;
+        restored.notes.push_back(n);
+    }
+    scoreDocument_=std::move(restored);
+    scoreDocumentChanged(false);
+    return kResultOk;
+}
+
+tresult PLUGIN_API Controller::getState(IBStream* state) {
+    if(!state)return kResultFalse;
+    IBStreamer s(state,kLittleEndian);
+    if(scoreDocument_.notes.size()>200000)return kResultFalse;
+    if(!s.writeInt32(0x53433730)||!s.writeInt32(1)||!s.writeInt32(scoreDocument_.ppq)||
+       !s.writeInt32(static_cast<int32>(scoreDocument_.notes.size())))return kResultFalse;
+    for(const auto& n:scoreDocument_.notes){
+        if(n.startTick>static_cast<std::uint32_t>(std::numeric_limits<int32>::max())||
+           n.durationTick>static_cast<std::uint32_t>(std::numeric_limits<int32>::max()))return kResultFalse;
+        if(!s.writeInt32(n.part)||!s.writeInt32(n.pitch)||!s.writeInt32(static_cast<int32>(n.startTick))||
+           !s.writeInt32(static_cast<int32>(n.durationTick))||!s.writeInt32(n.velocity)||
+           !s.writeInt32(n.articulation))return kResultFalse;
+    }
+    return kResultOk;
 }
 
 static void addPartParameters(ParameterContainer& p,int part,const TChar* dyn,const TChar* vib,const TChar* exp,const TChar* vol,const TChar* pan,const TChar* sus,const TChar* leg,const TChar* room,const TChar* bend,const TChar* art,const TChar* transition,const TChar* tightness,const TChar* attack,const TChar* speed){
