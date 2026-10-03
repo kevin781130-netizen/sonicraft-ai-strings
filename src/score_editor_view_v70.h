@@ -1,5 +1,6 @@
 #pragma once
 #include "vstgui/vstgui.h"
+#include <cstddef>
 #include <cstdint>
 #include <string>
 
