@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
+#include <cwctype>
+#include <iterator>
 #include <cstring>
 #include <filesystem>
 #include <string>
