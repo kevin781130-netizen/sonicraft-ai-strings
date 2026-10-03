@@ -29,7 +29,7 @@ for token in ['importMidi','sectionCounts','bool edit(']:
     if token not in score_doc: errors.append(f'score document missing import/edit token: {token}')
 need('standalone/win32/sonicraft_score_editor_win32_v70.cpp','Import MusicXML / MIDI')
 need('standalone/host_qa_feature_smoke_v70.cpp','host QA feature smoke OK')
-score_view=need('src/score_editor_view_v70.cpp','Piano Roll')
+score_view=need('src/score_editor_view_v70.cpp','PIANO ROLL')
 for token in ['DragMode::Move','DragMode::Resize','importScore()','setSelectedArticulation','scoreDocumentChanged']:
     if token not in score_view: errors.append(f'VST3 score editor missing interactive piano-roll token: {token}')
 controller_ui=need('src/controller.cpp','SonicraftScoreEditorV70')
