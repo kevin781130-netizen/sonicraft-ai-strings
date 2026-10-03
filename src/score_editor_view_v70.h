@@ -17,7 +17,7 @@ public:
     VSTGUI::CMouseEventResult onMouseDown(VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons) override;
     VSTGUI::CMouseEventResult onMouseMoved(VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons) override;
     VSTGUI::CMouseEventResult onMouseUp(VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons) override;
-    int32_t onKeyDown(VSTGUI::VstKeyCode& keyCode) override;
+    int32_t onKeyDown(VstKeyCode& keyCode) override;
 
 private:
     enum class Tool { Select, Draw, Erase };
