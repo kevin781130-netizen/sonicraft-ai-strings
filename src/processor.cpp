@@ -114,22 +114,22 @@ tresult PLUGIN_API Processor::initialize(FUnknown* context) {
     if (r != kResultOk) return r;
     addEventInput(STR16("Q4 MIDI In"), 16);
     addAudioOutput(STR16("Q4 Master"), SpeakerArr::kStereo, kMain, BusInfo::kDefaultActive);
-    addAudioOutput(STR16("Spot L"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Spot C"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Spot R"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Tree L"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Tree C"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Tree R"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Wide L"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Wide R"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Room L"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Room R"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Rear"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Mid L"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Mid R"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Far L"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Far R"), SpeakerArr::kStereo, kAux, 0);
-    addAudioOutput(STR16("Gallery"), SpeakerArr::kStereo, kAux, 0);
+    addAudioOutput(STR16("Spot L"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Spot C"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Spot R"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Tree L"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Tree C"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Tree R"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Wide L"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Wide R"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Room L"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Room R"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Rear"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Mid L"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Mid R"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Far L"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Far R"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
+    addAudioOutput(STR16("Gallery"), SpeakerArr::kStereo, kAux, BusInfo::kDefaultActive);
     return kResultOk;
 }
 
@@ -539,7 +539,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             case kParamTakeCompPhraseLength: takeCompPhraseLength=v; runtimeState(offset); break;
             case kParamTakeCompCommit: {
                 const bool high=v>=.5f;
-                if(high != takeCompCommitLatch && hostWindow.valid && blockQuarterValid) {
+                if(high != takeCompCommitLatch && blockQuarterValid) {
                     const double q=quarterAtOffset(offset);
                     const double len=1.0 + std::clamp(static_cast<double>(takeCompPhraseLength),0.0,1.0)*15.0;
                     const int take = (std::clamp(static_cast<int>(takeCarouselMode*2.f+.5f),0,2)==kTakeCarouselManual)
@@ -567,7 +567,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             case kParamTakeCompReject: {
                 const bool high=v>=.5f;
                 bool& latch = (id==kParamTakeCompFavorite) ? takeCompFavoriteLatch : takeCompRejectLatch;
-                if(high != latch && hostWindow.valid && blockQuarterValid) {
+                if(high != latch && blockQuarterValid) {
                     const double q=quarterAtOffset(offset);
                     const double len=1.0 + std::clamp(static_cast<double>(takeCompPhraseLength),0.0,1.0)*15.0;
                     const int take = (std::clamp(static_cast<int>(takeCarouselMode*2.f+.5f),0,2)==kTakeCarouselManual)
@@ -853,6 +853,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                 for (int p=0;p<kPartCount;++p) {
                     part[p].art = static_cast<float>(a) / static_cast<float>(kArticulationCount - 1);
                     engine.setPartArticulation(p, a);
+                    emitOutputParam(partParam(kParamPartArticulationBase,p),part[p].art);
                     shadow.pushMidi(ShadowRenderClient::Keyswitch, projectStart + pos, p, note, a, 0.f,
                                     static_cast<float>(hostTempoBpm), toShadow(part[p]));
                 }
@@ -877,6 +878,7 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
                 }else{
                     part[ch].art = static_cast<float>(a) / static_cast<float>(kArticulationCount - 1);
                     engine.setPartArticulation(ch, a);
+                    emitOutputParam(partParam(kParamPartArticulationBase,ch),part[ch].art);
                     shadow.pushMidi(ShadowRenderClient::Keyswitch, projectStart + pos, ch, note, a, 0.f,
                                     static_cast<float>(hostTempoBpm), toShadow(part[ch]));
                 }
