@@ -533,7 +533,16 @@ tresult PLUGIN_API Processor::process(ProcessData& data) {
             case kParamHostScopeStyle: hostScopeStyle=v; runtimeState(offset); break;
             case kParamHostScopeLooseness: hostScopeLooseness=v; runtimeState(offset); break;
             case kParamTakeCarouselMode: takeCarouselMode=v; runtimeState(offset); break;
-            case kParamTakeCarouselSelect: takeCarouselSelect=v; runtimeState(offset); break;
+            case kParamTakeCarouselSelect:
+                // The v7 UI exposes A/B/C/D directly. An explicit take selection is a manual
+                // audition choice, so make it authoritative even when the persisted carousel
+                // mode was Off/Auto from an older project.
+                takeCarouselSelect=v;
+                takeCarouselMode=.5f; // StringList: Off=0, Manual=.5, Auto Loop=1
+                takeCarouselTracker.reset(takeIndexFromNormalized(takeCarouselSelect));
+                emitOutputParam(kParamTakeCarouselMode,takeCarouselMode);
+                runtimeState(offset);
+                break;
             case kParamTakeCarouselFreeze: takeCarouselFreeze=v; runtimeState(offset); break;
             case kParamTakeCompMode: takeCompMode=v; runtimeState(offset); break;
             case kParamTakeCompPhraseLength: takeCompPhraseLength=v; runtimeState(offset); break;
