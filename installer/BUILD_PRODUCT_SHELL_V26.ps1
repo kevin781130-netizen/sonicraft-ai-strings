@@ -27,11 +27,11 @@ function Build-Target([string]$Target){
   }
   throw ("Product Shell v2.6 target failed after serial retry: {0}" -f $Target)
 }
-foreach($target in @('SonicraftAIStringsProductShell','SonicraftAIStringsStandalone','SonicraftInProcessEngineSmoke','SonicraftInProcessPromotionGuardSmoke')){
+foreach($target in @('SonicraftAIStringsProductShell','SonicraftAIStringsScoreEditor','SonicraftAIStringsStandalone','SonicraftHostQaFeatureSmokeV70','SonicraftInProcessEngineSmoke','SonicraftInProcessPromotionGuardSmoke')){
   Build-Target $target
 }
 $out=Join-Path $root 'release\ProductShell';New-Item -ItemType Directory -Force -Path $out|Out-Null
-foreach($name in @('SonicraftAIStringsProductShell.exe','SonicraftAIStringsStandalone.exe')){
+foreach($name in @('SonicraftAIStringsProductShell.exe','SonicraftAIStringsScoreEditor.exe','SonicraftAIStringsStandalone.exe')){
   $candidates=@(
     (Join-Path $BuildDir ('Release\'+$name))
     (Join-Path $BuildDir $name)
