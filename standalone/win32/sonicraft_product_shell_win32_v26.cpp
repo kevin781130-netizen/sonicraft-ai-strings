@@ -9,6 +9,7 @@
 #include <chrono>
 #include <list>
 #include <filesystem>
+#include <iterator>
 #include <memory>
 #include <mutex>
 #include <string>
