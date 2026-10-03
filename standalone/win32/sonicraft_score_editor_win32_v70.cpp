@@ -8,6 +8,8 @@
 #include <commdlg.h>
 #include <algorithm>
 #include <array>
+#include <cwctype>
+#include <iterator>
 #include <filesystem>
 #include <string>
 #include "../../src/score_document_v70.h"
