@@ -29,6 +29,14 @@ for token in ['importMidi','sectionCounts','bool edit(']:
     if token not in score_doc: errors.append(f'score document missing import/edit token: {token}')
 need('standalone/win32/sonicraft_score_editor_win32_v70.cpp','Import MusicXML / MIDI')
 need('standalone/host_qa_feature_smoke_v70.cpp','host QA feature smoke OK')
+score_view=need('src/score_editor_view_v70.cpp','Piano Roll')
+for token in ['DragMode::Move','DragMode::Resize','importScore()','setSelectedArticulation','scoreDocumentChanged']:
+    if token not in score_view: errors.append(f'VST3 score editor missing interactive piano-roll token: {token}')
+controller_ui=need('src/controller.cpp','SonicraftScoreEditorV70')
+for token in ['createCustomView','Controller::getState','Controller::setState','setDelegate(this)']:
+    if token not in controller_ui: errors.append(f'VST3 controller missing embedded score-editor token: {token}')
+uidesc=need('resource/SONICRAFT_AI_Strings_Q4.uidesc','custom-view-name="SonicraftScoreEditorV70"')
+if 'OPEN SCORE EDITOR TO EDIT' in uidesc: errors.append('VST3 score page still advertises external-editor workflow')
 controller=need('src/controller.h','REFCOUNT_METHODS(Steinberg::Vst::EditControllerEx1)')
 if 'REFCOUNT_METHODS(Controller)' in controller: errors.append('controller refcount still recursively delegates to Controller')
 need('src/factory.cpp','#define FULL_VERSION_STR "7.0.0-rc2"')
