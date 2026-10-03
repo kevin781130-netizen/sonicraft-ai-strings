@@ -14,7 +14,7 @@ static std::vector<std::uint8_t> midiFixture() {
     // Format 0, PPQ=480. Four channels each play one quarter note.
     const std::uint8_t raw[] = {
         'M','T','h','d', 0,0,0,6, 0,0, 0,1, 0x01,0xE0,
-        'M','T','r','k', 0,0,0,36,
+        'M','T','r','k', 0,0,0,40,
         0x00,0x90,60,100, 0x83,0x60,0x80,60,0,
         0x00,0x91,62,100, 0x83,0x60,0x81,62,0,
         0x00,0x92,64,100, 0x83,0x60,0x82,64,0,
