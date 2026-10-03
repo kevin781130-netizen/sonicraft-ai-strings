@@ -262,7 +262,7 @@
       </view>
       <view class="CViewContainer" origin="230,82" size="816,430" background-color="Panel">
         <view class="CTextLabel" origin="18,14" size="280,18" title="NOTE EDITOR" font="Head" font-color="Text" text-alignment="left" transparent="true" />
-        <view class="CTextLabel" origin="610,14" size="185,18" title="OPEN STANDALONE TO EDIT" font="Tiny" font-color="Good" text-alignment="right" transparent="true" />
+        <view class="CTextLabel" origin="610,14" size="185,18" title="OPEN SCORE EDITOR TO EDIT" font="Tiny" font-color="Good" text-alignment="right" transparent="true" />
         <view class="CTextLabel" origin="18,45" size="150,18" title="EDITOR PREVIEW" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CTextLabel" origin="246,48" size="42,16" title="SNAP" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CTextLabel" origin="292,48" size="76,16" title="1/16" font="Small" font-color="Text" text-alignment="left" transparent="true" />
@@ -479,6 +479,13 @@
         <view class="CTextLabel" origin="18,578" size="180,16" title="AUTO COMP" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CCheckBox" origin="102,575" size="20,20" title="" control-tag="AutoCompUnresolved" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
         <view class="CTextLabel" origin="132,578" size="160,16" title="Unresolved phrases" font="Small" font-color="Text" text-alignment="left" transparent="true" />
+        <view class="CTextLabel" origin="18,610" size="250,16" title="SELECTED TAKE ACTIONS" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="18,636" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="42,637" size="62,16" title="FAVORITE" font="Tiny" font-color="Good" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="112,636" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="136,637" size="56,16" title="REJECT" font="Tiny" font-color="Muted" text-alignment="left" transparent="true" />
+        <view class="CCheckBox" origin="216,636" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
+        <view class="CTextLabel" origin="240,637" size="62,16" title="COMMIT" font="Tiny" font-color="Accent" text-alignment="left" transparent="true" />
       </view>
       <view class="CViewContainer" origin="386,82" size="461,274" background-color="Panel">
         <view class="CTextLabel" origin="18,14" size="90,30" title="TAKE A" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
@@ -492,14 +499,8 @@
         <view class="CSlider" origin="108,129" size="150,9" control-tag="JudgeTransitionA" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
         <view class="CTextLabel" origin="18,154" size="90,16" title="STABILITY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSlider" origin="108,159" size="150,9" control-tag="JudgeStabilityA" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
-        <view class="CTextLabel" origin="282,92" size="70,16" title="FAVORITE" font="Small" font-color="Good" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,89" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
-        <view class="CTextLabel" origin="282,126" size="70,16" title="REJECT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,123" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
         <view class="CTextLabel" origin="18,206" size="80,16" title="AUDITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSegmentButton" origin="96,198" size="160,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
-        <view class="CTextLabel" origin="282,206" size="70,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,203" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
       </view>
       <view class="CViewContainer" origin="871,82" size="461,274" background-color="Panel">
         <view class="CTextLabel" origin="18,14" size="90,30" title="TAKE B" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
@@ -513,14 +514,8 @@
         <view class="CSlider" origin="108,129" size="150,9" control-tag="JudgeTransitionB" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
         <view class="CTextLabel" origin="18,154" size="90,16" title="STABILITY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSlider" origin="108,159" size="150,9" control-tag="JudgeStabilityB" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
-        <view class="CTextLabel" origin="282,92" size="70,16" title="FAVORITE" font="Small" font-color="Good" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,89" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
-        <view class="CTextLabel" origin="282,126" size="70,16" title="REJECT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,123" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
         <view class="CTextLabel" origin="18,206" size="80,16" title="AUDITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSegmentButton" origin="96,198" size="160,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
-        <view class="CTextLabel" origin="282,206" size="70,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,203" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
       </view>
       <view class="CViewContainer" origin="386,376" size="461,274" background-color="Panel">
         <view class="CTextLabel" origin="18,14" size="90,30" title="TAKE C" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
@@ -534,14 +529,8 @@
         <view class="CSlider" origin="108,129" size="150,9" control-tag="JudgeTransitionC" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
         <view class="CTextLabel" origin="18,154" size="90,16" title="STABILITY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSlider" origin="108,159" size="150,9" control-tag="JudgeStabilityC" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
-        <view class="CTextLabel" origin="282,92" size="70,16" title="FAVORITE" font="Small" font-color="Good" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,89" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
-        <view class="CTextLabel" origin="282,126" size="70,16" title="REJECT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,123" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
         <view class="CTextLabel" origin="18,206" size="80,16" title="AUDITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSegmentButton" origin="96,198" size="160,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
-        <view class="CTextLabel" origin="282,206" size="70,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,203" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
       </view>
       <view class="CViewContainer" origin="871,376" size="461,274" background-color="Panel">
         <view class="CTextLabel" origin="18,14" size="90,30" title="TAKE D" font="Head2" font-color="Text" text-alignment="left" transparent="true" />
@@ -555,14 +544,8 @@
         <view class="CSlider" origin="108,129" size="150,9" control-tag="JudgeTransitionD" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Good" frame-color="Line" />
         <view class="CTextLabel" origin="18,154" size="90,16" title="STABILITY" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSlider" origin="108,159" size="150,9" control-tag="JudgeStabilityD" orientation="horizontal" draw-back="true" draw-value="true" draw-back-color="Track" draw-value-color="Accent" frame-color="Line" />
-        <view class="CTextLabel" origin="282,92" size="70,16" title="FAVORITE" font="Small" font-color="Good" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,89" size="20,20" title="" control-tag="TakeCompFavorite" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
-        <view class="CTextLabel" origin="282,126" size="70,16" title="REJECT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,123" size="20,20" title="" control-tag="TakeCompReject" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
         <view class="CTextLabel" origin="18,206" size="80,16" title="AUDITION" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
         <view class="CSegmentButton" origin="96,198" size="160,30" control-tag="TakeCarouselSelect" segment-names="A,B,C,D" font="Small" text-color="Muted" text-color-highlighted="Text" frame-color="Line" frame-color-highlighted="Accent2" frame-width="1" round-radius="6" style="horizontal" />
-        <view class="CTextLabel" origin="282,206" size="70,16" title="COMMIT" font="Small" font-color="Muted" text-alignment="left" transparent="true" />
-        <view class="CCheckBox" origin="352,203" size="20,20" title="" control-tag="TakeCompCommit" font="Small" font-color="Text" box-frame-color="Line" box-fill-color="Panel2" check-mark-color="Good" />
       </view>
       <view class="CViewContainer" origin="386,684" size="970,74" background-color="Panel">
         <view class="CTextLabel" origin="18,12" size="166,18" title="SMART COMP / MEMORY" font="Head" font-color="Text" text-alignment="left" transparent="true" />
