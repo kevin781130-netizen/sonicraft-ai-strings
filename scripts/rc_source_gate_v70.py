@@ -14,10 +14,21 @@ if (ROOT/'VERSION').read_text().strip()!='7.0.0-rc2': errors.append('VERSION is 
 cmake=need('CMakeLists.txt','project(SonicraftAIStringsQ4 VERSION 7.0.0')
 for token in ['SMTG_USE_STATIC_CRT ON','smtg_enable_vst3_sdk()','add_dependencies(SonicraftAIStringsQ4 validator)']:
     if token not in cmake: errors.append(f'CMakeLists.txt: missing Windows VST3 link/validator contract token: {token}')
+for token in ['SonicraftAIStringsScoreEditor','SonicraftHostQaFeatureSmokeV70']:
+    if token not in cmake: errors.append(f'CMakeLists.txt: missing v7 host-QA repair target: {token}')
 build=need('installer/build_release_windows.ps1','9fad9770f2ae8542ab1a548a68c1ad1ac690abe0')
 for token in ['checkout','--detach','submodule','validator-pass.json','build-provenance.json','-DSMTG_USE_STATIC_CRT=ON','-DSMTG_RUN_VST_VALIDATOR=OFF',"Contents\\x86_64-win\\SonicraftAIStringsQ4.vst3","Contents\\x86_64-win\\SONICRAFT AI Strings Q4.vst3",'Move-Item -Force $builtBinaryPath $pluginBinaryPath']:
     if token not in build: errors.append(f'Windows builder missing reproducibility/package token: {token}')
 if re.search(r'git\s+clone[^\n]+vst3sdk[^\n]+(?:master|main)',build,re.I): errors.append('Windows builder still clones moving VST3 branch explicitly')
+processor=need('src/processor.cpp','kParamStageMixerEnable')
+if processor.count('kAux, BusInfo::kDefaultActive') < 16: errors.append('processor: scoring-stage AUX buses are not default-active for host visibility')
+for token in ['takeCarouselMode=.5f','emitOutputParam(partParam(kParamPartArticulationBase']:
+    if token not in processor: errors.append(f'processor: missing host-QA behavior token: {token}')
+score_doc=need('src/score_document_v70.h','importMusicXml')
+for token in ['importMidi','sectionCounts','bool edit(']:
+    if token not in score_doc: errors.append(f'score document missing import/edit token: {token}')
+need('standalone/win32/sonicraft_score_editor_win32_v70.cpp','Import MusicXML / MIDI')
+need('standalone/host_qa_feature_smoke_v70.cpp','host QA feature smoke OK')
 controller=need('src/controller.h','REFCOUNT_METHODS(Steinberg::Vst::EditControllerEx1)')
 if 'REFCOUNT_METHODS(Controller)' in controller: errors.append('controller refcount still recursively delegates to Controller')
 need('src/factory.cpp','#define FULL_VERSION_STR "7.0.0-rc2"')
@@ -71,6 +82,8 @@ if re.search(r'\[string\]\$Host(?:\W|$)',host_qa): errors.append('Host QA script
 product_shell=need('installer/BUILD_PRODUCT_SHELL_V26.ps1',"'Visual Studio 17 2022'")
 for token in ["'-A','x64'","Remove-Item -Recurse -Force $BuildDir","MSBUILDDISABLENODEREUSE","--parallel 1","/nodeReuse:false","Start-Sleep -Seconds 3"]:
     if token not in product_shell: errors.append(f'Product Shell builder missing deterministic Windows build token: {token}')
+for token in ['SonicraftAIStringsScoreEditor','SonicraftHostQaFeatureSmokeV70']:
+    if token not in product_shell: errors.append(f'Product Shell builder missing host-QA repair target: {token}')
 runtime_install=need('installer/INSTALL_AI_RUNTIME_RELEASE.ps1','Python.Python.3.11')
 for token in ['onnxruntime==1.29.0','torch==2.8.0','not(Compatible-Python $VenvPy)']:
     if token not in runtime_install: errors.append(f'release runtime installer missing compatibility token: {token}')
