@@ -62,6 +62,18 @@ target_include_directories(SonicraftStringShadowAutoLoopSmokeV50 PRIVATE ${CMAKE
 add_executable(SonicraftTempoSampleMapSmokeV37 standalone/tempo_sample_map_smoke_v37.cpp)
 target_include_directories(SonicraftTempoSampleMapSmokeV37 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
+# v7.0 host-QA regression coverage: score import/edit model, articulation/expression
+# control path, and full 16-feed stage mixer.
+add_executable(SonicraftHostQaFeatureSmokeV70
+    standalone/host_qa_feature_smoke_v70.cpp
+    standalone/realtime_shell_core.cpp)
+target_include_directories(SonicraftHostQaFeatureSmokeV70 PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/standalone)
+if(WIN32)
+  target_link_libraries(SonicraftHostQaFeatureSmokeV70 PRIVATE ws2_32)
+  target_compile_definitions(SonicraftHostQaFeatureSmokeV70 PRIVATE NOMINMAX)
+endif()
+
 if(SONICRAFT_BUILD_INPROCESS_ENGINE)
   add_executable(SonicraftInProcessEngineSmoke
       standalone/realtime_shell_core.cpp
@@ -137,6 +149,12 @@ if(WIN32 AND SONICRAFT_BUILD_PRODUCT_SHELL)
     target_link_libraries(SonicraftAIStringsProductShell PRIVATE ${SONICRAFT_ORT_SDK_ROOT}/lib/onnxruntime.lib)
   endif()
   target_compile_definitions(SonicraftAIStringsProductShell PRIVATE UNICODE _UNICODE _CRT_SECURE_NO_WARNINGS NOMINMAX)
+
+  add_executable(SonicraftAIStringsScoreEditor WIN32
+      standalone/win32/sonicraft_score_editor_win32_v70.cpp)
+  target_include_directories(SonicraftAIStringsScoreEditor PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+  target_link_libraries(SonicraftAIStringsScoreEditor PRIVATE comctl32 comdlg32)
+  target_compile_definitions(SonicraftAIStringsScoreEditor PRIVATE UNICODE _UNICODE NOMINMAX)
 endif()
 
 if(WIN32 AND SONICRAFT_BUILD_ORT_INPROCESS_PROBE)
